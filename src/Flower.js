@@ -57,6 +57,12 @@ export default class Flower extends Component {
         this.state = {
             photoIndex: 0
         };
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick(index) {
+        this.setState({photoIndex: index});
     }
 
     render() {
@@ -76,17 +82,6 @@ export default class Flower extends Component {
                                 <img alt='' src={'http://storage.googleapis.com/abherbs-resources/photos/' + this.props.plant.photoUrls[this.state.photoIndex]}/>
                             }
                         </CardMedia>
-                        <CardTitle title={this.props.plantTranslation.label} subtitle={this.props.plantTranslation.names.join(', ')} />
-                        <CardText>
-                            <div>{this.props.plantTranslation.description}</div>
-                            <div><i>Flowers:&nbsp;</i>{this.props.plantTranslation.flower}</div>
-                            <div><i>Fruit:&nbsp;</i>{this.props.plantTranslation.fruit}</div>
-                            <div><i>Leaaves:&nbsp;</i>{this.props.plantTranslation.leaf}</div>
-                            <div><i>Stem:&nbsp;</i>{this.props.plantTranslation.stem}</div>
-                            <div><i>Habitat:&nbsp;</i>{this.props.plantTranslation.habitat}</div>
-                        </CardText>
-                    </Card>
-                    <Card style={styles.flowerCard}>
                         <CardText>
                             <GridList
                                 cols={2.2}
@@ -94,10 +89,21 @@ export default class Flower extends Component {
                             >
                                 {this.props.plant.photoUrls && this.props.plant.photoUrls.map((tile, index) => (
                                     <GridTile key={index}>
-                                        <img alt='' src={'http://storage.googleapis.com/abherbs-resources/photos/' + tile} />
+                                        <img alt='' onClick={() => this.handleClick(index)} src={'http://storage.googleapis.com/abherbs-resources/photos/' + tile} />
                                     </GridTile>
                                 ))}
                             </GridList>
+                        </CardText>
+                    </Card>
+                    <Card style={styles.flowerCard}>
+                        <CardTitle title={this.props.plantTranslation && this.props.plantTranslation.label} subtitle={this.props.plantTranslation && this.props.plantTranslation.names && this.props.plantTranslation.names.join(', ')} />
+                        <CardText>
+                            <div>{this.props.plantTranslation && this.props.plantTranslation.description}</div>
+                            <div><i>Flowers:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.flower}</div>
+                            <div><i>Fruit:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.fruit}</div>
+                            <div><i>Leaaves:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.leaf}</div>
+                            <div><i>Stem:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.stem}</div>
+                            <div><i>Habitat:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.habitat}</div>
                         </CardText>
                     </Card>
                 </div>

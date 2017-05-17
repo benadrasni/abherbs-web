@@ -130,8 +130,8 @@ export default class VersionTable extends Component {
                         {tableData.map( (row, index) => (
                             <TableRow key={index}>
                                 <TableRowColumn style={styles.rowHeader}>{row.feature}</TableRowColumn>
-                                <TableRowColumn style={styles.rowBody}>{row.basic === 'yes' && <ActionDone/> || row.basic}</TableRowColumn>
-                                <TableRowColumn style={styles.rowBody}>{row.extended === 'yes' && <ActionDone/> || row.extended}</TableRowColumn>
+                                <TableRowColumn style={styles.rowBody}>{(row.basic === 'yes' && <ActionDone/>) || row.basic}</TableRowColumn>
+                                <TableRowColumn style={styles.rowBody}>{(row.extended === 'yes' && <ActionDone/>) || row.extended}</TableRowColumn>
                             </TableRow>
                         ))}
                     </TableBody>
