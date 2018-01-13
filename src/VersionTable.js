@@ -9,6 +9,7 @@ import {
     TableRowColumn,
 } from 'material-ui/Table';
 import ActionDone from 'material-ui/svg-icons/action/done';
+import plants from "./plants"
 
 const styles = {
     versionTable: {
@@ -48,8 +49,8 @@ const styles = {
 const tableData = [
     {
         feature: 'Flowers',
-        basic: '648',
-        extended: '648',
+        basic: plants.length,
+        extended: plants.length,
     },
     {
         feature: 'Filter by color',

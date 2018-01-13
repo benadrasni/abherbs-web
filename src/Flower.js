@@ -76,7 +76,7 @@ export default class Flower extends Component {
                             avatar={<MapsLocalFlorist />}
                         />
                         <CardMedia
-                            overlay={<CardTitle title={this.props.plant.name} subtitle={<Family taxonomy={this.props.plant.taxonomy} />} />}
+                            overlay={<CardTitle title={this.props.plant.name} subtitle={<Family taxonomy={this.props.plant.APGIV} />} />}
                         >
                             {this.props.plant.photoUrls &&
                                 <img alt='' src={'http://storage.googleapis.com/abherbs-resources/photos/' + this.props.plant.photoUrls[this.state.photoIndex]}/>
@@ -121,11 +121,11 @@ export default class Flower extends Component {
                         </CardMedia>
                     </Card>
                     <Card style={styles.flowerCard}>
-                        <CardTitle title="Taxonomy" subtitle="APG III" />
+                        <CardTitle title="Taxonomy" subtitle="APG IV" />
                         <CardText>
                             <Table selectable={false}>
                                 <TableBody displayRowCheckbox={false}>
-                                    {this.props.plant.taxonomy && Object.entries(this.props.plant.taxonomy).map( (prop, index) => (
+                                    {this.props.plant.taxonomy && Object.entries(this.props.plant.APGIV).map( (prop, index) => (
                                         <TableRow style={styles.taxonomyRow} displayBorder={false} key={index}>
                                             <TableRowColumn style={styles.taxonomyRow}>{prop[0].substring(prop[0].indexOf('_')+1)}</TableRowColumn>
                                             <TableRowColumn style={styles.taxonomyRow}>{prop[1]}</TableRowColumn>

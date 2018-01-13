@@ -36,9 +36,9 @@ export default class AppDrawer extends React.Component {
                     />
                     <MenuItem href="/" primaryText="Home" leftIcon={<ActionHome />} />
                     <MenuItem href="/#download" primaryText="Download" leftIcon={<FileDownload />} />
-                    <MenuItem href="/flowers" primaryText="Flowers" leftIcon={<MapsLocalFlorist />} />
-                    <MenuItem primaryText="Taxonomy" leftIcon={<ActionList />} />
-                    <MenuItem primaryText="Translation" leftIcon={<ActionTranslate />} />
+                    {/*<MenuItem href="/flowers" primaryText="Flowers" leftIcon={<MapsLocalFlorist />} />*/}
+                    {/*<MenuItem primaryText="Taxonomy" leftIcon={<ActionList />} />*/}
+                    {/*<MenuItem primaryText="Translation" leftIcon={<ActionTranslate />} />*/}
                 </Drawer>
             </div>
         );
