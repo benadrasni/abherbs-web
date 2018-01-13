@@ -43,6 +43,11 @@ const styles = {
         fontSize: '24px',
         fontWeight: '500',
         textAlign: 'center'
+    },
+
+    playImage: {
+        width: '100%',
+        maxWidth: '258px'
     }
 };
 
@@ -119,7 +124,7 @@ export default class VersionTable extends Component {
                         <TableRow>
                             <TableHeaderColumn />
                             <TableHeaderColumn style={styles.columnHeader}>Basic</TableHeaderColumn>
-                            <TableHeaderColumn style={styles.columnHeader}>Extended</TableHeaderColumn>
+                            <TableHeaderColumn style={styles.columnHeader}>Plus</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
                     <TableBody
@@ -141,12 +146,12 @@ export default class VersionTable extends Component {
                             <TableRowColumn />
                             <TableRowColumn style={{textAlign: 'center'}}>
                                 <a href="https://play.google.com/store/apps/details?id=sk.ab.herbs">
-                                    <img alt='' src="./images/google-play-badge.png" width='258px' height='100px' />
+                                    <img alt='' src="./images/google-play-badge.png" style={styles.playImage} />
                                 </a>
                             </TableRowColumn>
                             <TableRowColumn style={{textAlign: 'center'}}>
                                 <a href="https://play.google.com/store/apps/details?id=sk.ab.herbsplus">
-                                    <img alt='' src="./images/google-play-badge.png" width='258px' height='100px' />
+                                    <img alt='' src="./images/google-play-badge.png" style={styles.playImage} />
                                 </a>
                             </TableRowColumn>
                         </TableRow>

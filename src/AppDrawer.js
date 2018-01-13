@@ -2,11 +2,15 @@ import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import FileDownload from 'material-ui/svg-icons/file/file-download';
 import ActionList from 'material-ui/svg-icons/action/list';
 import ActionTranslate from 'material-ui/svg-icons/action/translate';
 import MapsLocalFlorist from 'material-ui/svg-icons/maps/local-florist';
+
+const drawerWidth = 300;
 
 export default class AppDrawer extends React.Component {
 
@@ -29,18 +33,21 @@ export default class AppDrawer extends React.Component {
 
     render() {
         return (
-            <div>
-                <Drawer width={300} open={this.props.open}>
-                    <AppBar title="What's that flower?"
-                            onLeftIconButtonTouchTap={this.handleRequestToggle}
-                    />
-                    <MenuItem href="/" primaryText="Home" leftIcon={<ActionHome />} />
-                    <MenuItem href="/#download" primaryText="Download" leftIcon={<FileDownload />} />
-                    {/*<MenuItem href="/flowers" primaryText="Flowers" leftIcon={<MapsLocalFlorist />} />*/}
-                    {/*<MenuItem primaryText="Taxonomy" leftIcon={<ActionList />} />*/}
-                    {/*<MenuItem primaryText="Translation" leftIcon={<ActionTranslate />} />*/}
-                </Drawer>
-            </div>
+            <Drawer width={drawerWidth} open={this.props.open}>
+                <AppBar
+                    title="What's that flower?"
+                    iconElementLeft={
+                        <IconButton onClick={this.handleRequestToggle}>
+                            <NavigationMenu/>
+                        </IconButton>
+                    }
+                />
+                <MenuItem href="/" primaryText="Home" leftIcon={<ActionHome />} />
+                <MenuItem href="/#download" primaryText="Download" leftIcon={<FileDownload />} />
+                {/*<MenuItem href="/flowers" primaryText="Flowers" leftIcon={<MapsLocalFlorist />} />*/}
+                {/*<MenuItem primaryText="Taxonomy" leftIcon={<ActionList />} />*/}
+                {/*<MenuItem primaryText="Translation" leftIcon={<ActionTranslate />} />*/}
+            </Drawer>
         );
     }
 }

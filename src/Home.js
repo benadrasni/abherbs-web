@@ -8,7 +8,7 @@ import plants from "./plants"
 
 const styles = {
     container: {
-        width: '1200px',
+        maxWidth: '1200px',
         height: 'auto',
         overflow: 'auto',
         margin: '0 auto'
@@ -59,7 +59,7 @@ class Home extends Component {
                 <div style={styles.container}>
                     <Card>
                         <CardMedia
-                            overlay={<CardTitle title={<div>Identify flower and learn about it with mobile application
+                            overlay={<CardTitle title={<div>Identify flowers with mobile
                                 <RaisedButton
                                     label="What's that flower?"
                                     labelPosition="before"

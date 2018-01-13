@@ -8,14 +8,14 @@ import createReactClass from 'create-react-class';
 
 const styles = {
     col1: {
-        width: '694px',
+        maxWidth: '594px',
         marginLeft: '1px',
         marginRight: '5px',
         float: 'left'
     },
 
     col2: {
-        width: '494px',
+        maxWidth: '594px',
         marginLeft: '5px',
         marginRight: '1px',
         float: 'left'

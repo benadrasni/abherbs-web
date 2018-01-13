@@ -4,10 +4,12 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import AppDrawer from "./AppDrawer";
+import IconButton from 'material-ui/IconButton';
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 
 const styles = {
     container: {
-        width: '1200px',
+        maxWidth: '1200px',
         height: 'auto',
         overflow: 'auto',
         margin: '0 auto'
@@ -58,9 +60,14 @@ class Main extends Component {
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div style={styles.appContainer}>
-                    <AppBar style={styles.appToolbar}
+                    <AppBar
+                        style={styles.appToolbar}
                         title="What's that flower?"
-                        onLeftIconButtonTouchTap={this.handleRequestToggle}
+                        iconElementLeft={
+                            <IconButton onClick={this.handleRequestToggle}>
+                                <NavigationMenu/>
+                            </IconButton>
+                        }
                     />
 
                     <AppDrawer
