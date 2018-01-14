@@ -55,7 +55,7 @@ class Home extends Component {
 
     render() {
         return (
-            <div>
+            <div id='home'>
                 <div style={styles.container}>
                     <Card>
                         <CardMedia

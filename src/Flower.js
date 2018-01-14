@@ -22,8 +22,8 @@ const styles = {
     },
 
     flowerCard: {
-        marginTop: '5px',
-        marginBottom: '5px'
+        marginTop: '10px',
+        marginBottom: '10px'
     },
 
     taxonomyRow: {
@@ -31,9 +31,7 @@ const styles = {
     },
 
     gridList: {
-        display: 'flex',
-        flexWrap: 'nowrap',
-        overflowX: 'auto'
+        display: 'flex'
     }
 };
 
@@ -82,11 +80,10 @@ export default class Flower extends Component {
                                 <img alt='' src={'http://storage.googleapis.com/abherbs-resources/photos/' + this.props.plant.photoUrls[this.state.photoIndex]}/>
                             }
                         </CardMedia>
+                    </Card>
+                    <Card style={styles.flowerCard}>
                         <CardText>
-                            <GridList
-                                cols={2.2}
-                                style={styles.gridList}
-                            >
+                            <GridList cols={2} style={styles.gridList}>
                                 {this.props.plant.photoUrls && this.props.plant.photoUrls.map((tile, index) => (
                                     <GridTile key={index}>
                                         <img alt='' onClick={() => this.handleClick(index)} src={'http://storage.googleapis.com/abherbs-resources/photos/' + tile} />
