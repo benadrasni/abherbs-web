@@ -11,6 +11,11 @@ import plants from "./plants";
 import FlowerSection from "./FlowerSection";
 
 const styles = {
+    flowerTranslation: {
+        marginTop: '100px',
+        float: 'none'
+    },
+
     header: {
         fontSize: '36px',
         fontWeight: '700',
@@ -59,6 +64,12 @@ const styles = {
 
     full: {
         width: '100%'
+    },
+
+    thanks: {
+        textAlign: 'center',
+        fontSize: '20px',
+        fontWeight: '300'
     }
 
 };
@@ -69,70 +80,152 @@ class TranslationFlower extends React.Component {
         super(props);
 
         this.state = {
+            initialized: false,
             language1: "sk",
             language2: "en",
-            plantName: props.plantName
+            plantName: props.plantName,
+            searchText: props.plantName
         };
     }
 
     componentDidMount() {
-        this.loadTranslation(this.state.language1);
-        this.loadTranslationSource(this.state.language2);
+        this.loadTranslations(this.state.plantName, this.state.language1, this.state.language2);
     }
 
-    loadTranslation(value) {
+    loadTranslations(plantName, language1, language2) {
         const that = this;
-        fetch('https://abherbs-backend.firebaseio.com/translations/' + value + '/' + this.state.plantName + '.json')
-            .then(result => result.json())
-            .then(item =>
-                that.setState({
-                    language1: value,
-                    language2: that.state.language2,
-                    plantName: that.state.plantName,
-                    plantTranslation: item,
-                    plantTranslationSource: that.state.plantTranslationSource
-                }));
-    }
+        let translationNew = {}, translation = {}, translationGT = {};
 
-    loadTranslationSource(value) {
-        const that = this;
-        fetch('https://abherbs-backend.firebaseio.com/translations/' + value + '/' + this.state.plantName + '.json')
-            .then(result => result.json())
-            .then(item =>
+        fetch('https://abherbs-backend.firebaseio.com/translations_new/' + language1 + '/' + plantName + '.json')
+            .then(function(result) {
+                return result.json();
+            }).then(function(item) {
+                translationNew = item;
+
+                return fetch('https://abherbs-backend.firebaseio.com/translations/' + language1 + '/' + plantName + '.json')
+            }).then(function(result) {
+                return result.json();
+            }).then(function(item) {
+                translation = item;
+
+                return fetch('https://abherbs-backend.firebaseio.com/translations/' + language1 + '-GT/' + plantName + '.json')
+            }).then(function(result) {
+                return result.json();
+            }).then(function(item) {
+                translationGT = item;
+
+                return fetch('https://abherbs-backend.firebaseio.com/translations/' + language2 + '/' + plantName + '.json')
+            }).then(function(result) {
+                return result.json();
+            }).then(function(item) {
                 that.setState({
-                    language1: that.state.language1,
-                    language2: value,
-                    plantName: that.state.plantName,
-                    plantTranslation: that.state.plantTranslation,
+                    initialized: true,
+                    language1: language1,
+                    language2: language2,
+                    searchText: plantName,
+                    plantName: plantName,
+                    plantTranslationNew: translationNew,
+                    plantTranslation: translation,
+                    plantTranslationGT: translationGT,
                     plantTranslationSource: item
-                }))
+                });
+            })
+    }
+
+    loadTranslation(plantName, language1) {
+        const that = this;
+        let translationNew = {}, translation = {};
+
+        fetch('https://abherbs-backend.firebaseio.com/translations_new/' + language1 + '/' + plantName + '.json')
+            .then(function(result) {
+                return result.json();
+            }).then(function(item) {
+                translationNew = item;
+
+                return fetch('https://abherbs-backend.firebaseio.com/translations/' + language1 + '/' + plantName + '.json')
+            }).then(function(result) {
+                return result.json();
+            }).then(function(item) {
+                translation = item;
+
+                return fetch('https://abherbs-backend.firebaseio.com/translations/' + language1 + '-GT/' + plantName + '.json')
+            }).then(function(result) {
+                return result.json();
+            }).then(function(item) {
+                that.setState({
+                    initialized: true,
+                    language1: language1,
+                    language2: that.state.language2,
+                    searchText: plantName,
+                    plantName: plantName,
+                    plantTranslationNew: translationNew,
+                    plantTranslation: translation,
+                    plantTranslationGT: item,
+                    plantTranslationSource: that.state.plantTranslationSource
+                });
+            })
+    }
+
+    loadTranslationSource(plantName, language2) {
+        const that = this;
+        fetch('https://abherbs-backend.firebaseio.com/translations/' + language2 + '/' + plantName + '.json')
+            .then(function(result) {
+                return result.json();
+            }).then(function(item) {
+                that.setState({
+                    initialized: true,
+                    language1: that.state.language1,
+                    language2: language2,
+                    searchText: plantName,
+                    plantName: plantName,
+                    plantTranslationNew: that.state.plantTranslationNew,
+                    plantTranslation: that.state.plantTranslation,
+                    plantTranslationGT: that.state.plantTranslationGT,
+                    plantTranslationSource: item
+                });
+            })
     }
 
     handleLanguage1Change = (event, index, value) => {
-        this.loadTranslation(value);
+        this.loadTranslation(this.state.plantName, value);
     };
 
     handleLanguage2Change = (event, index, value) => {
-        this.loadTranslationSource(value);
+        this.loadTranslationSource(this.state.plantName, value);
     };
 
-    handleUpdateInput = (searchText) => {
+    handleUpdateInput = (searchText, dataSource, params) => {
+        if (params.source === 'click') {
+            this.loadTranslations(searchText, this.state.language1, this.state.language2);
+        } else {
+            this.setState({
+                searchText: searchText
+            });
+        }
+    };
+
+    handleNewRequest = () => {
         this.setState({
-            plantName: searchText
+            searchText: ''
         });
     };
 
     render() {
         return (
-            <div id='translation_flower'>
+            <div id='translation_flower' style={styles.flowerTranslation}>
                 <div style={styles.header}>
-                    Translation flower's data
+                    Translate flower's data
                 </div>
                 <Card style={styles.card}>
                     <CardText>
+                        <p>
                         The application can only be as good as data it is presenting. Currently most of non-English and non-Slovak texts are translated with Google's help.
                         Some translations are quite accurate, others are understandable or maybe even funny but everybody will agree that more native version won't hurt.
-                        Even already translated texts could be improved. Here is your chance to do it. Thanks.
+                        Even already translated texts could be improved. Here is your chance to do it.
+                        </p>
+                        <p style={styles.thanks}>
+                        Thanks.
+                        </p>
                     </CardText>
                 </Card>
                 <div style={styles.col1}>
@@ -179,98 +272,136 @@ class TranslationFlower extends React.Component {
                     <Card style={styles.card}>
                         <CardHeader
                             title="Step 3: Choose flower"
-                            subtitle="by its Latin name"
+                            subtitle="by typing its Latin name (only 5 matching names are shown)"
                             avatar={<LocalFlorist />}
                         />
                         <CardText>
                             <AutoComplete
                                 hintText="Type Latin name, case insensitive"
-                                searchText={this.state.plantName}
+                                searchText={this.state.searchText}
                                 onUpdateInput={this.handleUpdateInput}
+                                onFocus={this.handleNewRequest}
                                 dataSource={plants}
-                                filter={AutoComplete.fuzzyFilter}
+                                filter={AutoComplete.caseInsensitiveFilter}
                                 openOnFocus={true}
+                                maxSearchResults={5}
                             />
                         </CardText>
                     </Card>
                     <Card style={styles.card}>
                         <CardHeader
-                            title="Step 4: Translation / Improvement"
-                            subtitle="The flower's data is divided into 9 sections: Description, Inflorescence, Flower, Fruit, Leaf, Stem, Habitat, Toxicity, Trivia"
+                            title="Step 4: Translate / Improve"
+                            subtitle="The flower's data is divided into 9 sections: description, inflorescence, flower, fruit, leaf, stem, habitat, toxicity, trivia. Translate icon next to section's name indicates translation via Google Translate."
                             avatar={<Translate />}
                         />
                     </Card>
                 </div>
-                {this.state && this.state.plantTranslation && this.state.plantTranslationSource &&
+                {this.state && this.state.initialized &&
                     <FlowerSection
-                        type="Description"
+                        type="description"
+                        language1={this.state.language1}
                         language2={this.state.language2}
-                        plantTranslation={this.state.plantTranslation.description}
-                        plantTranslationSource={this.state.plantTranslationSource.description}
+                        plantName={this.state.plantName}
+                        plantTranslationNew={this.state.plantTranslationNew && this.state.plantTranslationNew.description}
+                        plantTranslation={this.state.plantTranslation && this.state.plantTranslation.description}
+                        plantTranslationGT={this.state.plantTranslationGT && this.state.plantTranslationGT.description}
+                        plantTranslationSource={this.state.plantTranslationSource && this.state.plantTranslationSource.description}
                     />
                 }
-                {this.state && this.state.plantTranslation && this.state.plantTranslationSource &&
+                {this.state && this.state.initialized &&
                     < FlowerSection
-                        type="Inflorescence"
+                        type="inflorescence"
+                        language1={this.state.language1}
                         language2={this.state.language2}
-                        plantTranslation={this.state.plantTranslation.inflorescence}
-                        plantTranslationSource={this.state.plantTranslationSource.inflorescence}
+                        plantName={this.state.plantName}
+                        plantTranslationNew={this.state.plantTranslationNew && this.state.plantTranslationNew.inflorescence}
+                        plantTranslation={this.state.plantTranslation && this.state.plantTranslation.inflorescence}
+                        plantTranslationGT={this.state.plantTranslationGT && this.state.plantTranslationGT.inflorescence}
+                        plantTranslationSource={this.state.plantTranslationSource && this.state.plantTranslationSource.inflorescence}
                     />
                 }
-                {this.state && this.state.plantTranslation && this.state.plantTranslationSource &&
+                {this.state && this.state.initialized &&
                     <FlowerSection
-                        type="Flower"
+                        type="flower"
+                        language1={this.state.language1}
                         language2={this.state.language2}
-                        plantTranslation={this.state.plantTranslation.flower}
-                        plantTranslationSource={this.state.plantTranslationSource.flower}
+                        plantName={this.state.plantName}
+                        plantTranslationNew={this.state.plantTranslationNew && this.state.plantTranslationNew.flower}
+                        plantTranslation={this.state.plantTranslation && this.state.plantTranslation.flower}
+                        plantTranslationGT={this.state.plantTranslationGT && this.state.plantTranslationGT.flower}
+                        plantTranslationSource={this.state.plantTranslationSource && this.state.plantTranslationSource.flower}
                     />
                 }
-                {this.state && this.state.plantTranslation && this.state.plantTranslationSource &&
+                {this.state && this.state.initialized &&
                     <FlowerSection
-                        type="Fruit"
+                        type="fruit"
+                        language1={this.state.language1}
                         language2={this.state.language2}
-                        plantTranslation={this.state.plantTranslation.fruit}
-                        plantTranslationSource={this.state.plantTranslationSource.fruit}
+                        plantName={this.state.plantName}
+                        plantTranslationNew={this.state.plantTranslationNew && this.state.plantTranslationNew.fruit}
+                        plantTranslation={this.state.plantTranslation && this.state.plantTranslation.fruit}
+                        plantTranslationGT={this.state.plantTranslationGT && this.state.plantTranslationGT.fruit}
+                        plantTranslationSource={this.state.plantTranslationSource && this.state.plantTranslationSource.fruit}
                     />
                 }
-                {this.state && this.state.plantTranslation && this.state.plantTranslationSource &&
+                {this.state && this.state.initialized &&
                     <FlowerSection
-                        type="Leaf"
+                        type="leaf"
+                        language1={this.state.language1}
                         language2={this.state.language2}
-                        plantTranslation={this.state.plantTranslation.leaf}
-                        plantTranslationSource={this.state.plantTranslationSource.leaf}
+                        plantName={this.state.plantName}
+                        plantTranslationNew={this.state.plantTranslationNew && this.state.plantTranslationNew.leaf}
+                        plantTranslation={this.state.plantTranslation && this.state.plantTranslation.leaf}
+                        plantTranslationGT={this.state.plantTranslationGT && this.state.plantTranslationGT.leaf}
+                        plantTranslationSource={this.state.plantTranslationSource && this.state.plantTranslationSource.leaf}
                     />
                 }
-                {this.state && this.state.plantTranslation && this.state.plantTranslationSource &&
+                {this.state && this.state.initialized &&
                     <FlowerSection
-                        type="Stem"
+                        type="stem"
+                        language1={this.state.language1}
                         language2={this.state.language2}
-                        plantTranslation={this.state.plantTranslation.stem}
-                        plantTranslationSource={this.state.plantTranslationSource.stem}
+                        plantName={this.state.plantName}
+                        plantTranslationNew={this.state.plantTranslationNew && this.state.plantTranslationNew.stem}
+                        plantTranslation={this.state.plantTranslation && this.state.plantTranslation.stem}
+                        plantTranslationGT={this.state.plantTranslationGT && this.state.plantTranslationGT.stem}
+                        plantTranslationSource={this.state.plantTranslationSource && this.state.plantTranslationSource.stem}
                     />
                 }
-                {this.state && this.state.plantTranslation && this.state.plantTranslationSource &&
+                {this.state && this.state.initialized &&
                     <FlowerSection
-                        type="Habitat"
+                        type="habitat"
+                        language1={this.state.language1}
                         language2={this.state.language2}
-                        plantTranslation={this.state.plantTranslation.habitat}
-                        plantTranslationSource={this.state.plantTranslationSource.habitat}
+                        plantName={this.state.plantName}
+                        plantTranslationNew={this.state.plantTranslationNew && this.state.plantTranslationNew.habitat}
+                        plantTranslation={this.state.plantTranslation && this.state.plantTranslation.habitat}
+                        plantTranslationGT={this.state.plantTranslationGT && this.state.plantTranslationGT.habitat}
+                        plantTranslationSource={this.state.plantTranslationSource && this.state.plantTranslationSource.habitat}
                     />
                 }
-                {this.state && this.state.plantTranslation && this.state.plantTranslationSource &&
+                {this.state && this.state.initialized &&
                     <FlowerSection
-                        type="Toxicity"
+                        type="toxicity"
+                        language1={this.state.language1}
                         language2={this.state.language2}
-                        plantTranslation={this.state.plantTranslation.toxicity}
-                        plantTranslationSource={this.state.plantTranslationSource.toxicity}
+                        plantName={this.state.plantName}
+                        plantTranslationNew={this.state.plantTranslation && this.state.plantTranslationNew && this.state.plantTranslationNew.toxicity}
+                        plantTranslation={this.state.plantTranslation && this.state.plantTranslation.toxicity}
+                        plantTranslationGT={this.state.plantTranslationGT && this.state.plantTranslationGT.toxicity}
+                        plantTranslationSource={this.state.plantTranslationSource && this.state.plantTranslationSource.toxicity}
                     />
                 }
-                {this.state && this.state.plantTranslation && this.state.plantTranslationSource &&
+                {this.state && this.state.initialized &&
                     <FlowerSection
-                        type="Trivia"
+                        type="trivia"
+                        language1={this.state.language1}
                         language2={this.state.language2}
-                        plantTranslation={this.state.plantTranslation.trivia}
-                        plantTranslationSource={this.state.plantTranslationSource.trivia}
+                        plantName={this.state.plantName}
+                        plantTranslationNew={this.state.plantTranslationNew && this.state.plantTranslationNew.trivia}
+                        plantTranslation={this.state.plantTranslation && this.state.plantTranslation.trivia}
+                        plantTranslationGT={this.state.plantTranslationGT && this.state.plantTranslationGT.trivia}
+                        plantTranslationSource={this.state.plantTranslationSource && this.state.plantTranslationSource.trivia}
                     />
                 }
 

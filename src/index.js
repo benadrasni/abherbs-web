@@ -4,7 +4,6 @@ import {Router, Route} from 'react-router'
 import createHistory from 'history/createBrowserHistory'
 import Main from './Main';
 import Home from './Home';
-import VersionTable from './VersionTable';
 import './index.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 

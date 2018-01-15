@@ -1,7 +1,7 @@
 import React from 'react';
 import {Card, CardMedia, CardTitle} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import ActionAndroid from 'material-ui/svg-icons/action/android';
+import ActionAndroid from 'material-ui-icons/Android';
 import VersionTable from "./VersionTable";
 import Flower from "./Flower";
 import TranslationFlower from "./TranslationFlower";
@@ -63,7 +63,7 @@ class Home extends React.Component {
                 <div style={styles.container}>
                     <Card>
                         <CardMedia
-                            overlay={<CardTitle title={<div>Identify flowers with mobile
+                            overlay={<CardTitle title={<div>Identify flowers with mobile phone
                                 <RaisedButton
                                     label="What's that flower?"
                                     labelPosition="before"
