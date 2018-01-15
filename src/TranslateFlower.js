@@ -79,9 +79,22 @@ class TranslationFlower extends React.Component {
     constructor(props) {
         super(props);
 
+        let userLanguage = (navigator.languages && navigator.languages[0]) || navigator.language;
+        if (userLanguage) {
+            let dividerPos = userLanguage.indexOf("-");
+            if (dividerPos > 0) {
+                userLanguage = userLanguage.substring(0, dividerPos)
+            }
+            if (Object.keys(languages).indexOf(userLanguage) === -1) {
+                userLanguage = 'en';
+            }
+        } else {
+            userLanguage = 'en';
+        }
+
         this.state = {
             initialized: false,
-            language1: "sk",
+            language1: userLanguage,
             language2: "en",
             plantName: props.plantName,
             searchText: props.plantName

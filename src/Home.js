@@ -63,7 +63,7 @@ class Home extends React.Component {
                 <div style={styles.container}>
                     <Card>
                         <CardMedia
-                            overlay={<CardTitle title={<div>Identify flowers with mobile phone
+                            overlay={<CardTitle title={<div>Identify flowers with smartphone
                                 <RaisedButton
                                     label="What's that flower?"
                                     labelPosition="before"
