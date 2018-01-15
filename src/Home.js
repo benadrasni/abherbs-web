@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import ActionAndroid from 'material-ui-icons/Android';
 import VersionTable from "./VersionTable";
 import Flower from "./Flower";
-import TranslationFlower from "./TranslationFlower";
+import TranslationFlower from "./TranslateFlower";
 import plants from "./plants";
 
 const styles = {

@@ -212,7 +212,7 @@ class TranslationFlower extends React.Component {
 
     render() {
         return (
-            <div id='translation_flower' style={styles.flowerTranslation}>
+            <div id='translate_flower' style={styles.flowerTranslation}>
                 <div style={styles.header}>
                     Translate flower's data
                 </div>
