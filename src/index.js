@@ -16,7 +16,6 @@ ReactDOM.render(
     <Router history={history}>
         <Main>
             <Route exact path="/" component={Home}/>
-            <Route path="/flowers" component={VersionTable}/>
         </Main>
     </Router>,
     document.getElementById('root')

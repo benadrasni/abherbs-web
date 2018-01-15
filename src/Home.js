@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Card, CardMedia, CardTitle} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import ActionAndroid from 'material-ui/svg-icons/action/android';
 import VersionTable from "./VersionTable";
 import Flower from "./Flower";
-import plants from "./plants"
+import TranslationFlower from "./TranslationFlower";
+import plants from "./plants";
 
 const styles = {
     container: {
@@ -19,11 +20,14 @@ const styles = {
     }
 };
 
-class Home extends Component {
+class Home extends React.Component {
     constructor(props, context) {
         super(props, context);
 
+        var i = Math.floor(Math.random() * (plants.length -1));
+
         this.state = {
+            plantName: plants[i],
             plant: {},
             plantTranslation: {}
         };
@@ -32,15 +36,15 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        var i = Math.floor(Math.random() * (plants.length -1));
-        fetch('https://abherbs-backend.firebaseio.com/plants/' + plants[i] + '.json')
+
+        fetch('https://abherbs-backend.firebaseio.com/plants/' + this.state.plantName + '.json')
             .then(result => result.json())
             .then(item =>
                 this.setState({
                     plant: item,
                     plantTranslation: this.state.plantTranslation
                 }));
-        fetch('https://abherbs-backend.firebaseio.com/translations/en/' + plants[i] + '.json')
+        fetch('https://abherbs-backend.firebaseio.com/translations/en/' + this.state.plantName + '.json')
             .then(result => result.json())
             .then(item =>
                 this.setState({
@@ -81,6 +85,11 @@ class Home extends Component {
                 </div>
                 <div style={styles.container}>
                     <VersionTable/>
+                </div>
+                <div style={styles.container}>
+                    <TranslationFlower
+                        plantName={this.state.plantName}
+                    />
                 </div>
             </div>
         );

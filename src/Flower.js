@@ -1,23 +1,23 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Card, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
 import {GridList, GridTile} from 'material-ui/GridList';
-import MapsLocalFlorist from 'material-ui/svg-icons/maps/local-florist';
-import ImagePalette from 'material-ui/svg-icons/image/palette';
+import MapsLocalFlorist from 'material-ui-icons/LocalFlorist';
+import ImagePalette from 'material-ui-icons/Palette';
 import createReactClass from 'create-react-class';
 
 const styles = {
     col1: {
-        maxWidth: '594px',
-        marginLeft: '1px',
-        marginRight: '5px',
+        maxWidth: '596px',
+        marginLeft: '2px',
+        marginRight: '2px',
         float: 'left'
     },
 
     col2: {
-        maxWidth: '594px',
-        marginLeft: '5px',
-        marginRight: '1px',
+        maxWidth: '596px',
+        marginLeft: '2px',
+        marginRight: '2px',
         float: 'left'
     },
 
@@ -43,11 +43,11 @@ var Family = createReactClass({
                 return <reactNode> <span>{this.props.taxonomy[prop]}</span> </reactNode>;
             }
         }
-        return <reactNode></reactNode>;
+        return <reactNode/>;
     }
 });
 
-export default class Flower extends Component {
+class Flower extends React.Component {
 
     constructor(props) {
         super(props);
@@ -137,3 +137,5 @@ export default class Flower extends Component {
         );
     }
 }
+
+export default Flower;
