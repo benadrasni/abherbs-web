@@ -165,7 +165,7 @@ export default class FlowerSection extends React.Component {
                             title={this.state.type}
                             titleStyle={styles.cardHeader}
                         >
-                            <FloatingActionButton disabled={!this.state.value || !this.state.isChanged} secondary={true} style={styles.right} onClick={this.handleClick}>
+                            <FloatingActionButton disabled={!this.state.value || (!this.state.isChanged && !this.state.showGT)} secondary={true} style={styles.right} onClick={this.handleClick}>
                                 <Check />
                             </FloatingActionButton>
                             {this.state.showGT &&
