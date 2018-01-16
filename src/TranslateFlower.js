@@ -1,11 +1,14 @@
 import React from 'react';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import SelectField from 'material-ui/SelectField';
+import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/MenuItem';
 import AutoComplete from 'material-ui/AutoComplete';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Language from 'material-ui-icons/Language';
 import LocalFlorist from 'material-ui-icons/LocalFlorist';
 import Translate from 'material-ui-icons/Translate';
+import Check from 'material-ui-icons/Check';
 import languages from "./languages";
 import plants from "./plants";
 import FlowerSection from "./FlowerSection";
@@ -28,8 +31,8 @@ const styles = {
 
     col: {
         maxWidth: '1196px',
-        marginLeft: '2px',
-        marginRight: '2px',
+        paddingLeft: '2px',
+        paddingRight: '2px',
         float: 'left',
         width: '100%'
     },
@@ -50,9 +53,19 @@ const styles = {
         width: '100%'
     },
 
+    cardWizard: {
+        marginTop: '10px',
+        marginBottom: '10px',
+        height: '150px'
+    },
+
     card: {
         marginTop: '10px',
         marginBottom: '10px'
+    },
+
+    cardHeader: {
+        fontSize: '20px'
     },
 
     sectionHeader: {
@@ -64,6 +77,14 @@ const styles = {
 
     full: {
         width: '100%'
+    },
+
+    lessThanHalf: {
+        width: '40%'
+    },
+
+    right: {
+        float: 'right'
     },
 
     thanks: {
@@ -97,6 +118,8 @@ class TranslationFlower extends React.Component {
             language1: userLanguage,
             language2: "en",
             plantName: props.plantName,
+            plantLabel: '',
+            plantNames: '',
             searchText: props.plantName
         };
     }
@@ -131,12 +154,20 @@ class TranslationFlower extends React.Component {
             }).then(function(result) {
                 return result.json();
             }).then(function(item) {
+                let label = that.getLabel(translationNew, translation);
+                let names = that.getNames(translationNew, translation);
                 that.setState({
                     initialized: true,
                     language1: language1,
                     language2: language2,
                     searchText: plantName,
                     plantName: plantName,
+                    plantLabel: label,
+                    labelOriginal: label,
+                    isLabelChanged: false,
+                    plantNames: names,
+                    namesOriginal: names,
+                    isNamesChanged: false,
                     plantTranslationNew: translationNew,
                     plantTranslation: translation,
                     plantTranslationGT: translationGT,
@@ -165,12 +196,20 @@ class TranslationFlower extends React.Component {
             }).then(function(result) {
                 return result.json();
             }).then(function(item) {
+                let label = that.getLabel(translationNew, translation);
+                let names = that.getNames(translationNew, translation);
                 that.setState({
                     initialized: true,
                     language1: language1,
                     language2: that.state.language2,
                     searchText: plantName,
                     plantName: plantName,
+                    plantLabel: label,
+                    labelOriginal: label,
+                    isLabelChanged: false,
+                    plantNames: names,
+                    namesOriginal: names,
+                    isNamesChanged: false,
                     plantTranslationNew: translationNew,
                     plantTranslation: translation,
                     plantTranslationGT: item,
@@ -191,12 +230,47 @@ class TranslationFlower extends React.Component {
                     language2: language2,
                     searchText: plantName,
                     plantName: plantName,
+                    plantLabel: that.state.plantLabel,
+                    labelOriginal: that.state.labelOriginal,
+                    isLabelChanged: that.state.isLabelChanged,
+                    plantNames: that.state.plantNames,
+                    namesOriginal: that.state.namesOriginal,
+                    isNamesChanged: that.state.isNamesChanged,
                     plantTranslationNew: that.state.plantTranslationNew,
                     plantTranslation: that.state.plantTranslation,
                     plantTranslationGT: that.state.plantTranslationGT,
                     plantTranslationSource: item
                 });
             })
+    }
+
+    getLabel(translationNew, translation) {
+        let label = '';
+        if (translationNew && translationNew.label) {
+            label = translationNew.label;
+        }
+        if (!label && translation && translation.label) {
+            label = translation.label;
+        }
+
+        return label;
+    }
+
+    getNames(translationNew, translation) {
+        let namesArray = [];
+        if (translationNew && translationNew.names) {
+            namesArray= translationNew.names;
+        }
+        if ((!namesArray || namesArray.length === 0) && translation && translation.names) {
+            namesArray = translation.names;
+        }
+
+        let names = '';
+        if (namesArray) {
+            names = namesArray.join(', ');
+        }
+
+        return names;
     }
 
     handleLanguage1Change = (event, index, value) => {
@@ -223,26 +297,78 @@ class TranslationFlower extends React.Component {
         });
     };
 
+    handleLabelChange = (event) => {
+        let isLabelChanged = this.state.labelOriginal !== event.target.value;
+        this.setState({
+            plantLabel: event.target.value,
+            isLabelChanged: isLabelChanged
+        });
+    };
+
+    handleNamesChange = (event) => {
+        let isNamesChanged = this.state.namesOriginal !== event.target.value;
+        this.setState({
+            plantNames: event.target.value,
+            isNamesChanged: isNamesChanged
+        });
+    };
+
+    handleClick = (event) => {
+        // save new translation
+        const that = this;
+
+        let body = {};
+        body["label"] = this.state.plantLabel;
+        if (this.state.plantNames) {
+            body["names"] = this.state.plantNames.split(',').map(Function.prototype.call, String.prototype.trim);
+        }
+        fetch('https://abherbs-backend.firebaseio.com/translations_new/' + this.state.language1 + '/' + this.state.plantName + '.json', {
+            method: 'PATCH',
+            body: JSON.stringify(body)
+        }).then(function(result) {
+            return result.json();
+        }).then(function(item) {
+            that.setState({
+                type: that.state.type,
+                language1: that.state.language1,
+                language2: that.state.language2,
+                plantName: that.state.plantName,
+                plantLabel: that.state.plantLabel,
+                labelOriginal: that.state.plantLabel,
+                isLabelChanged: false,
+                plantNames: that.state.plantNames,
+                namesOriginal: that.state.plantNames,
+                isNamesChanged: false,
+                plantTranslationNew: that.state.plantTranslationNew,
+                plantTranslation: that.state.plantTranslation,
+                plantTranslationGT: that.state.plantTranslationGT,
+                plantTranslationSource: that.state.plantTranslationSource
+            });
+        })
+    };
+
     render() {
         return (
             <div id='translate_flower' style={styles.flowerTranslation}>
                 <div style={styles.header}>
                     Translate flower's data
                 </div>
-                <Card style={styles.card}>
-                    <CardText>
-                        <p>
-                        The application can only be as good as data it is presenting. Currently most of non-English and non-Slovak texts are translated with Google's help.
-                        Some translations are quite accurate, others are understandable or maybe even funny but everybody will agree that more native version won't hurt.
-                        Even already translated texts could be improved. Here is your chance to do it.
-                        </p>
-                        <p style={styles.thanks}>
-                        Thanks.
-                        </p>
-                    </CardText>
-                </Card>
+                <div style={styles.col}>
+                    <Card style={styles.cardWizard}>
+                        <CardText>
+                            <p>
+                            The application can only be as good as data it is presenting. Currently most of non-English and non-Slovak texts are translated with Google's help.
+                            Some translations are quite accurate, others are understandable or maybe even funny but everybody will agree that more native version won't hurt.
+                            Even already translated texts could be improved. Here is your chance to do it.
+                            </p>
+                            <p style={styles.thanks}>
+                            Thanks.
+                            </p>
+                        </CardText>
+                    </Card>
+                </div>
                 <div style={styles.col1}>
-                    <Card style={styles.card}>
+                    <Card style={styles.cardWizard}>
                         <CardHeader
                             title="Step 1: Choose your language"
                             subtitle="the one you want to improve (e.g. your native)"
@@ -260,29 +386,7 @@ class TranslationFlower extends React.Component {
                             </SelectField>
                         </CardText>
                     </Card>
-                </div>
-                <div style={styles.col2}>
-                    <Card style={styles.card}>
-                        <CardHeader
-                            title="Step 2: Choose source language"
-                            subtitle="the one you understand the most (English recommended)"
-                            avatar={<Language />}
-                        />
-                        <CardText>
-                            <SelectField
-                                value={this.state.language2}
-                                onChange={this.handleLanguage2Change}
-                                maxHeight={200}
-                            >
-                                {Object.keys(languages).map((code) => (
-                                    <MenuItem key={code} value={code} primaryText={languages[code]} />
-                                ))}
-                            </SelectField>
-                        </CardText>
-                    </Card>
-                </div>
-                <div style={styles.col}>
-                    <Card style={styles.card}>
+                    <Card style={styles.cardWizard}>
                         <CardHeader
                             title="Step 3: Choose flower"
                             subtitle="by typing its Latin name (only 5 matching names are shown)"
@@ -301,12 +405,68 @@ class TranslationFlower extends React.Component {
                             />
                         </CardText>
                     </Card>
-                    <Card style={styles.card}>
+                </div>
+                <div style={styles.col2}>
+                    <Card style={styles.cardWizard}>
+                        <CardHeader
+                            title="Step 2: Choose source language"
+                            subtitle="the one you understand the most (English recommended)"
+                            avatar={<Language />}
+                        />
+                        <CardText>
+                            <SelectField
+                                value={this.state.language2}
+                                onChange={this.handleLanguage2Change}
+                                maxHeight={200}
+                            >
+                                {Object.keys(languages).map((code) => (
+                                    <MenuItem key={code} value={code} primaryText={languages[code]} />
+                                ))}
+                            </SelectField>
+                        </CardText>
+                    </Card>
+                    <Card style={styles.cardWizard}>
                         <CardHeader
                             title="Step 4: Translate / Improve"
-                            subtitle="The flower's data is divided into 9 sections: description, inflorescence, flower, fruit, leaf, stem, habitat, toxicity, trivia. Translate icon next to section's name indicates translation via Google Translate."
+                            subtitle="and check when the text is ready"
                             avatar={<Translate />}
                         />
+                        <CardText>
+                            The flower's data is divided into 10 sections: names, description, inflorescence, flower, fruit, leaf, stem, habitat, toxicity, trivia.
+                            Translate icon next to section's name indicates translation via Google Translate.
+                        </CardText>
+                    </Card>
+                </div>
+                <div style={styles.col}>
+                    <Card style={styles.card}>
+                        <CardHeader
+                            title="names"
+                            titleStyle={styles.cardHeader}
+                            subtitle="Check primary name and alternate names (comma divided)."
+                        >
+                            <FloatingActionButton disabled={!this.state.plantLabel || (!this.state.isLabelChanged && !this.state.isNamesChanged)} secondary={true} style={styles.right} onClick={this.handleClick}>
+                                <Check />
+                            </FloatingActionButton>
+                        </CardHeader>
+                        <CardText>
+                            <TextField
+                                id={this.state.primary_name}
+                                value={this.state.plantLabel}
+                                onChange={this.handleLabelChange}
+                                style={styles.lessThanHalf}
+                                floatingLabelText="primary name"
+                            />
+                            <TextField
+                                id={this.state.alt_names}
+                                value={this.state.plantNames}
+                                onChange={this.handleNamesChange}
+                                style={styles.full}
+                                floatingLabelText="alternate names"
+                                multiLine={true}
+                                rows={2}
+                                rowsMax={2}
+                            />
+                        </CardText>
                     </Card>
                 </div>
                 {this.state && this.state.initialized &&

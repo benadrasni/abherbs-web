@@ -1,7 +1,8 @@
 import React from 'react';
 import {Card, CardMedia, CardTitle} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import ActionAndroid from 'material-ui-icons/Android';
+import Android from 'material-ui-icons/Android';
+import Mail from 'material-ui-icons/Mail';
 import VersionTable from "./VersionTable";
 import Flower from "./Flower";
 import TranslationFlower from "./TranslateFlower";
@@ -17,7 +18,15 @@ const styles = {
 
     button: {
         margin: 12
+    },
+
+    bottom: {
+        width: '100%',
+        height: '100px',
+        backgroundColor: 'black',
+        textAlign: 'center'
     }
+
 };
 
 class Home extends React.Component {
@@ -57,6 +66,10 @@ class Home extends React.Component {
         window.location = '/#download';
     }
 
+    mailTo() {
+        window.location = 'mailto:whatsthoseflowers@gmail.com';
+    }
+
     render() {
         return (
             <div id='home'>
@@ -68,7 +81,7 @@ class Home extends React.Component {
                                     label="What's that flower?"
                                     labelPosition="before"
                                     primary={true}
-                                    icon={<ActionAndroid />}
+                                    icon={<Android />}
                                     style={styles.button}
                                     onClick={this.goToDownload}
                                 /></div>} />}
@@ -89,6 +102,14 @@ class Home extends React.Component {
                 <div style={styles.container}>
                     <TranslationFlower
                         plantName={this.state.plantName}
+                    />
+                </div>
+                <div style={styles.bottom}>
+                    <RaisedButton
+                        primary={true}
+                        icon={<Mail />}
+                        style={styles.button}
+                        onClick={this.mailTo}
                     />
                 </div>
             </div>

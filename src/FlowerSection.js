@@ -135,9 +135,6 @@ export default class FlowerSection extends React.Component {
         body[this.state.type] = this.state.value;
         fetch('https://abherbs-backend.firebaseio.com/translations_new/' + this.state.language1 + '/' + this.state.plantName + '.json', {
             method: 'PATCH',
-            // headers: {
-            //     "Access-Control-Allow-Methods" : "*"
-            // },
             body: JSON.stringify(body)
         }).then(function(result) {
             return result.json();
