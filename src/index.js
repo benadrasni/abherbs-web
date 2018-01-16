@@ -14,7 +14,9 @@ const history = createHistory();
 ReactDOM.render(
     <Router history={history}>
         <Main>
-            <Route exact path="/" component={Home}/>
+            <Route exact path="/" component={Home}>
+                <Route path=":plant" component={Home} />
+            </Route>
         </Main>
     </Router>,
     document.getElementById('root')

@@ -42,11 +42,11 @@ export default class AppDrawer extends React.Component {
                         </IconButton>
                     }
                 />
-                <MenuItem href="/#home" primaryText="Home" leftIcon={<ActionHome />} onClick={this.handleRequestToggle} />
-                <MenuItem href="/#download" primaryText="Download" leftIcon={<FileDownload />} onClick={this.handleRequestToggle} />
+                <MenuItem href="#home" primaryText="Home" leftIcon={<ActionHome />} onClick={this.handleRequestToggle} />
+                <MenuItem href="#download" primaryText="Download" leftIcon={<FileDownload />} onClick={this.handleRequestToggle} />
                 {/*<MenuItem href="/flowers" primaryText="Flowers" leftIcon={<MapsLocalFlorist />} />*/}
                 {/*<MenuItem primaryText="Taxonomy" leftIcon={<ActionList />} />*/}
-                <MenuItem href="/#translate_flower" primaryText="Translation" leftIcon={<ActionTranslate />} onClick={this.handleRequestToggle} />
+                <MenuItem href="#translate_flower" primaryText="Translation" leftIcon={<ActionTranslate />} onClick={this.handleRequestToggle} />
             </Drawer>
         );
     }

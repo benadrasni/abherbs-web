@@ -1,4 +1,5 @@
 import React from 'react';
+import qs from 'query-string';
 import {Card, CardMedia, CardTitle} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import Android from 'material-ui-icons/Android';
@@ -33,10 +34,14 @@ class Home extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        var i = Math.floor(Math.random() * (plants.length -1));
+        const parsed = qs.parse(props.location.search);
+        let plantName = parsed["plant"];
+        if (!plantName || plants.indexOf(plantName) === -1) {
+            plantName = plants[Math.floor(Math.random() * (plants.length -1))];
+        }
 
         this.state = {
-            plantName: plants[i],
+            plantName: plantName,
             plant: {},
             plantTranslation: {}
         };
@@ -63,7 +68,7 @@ class Home extends React.Component {
     }
 
     goToDownload() {
-        window.location = '/#download';
+        window.location = '#download';
     }
 
     mailTo() {
