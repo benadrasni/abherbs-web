@@ -109,7 +109,7 @@ export default class FlowerSection extends React.Component {
         this.state = {
             type: newProps.type,
             language1: newProps.language1,
-            langduage2: newProps.language2,
+            language2: newProps.language2,
             plantName: newProps.plantName,
             valueOriginal: value,
             value: value,

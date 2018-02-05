@@ -824,6 +824,19 @@ const plants = ["Acer campestre",
     "Isopyrum thalictroides",
     "Actaea europaea",
     "Consolida ajacis",
-    "Consolida orientalis"]
+    "Consolida orientalis",
+    "Delphinium elatum",
+    "Delphinium oxysepalum",
+    "Aconitum anthora",
+    "Aconitum firmum",
+    "Aconitum moldavicum",
+    "Aconitum variegatum",
+    "Aconitum lasiocarpum",
+    "Aesculus flava",
+    "Aesculus glabra",
+    "Aesculus hippocastanum",
+    "Aesculus parviflora",
+    "Aesculus pavia"
+]
 
 export default plants;

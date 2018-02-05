@@ -567,6 +567,18 @@ class TranslationFlower extends React.Component {
                 }
                 {this.state && this.state.initialized &&
                     <FlowerSection
+                        type="herbalism"
+                        language1={this.state.language1}
+                        language2={this.state.language2}
+                        plantName={this.state.plantName}
+                        plantTranslationNew={this.state.plantTranslation && this.state.plantTranslationNew && this.state.plantTranslationNew.herbalism}
+                        plantTranslation={this.state.plantTranslation && this.state.plantTranslation.herbalism}
+                        plantTranslationGT={this.state.plantTranslationGT && this.state.plantTranslationGT.herbalism}
+                        plantTranslationSource={this.state.plantTranslationSource && this.state.plantTranslationSource.herbalism}
+                    />
+                }
+                {this.state && this.state.initialized &&
+                    <FlowerSection
                         type="trivia"
                         language1={this.state.language1}
                         language2={this.state.language2}
