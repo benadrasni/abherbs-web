@@ -841,7 +841,8 @@ const plants = ["Acer campestre",
     "Amorpha fruticosa",
     "Veronica longifolia",
     "Cardamine hirsuta",
-    "Potentilla norvegica"
+    "Potentilla norvegica",
+    "Youngia japonica"
 ]
 
 export default plants;

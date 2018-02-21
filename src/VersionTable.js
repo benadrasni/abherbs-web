@@ -86,6 +86,11 @@ const tableData = [
         feature: 'Search by taxonomy',
         basic: '',
         extended: 'yes',
+    },
+    {
+        feature: 'Observations',
+        basic: '',
+        extended: 'yes',
     }
 ];
 
