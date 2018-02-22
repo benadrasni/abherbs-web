@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route} from 'react-router'
+import {BrowserRouter as Router} from 'react-router-dom'
 import createHistory from 'history/createBrowserHistory'
-import Main from './Main';
-import LandingPage from './LandingPage';
-import TranslateFlower from './TranslateFlower';
+import App from './App';
 import './index.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -14,10 +12,7 @@ const history = createHistory();
 
 ReactDOM.render(
     <Router history={history}>
-        <Main>
-            <Route exact path="/" component={LandingPage} />
-            <Route exact path="/translate_flower" component={TranslateFlower}/>
-        </Main>
+        <App />
     </Router>,
     document.getElementById('root')
 );
