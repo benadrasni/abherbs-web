@@ -1,4 +1,5 @@
 import React from 'react';
+import qs from 'query-string';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import SelectField from 'material-ui/SelectField';
 import TextField from 'material-ui/TextField';
@@ -15,11 +16,14 @@ import FlowerSection from "./FlowerSection";
 
 const styles = {
     flowerTranslation: {
-        marginTop: '100px',
-        float: 'none'
+        maxWidth: '1200px',
+        height: 'auto',
+        overflow: 'auto',
+        margin: '0 auto'
     },
 
     header: {
+        marginTop: '50px',
         fontSize: '36px',
         fontWeight: '700',
         color: '#9E9E9E',
@@ -113,14 +117,23 @@ class TranslationFlower extends React.Component {
             userLanguage = 'en';
         }
 
+        let plantName = props.plantName;
+        if (!plantName || plants.indexOf(plantName) === -1) {
+            const parsed = qs.parse(props.location.search);
+            plantName = parsed["plant"];
+            if (!plantName || plants.indexOf(plantName) === -1) {
+                plantName = null;
+            }
+        }
+
         this.state = {
             initialized: false,
             language1: userLanguage,
             language2: "en",
-            plantName: props.plantName,
+            plantName: plantName,
             plantLabel: '',
             plantNames: '',
-            searchText: props.plantName
+            searchText: plantName
         };
     }
 

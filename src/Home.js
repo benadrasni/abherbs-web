@@ -1,13 +1,10 @@
 import React from 'react';
-import qs from 'query-string';
 import {Card, CardMedia, CardTitle} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import Android from 'material-ui-icons/Android';
 import Mail from 'material-ui-icons/Mail';
 import VersionTable from "./VersionTable";
 import Flower from "./Flower";
-import TranslationFlower from "./TranslateFlower";
-import plants from "./plants";
 
 const styles = {
     container: {
@@ -34,14 +31,8 @@ class Home extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        const parsed = qs.parse(props.location.search);
-        let plantName = parsed["plant"];
-        if (!plantName || plants.indexOf(plantName) === -1) {
-            plantName = plants[Math.floor(Math.random() * (plants.length -1))];
-        }
-
         this.state = {
-            plantName: plantName,
+            plantName: props.plantName,
             plant: {},
             plantTranslation: {}
         };
@@ -72,7 +63,7 @@ class Home extends React.Component {
     }
 
     mailTo() {
-        window.location = 'mailto:whatsthoseflowers@gmail.com';
+        window.location = 'mailto:support@whatsthatflower.com';
     }
 
     render() {
@@ -103,11 +94,6 @@ class Home extends React.Component {
                 </div>
                 <div style={styles.container}>
                     <VersionTable/>
-                </div>
-                <div style={styles.container}>
-                    <TranslationFlower
-                        plantName={this.state.plantName}
-                    />
                 </div>
                 <div style={styles.bottom}>
                     <RaisedButton
