@@ -43,6 +43,7 @@ export default class AppDrawer extends React.Component {
                 <MenuItem href="/" primaryText="Home" leftIcon={<ActionHome />} onClick={this.handleRequestToggle} />
                 <MenuItem href="/#download" primaryText="Download" leftIcon={<FileDownload />} onClick={this.handleRequestToggle} />
                 <MenuItem href="/translate_flower" primaryText="Translate flower" leftIcon={<ActionTranslate />} onClick={this.handleRequestToggle} />
+                <MenuItem href="/translate_app" primaryText="Translate application" leftIcon={<ActionTranslate />} onClick={this.handleRequestToggle} />
             </Drawer>
         );
     }
