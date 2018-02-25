@@ -60,7 +60,7 @@ const styles = {
     cardWizard: {
         marginTop: '10px',
         marginBottom: '10px',
-        height: '150px'
+        height: 'auto'
     },
 
     card: {
