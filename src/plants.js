@@ -842,7 +842,10 @@ const plants = ["Acer campestre",
     "Veronica longifolia",
     "Cardamine hirsuta",
     "Potentilla norvegica",
-    "Youngia japonica"
+    "Youngia japonica",
+    "Bougainvillea glabra",
+    "Mirabilis jalapa",
+    "Mirabilis nyctaginea"
 ]
 
 export default plants;
