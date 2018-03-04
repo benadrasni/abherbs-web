@@ -846,7 +846,8 @@ const plants = ["Acer campestre",
     "Bougainvillea glabra",
     "Mirabilis jalapa",
     "Mirabilis nyctaginea",
-    "Dermatophyllum secundiflorum"
+    "Dermatophyllum secundiflorum",
+    "Prunus caroliniana"
 ]
 
 export default plants;
