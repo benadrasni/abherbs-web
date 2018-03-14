@@ -850,7 +850,17 @@ const plants = ["Acer campestre",
     "Prunus caroliniana",
     "Prunus dulcis",
     "Thymus vulgaris",
-    "Rosmarinus officinalis"
+    "Rosmarinus officinalis",
+    "Melampyrum nemorosum",
+    "Anemone berlandieri",
+    "Paulownia tomentosa",
+    "Melampyrum cristatum",
+    "Melampyrum barbatum",
+    "Nemophila menziesii",
+    "Oenothera laciniata",
+    "Vicia villosa",
+    "Senecio ampullaceus",
+    "Salvia lyrata"
 ]
 
 export default plants;
