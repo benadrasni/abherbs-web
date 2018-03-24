@@ -860,7 +860,20 @@ const plants = ["Acer campestre",
     "Oenothera laciniata",
     "Vicia villosa",
     "Senecio ampullaceus",
-    "Salvia lyrata"
+    "Salvia lyrata",
+    "Phlox pilosa",
+    "Phlox amplifolia",
+    "Phlox divaricata",
+    "Phlox glaberrima",
+    "Phlox paniculata",
+    "Phlox subulata",
+    "Lithospermum incisum",
+    "Hypoxis hirsuta",
+    "Baptisia bracteata",
+    "Lindheimera texana",
+    "Brassica rapa",
+    "Sisyrinchium bellum",
+    "Cirsium horridulum"
 ]
 
 export default plants;
