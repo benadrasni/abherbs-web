@@ -873,7 +873,9 @@ const plants = ["Acer campestre",
     "Lindheimera texana",
     "Brassica rapa",
     "Sisyrinchium bellum",
-    "Cirsium horridulum"
+    "Cirsium horridulum",
+    "Cuscuta europaea",
+    "Mentha longifolia"
 ]
 
 export default plants;
