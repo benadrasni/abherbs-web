@@ -875,7 +875,18 @@ const plants = ["Acer campestre",
     "Sisyrinchium bellum",
     "Cirsium horridulum",
     "Cuscuta europaea",
-    "Mentha longifolia"
+    "Mentha longifolia",
+    "Geranium pyrenaicum",
+    "Gentianella germanica",
+    "Cirsium eriophorum",
+    "Galega officinalis",
+    "Galeopsis angustifolia",
+    "Galeopsis ladanum",
+    "Melittis melissophyllum",
+    "Thymus pulegioides",
+    "Orobanche caryophyllacea",
+    "Neotinea ustulata",
+    "Orchis purpurea"
 ]
 
 export default plants;
