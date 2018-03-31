@@ -232,9 +232,9 @@ class TranslationApp extends React.Component {
                                     </Chip>
 
                                     <Chip
-                                        onClick={(e) => this.handleAppClick('webpage', e)}
+                                        onClick={(e) => this.handleAppClick('web', e)}
                                         style={styles.chip}
-                                        id='webpage'
+                                        id='web'
                                     >
                                         <Avatar src="images/paeonia_96.png" />
                                         whatsthatflower.com
