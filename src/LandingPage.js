@@ -15,14 +15,31 @@ class LandingPage extends React.Component {
         }
 
         this.state = {
+            language: props.language,
+            locStrings: props.locStrings,
             translate: window.location.href.endsWith("#translate_flower"),
             plantName: plantName
         };
 
     }
 
+    componentWillReceiveProps(newProps) {
+        this.state = {
+            language: newProps.language,
+            locStrings: newProps.locStrings,
+            translate: this.state.translate,
+            plantName: this.state.plantName
+        };
+    }
+
     render() {
-        return this.state.translate ? <TranslateFlower plantName={this.state.plantName} /> : <Home plantName={this.state.plantName} />;
+        return this.state.translate ?
+            <TranslateFlower plantName={this.state.plantName} /> :
+            <Home
+                language={this.state.language}
+                locStrings={this.state.locStrings}
+                plantName={this.state.plantName}
+            />;
     }
 }
 

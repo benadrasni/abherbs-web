@@ -32,6 +32,8 @@ class Home extends React.Component {
         super(props, context);
 
         this.state = {
+            language: props.language,
+            locStrings: props.locStrings,
             plantName: props.plantName,
             plant: {},
             plantTranslation: {}
@@ -46,6 +48,8 @@ class Home extends React.Component {
             .then(result => result.json())
             .then(item =>
                 this.setState({
+                    language: this.state.language,
+                    locStrings: this.state.locStrings,
                     plant: item,
                     plantTranslation: this.state.plantTranslation
                 }));
@@ -53,9 +57,20 @@ class Home extends React.Component {
             .then(result => result.json())
             .then(item =>
                 this.setState({
+                    language: this.state.language,
+                    locStrings: this.state.locStrings,
                     plant: this.state.plant,
                     plantTranslation: item
                 }))
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.state = {
+            language: newProps.language,
+            locStrings: newProps.locStrings,
+            plant: this.state.plant,
+            plantTranslation: this.state.plantTranslation
+        };
     }
 
     goToDownload() {
@@ -72,9 +87,9 @@ class Home extends React.Component {
                 <div style={styles.container}>
                     <Card>
                         <CardMedia
-                            overlay={<CardTitle title={<div>Identify flowers with smartphone
+                            overlay={<CardTitle title={<div>{this.state.locStrings.app_short_description}
                                 <RaisedButton
-                                    label="What's that flower?"
+                                    label={this.state.locStrings.app_name}
                                     labelPosition="before"
                                     primary={true}
                                     icon={<Android />}
@@ -88,12 +103,17 @@ class Home extends React.Component {
                 </div>
                 <div style={styles.container}>
                     <Flower
+                        language={this.state.language}
+                        locStrings={this.state.locStrings}
                         plant={this.state.plant}
                         plantTranslation={this.state.plantTranslation}
                     />
                 </div>
                 <div style={styles.container}>
-                    <VersionTable/>
+                    <VersionTable>
+                        language={this.state.language}
+                        locStrings={this.state.locStrings}
+                    </VersionTable>
                 </div>
                 <div style={styles.bottom}>
                     <RaisedButton

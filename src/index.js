@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router} from 'react-router-dom'
-import App from './App';
+import Main from './Main';
 import './index.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -9,7 +9,7 @@ injectTapEventPlugin();
 
 ReactDOM.render(
     <Router>
-        <App />
+        <Main />
     </Router>,
     document.getElementById('root')
 );

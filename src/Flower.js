@@ -53,14 +53,28 @@ class Flower extends React.Component {
         super(props);
 
         this.state = {
+            language: props.language,
+            locStrings: props.locStrings,
             photoIndex: 0
         };
 
         this.handleClick = this.handleClick.bind(this);
     }
 
+    componentWillReceiveProps(newProps) {
+        this.state = {
+            language: newProps.language,
+            locStrings: newProps.locStrings,
+            photoIndex: this.state.photoIndex
+        };
+    }
+
     handleClick(index) {
-        this.setState({photoIndex: index});
+        this.setState({
+            language: this.state.language,
+            locStrings: this.state.locStrings,
+            photoIndex: index
+        });
     }
 
     render() {
@@ -69,8 +83,8 @@ class Flower extends React.Component {
                 <div style={styles.col1}>
                     <Card style={styles.flowerCard}>
                         <CardHeader
-                            title="Flower for the moment"
-                            subtitle="a random pick from our database"
+                            title={this.state.locStrings.flower_now}
+                            subtitle={this.state.locStrings.flower_now_description}
                             avatar={<MapsLocalFlorist />}
                         />
                         <CardMedia
@@ -96,19 +110,19 @@ class Flower extends React.Component {
                         <CardTitle title={this.props.plantTranslation && this.props.plantTranslation.label} subtitle={this.props.plantTranslation && this.props.plantTranslation.names && this.props.plantTranslation.names.join(', ')} />
                         <CardText>
                             <div>{this.props.plantTranslation && this.props.plantTranslation.description}</div>
-                            <div><i>Flowers:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.flower}</div>
-                            <div><i>Fruit:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.fruit}</div>
-                            <div><i>Leaaves:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.leaf}</div>
-                            <div><i>Stem:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.stem}</div>
-                            <div><i>Habitat:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.habitat}</div>
+                            <div><i>{this.state.locStrings.translate_flower}:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.flower}</div>
+                            <div><i>{this.state.locStrings.translate_fruit}:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.fruit}</div>
+                            <div><i>{this.state.locStrings.translate_leaf}:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.leaf}</div>
+                            <div><i>{this.state.locStrings.translate_stem}:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.stem}</div>
+                            <div><i>{this.state.locStrings.translate_habitat}:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.habitat}</div>
                         </CardText>
                     </Card>
                 </div>
                 <div style={styles.col2}>
                     <Card style={styles.flowerCard}>
                         <CardHeader
-                            title="Illustration"
-                            subtitle="from ancient botany scrolls"
+                            title={this.state.locStrings.illustration}
+                            subtitle={this.state.locStrings.illustration_description}
                             avatar={<ImagePalette />}
                         />
                         <CardMedia>
@@ -118,7 +132,7 @@ class Flower extends React.Component {
                         </CardMedia>
                     </Card>
                     <Card style={styles.flowerCard}>
-                        <CardTitle title="Taxonomy" subtitle="APG IV" />
+                        <CardTitle title={this.state.locStrings.taxonomy} subtitle={this.state.locStrings.taxonomy_description} />
                         <CardText>
                             <Table selectable={false}>
                                 <TableBody displayRowCheckbox={false}>
