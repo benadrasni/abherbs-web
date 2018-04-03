@@ -16,6 +16,7 @@ import TranslateFlower from "./TranslateFlower";
 import Help from "./Help";
 import About from "./About";
 import TranslateApp from "./TranslateApp";
+import qs from "query-string";
 
 const styles = theme => ({
     container: {
@@ -58,7 +59,7 @@ class Main extends Component {
     constructor(props, context) {
         super(props, context);
 
-        let userLanguage = (navigator.languages && navigator.languages[0]) || navigator.language;
+        let userLanguage = qs.parse(props.location.search)["lang"] || (navigator.languages && navigator.languages[0]) || navigator.language;
         if (userLanguage) {
             let dividerPos = userLanguage.indexOf("-");
             if (dividerPos > 0) {

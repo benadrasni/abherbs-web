@@ -1,4 +1,5 @@
 import React from 'react';
+import {Route} from 'react-router';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router} from 'react-router-dom'
 import Main from './Main';
@@ -9,7 +10,7 @@ injectTapEventPlugin();
 
 ReactDOM.render(
     <Router>
-        <Main />
+        <Route path="/" render={({ match, location })=><Main match={match} location={location}/>} />
     </Router>,
     document.getElementById('root')
 );

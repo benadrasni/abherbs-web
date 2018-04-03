@@ -20,6 +20,7 @@ export default class AppDrawer extends React.Component {
         this.handleRequestToggle = this.handleRequestToggle.bind(this);
 
         this.state = {
+            language: props.language,
             locStrings: props.locStrings,
             open: props.open
         };
@@ -27,6 +28,7 @@ export default class AppDrawer extends React.Component {
 
     componentWillReceiveProps(newProps) {
         this.state = {
+            language: newProps.language,
             locStrings: newProps.locStrings,
             open: this.state.open
         };
@@ -37,6 +39,10 @@ export default class AppDrawer extends React.Component {
             open: false
         });
         this.props.callbackParent(false);
+    }
+
+    enrichUrl(url) {
+        return url + '?lang=' + this.state.language;
     }
 
     render() {
@@ -50,12 +56,12 @@ export default class AppDrawer extends React.Component {
                         </IconButton>
                     }
                 />
-                <MenuItem href="/" primaryText={this.state.locStrings.menu_home} leftIcon={<Home />} onClick={this.handleRequestToggle} />
-                <MenuItem href="/#download" primaryText={this.state.locStrings.menu_download} leftIcon={<FileDownload />} onClick={this.handleRequestToggle} />
-                <MenuItem href="/translate_flower" primaryText={this.state.locStrings.menu_translate_flower} leftIcon={<Translate />} onClick={this.handleRequestToggle} />
-                <MenuItem href="/translate_app" primaryText={this.state.locStrings.menu_translate_app} leftIcon={<Translate />} onClick={this.handleRequestToggle} />
-                <MenuItem href="/help" primaryText={this.state.locStrings.menu_help} leftIcon={<Help />} onClick={this.handleRequestToggle} />
-                <MenuItem href="/about" primaryText={this.state.locStrings.menu_about} leftIcon={<Subject />} onClick={this.handleRequestToggle} />
+                <MenuItem href={this.enrichUrl('/')} primaryText={this.state.locStrings.menu_home} leftIcon={<Home />} onClick={this.handleRequestToggle} />
+                <MenuItem href={this.enrichUrl('/#download')} primaryText={this.state.locStrings.menu_download} leftIcon={<FileDownload />} onClick={this.handleRequestToggle} />
+                <MenuItem href={this.enrichUrl('/translate_flower')} primaryText={this.state.locStrings.menu_translate_flower} leftIcon={<Translate />} onClick={this.handleRequestToggle} />
+                <MenuItem href={this.enrichUrl('/translate_app')} primaryText={this.state.locStrings.menu_translate_app} leftIcon={<Translate />} onClick={this.handleRequestToggle} />
+                <MenuItem href={this.enrichUrl('/help')} primaryText={this.state.locStrings.menu_help} leftIcon={<Help />} onClick={this.handleRequestToggle} />
+                <MenuItem href={this.enrichUrl('/about')} primaryText={this.state.locStrings.menu_about} leftIcon={<Subject />} onClick={this.handleRequestToggle} />
             </Drawer>
         );
     }
