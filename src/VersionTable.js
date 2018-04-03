@@ -51,92 +51,96 @@ const styles = {
     }
 };
 
-const tableData = [
-    {
-        feature: 'Flowers',
-        basic: plants.length,
-        extended: plants.length,
-    },
-    {
-        feature: 'Filter by color',
-        basic: 'yes',
-        extended: 'yes',
-    },
-    {
-        feature: 'Filter by habitat',
-        basic: 'yes',
-        extended: 'yes',
-    },
-    {
-        feature: 'Filter by petals',
-        basic: 'yes',
-        extended: 'yes',
-    },
-    {
-        feature: 'Offline mode',
-        basic: '',
-        extended: 'yes',
-    },
-    {
-        feature: 'Search by name',
-        basic: '',
-        extended: 'yes',
-    },
-    {
-        feature: 'Search by taxonomy',
-        basic: '',
-        extended: 'yes',
-    },
-    {
-        feature: 'Observations',
-        basic: '',
-        extended: 'yes',
-    }
-];
-
 export default class VersionTable extends Component {
-    state = {
-        fixedHeader: true,
-        stripedRows: false,
-        showRowHover: false,
-        selectable: false,
-        multiSelectable: false,
-        enableSelectAll: false,
-        deselectOnClickaway: true,
-        showCheckboxes: false
-    };
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            language: props.language,
+            locStrings: props.locStrings
+        };
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.state = {
+            language: newProps.language,
+            locStrings: newProps.locStrings
+        };
+    }
 
     render() {
+        const tableData = [
+            {
+                feature: this.state.locStrings.feature_flowers,
+                basic: plants.length,
+                extended: plants.length,
+            },
+            {
+                feature: this.state.locStrings.feature_filter_by_color,
+                basic: 'yes',
+                extended: 'yes',
+            },
+            {
+                feature: this.state.locStrings.feature_filter_by_habitat,
+                basic: 'yes',
+                extended: 'yes',
+            },
+            {
+                feature: this.state.locStrings.feature_filter_by_petals,
+                basic: 'yes',
+                extended: 'yes',
+            },
+            {
+                feature: this.state.locStrings.feature_offline_mode,
+                basic: '',
+                extended: 'yes',
+            },
+            {
+                feature: this.state.locStrings.feature_search_by_name,
+                basic: '',
+                extended: 'yes',
+            },
+            {
+                feature: this.state.locStrings.feature_search_by_taxonomy,
+                basic: '',
+                extended: 'yes',
+            },
+            {
+                feature: this.state.locStrings.feature_observations,
+                basic: '',
+                extended: 'yes',
+            }];
+
         return (
             <div id='download' style={styles.versionTable}>
                 <Table
-                    height={this.state.height}
-                    fixedHeader={this.state.fixedHeader}
-                    fixedFooter={this.state.fixedFooter}
-                    selectable={this.state.selectable}
-                    multiSelectable={this.state.multiSelectable}
+                    fixedHeader={true}
+                    fixedFooter={true}
+                    selectable={false}
+                    multiSelectable={false}
                 >
                     <TableHeader
-                        displaySelectAll={this.state.showCheckboxes}
-                        adjustForCheckbox={this.state.showCheckboxes}
-                        enableSelectAll={this.state.enableSelectAll}
+                        displaySelectAll={false}
+                        adjustForCheckbox={false}
+                        enableSelectAll={false}
                     >
                         <TableRow>
                             <TableHeaderColumn colSpan="3" style={styles.tableHeader}>
-                                Download application
+                                {this.state.locStrings.download_application}
                             </TableHeaderColumn>
                         </TableRow>
                         <TableRow>
                             <TableHeaderColumn />
-                            <TableHeaderColumn style={styles.columnHeader}>Basic</TableHeaderColumn>
-                            <TableHeaderColumn style={styles.columnHeader}>Plus</TableHeaderColumn>
+                            <TableHeaderColumn style={styles.columnHeader}>{this.state.locStrings.app_basic}</TableHeaderColumn>
+                            <TableHeaderColumn style={styles.columnHeader}>{this.state.locStrings.app_plus}</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
                     <TableBody
-                        displayRowCheckbox={this.state.showCheckboxes}
-                        deselectOnClickaway={this.state.deselectOnClickaway}
-                        showRowHover={this.state.showRowHover}
-                        stripedRows={this.state.stripedRows}
+                        displayRowCheckbox={false}
+                        deselectOnClickaway={true}
+                        showRowHover={false}
+                        stripedRows={false}
                     >
                         {tableData.map( (row, index) => (
                             <TableRow key={index}>
@@ -146,7 +150,7 @@ export default class VersionTable extends Component {
                             </TableRow>
                         ))}
                     </TableBody>
-                    <TableFooter adjustForCheckbox={this.state.showCheckboxes}>
+                    <TableFooter adjustForCheckbox={false}>
                         <TableRow>
                             <TableRowColumn />
                             <TableRowColumn style={{textAlign: 'center'}}>

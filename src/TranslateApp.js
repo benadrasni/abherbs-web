@@ -92,22 +92,11 @@ class TranslationApp extends React.Component {
     constructor(props) {
         super(props);
 
-        let userLanguage = (navigator.languages && navigator.languages[0]) || navigator.language;
-        if (userLanguage) {
-            let dividerPos = userLanguage.indexOf("-");
-            if (dividerPos > 0) {
-                userLanguage = userLanguage.substring(0, dividerPos)
-            }
-            if (Object.keys(languages).indexOf(userLanguage) === -1) {
-                userLanguage = 'en';
-            }
-        } else {
-            userLanguage = 'en';
-        }
-
         this.state = {
             initialized: false,
-            language1: userLanguage,
+            language: props.language,
+            locStrings: props.locStrings,
+            language1: props.language,
             language2: "en",
             appName: "appbase"
         };
@@ -115,6 +104,19 @@ class TranslationApp extends React.Component {
 
     componentDidMount() {
         this.loadTranslations(this.state.appName);
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.state = {
+            initialized: this.state.initialized,
+            language: newProps.language,
+            locStrings: newProps.locStrings,
+            language1: this.state.language1,
+            language2: this.state.language2,
+            appName: this.state.appName,
+            appTranslationNew: this.state.appTranslationNew,
+            appTranslation: this.state.appTranslation
+        };
     }
 
     loadTranslations(appName) {
@@ -133,6 +135,8 @@ class TranslationApp extends React.Component {
             }).then(function(item) {
                 that.setState({
                     initialized: true,
+                    language: that.state.language,
+                    locStrings: that.state.locStrings,
                     language1: that.state.language1,
                     language2: that.state.language2,
                     appName: appName,
@@ -144,6 +148,8 @@ class TranslationApp extends React.Component {
 
     handleLanguage1Change = (event, index, value) => {
         this.setState({
+            language: this.state.language,
+            locStrings: this.state.locStrings,
             language1: value,
             language2: this.state.language2,
             appName: this.state.appName,
@@ -154,6 +160,8 @@ class TranslationApp extends React.Component {
 
     handleLanguage2Change = (event, index, value) => {
         this.setState({
+            language: this.state.language,
+            locStrings: this.state.locStrings,
             language1: this.state.language1,
             language2: value,
             appName: this.state.appName,
@@ -175,6 +183,8 @@ class TranslationApp extends React.Component {
             return result.json();
         }).then(function(item) {
             that.setState({
+                language: that.state.language,
+                locStrings: that.state.locStrings,
                 language1: that.state.language1,
                 language2: that.state.language2,
                 appName: that.state.appName,
@@ -192,16 +202,16 @@ class TranslationApp extends React.Component {
         return (
             <div id='translate_app' style={styles.appTranslation}>
                 <div style={styles.header}>
-                    Translate app's labels
+                    {this.state.locStrings.translate_app_title}
                 </div>
                 <div style={styles.col}>
                     <Card style={styles.cardWizard}>
                         <CardText>
                             <p style={styles.center}>
-                                On this page you can improve translations of application's labels and texts. Click on a chip to choose an application.
+                                {this.state.locStrings.translate_app_description}
                             </p>
                             <p style={styles.thanks}>
-                                Thanks.
+                                {this.state.locStrings.thanks}
                             </p>
                             <div style={styles.center}>
                                 <div style={styles.wrapper}>
@@ -210,7 +220,7 @@ class TranslationApp extends React.Component {
                                         style={styles.chip}
                                     >
                                         <Avatar src="images/cerastium_96.png" />
-                                        Common
+                                        {this.state.locStrings.app_common}
                                     </Chip>
 
                                     <Chip
@@ -219,7 +229,7 @@ class TranslationApp extends React.Component {
                                         id='app'
                                     >
                                         <Avatar src="images/bellis_96.png" />
-                                        What's that flower?
+                                        {this.state.locStrings.app_name}
                                     </Chip>
 
                                     <Chip
@@ -228,7 +238,7 @@ class TranslationApp extends React.Component {
                                         id='appplus'
                                     >
                                         <Avatar src="images/taraxacum_96.png" />
-                                        What's that flower? +
+                                        {this.state.locStrings.app_name_plus}
                                     </Chip>
 
                                     <Chip
@@ -247,8 +257,8 @@ class TranslationApp extends React.Component {
                 <div style={styles.col1}>
                     <Card style={styles.cardWizard}>
                         <CardHeader
-                            title="Step 1: Choose your language"
-                            subtitle="the one you want to improve (e.g. your native)"
+                            title={this.state.locStrings.step_1}
+                            subtitle={this.state.locStrings.step_1_description}
                             avatar={<Language />}
                         />
                         <CardText>
@@ -267,8 +277,8 @@ class TranslationApp extends React.Component {
                 <div style={styles.col2}>
                     <Card style={styles.cardWizard}>
                         <CardHeader
-                            title="Step 2: Choose source language"
-                            subtitle="the one you understand the most (English recommended)"
+                            title={this.state.locStrings.step_2}
+                            subtitle={this.state.locStrings.step_2_description}
                             avatar={<Language />}
                         />
                         <CardText>

@@ -104,19 +104,6 @@ class TranslationFlower extends React.Component {
     constructor(props) {
         super(props);
 
-        let userLanguage = (navigator.languages && navigator.languages[0]) || navigator.language;
-        if (userLanguage) {
-            let dividerPos = userLanguage.indexOf("-");
-            if (dividerPos > 0) {
-                userLanguage = userLanguage.substring(0, dividerPos)
-            }
-            if (Object.keys(languages).indexOf(userLanguage) === -1) {
-                userLanguage = 'en';
-            }
-        } else {
-            userLanguage = 'en';
-        }
-
         let plantName = props.plantName;
         if (!plantName || plants.indexOf(plantName) === -1) {
             const parsed = qs.parse(props.location.search);
@@ -128,7 +115,9 @@ class TranslationFlower extends React.Component {
 
         this.state = {
             initialized: false,
-            language1: userLanguage,
+            language: props.language,
+            locStrings: props.locStrings,
+            language1: props.language,
             language2: "en",
             plantName: plantName,
             plantLabel: '',
@@ -139,6 +128,28 @@ class TranslationFlower extends React.Component {
 
     componentDidMount() {
         this.loadTranslations(this.state.plantName, this.state.language1, this.state.language2);
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.state = {
+            language: newProps.language,
+            locStrings: newProps.locStrings,
+            initialized: this.state.initialized,
+            language1: this.state.language1,
+            language2: this.state.language2,
+            searchText: this.state.searchText,
+            plantName: this.state.plantName,
+            plantLabel: this.state.plantLabel,
+            labelOriginal: this.state.labelOriginal,
+            isLabelChanged: this.state.isLabelChanged,
+            plantNames: this.state.plantNames,
+            namesOriginal: this.state.namesOriginal,
+            isNamesChanged: this.state.isNamesChanged,
+            plantTranslationNew: this.state.plantTranslationNew,
+            plantTranslation: this.state.plantTranslation,
+            plantTranslationGT: this.state.plantTranslationGT,
+            plantTranslationSource: this.state.plantTranslationSource
+        };
     }
 
     loadTranslations(plantName, language1, language2) {
@@ -170,6 +181,8 @@ class TranslationFlower extends React.Component {
                 let label = that.getLabel(translationNew, translation);
                 let names = that.getNames(translationNew, translation);
                 that.setState({
+                    language: that.state.language,
+                    locStrings: that.state.locStrings,
                     initialized: true,
                     language1: language1,
                     language2: language2,
@@ -212,6 +225,8 @@ class TranslationFlower extends React.Component {
                 let label = that.getLabel(translationNew, translation);
                 let names = that.getNames(translationNew, translation);
                 that.setState({
+                    language: that.state.language,
+                    locStrings: that.state.locStrings,
                     initialized: true,
                     language1: language1,
                     language2: that.state.language2,
@@ -238,6 +253,8 @@ class TranslationFlower extends React.Component {
                 return result.json();
             }).then(function(item) {
                 that.setState({
+                    language: that.state.language,
+                    locStrings: that.state.locStrings,
                     initialized: true,
                     language1: that.state.language1,
                     language2: language2,
@@ -342,6 +359,8 @@ class TranslationFlower extends React.Component {
             return result.json();
         }).then(function(item) {
             that.setState({
+                language: that.state.language,
+                locStrings: that.state.locStrings,
                 type: that.state.type,
                 language1: that.state.language1,
                 language2: that.state.language2,
@@ -364,18 +383,16 @@ class TranslationFlower extends React.Component {
         return (
             <div id='translate_flower' style={styles.flowerTranslation}>
                 <div style={styles.header}>
-                    Translate flower's data
+                    {this.state.locStrings.translate_flower_title}
                 </div>
                 <div style={styles.col}>
                     <Card style={styles.cardWizard}>
                         <CardText>
                             <p>
-                            The application can only be as good as data it is presenting. Currently most of non-English and non-Slovak texts are translated with Google's help.
-                            Some translations are quite accurate, others are understandable or maybe even funny but everybody will agree that more native version won't hurt.
-                            Even already translated texts could be improved. Here is your chance to do it.
+                                {this.state.locStrings.translate_flower_description}
                             </p>
                             <p style={styles.thanks}>
-                            Thanks.
+                                {this.state.locStrings.thanks}
                             </p>
                         </CardText>
                     </Card>
@@ -383,8 +400,8 @@ class TranslationFlower extends React.Component {
                 <div style={styles.col1}>
                     <Card style={styles.cardWizard}>
                         <CardHeader
-                            title="Step 1: Choose your language"
-                            subtitle="the one you want to improve (e.g. your native)"
+                            title={this.state.locStrings.step_1}
+                            subtitle={this.state.locStrings.step_1_description}
                             avatar={<Language />}
                         />
                         <CardText>
@@ -401,13 +418,13 @@ class TranslationFlower extends React.Component {
                     </Card>
                     <Card style={styles.cardWizard}>
                         <CardHeader
-                            title="Step 3: Choose flower"
-                            subtitle="by typing its Latin name (only 5 matching names are shown)"
+                            title={this.state.locStrings.step_3}
+                            subtitle={this.state.locStrings.step_3_description}
                             avatar={<LocalFlorist />}
                         />
                         <CardText>
                             <AutoComplete
-                                hintText="Type Latin name, case insensitive"
+                                hintText={this.state.locStrings.step_3_text}
                                 searchText={this.state.searchText}
                                 onUpdateInput={this.handleUpdateInput}
                                 onFocus={this.handleNewRequest}
@@ -415,6 +432,7 @@ class TranslationFlower extends React.Component {
                                 filter={AutoComplete.caseInsensitiveFilter}
                                 openOnFocus={true}
                                 maxSearchResults={5}
+                                fullWidth={true}
                             />
                         </CardText>
                     </Card>
@@ -422,8 +440,8 @@ class TranslationFlower extends React.Component {
                 <div style={styles.col2}>
                     <Card style={styles.cardWizard}>
                         <CardHeader
-                            title="Step 2: Choose source language"
-                            subtitle="the one you understand the most (English recommended)"
+                            title={this.state.locStrings.step_2}
+                            subtitle={this.state.locStrings.step_2_description}
                             avatar={<Language />}
                         />
                         <CardText>
@@ -440,22 +458,21 @@ class TranslationFlower extends React.Component {
                     </Card>
                     <Card style={styles.cardWizard}>
                         <CardHeader
-                            title="Step 4: Translate / Improve"
-                            subtitle="and check when the text is ready"
+                            title={this.state.locStrings.step_4}
+                            subtitle={this.state.locStrings.step_4_description}
                             avatar={<Translate />}
                         />
                         <CardText>
-                            The flower's data is divided into 10 sections: names, description, inflorescence, flower, fruit, leaf, stem, habitat, toxicity, trivia.
-                            Translate icon next to section's name indicates translation via Google Translate.
+                            {this.state.locStrings.step_4_text}
                         </CardText>
                     </Card>
                 </div>
                 <div style={styles.col}>
                     <Card style={styles.card}>
                         <CardHeader
-                            title="names"
+                            title={this.state.locStrings.translate_names}
                             titleStyle={styles.cardHeader}
-                            subtitle="Check primary name and alternate names (comma divided)."
+                            subtitle={this.state.locStrings.translate_names_description}
                         >
                             <FloatingActionButton disabled={!this.state.plantLabel || (!this.state.isLabelChanged && !this.state.isNamesChanged)} secondary={true} style={styles.right} onClick={this.handleClick}>
                                 <Check />
@@ -467,14 +484,14 @@ class TranslationFlower extends React.Component {
                                 value={this.state.plantLabel}
                                 onChange={this.handleLabelChange}
                                 style={styles.lessThanHalf}
-                                floatingLabelText="primary name"
+                                floatingLabelText={this.state.locStrings.name_primary}
                             />
                             <TextField
                                 id={this.state.alt_names}
                                 value={this.state.plantNames}
                                 onChange={this.handleNamesChange}
                                 style={styles.full}
-                                floatingLabelText="alternate names"
+                                floatingLabelText={this.state.locStrings.name_alternate}
                                 multiLine={true}
                                 rows={2}
                                 rowsMax={2}
@@ -485,6 +502,7 @@ class TranslationFlower extends React.Component {
                 {this.state && this.state.initialized &&
                     <FlowerSection
                         type="description"
+                        description={this.state.locStrings.translate_description}
                         language1={this.state.language1}
                         language2={this.state.language2}
                         plantName={this.state.plantName}
@@ -497,6 +515,7 @@ class TranslationFlower extends React.Component {
                 {this.state && this.state.initialized &&
                     < FlowerSection
                         type="inflorescence"
+                        description={this.state.locStrings.translate_inflorescence}
                         language1={this.state.language1}
                         language2={this.state.language2}
                         plantName={this.state.plantName}
@@ -509,6 +528,7 @@ class TranslationFlower extends React.Component {
                 {this.state && this.state.initialized &&
                     <FlowerSection
                         type="flower"
+                        description={this.state.locStrings.translate_flower}
                         language1={this.state.language1}
                         language2={this.state.language2}
                         plantName={this.state.plantName}
@@ -521,6 +541,7 @@ class TranslationFlower extends React.Component {
                 {this.state && this.state.initialized &&
                     <FlowerSection
                         type="fruit"
+                        description={this.state.locStrings.translate_fruit}
                         language1={this.state.language1}
                         language2={this.state.language2}
                         plantName={this.state.plantName}
@@ -533,6 +554,7 @@ class TranslationFlower extends React.Component {
                 {this.state && this.state.initialized &&
                     <FlowerSection
                         type="leaf"
+                        description={this.state.locStrings.translate_leaf}
                         language1={this.state.language1}
                         language2={this.state.language2}
                         plantName={this.state.plantName}
@@ -545,6 +567,7 @@ class TranslationFlower extends React.Component {
                 {this.state && this.state.initialized &&
                     <FlowerSection
                         type="stem"
+                        description={this.state.locStrings.translate_stem}
                         language1={this.state.language1}
                         language2={this.state.language2}
                         plantName={this.state.plantName}
@@ -557,6 +580,7 @@ class TranslationFlower extends React.Component {
                 {this.state && this.state.initialized &&
                     <FlowerSection
                         type="habitat"
+                        description={this.state.locStrings.translate_habitat}
                         language1={this.state.language1}
                         language2={this.state.language2}
                         plantName={this.state.plantName}
@@ -569,6 +593,7 @@ class TranslationFlower extends React.Component {
                 {this.state && this.state.initialized &&
                     <FlowerSection
                         type="toxicity"
+                        description={this.state.locStrings.translate_toxicity}
                         language1={this.state.language1}
                         language2={this.state.language2}
                         plantName={this.state.plantName}
@@ -581,6 +606,7 @@ class TranslationFlower extends React.Component {
                 {this.state && this.state.initialized &&
                     <FlowerSection
                         type="herbalism"
+                        description={this.state.locStrings.translate_herbalism}
                         language1={this.state.language1}
                         language2={this.state.language2}
                         plantName={this.state.plantName}
@@ -593,6 +619,7 @@ class TranslationFlower extends React.Component {
                 {this.state && this.state.initialized &&
                     <FlowerSection
                         type="trivia"
+                        description={this.state.locStrings.translate_trivia}
                         language1={this.state.language1}
                         language2={this.state.language2}
                         plantName={this.state.plantName}

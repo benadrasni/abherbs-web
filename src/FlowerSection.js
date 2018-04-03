@@ -74,6 +74,7 @@ export default class FlowerSection extends React.Component {
 
         this.state = {
             type: props.type,
+            description: props.description,
             language1: props.language1,
             language2: props.language2,
             plantName: props.plantName,
@@ -108,6 +109,7 @@ export default class FlowerSection extends React.Component {
 
         this.state = {
             type: newProps.type,
+            description: newProps.description,
             language1: newProps.language1,
             language2: newProps.language2,
             plantName: newProps.plantName,
@@ -141,6 +143,7 @@ export default class FlowerSection extends React.Component {
         }).then(function(item) {
             that.setState({
                 type: that.state.type,
+                description: that.state.description,
                 language1: that.state.language1,
                 language2: that.state.language2,
                 plantName: that.state.plantName,
@@ -159,7 +162,7 @@ export default class FlowerSection extends React.Component {
                 <div style={styles.col1}>
                     <Card style={styles.card}>
                         <CardHeader
-                            title={this.state.type}
+                            title={this.state.description}
                             titleStyle={styles.cardHeader}
                         >
                             <FloatingActionButton disabled={!this.state.value || (!this.state.isChanged && !this.state.showGT)} secondary={true} style={styles.right} onClick={this.handleClick}>
@@ -175,7 +178,7 @@ export default class FlowerSection extends React.Component {
                                 value={this.state.value}
                                 onChange={this.handleChange}
                                 style={styles.full}
-                                hintText={this.state.type}
+                                hintText={this.state.description}
                                 multiLine={true}
                                 rows={3}
                                 rowsMax={4}

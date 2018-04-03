@@ -110,10 +110,10 @@ class Home extends React.Component {
                     />
                 </div>
                 <div style={styles.container}>
-                    <VersionTable>
+                    <VersionTable
                         language={this.state.language}
                         locStrings={this.state.locStrings}
-                    </VersionTable>
+                    />
                 </div>
                 <div style={styles.bottom}>
                     <RaisedButton
