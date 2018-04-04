@@ -57,7 +57,7 @@ export default class AppDrawer extends React.Component {
                     }
                 />
                 <MenuItem href={this.enrichUrl('/')} primaryText={this.state.locStrings.menu_home} leftIcon={<Home />} onClick={this.handleRequestToggle} />
-                <MenuItem href={this.enrichUrl('/#download')} primaryText={this.state.locStrings.menu_download} leftIcon={<FileDownload />} onClick={this.handleRequestToggle} />
+                <MenuItem href={this.enrichUrl('/') + '#download'} primaryText={this.state.locStrings.menu_download} leftIcon={<FileDownload />} onClick={this.handleRequestToggle} />
                 <MenuItem href={this.enrichUrl('/translate_flower')} primaryText={this.state.locStrings.menu_translate_flower} leftIcon={<Translate />} onClick={this.handleRequestToggle} />
                 <MenuItem href={this.enrichUrl('/translate_app')} primaryText={this.state.locStrings.menu_translate_app} leftIcon={<Translate />} onClick={this.handleRequestToggle} />
                 <MenuItem href={this.enrichUrl('/help')} primaryText={this.state.locStrings.menu_help} leftIcon={<Help />} onClick={this.handleRequestToggle} />
