@@ -55,7 +55,9 @@ class Flower extends React.Component {
         this.state = {
             language: props.language,
             locStrings: props.locStrings,
-            photoIndex: 0
+            photoIndex: 0,
+            plant: props.plant,
+            plantTranslation: props.plantTranslation
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -65,7 +67,9 @@ class Flower extends React.Component {
         this.state = {
             language: newProps.language,
             locStrings: newProps.locStrings,
-            photoIndex: this.state.photoIndex
+            photoIndex: this.state.photoIndex,
+            plant: newProps.plant,
+            plantTranslation: newProps.plantTranslation
         };
     }
 
@@ -107,14 +111,18 @@ class Flower extends React.Component {
                         </CardText>
                     </Card>
                     <Card style={styles.flowerCard}>
-                        <CardTitle title={this.props.plantTranslation && this.props.plantTranslation.label} subtitle={this.props.plantTranslation && this.props.plantTranslation.names && this.props.plantTranslation.names.join(', ')} />
+                        <CardTitle title={this.state.plantTranslation && this.state.plantTranslation.label} subtitle={this.state.plantTranslation && this.state.plantTranslation.names && this.state.plantTranslation.names.join(', ')} />
                         <CardText>
-                            <div>{this.props.plantTranslation && this.props.plantTranslation.description}</div>
-                            <div><i>{this.state.locStrings.translate_flower}:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.flower}</div>
-                            <div><i>{this.state.locStrings.translate_fruit}:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.fruit}</div>
-                            <div><i>{this.state.locStrings.translate_leaf}:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.leaf}</div>
-                            <div><i>{this.state.locStrings.translate_stem}:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.stem}</div>
-                            <div><i>{this.state.locStrings.translate_habitat}:&nbsp;</i>{this.props.plantTranslation && this.props.plantTranslation.habitat}</div>
+                            <div>{this.state.plantTranslation && this.state.plantTranslation.description}</div>
+                            <div><img alt={this.state.locStrings.translate_inflorescence} src='images/ic_inflorescence_grey_24dp.png' />&nbsp;{this.state.plantTranslation && this.state.plantTranslation.inflorescence}</div>
+                            <div><img alt={this.state.locStrings.translate_flower} src='images/ic_flower_grey_24dp.png' />&nbsp;{this.state.plantTranslation && this.state.plantTranslation.flower}</div>
+                            <div><img alt={this.state.locStrings.translate_fruit} src='images/ic_fruit_grey_24dp.png' />&nbsp;{this.state.plantTranslation && this.state.plantTranslation.fruit}</div>
+                            <div><img alt={this.state.locStrings.translate_leaf} src='images/ic_leaf_grey_24dp.png' />&nbsp;{this.state.plantTranslation && this.state.plantTranslation.leaf}</div>
+                            <div><img alt={this.state.locStrings.translate_stem} src='images/ic_stem_grey_24dp.png' />&nbsp;{this.state.plantTranslation && this.state.plantTranslation.stem}</div>
+                            <div><img alt={this.state.locStrings.translate_habitat} src='images/ic_home_grey_24dp.png' />&nbsp;{this.state.plantTranslation && this.state.plantTranslation.habitat}</div>
+                            <div><img alt={this.state.locStrings.translate_toxicity} src='images/ic_toxicity_grey_24dp.png' />&nbsp;{this.state.plantTranslation && this.state.plantTranslation.toxicity}</div>
+                            <div><img alt={this.state.locStrings.translate_habitat} src='images/ic_local_pharmacy_grey_24dp.png' />&nbsp;{this.state.plantTranslation && this.state.plantTranslation.herbalism}</div>
+                            <div><img alt={this.state.locStrings.translate_habitat} src='images/ic_question_mark_grey_24dp.png' />&nbsp;{this.state.plantTranslation && this.state.plantTranslation.trivia}</div>
                         </CardText>
                     </Card>
                 </div>
