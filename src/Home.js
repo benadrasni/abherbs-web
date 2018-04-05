@@ -85,8 +85,8 @@ class Home extends React.Component {
                 locStrings: locStrings,
                 plant: plant,
                 plantTranslation: {
-                    label: that.getAttribute('label', translation, translationGT, translationEn),
-                    names: that.getArrayAttribute('names', translation, translationGT, translationEn),
+                    label: that.getLabel(translation, plant),
+                    names: translation ? translation.names : [],
                     description: that.getAttribute('description', translation, translationGT, translationEn),
                     inflorescence: that.getAttribute('inflorescence', translation, translationGT, translationEn),
                     flower: that.getAttribute('flower', translation, translationGT, translationEn),
@@ -102,6 +102,18 @@ class Home extends React.Component {
         })
     }
 
+    getLabel(translation, plant) {
+        let attr = '';
+        if (translation && translation.label) {
+            attr = translation.label;
+        }
+        if (!attr) {
+            attr = plant.name;
+        }
+
+        return attr;
+    }
+
     getAttribute(attribute, translation, translationGT, translationEn) {
         let attr = '';
         if (translation && translation[attribute]) {
@@ -111,21 +123,6 @@ class Home extends React.Component {
             attr = translationGT[attribute];
         }
         if (!attr && translationEn && translationEn[attribute]) {
-            attr = translationEn[attribute];
-        }
-
-        return attr;
-    }
-
-    getArrayAttribute(attribute, translation, translationGT, translationEn) {
-        let attr = [];
-        if (translation && translation[attribute]) {
-            attr = translation[attribute];
-        }
-        if ((!attr || attr.length === 0) && translationGT && translationGT[attribute]) {
-            attr = translationGT[attribute];
-        }
-        if ((!attr || attr.length === 0) && translationEn && translationEn[attribute]) {
             attr = translationEn[attribute];
         }
 
