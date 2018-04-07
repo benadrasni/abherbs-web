@@ -889,7 +889,8 @@ const plants = ["Acer campestre",
     "Orchis purpurea",
     "Hyacinthus orientalis",
     "Lonicera sempervirens",
-    "Hymenopappus scabiosaeus"
+    "Hymenopappus scabiosaeus",
+    "Acca sellowiana"
 ]
 
 export default plants;
