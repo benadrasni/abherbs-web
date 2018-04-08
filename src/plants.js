@@ -890,7 +890,12 @@ const plants = ["Acer campestre",
     "Hyacinthus orientalis",
     "Lonicera sempervirens",
     "Hymenopappus scabiosaeus",
-    "Acca sellowiana"
+    "Acca sellowiana",
+    "Trapa natans",
+    "Stratiotes aloides",
+    "Reynoutria japonica",
+    "Erigeron annuus",
+    "Nerium oleander"
 ]
 
 export default plants;
