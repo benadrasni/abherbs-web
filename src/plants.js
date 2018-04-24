@@ -895,7 +895,9 @@ const plants = ["Acer campestre",
     "Stratiotes aloides",
     "Reynoutria japonica",
     "Erigeron annuus",
-    "Nerium oleander"
+    "Nerium oleander",
+    "Mazus pumilus",
+    "Bergenia crassifolia"
 ]
 
 export default plants;
