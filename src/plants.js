@@ -899,7 +899,14 @@ const plants = ["Acer campestre",
     "Mazus pumilus",
     "Bergenia crassifolia",
     "Viola mandshurica",
-    "Bidens pilosa"
+    "Bidens pilosa",
+    "Verbena brasiliensis",
+    "Verbena halei",
+    "Sabatia campestris",
+    "Romneya coulteri",
+    "Commelina erecta",
+    "Neptunia plena",
+    "Hyacinthoides non-scripta"
 ]
 
 export default plants;
