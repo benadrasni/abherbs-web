@@ -92,6 +92,11 @@ export default class VersionTable extends Component {
                 extended: 'yes',
             },
             {
+                feature: this.state.locStrings.feature_filter_by_region,
+                basic: 'yes',
+                extended: 'yes',
+            },
+            {
                 feature: this.state.locStrings.feature_offline_mode,
                 basic: '',
                 extended: 'yes',
