@@ -906,7 +906,11 @@ const plants = ["Acer campestre",
     "Romneya coulteri",
     "Commelina erecta",
     "Neptunia plena",
-    "Hyacinthoides non-scripta"
+    "Hyacinthoides non-scripta",
+    "Indigofera miniata",
+    "Strophostyles helvola",
+    "Cakile maritima",
+    "Oenothera drummondii"
 ]
 
 export default plants;
