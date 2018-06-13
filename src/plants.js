@@ -910,7 +910,15 @@ const plants = ["Acer campestre",
     "Indigofera miniata",
     "Strophostyles helvola",
     "Cakile maritima",
-    "Oenothera drummondii"
+    "Oenothera drummondii",
+    "Phacelia tanacetifolia",
+    "Pulmonaria obscura",
+    "Phyteuma nigrum",
+    "Phyteuma orbiculare",
+    "Echinops sphaerocephalus",
+    "Salvia verticillata",
+    "Cymbalaria muralis",
+    "Globularia punctata"
 ]
 
 export default plants;
