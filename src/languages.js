@@ -29,6 +29,6 @@ const languages = {
     "sv":"Svenska",
     "fi":"Suomi",
     "uk":"Українська"
-}
+};
 
 export default languages;

@@ -47,7 +47,15 @@ const styles = {
 
     playImage: {
         width: '100%',
-        maxWidth: '258px'
+        maxWidth: '150px'
+    },
+
+    appStore: {
+        display: 'inline-block',
+        overflow: 'hidden',
+        background: 'url(https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2019-01-21&kind=iossoftware&bubble=ios_apps) no-repeat',
+        width: '135px',
+        height: '40px'
     }
 };
 
@@ -172,6 +180,16 @@ export default class VersionTable extends Component {
                                 <a href="https://play.google.com/store/apps/details?id=sk.ab.herbsplus">
                                     <img alt='' src="./images/google-play-badge.png" style={styles.playImage} />
                                 </a>
+                            </TableRowColumn>
+                        </TableRow>
+                        <TableRow>
+                            <TableRowColumn />
+                            <TableRowColumn style={{textAlign: 'center'}}>
+                                <a href="https://itunes.apple.com/us/app/whats-that-flower/id1449982118?mt=8" style={styles.appStore} >
+                                </a>
+                            </TableRowColumn>
+                            <TableRowColumn style={{textAlign: 'center'}}>
+
                             </TableRowColumn>
                         </TableRow>
                     </TableFooter>

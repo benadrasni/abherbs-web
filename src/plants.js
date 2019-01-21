@@ -918,7 +918,31 @@ const plants = ["Acer campestre",
     "Echinops sphaerocephalus",
     "Salvia verticillata",
     "Cymbalaria muralis",
-    "Globularia punctata"
-]
+    "Globularia punctata",
+    "Bunias orientalis",
+    "Helianthus tuberosus",
+    "Carlina vulgaris",
+    "Salvia glutinosa",
+    "Utricularia australis",
+    "Phalaenopsis sanderiana",
+    "Lagerstroemia indica",
+    "Dianthus barbatus",
+    "Ostrya carpinifolia",
+    "Ruellia simplex",
+    "Oenothera lindheimeri",
+    "Leucophyllum frutescens",
+    "Swertia perennis",
+    "Tecoma stans",
+    "Chrysosplenium oppositifolium",
+    "Vitex agnus-castus",
+    "Ambrosia artemisiifolia",
+    "Himantoglossum hircinum",
+    "Ipomoea violacea",
+    "Datura innoxia",
+    "Argyranthemum frutescens",
+    "Salvia officinalis",
+    "Nepeta cataria",
+    "Nepeta nepetella"
+];
 
 export default plants;

@@ -1,7 +1,6 @@
 import React from 'react';
 import {Card, CardMedia, CardTitle} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import Android from 'material-ui-icons/Android';
 import Mail from 'material-ui-icons/Mail';
 import VersionTable from "./VersionTable";
 import Flower from "./Flower";
@@ -148,7 +147,6 @@ class Home extends React.Component {
                                     label={this.state.locStrings.app_name}
                                     labelPosition="before"
                                     primary={true}
-                                    icon={<Android />}
                                     style={styles.button}
                                     onClick={this.goToDownload}
                                 /></div>} />}
