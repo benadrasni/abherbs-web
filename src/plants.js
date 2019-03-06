@@ -942,7 +942,13 @@ const plants = ["Acer campestre",
     "Argyranthemum frutescens",
     "Salvia officinalis",
     "Nepeta cataria",
-    "Nepeta nepetella"
+    "Nepeta nepetella",
+    "Commelina communis",
+    "Duranta erecta",
+    "Tropaeolum majus",
+    "Ruta graveolens",
+    "Lepidium virginicum",
+    "Borago officinalis"
 ];
 
 export default plants;

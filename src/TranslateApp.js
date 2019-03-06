@@ -98,7 +98,7 @@ class TranslationApp extends React.Component {
             locStrings: props.locStrings,
             language1: props.language,
             language2: "en",
-            appName: "appbase"
+            appName: "app"
         };
     }
 
@@ -216,29 +216,12 @@ class TranslationApp extends React.Component {
                             <div style={styles.center}>
                                 <div style={styles.wrapper}>
                                     <Chip
-                                        onClick={(e) => this.handleAppClick('appbase', e)}
-                                        style={styles.chip}
-                                    >
-                                        <Avatar src="images/cerastium_96.png" />
-                                        {this.state.locStrings.app_common}
-                                    </Chip>
-
-                                    <Chip
                                         onClick={(e) => this.handleAppClick('app', e)}
                                         style={styles.chip}
                                         id='app'
                                     >
                                         <Avatar src="images/bellis_96.png" />
                                         {this.state.locStrings.app_name}
-                                    </Chip>
-
-                                    <Chip
-                                        onClick={(e) => this.handleAppClick('appplus', e)}
-                                        style={styles.chip}
-                                        id='appplus'
-                                    >
-                                        <Avatar src="images/taraxacum_96.png" />
-                                        {this.state.locStrings.app_name_plus}
                                     </Chip>
 
                                     <Chip

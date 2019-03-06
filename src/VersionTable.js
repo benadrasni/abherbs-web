@@ -46,6 +46,8 @@ const styles = {
     },
 
     playImage: {
+        display: 'inline-block',
+        overflow: 'hidden',
         width: '100%',
         maxWidth: '150px'
     },
@@ -82,27 +84,27 @@ export default class VersionTable extends Component {
             {
                 feature: this.state.locStrings.feature_flowers,
                 basic: plants.length,
-                extended: plants.length,
+                extended: '',
             },
             {
                 feature: this.state.locStrings.feature_filter_by_color,
                 basic: 'yes',
-                extended: 'yes',
+                extended: '',
             },
             {
                 feature: this.state.locStrings.feature_filter_by_habitat,
                 basic: 'yes',
-                extended: 'yes',
+                extended: '',
             },
             {
                 feature: this.state.locStrings.feature_filter_by_petals,
                 basic: 'yes',
-                extended: 'yes',
+                extended: '',
             },
             {
                 feature: this.state.locStrings.feature_filter_by_region,
                 basic: 'yes',
-                extended: 'yes',
+                extended: '',
             },
             {
                 feature: this.state.locStrings.feature_configurable_filter,
@@ -144,8 +146,17 @@ export default class VersionTable extends Component {
                         enableSelectAll={false}
                     >
                         <TableRow>
-                            <TableHeaderColumn colSpan="3" style={styles.tableHeader}>
+                            <TableHeaderColumn style={styles.tableHeader}>
                                 {this.state.locStrings.download_application}
+                            </TableHeaderColumn>
+                            <TableHeaderColumn style={{textAlign: 'center'}}>
+                                <a href="https://play.google.com/store/apps/details?id=sk.ab.herbs">
+                                    <img alt='' src="./images/google-play-badge.png" style={styles.playImage} />
+                                </a>
+                            </TableHeaderColumn>
+                            <TableHeaderColumn style={{textAlign: 'center'}}>
+                                <a href="https://itunes.apple.com/us/app/whats-that-flower/id1449982118?mt=8" style={styles.appStore} >
+                                </a>
                             </TableHeaderColumn>
                         </TableRow>
                         <TableRow>
@@ -171,26 +182,8 @@ export default class VersionTable extends Component {
                     <TableFooter adjustForCheckbox={false}>
                         <TableRow>
                             <TableRowColumn />
-                            <TableRowColumn style={{textAlign: 'center'}}>
-                                <a href="https://play.google.com/store/apps/details?id=sk.ab.herbs">
-                                    <img alt='' src="./images/google-play-badge.png" style={styles.playImage} />
-                                </a>
-                            </TableRowColumn>
-                            <TableRowColumn style={{textAlign: 'center'}}>
-                                <a href="https://play.google.com/store/apps/details?id=sk.ab.herbsplus">
-                                    <img alt='' src="./images/google-play-badge.png" style={styles.playImage} />
-                                </a>
-                            </TableRowColumn>
-                        </TableRow>
-                        <TableRow>
                             <TableRowColumn />
-                            <TableRowColumn style={{textAlign: 'center'}}>
-                                <a href="https://itunes.apple.com/us/app/whats-that-flower/id1449982118?mt=8" style={styles.appStore} >
-                                </a>
-                            </TableRowColumn>
-                            <TableRowColumn style={{textAlign: 'center'}}>
-
-                            </TableRowColumn>
+                            <TableRowColumn />
                         </TableRow>
                     </TableFooter>
                 </Table>
