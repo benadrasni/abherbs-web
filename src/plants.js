@@ -948,7 +948,15 @@ const plants = ["Acer campestre",
     "Tropaeolum majus",
     "Ruta graveolens",
     "Lepidium virginicum",
-    "Borago officinalis"
+    "Borago officinalis",
+    "Zeuxine strateumatica",
+    "Balsamorhiza sagittata",
+    "Hypochaeris radicata",
+    "Hibiscus rosa-sinensis",
+    "Euryops pectinatus",
+    "Chamaemelum nobile",
+    "Gerbera jamesonii",
+    "Scilla luciliae"
 ];
 
 export default plants;
