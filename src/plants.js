@@ -956,7 +956,19 @@ const plants = ["Acer campestre",
     "Euryops pectinatus",
     "Chamaemelum nobile",
     "Gerbera jamesonii",
-    "Scilla luciliae"
+    "Scilla luciliae",
+    "Callistephus chinensis",
+    "Marrubium vulgare",
+    "Sonchus oleraceus",
+    "Oenothera fruticosa",
+    "Hieracium umbellatum",
+    "Hydrangea involucrata",
+    "Pelargonium peltatum",
+    "Podophyllum peltatum",
+    "Penstemon digitalis",
+    "Anthurium andraeanum",
+    "Philadelphus coronarius",
+    "Ceanothus thyrsiflorus"
 ];
 
 export default plants;
