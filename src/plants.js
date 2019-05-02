@@ -968,7 +968,11 @@ const plants = ["Acer campestre",
     "Penstemon digitalis",
     "Anthurium andraeanum",
     "Philadelphus coronarius",
-    "Ceanothus thyrsiflorus"
+    "Ceanothus thyrsiflorus",
+    "Kaempferia rotunda",
+    "Begonia cucullata",
+    "Iberis sempervirens",
+    "Plectranthus fruticosus"
 ];
 
 export default plants;
