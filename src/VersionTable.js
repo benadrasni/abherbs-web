@@ -84,52 +84,50 @@ export default class VersionTable extends Component {
             {
                 feature: this.state.locStrings.feature_flowers,
                 basic: plants.length,
-                extended: '',
             },
             {
                 feature: this.state.locStrings.feature_filter_by_color,
                 basic: 'yes',
-                extended: '',
             },
             {
                 feature: this.state.locStrings.feature_filter_by_habitat,
                 basic: 'yes',
-                extended: '',
             },
             {
                 feature: this.state.locStrings.feature_filter_by_petals,
                 basic: 'yes',
-                extended: '',
             },
             {
                 feature: this.state.locStrings.feature_filter_by_region,
                 basic: 'yes',
-                extended: '',
+            },
+            {
+                feature: this.state.locStrings.feature_favorite_flowers,
+                basic: 'yes',
             },
             {
                 feature: this.state.locStrings.feature_configurable_filter,
-                basic: '',
-                extended: 'yes',
+                basic: '$',
             },
             {
                 feature: this.state.locStrings.feature_offline_mode,
-                basic: '',
-                extended: 'yes',
+                basic: '$',
             },
             {
                 feature: this.state.locStrings.feature_search_by_name,
-                basic: '',
-                extended: 'yes',
+                basic: '$',
             },
             {
                 feature: this.state.locStrings.feature_search_by_taxonomy,
-                basic: '',
-                extended: 'yes',
+                basic: '$',
             },
             {
                 feature: this.state.locStrings.feature_observations,
-                basic: '',
-                extended: 'yes',
+                basic: '$',
+            },
+            {
+                feature: this.state.locStrings.feature_search_by_photo,
+                basic: '$',
             }];
 
         return (
@@ -159,11 +157,6 @@ export default class VersionTable extends Component {
                                 </a>
                             </TableHeaderColumn>
                         </TableRow>
-                        <TableRow>
-                            <TableHeaderColumn />
-                            <TableHeaderColumn style={styles.columnHeader}>{this.state.locStrings.app_basic}</TableHeaderColumn>
-                            <TableHeaderColumn style={styles.columnHeader}>{this.state.locStrings.app_plus}</TableHeaderColumn>
-                        </TableRow>
                     </TableHeader>
                     <TableBody
                         displayRowCheckbox={false}
@@ -174,14 +167,12 @@ export default class VersionTable extends Component {
                         {tableData.map( (row, index) => (
                             <TableRow key={index}>
                                 <TableRowColumn style={styles.rowHeader}>{row.feature}</TableRowColumn>
-                                <TableRowColumn style={styles.rowBody}>{(row.basic === 'yes' && <ActionDone/>) || row.basic}</TableRowColumn>
-                                <TableRowColumn style={styles.rowBody}>{(row.extended === 'yes' && <ActionDone/>) || row.extended}</TableRowColumn>
+                                <TableRowColumn colSpan={2} style={styles.rowBody}>{(row.basic === 'yes' && this.state.locStrings.app_basic) || row.basic}</TableRowColumn>
                             </TableRow>
                         ))}
                     </TableBody>
                     <TableFooter adjustForCheckbox={false}>
                         <TableRow>
-                            <TableRowColumn />
                             <TableRowColumn />
                             <TableRowColumn />
                         </TableRow>

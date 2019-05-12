@@ -972,7 +972,15 @@ const plants = ["Acer campestre",
     "Kaempferia rotunda",
     "Begonia cucullata",
     "Iberis sempervirens",
-    "Plectranthus fruticosus"
+    "Plectranthus fruticosus",
+    "Wisteria frutescens",
+    "Echium candicans",
+    "Jasminum officinale",
+    "Gladiolus palustris",
+    "Tragopogon porrifolius",
+    "Ocimum basilicum",
+    "Clivia miniata",
+    "Anthriscus cerefolium"
 ];
 
 export default plants;
