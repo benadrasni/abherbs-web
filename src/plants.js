@@ -1002,7 +1002,21 @@ const plants = ["Acer campestre",
     "Vernonia arkansana",
     "Eutrochium maculatum",
     "Hyssopus officinalis",
-    "Primula vulgaris"
+    "Primula vulgaris",
+    "Lathyrus palustris",
+    "Amaryllis belladonna",
+    "Ipomoea pandurata",
+    "Verbascum blattaria",
+    "Zinnia elegans",
+    "Leonurus cardiaca",
+    "Perilla frutescens",
+    "Centella asiatica",
+    "Eriophyllum lanatum",
+    "Carthamus tinctorius",
+    "Adenium obesum",
+    "Gynostemma pentaphyllum",
+    "Kniphofia uvaria",
+    "Canna indica"
 ];
 
 export default plants;
