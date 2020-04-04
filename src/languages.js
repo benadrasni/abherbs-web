@@ -1,5 +1,6 @@
 const languages = {
     "ar":"العربية",
+    "bg": "Български",
     "cs":"Čeština",
     "da":"Dansk",
     "de":"Deutsch",
@@ -12,6 +13,7 @@ const languages = {
     "he":"עברית",
     "hr":"Hrvatski",
     "it":"Italiano",
+    "ko": "한국어",
     "lv":"Latviešu",
     "lt":"Lietuvių",
     "hu":"Magyar",
