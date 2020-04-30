@@ -30,7 +30,8 @@ const languages = {
     "sr":"Српски / srpski",
     "sv":"Svenska",
     "fi":"Suomi",
-    "uk":"Українська"
+    "uk":"Українська",
+    "zh":"中文"
 };
 
 export default languages;
