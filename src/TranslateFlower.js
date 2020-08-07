@@ -10,9 +10,8 @@ import Language from 'material-ui-icons/Language';
 import LocalFlorist from 'material-ui-icons/LocalFlorist';
 import Translate from 'material-ui-icons/Translate';
 import Check from 'material-ui-icons/Check';
-import languages from "./languages";
-import plants from "./plants";
 import FlowerSection from "./FlowerSection";
+import languages from "./languages";
 
 const styles = {
     flowerTranslation: {
@@ -105,16 +104,17 @@ class TranslationFlower extends React.Component {
         super(props);
 
         let plantName = props.plantName;
-        if (!plantName || plants.indexOf(plantName) === -1) {
+        if (!plantName || props.plants.indexOf(plantName) === -1) {
             const parsed = qs.parse(props.location.search);
             plantName = parsed["plant"];
-            if (!plantName || plants.indexOf(plantName) === -1) {
+            if (!plantName || props.plants.indexOf(plantName) === -1) {
                 plantName = null;
             }
         }
 
         this.state = {
             initialized: false,
+            plants: props.plants,
             language: props.language,
             locStrings: props.locStrings,
             language1: props.language,
@@ -132,6 +132,7 @@ class TranslationFlower extends React.Component {
 
     componentWillReceiveProps(newProps) {
         this.state = {
+            plants: newProps.plants,
             language: newProps.language,
             locStrings: newProps.locStrings,
             initialized: this.state.initialized,
@@ -181,6 +182,7 @@ class TranslationFlower extends React.Component {
                 let label = that.getLabel(translationNew, translation);
                 let names = that.getNames(translationNew, translation);
                 that.setState({
+                    plants: that.state.plants,
                     language: that.state.language,
                     locStrings: that.state.locStrings,
                     initialized: true,
@@ -225,6 +227,7 @@ class TranslationFlower extends React.Component {
                 let label = that.getLabel(translationNew, translation);
                 let names = that.getNames(translationNew, translation);
                 that.setState({
+                    plants: that.state.plants,
                     language: that.state.language,
                     locStrings: that.state.locStrings,
                     initialized: true,
@@ -253,6 +256,7 @@ class TranslationFlower extends React.Component {
                 return result.json();
             }).then(function(item) {
                 that.setState({
+                    plants: that.state.plants,
                     language: that.state.language,
                     locStrings: that.state.locStrings,
                     initialized: true,
@@ -359,6 +363,7 @@ class TranslationFlower extends React.Component {
             return result.json();
         }).then(function(item) {
             that.setState({
+                plants: that.state.plants,
                 language: that.state.language,
                 locStrings: that.state.locStrings,
                 type: that.state.type,
@@ -428,7 +433,7 @@ class TranslationFlower extends React.Component {
                                 searchText={this.state.searchText}
                                 onUpdateInput={this.handleUpdateInput}
                                 onFocus={this.handleNewRequest}
-                                dataSource={plants}
+                                dataSource={this.state.plants}
                                 filter={AutoComplete.caseInsensitiveFilter}
                                 openOnFocus={true}
                                 maxSearchResults={5}

@@ -2,7 +2,6 @@ import React from 'react';
 import qs from 'query-string';
 import Home from "./Home";
 import TranslateFlower from "./TranslateFlower";
-import plants from "./plants";
 
 class LandingPage extends React.Component {
     constructor(props, context) {
@@ -10,13 +9,16 @@ class LandingPage extends React.Component {
 
         const parsed = qs.parse(props.location.search);
         let plantName = parsed["plant"];
-        if (!plantName || plants.indexOf(plantName) === -1) {
-            plantName = plants[Math.floor(Math.random() * (plants.length -1))];
+        if (!plantName || props.plants.indexOf(plantName) === -1) {
+            plantName = props.plants[Math.floor(Math.random() * (props.plants.length -1))];
         }
+
+       // alert(props.plants[0]);
 
         this.state = {
             language: props.language,
             locStrings: props.locStrings,
+            plants: props.plants,
             translate: window.location.href.endsWith("#translate_flower"),
             plantName: plantName
         };
@@ -27,6 +29,7 @@ class LandingPage extends React.Component {
         this.state = {
             language: newProps.language,
             locStrings: newProps.locStrings,
+            plants: newProps.plants,
             translate: this.state.translate,
             plantName: this.state.plantName
         };
@@ -34,11 +37,15 @@ class LandingPage extends React.Component {
 
     render() {
         return this.state.translate ?
-            <TranslateFlower plantName={this.state.plantName} /> :
+            <TranslateFlower
+                plantName={this.state.plantName}
+                plants={this.state.plants}
+            /> :
             <Home
                 language={this.state.language}
                 locStrings={this.state.locStrings}
                 plantName={this.state.plantName}
+                plantsCount={this.state.plants.length}
             />;
     }
 }

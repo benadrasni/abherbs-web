@@ -35,6 +35,7 @@ class Home extends React.Component {
             language: props.language,
             locStrings: props.locStrings,
             plantName: props.plantName,
+            plantsCount: props.plantsCount,
             plant: {},
             plantTranslation: {}
         };
@@ -169,6 +170,7 @@ class Home extends React.Component {
                     <VersionTable
                         language={this.state.language}
                         locStrings={this.state.locStrings}
+                        plantsCount={this.state.plantsCount}
                     />
                 </div>
                 <div style={styles.bottom}>
