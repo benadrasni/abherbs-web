@@ -13,8 +13,6 @@ class LandingPage extends React.Component {
             plantName = props.plants[Math.floor(Math.random() * (props.plants.length -1))];
         }
 
-       // alert(props.plants[0]);
-
         this.state = {
             language: props.language,
             locStrings: props.locStrings,

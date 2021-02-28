@@ -55,7 +55,7 @@ class Home extends React.Component {
         const that = this;
         let plant = {}, translation = {}, translationGT = {}, translationEn = {};
 
-        fetch('https://abherbs-backend.firebaseio.com/plants/' + that.state.plantName + '.json')
+        fetch('https://abherbs-backend.firebaseio.com/plants_v2/' + that.state.plantName + '.json')
             .then(function(result) {
                 return result.json();
             }).then(function(item) {
