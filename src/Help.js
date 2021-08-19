@@ -32,6 +32,17 @@ const styles = {
         marginTop: '10px',
         marginBottom: '10px',
         height: 'auto'
+    },
+
+    video: {
+        width: '560px',
+        height: '315px',
+
+        top: '0',
+        right: '0',
+        bottom: '0',
+        left: '0',
+        margin: 'auto'
     }
 };
 
@@ -58,6 +69,9 @@ class Help extends React.Component {
             <div id='help' style={styles.help}>
                 <div style={styles.header}>
                     {this.state.locStrings.menu_help}
+                </div>
+                <div style={styles.video}>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/8xL7QMXT0WE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div style={styles.col}>
                     <Card style={styles.cardWizard}>

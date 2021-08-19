@@ -78,22 +78,32 @@ class Main extends Component {
             initialized: false,
             drawerOpen: false,
             language: userLanguage,
-            locStrings: {}
+            locStrings: {},
+            plants: []
         };
     }
 
     loadTranslations(language) {
         const that = this;
+        let translations = {};
 
         fetch('https://abherbs-backend.firebaseio.com/web/' + language + '.json')
             .then(function(result) {
                 return result.json();
             }).then(function(item) {
+                translations = item;
+
+                return fetch('https://abherbs-backend.firebaseio.com/plants_to_update/list.json')
+            }).then(function(result) {
+                return result.json();
+            }).then(function(item) {
+
                 that.setState({
                     initialized: true,
                     drawerOpen: that.state.drawerOpen,
                     language: language,
-                    locStrings: item
+                    locStrings: translations,
+                    plants: item.sort()
                 });
             })
     }
@@ -107,7 +117,8 @@ class Main extends Component {
             initialized: this.state.initialized,
             drawerOpen: !this.state.drawerOpen,
             language: this.state.language,
-            locStrings: this.state.locStrings
+            locStrings: this.state.locStrings,
+            plants: this.state.plants
         });
     }
 
@@ -152,8 +163,8 @@ class Main extends Component {
 
                 {this.state && this.state.initialized &&
                     <div style={styles.appBody}>
-                        <Route exact path="/" render={({ match, location })=><LandingPage match={match} location={location} language={this.state.language} locStrings={this.state.locStrings}/>} />
-                        <Route exact path="/translate_flower" render={({ match, location })=><TranslateFlower match={match} location={location} language={this.state.language} locStrings={this.state.locStrings}/>} />
+                        <Route exact path="/" render={({ match, location })=><LandingPage match={match} location={location} language={this.state.language} locStrings={this.state.locStrings} plants={this.state.plants}/>} />
+                        <Route exact path="/translate_flower" render={({ match, location })=><TranslateFlower match={match} location={location} language={this.state.language} locStrings={this.state.locStrings} plants={this.state.plants}/>} />
                         <Route exact path="/translate_app" render={({ match, location })=><TranslateApp match={match} location={location} language={this.state.language} locStrings={this.state.locStrings}/>} />
                         <Route exact path="/help" render={({ match, location })=><Help match={match} location={location} language={this.state.language} locStrings={this.state.locStrings}/>} />
                         <Route exact path="/about" render={({ match, location })=><About match={match} location={location} language={this.state.language} locStrings={this.state.locStrings}/>} />

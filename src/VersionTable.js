@@ -8,8 +8,6 @@ import {
     TableRow,
     TableRowColumn,
 } from 'material-ui/Table';
-import ActionDone from 'material-ui/svg-icons/action/done';
-import plants from "./plants"
 
 const styles = {
     versionTable: {
@@ -68,14 +66,16 @@ export default class VersionTable extends Component {
 
         this.state = {
             language: props.language,
-            locStrings: props.locStrings
+            locStrings: props.locStrings,
+            plantsCount: props.plantsCount
         };
     }
 
     componentWillReceiveProps(newProps) {
         this.state = {
             language: newProps.language,
-            locStrings: newProps.locStrings
+            locStrings: newProps.locStrings,
+            plantsCount: newProps.plantsCount
         };
     }
 
@@ -83,7 +83,7 @@ export default class VersionTable extends Component {
         const tableData = [
             {
                 feature: this.state.locStrings.feature_flowers,
-                basic: plants.length,
+                basic: this.state.plantsCount,
             },
             {
                 feature: this.state.locStrings.feature_filter_by_color,

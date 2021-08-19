@@ -35,6 +35,7 @@ class Home extends React.Component {
             language: props.language,
             locStrings: props.locStrings,
             plantName: props.plantName,
+            plantsCount: props.plantsCount,
             plant: {},
             plantTranslation: {}
         };
@@ -54,7 +55,7 @@ class Home extends React.Component {
         const that = this;
         let plant = {}, translation = {}, translationGT = {}, translationEn = {};
 
-        fetch('https://abherbs-backend.firebaseio.com/plants/' + that.state.plantName + '.json')
+        fetch('https://abherbs-backend.firebaseio.com/plants_v2/' + that.state.plantName + '.json')
             .then(function(result) {
                 return result.json();
             }).then(function(item) {
@@ -169,6 +170,7 @@ class Home extends React.Component {
                     <VersionTable
                         language={this.state.language}
                         locStrings={this.state.locStrings}
+                        plantsCount={this.state.plantsCount}
                     />
                 </div>
                 <div style={styles.bottom}>
