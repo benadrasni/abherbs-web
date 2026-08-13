@@ -18,7 +18,6 @@ yarn-debug.log*
 yarn-error.log*
 *.iml
 
-/public/firebase.config.js
 /public/app-ads.txt
 firebase.json
 .firebaserc

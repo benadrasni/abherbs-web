@@ -3,25 +3,39 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "react-tap-event-plugin": "2.0.1",
-    "create-react-class": "15.5.3",
-    "react-firebase": "2.2.5",
-    "history": "4.6.1",
-    "query-string": "5.0.1",
-    "material-ui": "0.20.0",
-    "material-ui-icons": "1.0.0-beta.17"
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-router-dom": "^5.3.4"
   },
   "devDependencies": {
-    "react-scripts": "0.9.5"
+    "ajv": "^8.17.1",
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "build": "react-scripts build && node scripts/generate_seo.js",
+    "seo": "node scripts/generate_seo.js",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ],
+    "rules": {
+      "react/no-direct-mutation-state": "off"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
