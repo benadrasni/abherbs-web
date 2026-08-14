@@ -9,6 +9,9 @@
 # production
 /build
 
+# Firebase CLI deploy cache
+.firebase/
+
 # misc
 .DS_Store
 .env
@@ -19,6 +22,5 @@ yarn-error.log*
 *.iml
 
 /public/app-ads.txt
-firebase.json
-.firebaserc
+public/firebase.config.js
 
