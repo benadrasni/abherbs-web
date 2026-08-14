@@ -4,7 +4,7 @@ import { familyIconUrl, idsFromSearchIndex, loadCardExtras, loadLabel, loadSearc
 import Footer from '../components/Footer';
 import PlateGrid from '../components/PlateGrid';
 import StoreLinks from '../components/StoreLinks';
-import { FEATURED, countByFamily, countByGenus, familyPath, genusPath, plantPath, withLang } from '../lib';
+import { countByFamily, countByGenus, familyPath, genusPath, plantPath, sessionFeatured, withLang } from '../lib';
 
 export default function HomePage({ lang, t, headers, headersById }) {
   const [q, setQ] = useState('');
@@ -19,13 +19,7 @@ export default function HomePage({ lang, t, headers, headersById }) {
     [headers]
   );
 
-  const featuredBase = useMemo(() => {
-    const byName = {};
-    headers.forEach((h) => {
-      byName[h.name] = h;
-    });
-    return FEATURED.map((n) => byName[n]).filter(Boolean);
-  }, [headers]);
+  const featuredBase = useMemo(() => sessionFeatured(headers), [headers]);
   const [featured, setFeatured] = useState([]);
 
   useEffect(() => {

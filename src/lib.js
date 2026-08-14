@@ -202,16 +202,44 @@ export function countByCountry(rows, lang) {
     .sort((a, b) => b.count - a.count);
 }
 
-export const FEATURED = [
-  'Rosa canina',
-  'Bellis perennis',
-  'Viola odorata',
-  'Papaver rhoeas',
-  'Nymphaea alba',
-  'Digitalis purpurea',
-  'Helianthus annuus',
-  'Taraxacum officinale',
-];
+const FEATURED_KEY = 'wtf-featured';
+const FEATURED_COUNT = 8;
+
+function shuffleTake(items, count) {
+  const pool = items.slice();
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = pool[i];
+    pool[i] = pool[j];
+    pool[j] = tmp;
+  }
+  return pool.slice(0, count);
+}
+
+export function sessionFeatured(headers) {
+  const catalog = (headers || []).filter((h) => h && h.name);
+  if (!catalog.length) return [];
+  const byName = {};
+  catalog.forEach((h) => {
+    byName[h.name] = h;
+  });
+  try {
+    const stored = JSON.parse(sessionStorage.getItem(FEATURED_KEY) || 'null');
+    if (Array.isArray(stored) && stored.length) {
+      const rows = stored.map((name) => byName[name]).filter(Boolean);
+      if (rows.length === FEATURED_COUNT) return rows;
+    }
+  } catch (err) {
+    // pick a new set
+  }
+  const picked = shuffleTake(catalog, FEATURED_COUNT);
+  try {
+    sessionStorage.setItem(FEATURED_KEY, JSON.stringify(picked.map((h) => h.name)));
+  } catch (err) {
+    // private mode
+  }
+  return picked;
+}
 
 export function compactHeaders(raw) {
   if (!raw) return [];

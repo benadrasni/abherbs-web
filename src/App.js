@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { pageview } from './analytics';
 import { loadHeaders, loadWebStrings } from './api';
 import Header from './components/Header';
 import { uiText } from './copy';
@@ -44,6 +45,10 @@ export default function App() {
       history.replace(`/identify?lang=${encodeURIComponent(lang)}`);
     }
   }, [location.hash, lang, history]);
+
+  useEffect(() => {
+    pageview(location.pathname + location.search);
+  }, [location.pathname, location.search]);
 
   const headers = useMemo(() => compactHeaders(rawHeaders), [rawHeaders]);
   const t = useMemo(() => uiText(lang, loc), [lang, loc]);
