@@ -180,11 +180,11 @@ export default function PlantPage({ lang, t, requestedName }) {
       <section className="spread">
         <div className="plate">
           {plate ? (
-            <button type="button" onClick={() => setLight({ src: plate, caption: t.illustration_note })}>
+            <button type="button" onClick={() => setLight({ src: plate, caption: t.illustration })}>
               <img src={plate} alt={t.plate_alt(plant.name)} />
             </button>
           ) : null}
-          <div className="cap">{t.illustration} · {t.illustration_note}</div>
+          <div className="cap">{t.illustration}</div>
         </div>
         <div className="copy">
           <div className="kicker">
