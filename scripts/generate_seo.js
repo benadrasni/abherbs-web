@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * After CRA build: sitemap.xml + unique HTML shells for plant/family/genus URLs.
+ * After Vite build: sitemap.xml + unique HTML shells for plant/family/genus URLs.
  */
 const fs = require('fs');
 const path = require('path');
@@ -117,7 +117,7 @@ function sitemapXml(urls) {
 async function main() {
   const templatePath = path.join(BUILD, 'index.html');
   if (!fs.existsSync(templatePath)) {
-    throw new Error('build/index.html missing; run react-scripts build first');
+    throw new Error('build/index.html missing; run vite build first');
   }
   const template = fs.readFileSync(templatePath, 'utf8');
 
