@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { pageview } from './analytics';
 import { loadHeaders, loadWebStrings } from './api';
 import Header from './components/Header';
@@ -17,7 +17,7 @@ import PlantPage from './pages/PlantPage';
 
 export default function App() {
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const lang = detectLang(location.search, languages);
   const queryPlant = new URLSearchParams(location.search).get('plant');
   const [rawHeaders, setRawHeaders] = useState([]);
@@ -42,9 +42,9 @@ export default function App() {
 
   useEffect(() => {
     if (location.hash === '#app') {
-      history.replace(`/identify?lang=${encodeURIComponent(lang)}`);
+      navigate(`/identify?lang=${encodeURIComponent(lang)}`, { replace: true });
     }
-  }, [location.hash, lang, history]);
+  }, [location.hash, lang, navigate]);
 
   useEffect(() => {
     pageview(location.pathname + location.search);
@@ -56,33 +56,32 @@ export default function App() {
   const setLang = (next) => {
     const params = new URLSearchParams(location.search);
     params.set('lang', next);
-    history.push(`${location.pathname}?${params.toString()}${location.hash || ''}`);
+    navigate(`${location.pathname}?${params.toString()}${location.hash || ''}`);
   };
 
   return (
     <>
       <Header lang={lang} t={t} onLang={setLang} />
-      <Switch>
-        <Route path="/translate_flower" render={() => <Redirect to="/" />} />
-        <Route path="/translate_app" render={() => <Redirect to="/" />} />
-        <Route path="/identify" render={() => <IdentifyPage lang={lang} t={t} />} />
-        <Route path="/about" render={() => <AboutPage lang={lang} t={t} loc={loc} />} />
-        <Route path="/help" render={() => <HelpPage lang={lang} t={t} loc={loc} />} />
-        <Route path="/families" render={() => <FamiliesPage lang={lang} t={t} headers={headers} />} />
-        <Route path="/genera" render={() => <GeneraPage lang={lang} t={t} headers={headers} />} />
+      <Routes>
+        <Route path="/translate_flower" element={<Navigate to="/" replace />} />
+        <Route path="/translate_app" element={<Navigate to="/" replace />} />
+        <Route path="/identify" element={<IdentifyPage lang={lang} t={t} />} />
+        <Route path="/about" element={<AboutPage lang={lang} t={t} loc={loc} />} />
+        <Route path="/help" element={<HelpPage lang={lang} t={t} loc={loc} />} />
+        <Route path="/families" element={<FamiliesPage lang={lang} t={t} headers={headers} />} />
+        <Route path="/genera" element={<GeneraPage lang={lang} t={t} headers={headers} />} />
         <Route
           path="/family/:family"
-          render={() => <FamilyPage lang={lang} t={t} headers={headers} mode="family" />}
+          element={<FamilyPage lang={lang} t={t} headers={headers} mode="family" />}
         />
         <Route
           path="/genus/:genus"
-          render={() => <FamilyPage lang={lang} t={t} headers={headers} mode="genus" />}
+          element={<FamilyPage lang={lang} t={t} headers={headers} mode="genus" />}
         />
-        <Route path="/plant/:name" render={() => <PlantPage lang={lang} t={t} />} />
+        <Route path="/plant/:name" element={<PlantPage lang={lang} t={t} />} />
         <Route
-          exact
           path="/"
-          render={() =>
+          element={
             queryPlant ? (
               <PlantPage lang={lang} t={t} requestedName={queryPlant} />
             ) : (
@@ -90,7 +89,7 @@ export default function App() {
             )
           }
         />
-      </Switch>
+      </Routes>
     </>
   );
 }

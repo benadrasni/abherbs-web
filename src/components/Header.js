@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import languages from '../languages';
-import { withLang } from '../lib';
+import { normPath, withLang } from '../lib';
 
 export default function Header({ lang, t, onLang }) {
-  const { pathname } = useLocation();
+  const pathname = normPath(useLocation().pathname);
   const nav = [
     { to: withLang('/', lang), label: t.plants, match: pathname === '/' || pathname.startsWith('/plant') || pathname.startsWith('/family') || pathname.startsWith('/genus') || pathname.startsWith('/genera') },
     { to: withLang('/identify', lang), label: t.identify, match: pathname === '/identify', optional: true },

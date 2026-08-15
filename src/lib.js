@@ -54,6 +54,11 @@ export function countryName(code, lang) {
   return COUNTRIES[cc] || cc.toUpperCase();
 }
 
+export function normPath(pathname) {
+  if (!pathname || pathname === '/') return '/';
+  return pathname.replace(/\/+$/, '') || '/';
+}
+
 export function withLang(path, lang) {
   if (!lang) return path;
   const join = path.includes('?') ? '&' : '?';
