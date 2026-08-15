@@ -11,10 +11,8 @@ import {
 import Footer from '../components/Footer';
 import Lightbox from '../components/Lightbox';
 import {
-  APP_STORE_URL,
-  GBIF_TAXON,
   PLAY_URL,
-  POWO_TAXON,
+  collectPlantSources,
   countByCountry,
   countryName,
   displayName,
@@ -22,9 +20,10 @@ import {
   formatFlowering,
   formatHeight,
   formatObsWhen,
+  fullApgRanks,
   genusOf,
   genusPath,
-  parseApg,
+  mergeSynonyms,
   publicObservations,
   rankValue,
   toxicityLabel,
@@ -110,25 +109,15 @@ export default function PlantPage({ lang, t, requestedName }) {
     tag.setAttribute('content', desc.slice(0, 240));
   }, [text, plant, t]);
 
-  const ranks = useMemo(() => parseApg(plant && plant.APGIV), [plant]);
+  const ranks = useMemo(() => fullApgRanks(plant && plant.APGIV), [plant]);
   const family = plant ? rankValue(plant.APGIV, 'Familia') : '';
   const order = plant ? rankValue(plant.APGIV, 'Ordo') : '';
   const genus = plant ? rankValue(plant.APGIV, 'Genus') || genusOf(plant.name) : '';
   const countries = useMemo(() => countByCountry(obs, lang), [obs, lang]);
-  const shownSyn = (() => {
-    const fromPlant = ((plant && plant.synonyms) || []).filter(Boolean).map((s) => ({ name: s }));
-    const fromIpni = synonyms.filter((s) => s && s.name && s.name !== name);
-    const seen = new Set();
-    const merged = [];
-    fromPlant.concat(fromIpni).forEach((s) => {
-      const key = `${s.name} ${s.suffix || ''}`;
-      if (seen.has(key)) return;
-      seen.add(key);
-      merged.push(s);
-    });
-    return merged.slice(0, 3);
-  })();
-  const synonymTotal = ((plant && plant.synonyms) || []).length + synonyms.length;
+  const allSyn = useMemo(() => mergeSynonyms(plant, synonyms, name), [plant, synonyms, name]);
+  const shownSyn = allSyn.slice(0, 2);
+  const synonymRest = allSyn.slice(2);
+  const groupedSources = useMemo(() => collectPlantSources(plant, text), [plant, text]);
 
   if (error === 'missing') {
     return (
@@ -144,12 +133,8 @@ export default function PlantPage({ lang, t, requestedName }) {
 
   const photos = plant.photoUrls || [];
   const plate = plant.illustrationUrl ? photoUrl(plant.illustrationUrl) : '';
-  const sources = []
-    .concat(plant.sourceUrls || [])
-    .concat(text.sourceUrls || [])
-    .filter((u, i, arr) => u && arr.indexOf(u) === i);
+  const sourceList = groupedSources.name.concat(groupedSources.text, groupedSources.images);
   const video = (plant.videoUrls || []).map(youtubeId).filter(Boolean)[0];
-  const wiki = text.wikipedia || (plant.wikilinks && plant.wikilinks.data);
 
   return (
     <div className="page">
@@ -267,27 +252,6 @@ export default function PlantPage({ lang, t, requestedName }) {
         </div>
         <div className="tax-grid">
           <div>
-            <div className="path">
-              {['Plantae', order, family, genus, plant.name].filter(Boolean).map((part, i) => {
-                const isFamily = part === family && part !== plant.name;
-                const isGenus = part === genus && part !== family && part !== plant.name;
-                const isSpecies = part === plant.name;
-                return (
-                  <span key={`${part}-${i}`}>
-                    {i ? ' · ' : null}
-                    {isFamily ? (
-                      <Link to={familyPath(family, lang)}>{family}</Link>
-                    ) : isGenus ? (
-                      <Link className="latin" to={genusPath(genus, lang)}>{genus}</Link>
-                    ) : isSpecies ? (
-                      <span className="latin">{plant.name}</span>
-                    ) : (
-                      part
-                    )}
-                  </span>
-                );
-              })}
-            </div>
             <div className="ranks">
               {order ? (
                 <div className="rank">
@@ -318,40 +282,54 @@ export default function PlantPage({ lang, t, requestedName }) {
                   {plant.name} <span className="author">{plant.author || ''}</span>
                 </div>
               </div>
-              {shownSyn.map((s) => (
-                <div className="rank" key={s.href || s.name}>
-                  <div className="rk">{t.synonym}</div>
-                  <div className="latin">
-                    {s.name} {s.suffix || ''} {s.author || ''}
-                  </div>
-                </div>
-              ))}
-              {synonymTotal > shownSyn.length ? (
+              {shownSyn.length ? (
                 <div className="rank">
-                  <div className="rk" />
-                  <div className="muted">{t.more_names(synonymTotal - shownSyn.length)}</div>
+                  <div className="rk">{allSyn.length === 1 ? t.synonym : t.synonyms}</div>
+                  <div>
+                    <div className="syn-flow">
+                      {shownSyn.map((s, i) => (
+                        <span key={s.href || s.name}>
+                          {i ? ', ' : null}
+                          <SynonymName syn={s} />
+                        </span>
+                      ))}
+                    </div>
+                    {synonymRest.length ? (
+                      <details className="more-names">
+                        <summary>{t.more_names(synonymRest.length)}</summary>
+                        <div className="syn-flow">
+                          {synonymRest.map((s, i) => (
+                            <span key={s.href || s.name}>
+                              {i ? ', ' : null}
+                              <SynonymName syn={s} />
+                            </span>
+                          ))}
+                        </div>
+                      </details>
+                    ) : null}
+                  </div>
                 </div>
               ) : null}
             </div>
           </div>
           <div>
-            <div className="kicker" style={{ marginBottom: 10 }}>{t.authorities}</div>
-            <div className="links">
-              {plant.ipniId ? <a href={POWO_TAXON + plant.ipniId}>POWO</a> : null}
-              {plant.ipniId ? <a href={POWO_TAXON + plant.ipniId}>IPNI {plant.ipniId}</a> : null}
-              {plant.gbifId ? <a href={GBIF_TAXON + plant.gbifId}>GBIF {plant.gbifId}</a> : null}
-              {plant.wikilinks && plant.wikilinks.data ? <a href={plant.wikilinks.data}>Wikidata</a> : null}
-              {wiki ? <a href={wiki}>Wikipedia</a> : null}
-            </div>
             {ranks.length ? (
-              <details className="details">
+              <details className="details tax-ranks-full">
                 <summary>{t.show_ranks}</summary>
                 {ranks.map((r) => (
                   <div className="rank-full" key={r.key}>
-                    <div className="rk">{r.label}</div>
-                    <div>{r.value}</div>
+                    <div className="rk">{fullRankLabel(r, t)}</div>
+                    <div className={r.label === 'Genus' ? 'latin' : undefined}>
+                      <FullRankValue rank={r} family={family} genus={genus} lang={lang} />
+                    </div>
                   </div>
                 ))}
+                <div className="rank-full">
+                  <div className="rk">{t.species}</div>
+                  <div className="latin">
+                    {plant.name} <span className="author">{plant.author || ''}</span>
+                  </div>
+                </div>
               </details>
             ) : null}
           </div>
@@ -403,19 +381,16 @@ export default function PlantPage({ lang, t, requestedName }) {
         </div>
       </section>
 
-      {(sources.length || true) ? (
+      {sourceList.length ? (
         <section className="band">
           <div className="band-h">
             <h2>{t.sources}</h2>
+            <p>{t.sources_lede}</p>
           </div>
-          <div className="links">
-            {sources.map((href) => (
-              <a key={href} href={href}>
-                {prettyHost(href)}
-              </a>
-            ))}
-            <a href={PLAY_URL}>Google Play</a>
-            <a href={APP_STORE_URL}>App Store</a>
+          <div className="bib">
+            <SourceColumn title={t.sources_name} items={groupedSources.name} t={t} />
+            <SourceColumn title={t.sources_text} items={groupedSources.text} t={t} />
+            <SourceColumn title={t.sources_images} items={groupedSources.images} t={t} />
           </div>
         </section>
       ) : null}
@@ -424,8 +399,8 @@ export default function PlantPage({ lang, t, requestedName }) {
         lang={lang}
         t={t}
         extra={
-          sources.length
-            ? `${t.sources}: ${[...new Set(sources.map(prettyHost))].slice(0, 3).join(' · ')}`
+          sourceList.length
+            ? `${t.sources}: ${[...new Set(sourceList.map((s) => s.name))].slice(0, 3).join(' · ')}`
             : t.app_name
         }
       />
@@ -434,10 +409,53 @@ export default function PlantPage({ lang, t, requestedName }) {
   );
 }
 
-function prettyHost(href) {
-  try {
-    return new URL(href).hostname.replace(/^www\./, '');
-  } catch (e) {
-    return href;
+function SynonymName({ syn }) {
+  const latin = [syn.name, syn.suffix].filter(Boolean).join(' ');
+  return (
+    <>
+      <span className="latin">{latin}</span>
+      {syn.author ? ` ${syn.author}` : ''}
+    </>
+  );
+}
+
+function fullRankLabel(rank, t) {
+  if (rank.label === 'Ordo') return t.order;
+  if (rank.label === 'Familia') return t.family;
+  if (rank.label === 'Genus') return t.genus;
+  if (rank.label === 'Species') return t.species;
+  return rank.label;
+}
+
+function FullRankValue({ rank, family, genus, lang }) {
+  if (rank.label === 'Familia' && rank.value === family) {
+    return <Link to={familyPath(family, lang)}>{rank.value}</Link>;
   }
+  if (rank.label === 'Genus' && rank.value === genus) {
+    return <Link to={genusPath(genus, lang)}>{rank.value}</Link>;
+  }
+  return rank.value;
+}
+
+function SourceColumn({ title, items, t }) {
+  if (!items || !items.length) return null;
+  return (
+    <div>
+      <h3>{title}</h3>
+      <ul>
+        {items.map((item) => (
+          <li key={item.key || item.href}>
+            <a href={item.href} target="_blank" rel="noopener noreferrer">
+              {item.name}
+            </a>
+            {item.detail ? <span className="sub">{item.detail}</span> : null}
+            {!item.detail && item.kind === 'photographs' ? (
+              <span className="sub">{t.sources_photographs}</span>
+            ) : null}
+            {!item.detail && item.kind === 'plate' ? <span className="sub">{t.sources_plate}</span> : null}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }

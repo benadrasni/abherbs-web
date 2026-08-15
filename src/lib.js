@@ -4,6 +4,7 @@ export const PLAY_URL = 'https://play.google.com/store/apps/details?id=sk.ab.her
 export const APP_STORE_URL = 'https://apps.apple.com/us/app/whats-that-flower/id1449982118';
 export const POWO_TAXON = 'https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:';
 export const GBIF_TAXON = 'https://www.gbif.org/species/';
+export const USDA_PLANTS = 'https://plants.usda.gov/home/plantProfile?symbol=';
 
 export const RTL = new Set(['ar', 'fa', 'he']);
 
@@ -90,6 +91,32 @@ export function parseApg(apg) {
       ranks.push({ key, label, value: apg[key] });
     });
   return ranks;
+}
+
+/** APG path from highest rank to genus. Order, family, and genus stay in the list. */
+export function fullApgRanks(apg) {
+  return parseApg(apg)
+    .slice()
+    .sort((a, b) => {
+      const na = parseInt(a.key, 10);
+      const nb = parseInt(b.key, 10);
+      if (Number.isNaN(na) || Number.isNaN(nb)) return String(a.key).localeCompare(String(b.key));
+      return nb - na;
+    });
+}
+
+export function mergeSynonyms(plant, ipni, acceptedName) {
+  const fromPlant = ((plant && plant.synonyms) || []).filter(Boolean).map((s) => ({ name: s }));
+  const fromIpni = (ipni || []).filter((s) => s && s.name && s.name !== acceptedName);
+  const seen = new Set();
+  const merged = [];
+  fromPlant.concat(fromIpni).forEach((s) => {
+    const key = `${s.name} ${s.suffix || ''}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    merged.push(s);
+  });
+  return merged;
 }
 
 export function rankValue(apg, suffix) {
@@ -244,4 +271,170 @@ export function sessionFeatured(headers) {
 export function compactHeaders(raw) {
   if (!raw) return [];
   return (Array.isArray(raw) ? raw : Object.keys(raw).map((k) => raw[k])).filter((h) => h && h.name);
+}
+
+export function sourceHost(href) {
+  try {
+    return new URL(href).hostname.replace(/^www\./, '');
+  } catch (err) {
+    return href || '';
+  }
+}
+
+const SOURCE_HOSTS = [
+  ['powo.science.kew.org', 'Plants of the World Online', 'name'],
+  ['ipni.org', 'IPNI', 'name'],
+  ['gbif.org', 'GBIF', 'name'],
+  ['wikidata.org', 'Wikidata', 'name'],
+  ['plants.usda.gov', 'USDA PLANTS', 'name'],
+  ['species.wikimedia.org', 'Wikispecies', 'name'],
+  ['commons.wikimedia.org', 'Wikimedia Commons', 'images'],
+  ['botanicalillustrations.org', 'Botanical Illustrations', 'images'],
+  ['wikipedia.org', 'Wikipedia', 'text'],
+  ['pfaf.org', 'Plants For A Future', 'text'],
+  ['rhs.org.uk', 'Royal Horticultural Society', 'text'],
+  ['liliumspeciesfoundation.org', 'Lilium Species Foundation', 'text'],
+  ['luontoportti.com', 'NatureGate / Luontoportti', 'text'],
+  ['missouriplants.com', 'Missouri Plants', 'text'],
+  ['botany.cz', 'BOTANY.cz', 'text'],
+  ['gd.eppo.int', 'EPPO Global Database', 'text'],
+  ['efloras.org', 'eFloras', 'text'],
+  ['temperate.theferns.info', 'Useful Temperate Plants', 'text'],
+  ['gobotany.nativeplanttrust.org', 'Go Botany', 'text'],
+  ['flora.org.il', 'Flora of Israel Online', 'text'],
+  ['pacificbulbsociety.org', 'Pacific Bulb Society', 'text'],
+  ['onrockgarden.com', 'Ontario Rock Garden & Hardy Plant Society', 'text'],
+];
+
+function hostEndsWith(host, domain) {
+  return host === domain || (host && host.endsWith('.' + domain));
+}
+
+function lookupSourceHost(host) {
+  for (let i = 0; i < SOURCE_HOSTS.length; i++) {
+    if (hostEndsWith(host, SOURCE_HOSTS[i][0])) {
+      return { name: SOURCE_HOSTS[i][1], group: SOURCE_HOSTS[i][2], known: true };
+    }
+  }
+  return { name: host || '', group: '', known: false };
+}
+
+function pushSource(bucket, seen, item) {
+  if (!item || !item.href) return;
+  const key = item.key || item.href;
+  if (seen.has(key)) return;
+  seen.add(key);
+  bucket.push(item);
+}
+
+/**
+ * Group citations: name records (POWO, GBIF, Wikidata, USDA), text floras, images.
+ * Commons file URLs collapse to one Commons link.
+ */
+export function collectPlantSources(plant, text) {
+  const name = [];
+  const written = [];
+  const images = [];
+  const seen = new Set();
+  const p = plant || {};
+  const tx = text || {};
+  const wikiLinks = p.wikilinks || {};
+
+  if (p.ipniId) {
+    pushSource(name, seen, {
+      href: POWO_TAXON + p.ipniId,
+      name: 'Plants of the World Online',
+      detail: 'Kew · IPNI ' + p.ipniId,
+      key: 'powo',
+    });
+  }
+  if (p.gbifId) {
+    pushSource(name, seen, {
+      href: GBIF_TAXON + p.gbifId,
+      name: 'GBIF',
+      detail: String(p.gbifId),
+      key: 'gbif',
+    });
+  }
+  if (wikiLinks.data) {
+    const qid = String(wikiLinks.data).split('/').pop();
+    pushSource(name, seen, {
+      href: wikiLinks.data,
+      name: 'Wikidata',
+      detail: qid,
+      key: 'wikidata',
+    });
+  }
+  if (p.usdaId) {
+    pushSource(name, seen, {
+      href: USDA_PLANTS + encodeURIComponent(p.usdaId),
+      name: 'USDA PLANTS',
+      detail: p.usdaId,
+      key: 'usda',
+    });
+  }
+  if (wikiLinks.species) {
+    pushSource(name, seen, {
+      href: wikiLinks.species,
+      name: 'Wikispecies',
+      key: 'wikispecies',
+    });
+  }
+  if (tx.wikipedia) {
+    pushSource(written, seen, {
+      href: tx.wikipedia,
+      name: 'Wikipedia',
+      key: 'wikipedia',
+    });
+  }
+  if (wikiLinks.commons) {
+    pushSource(images, seen, {
+      href: wikiLinks.commons,
+      name: 'Wikimedia Commons',
+      kind: 'photographs',
+      key: 'commons',
+    });
+  }
+
+  function ingest(href, fallbackGroup) {
+    if (!href) return;
+    const host = sourceHost(href);
+    const info = lookupSourceHost(host);
+    const group = info.known ? info.group : fallbackGroup;
+    if (group === 'name') {
+      if (
+        hostEndsWith(host, 'powo.science.kew.org') ||
+        hostEndsWith(host, 'ipni.org') ||
+        hostEndsWith(host, 'gbif.org') ||
+        hostEndsWith(host, 'wikidata.org') ||
+        hostEndsWith(host, 'plants.usda.gov') ||
+        hostEndsWith(host, 'species.wikimedia.org')
+      ) {
+        return;
+      }
+      pushSource(name, seen, { href, name: info.name || host, key: 'host:' + host });
+      return;
+    }
+    if (group === 'images') {
+      const isCommons = hostEndsWith(host, 'commons.wikimedia.org');
+      pushSource(images, seen, {
+        href: isCommons && wikiLinks.commons ? wikiLinks.commons : href,
+        name: info.known ? info.name : host,
+        kind: isCommons ? 'photographs' : hostEndsWith(host, 'botanicalillustrations.org') ? 'plate' : '',
+        key: isCommons ? 'commons' : 'host:' + host,
+      });
+      return;
+    }
+    const isWiki = hostEndsWith(host, 'wikipedia.org');
+    pushSource(written, seen, {
+      href,
+      name: info.known ? info.name : host,
+      key: isWiki ? 'wikipedia' : 'host:' + host,
+    });
+  }
+
+  (tx.sourceUrls || []).forEach((href) => ingest(href, 'text'));
+  (p.sourceUrls || []).forEach((href) => ingest(href, 'images'));
+
+  return { name, text: written, images };
 }
