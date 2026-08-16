@@ -302,15 +302,6 @@ export function indexHeadersById(headers) {
   return map;
 }
 
-export function catalogCovers(rows, expectedCount) {
-  const n = (rows || []).length;
-  if (!n) return false;
-  if (expectedCount == null || expectedCount === '') return n >= 1000;
-  const count = Number(expectedCount);
-  if (Number.isNaN(count)) return n >= 1000;
-  return n >= count;
-}
-
 export function sourceHost(href) {
   try {
     return new URL(href).hostname.replace(/^www\./, '');

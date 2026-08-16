@@ -46,10 +46,6 @@ export function illustrationFromHeaderUrl(url) {
   return `${folder}/${parts[2]}.webp`;
 }
 
-export function loadHeaders() {
-  return getJson('plants_headers');
-}
-
 export function labelAt(labels, id) {
   if (labels == null || id == null) return '';
   const row = Array.isArray(labels) ? labels[id] : labels[id] ?? labels[String(id)];
@@ -113,12 +109,6 @@ export function normalizeSearch(value) {
 export function loadSearchIndex(lang) {
   if (!lang) return Promise.resolve(null);
   return getJson(`search_v3/${enc(lang)}`);
-}
-
-export function loadSearch(lang, query) {
-  const key = query.trim().toLowerCase();
-  if (!key || /[.#$[\]/]/.test(key)) return Promise.resolve(null);
-  return getJson(`search_v3/${enc(lang)}/${enc(key)}`);
 }
 
 export function idsFromSearchIndex(index, query) {

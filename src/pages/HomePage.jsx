@@ -30,11 +30,6 @@ export default function HomePage({ lang, t, headers, headersById, labels }) {
   }, [t]);
 
   useEffect(() => {
-    loadSearchIndex(lang).catch(() => null);
-    loadSearchIndex('la').catch(() => null);
-  }, [lang]);
-
-  useEffect(() => {
     const query = q.trim();
     if (query.length < 2) {
       setHits([]);

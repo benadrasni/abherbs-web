@@ -5,7 +5,7 @@ import { loadLabels, loadPlantIndex } from './api';
 import Header from './components/Header';
 import { uiText } from './copy';
 import languages from './languages';
-import { RTL, compactHeaders, detectLang, indexHeadersById } from './lib';
+import { RTL, compactHeaders, detectLang, indexHeadersById, normPath } from './lib';
 import AboutPage from './pages/AboutPage';
 import FamiliesPage from './pages/FamiliesPage';
 import GeneraPage from './pages/GeneraPage';
@@ -15,21 +15,49 @@ import HomePage from './pages/HomePage';
 import IdentifyPage from './pages/IdentifyPage';
 import PlantPage from './pages/PlantPage';
 
+function routeNeedsIndex(pathname) {
+  const path = normPath(pathname);
+  return (
+    path === '/' ||
+    path === '/families' ||
+    path === '/genera' ||
+    path.startsWith('/family/') ||
+    path.startsWith('/genus/')
+  );
+}
+
+function routeNeedsLabels(pathname) {
+  const path = normPath(pathname);
+  return path === '/' || path.startsWith('/family/') || path.startsWith('/genus/');
+}
+
 export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const lang = detectLang(location.search, languages);
   const queryPlant = new URLSearchParams(location.search).get('plant');
+  const needsIndex = !queryPlant && routeNeedsIndex(location.pathname);
+  const needsLabels = !queryPlant && routeNeedsLabels(location.pathname);
   const [rawHeaders, setRawHeaders] = useState([]);
   const [labels, setLabels] = useState(null);
 
   useEffect(() => {
+    if (!needsIndex) return undefined;
+    let live = true;
     loadPlantIndex()
-      .then((index) => setRawHeaders(index.raw || []))
-      .catch(() => setRawHeaders([]));
-  }, []);
+      .then((index) => {
+        if (live) setRawHeaders(index.raw || []);
+      })
+      .catch(() => {
+        if (live) setRawHeaders([]);
+      });
+    return () => {
+      live = false;
+    };
+  }, [needsIndex]);
 
   useEffect(() => {
+    if (!needsLabels) return undefined;
     let live = true;
     loadLabels(lang)
       .then((data) => {
@@ -41,7 +69,7 @@ export default function App() {
     return () => {
       live = false;
     };
-  }, [lang]);
+  }, [needsLabels, lang]);
 
   useEffect(() => {
     document.documentElement.lang = lang;
