@@ -7,7 +7,7 @@ export default function Header({ lang, t, onLang }) {
   const pathname = normPath(useLocation().pathname);
   const nav = [
     { to: withLang('/', lang), label: t.plants, match: pathname === '/' || pathname.startsWith('/plant') || pathname.startsWith('/family') || pathname.startsWith('/genus') || pathname.startsWith('/genera') },
-    { to: withLang('/identify', lang), label: t.identify, match: pathname === '/identify', optional: true },
+    { to: withLang('/identify', lang), label: t.identify, match: pathname === '/identify' },
     { to: withLang('/about', lang), label: t.about, match: pathname === '/about', optional: true },
   ];
 

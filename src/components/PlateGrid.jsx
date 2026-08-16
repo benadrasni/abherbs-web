@@ -8,7 +8,7 @@ export default function PlateGrid({ items, lang, genusLabel }) {
       {items.map((item) => (
         <Link key={item.name} className="cell" to={plantPath(item.name, lang)}>
           <div className="art">
-            <img src={headerPlate(item)} alt="" />
+            <img src={headerPlate(item)} alt="" loading="lazy" />
           </div>
           <div className="n">{displayName(item.label, item.name)}</div>
           <div className="l latin">{item.name}</div>

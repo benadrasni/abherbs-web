@@ -30,6 +30,7 @@ export default function FamiliesPage({ lang, t, headers }) {
                 className="tile-icon"
                 src={familyIconUrl(f.name)}
                 alt=""
+                loading="lazy"
                 onError={(e) => {
                   e.currentTarget.hidden = true;
                 }}

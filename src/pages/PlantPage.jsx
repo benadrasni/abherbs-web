@@ -224,7 +224,7 @@ export default function PlantPage({ lang, t, requestedName }) {
               return (
                 <figure key={rel}>
                   <button type="button" onClick={() => setLight({ src, caption: t.photo_n(i + 1, photos.length) })}>
-                    <img src={src} alt="" />
+                    <img src={src} alt="" loading="lazy" />
                   </button>
                   <figcaption className="dark-cap">{t.photo_n(i + 1, photos.length)}</figcaption>
                 </figure>
@@ -353,7 +353,7 @@ export default function PlantPage({ lang, t, requestedName }) {
                   return (
                     <figure key={row.id}>
                       <button type="button" onClick={() => setLight({ src, caption: cap })}>
-                        <img src={src} alt="" />
+                        <img src={src} alt="" loading="lazy" />
                       </button>
                       {cap ? <figcaption>{cap}</figcaption> : null}
                     </figure>

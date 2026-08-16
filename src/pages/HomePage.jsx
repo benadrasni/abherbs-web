@@ -148,6 +148,7 @@ export default function HomePage({ lang, t, headers, headersById, labels }) {
                   className="tile-icon"
                   src={familyIconUrl(f.name)}
                   alt=""
+                  loading="lazy"
                   onError={(e) => {
                     e.currentTarget.hidden = true;
                   }}

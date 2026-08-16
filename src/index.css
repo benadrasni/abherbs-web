@@ -466,6 +466,9 @@ img { max-width: 100%; }
 }
 @media (max-width: 560px) {
   .photos, .obs { grid-template-columns: 1fr 1fr; }
+  .site-bar { flex-wrap: wrap; row-gap: 8px; }
+  .mark { flex: 0 0 auto; white-space: nowrap; }
+  .site-nav { margin-left: auto; flex: 1 1 auto; justify-content: flex-end; gap: 14px; }
   .site-nav a.optional { display: none; }
   .copy h1 { font-size: 34px; }
   .rank, .rank-full { grid-template-columns: 92px 1fr; }
