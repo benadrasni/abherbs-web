@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { familyIconUrl, idsFromSearchIndex, loadCardExtras, loadLabel, loadSearchIndex, normalizeSearch } from '../api';
+import { familyIconUrl, idsFromSearchIndex, labelAt, loadCardExtras, loadLabel, loadSearchIndex, normalizeSearch } from '../api';
 import Footer from '../components/Footer';
 import PlateGrid from '../components/PlateGrid';
 import StoreLinks from '../components/StoreLinks';
 import { countByFamily, countByGenus, familyPath, genusPath, plantPath, sessionFeatured, withLang } from '../lib';
 
-export default function HomePage({ lang, t, headers, headersById }) {
+export default function HomePage({ lang, t, headers, headersById, labels, fromCatalog }) {
   const [q, setQ] = useState('');
   const [hits, setHits] = useState([]);
 
@@ -21,9 +21,17 @@ export default function HomePage({ lang, t, headers, headersById }) {
 
   const featuredBase = useMemo(() => sessionFeatured(headers), [headers]);
   const [featured, setFeatured] = useState([]);
+  const catalogFeatured = useMemo(() => {
+    if (!fromCatalog) return null;
+    return featuredBase.map((h) => ({ ...h, label: labelAt(labels, h.id) || '' }));
+  }, [fromCatalog, featuredBase, labels]);
 
   useEffect(() => {
     let live = true;
+    if (fromCatalog) {
+      setFeatured([]);
+      return undefined;
+    }
     Promise.all(
       featuredBase.map((h) =>
         loadCardExtras(lang, h.name)
@@ -36,7 +44,7 @@ export default function HomePage({ lang, t, headers, headersById }) {
     return () => {
       live = false;
     };
-  }, [featuredBase, lang]);
+  }, [featuredBase, lang, fromCatalog]);
 
   useEffect(() => {
     document.title = t.app_name;
@@ -84,8 +92,15 @@ export default function HomePage({ lang, t, headers, headersById }) {
             seen.add(h.name);
             merged.push(h);
           });
+          const slice = merged.slice(0, 12);
+          if (fromCatalog) {
+            if (live) {
+              setHits(slice.map((h) => ({ ...h, label: labelAt(labels, h.id) || '' })));
+            }
+            return;
+          }
           Promise.all(
-            merged.slice(0, 12).map((h) =>
+            slice.map((h) =>
               loadLabel(lang, h.name)
                 .then((label) => ({ ...h, label: label || h.name }))
                 .catch(() => ({ ...h, label: h.name }))
@@ -102,7 +117,7 @@ export default function HomePage({ lang, t, headers, headersById }) {
       live = false;
       clearTimeout(timer);
     };
-  }, [q, lang, headers, headersById]);
+  }, [q, lang, headers, headersById, fromCatalog, labels]);
 
   return (
     <div className="page">
@@ -140,12 +155,12 @@ export default function HomePage({ lang, t, headers, headersById }) {
         </div>
       ) : null}
 
-      {featured.length ? (
+      {(catalogFeatured || featured).length ? (
         <section className="band">
           <div className="band-h">
             <h2>{t.from_collection}</h2>
           </div>
-          <PlateGrid items={featured} lang={lang} />
+          <PlateGrid items={catalogFeatured || featured} lang={lang} />
         </section>
       ) : null}
 

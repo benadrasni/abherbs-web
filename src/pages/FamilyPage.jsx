@@ -1,11 +1,16 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { loadCardExtras } from '../api';
+import { labelAt, loadCardExtras } from '../api';
 import Footer from '../components/Footer';
 import PlateGrid from '../components/PlateGrid';
 import { genusOf, withLang } from '../lib';
 
-export default function FamilyPage({ lang, t, headers, mode }) {
+function withCatalogLabel(header, labels) {
+  const label = labelAt(labels, header.id);
+  return { ...header, label: label || '' };
+}
+
+export default function FamilyPage({ lang, t, headers, labels, fromCatalog, mode }) {
   const params = useParams();
   const key = decodeURIComponent(mode === 'genus' ? params.genus : params.family);
   const [items, setItems] = useState([]);
@@ -17,9 +22,23 @@ export default function FamilyPage({ lang, t, headers, mode }) {
     return headers.filter((h) => h.family === key);
   }, [headers, key, mode]);
 
+  const catalogItems = useMemo(() => {
+    if (!fromCatalog) return null;
+    return raw
+      .map((h) => withCatalogLabel(h, labels))
+      .sort((a, b) => (a.label || a.name).localeCompare(b.label || b.name, lang));
+  }, [fromCatalog, raw, labels, lang]);
+
   useEffect(() => {
-    let live = true;
     document.title = `${key} — ${t.app_name}`;
+  }, [key, t.app_name]);
+
+  useEffect(() => {
+    if (fromCatalog) {
+      setItems([]);
+      return undefined;
+    }
+    let live = true;
     Promise.all(
       raw.map((h) =>
         loadCardExtras(lang, h.name)
@@ -32,7 +51,7 @@ export default function FamilyPage({ lang, t, headers, mode }) {
     return () => {
       live = false;
     };
-  }, [raw, lang, key, t.app_name]);
+  }, [raw, lang, fromCatalog]);
 
   return (
     <div className="page">
@@ -50,7 +69,11 @@ export default function FamilyPage({ lang, t, headers, mode }) {
         </p>
       </div>
       {raw.length ? (
-        <PlateGrid items={items.length ? items : raw} lang={lang} genusLabel={mode === 'family'} />
+        <PlateGrid
+          items={catalogItems || (items.length ? items : raw)}
+          lang={lang}
+          genusLabel={mode === 'family'}
+        />
       ) : (
         <p className="center-msg">{t.empty_taxon}</p>
       )}

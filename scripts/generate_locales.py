@@ -1173,6 +1173,15 @@ def main():
             elif key not in SPARSE:
                 catalogs[lang].setdefault(key, en)
 
+    # Keep About/Help and other keys already in locales.json that this
+    # script does not generate (so a regenerate does not wipe them).
+    if os.path.isfile(OUT):
+        with open(OUT, encoding="utf-8") as handle:
+            existing = json.load(handle)
+        for lang, cat in catalogs.items():
+            for key, val in (existing.get(lang) or {}).items():
+                cat.setdefault(key, val)
+
     for lang in langs:
         name = load_android_app_name(lang)
         if name:

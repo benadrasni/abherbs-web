@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import Footer from '../components/Footer';
 
-export default function HelpPage({ lang, t, loc }) {
+export default function HelpPage({ lang, t }) {
   useEffect(() => {
     document.title = `${t.help} — ${t.app_name}`;
   }, [t]);
 
   const blocks = [1, 2, 3, 4, 5].map((n) => ({
-    title: loc[`help${n}_title`],
-    html: loc[`help${n}_text`],
+    title: t[`help${n}_title`],
+    html: t[`help${n}_text`],
   }));
 
   return (

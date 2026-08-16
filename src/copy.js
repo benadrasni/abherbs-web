@@ -14,18 +14,10 @@ function pluralCategory(lang, n) {
   }
 }
 
-export function uiText(lang, loc) {
+export function uiText(lang) {
   const en = catalogs.en || {};
   const chosen = (lang && catalogs[lang]) || {};
-  const locSafe = loc || {};
   const catalog = { ...en, ...chosen };
-
-  if (locSafe.app_name) catalog.app_name = locSafe.app_name;
-  if (locSafe.app_short_description) catalog.app_short = locSafe.app_short_description;
-  if (locSafe.menu_about) catalog.about = locSafe.menu_about;
-  if (locSafe.menu_help) catalog.help = locSafe.menu_help;
-  if (locSafe.illustration) catalog.illustration = locSafe.illustration;
-  if (locSafe.taxonomy) catalog.classification = locSafe.taxonomy;
   if (!catalog.app_short) catalog.app_short = catalog.get_lede;
 
   const raw = (key) => {

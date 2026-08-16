@@ -30,12 +30,42 @@ function displayName(label, fallback) {
   return raw.charAt(0).toLocaleUpperCase() + raw.slice(1);
 }
 
+function namedRows(raw) {
+  if (!raw) return [];
+  const list = Array.isArray(raw)
+    ? raw.map((row, index) => (row && row.name ? { ...row, id: row.id != null ? row.id : index } : null))
+    : Object.keys(raw).map((key) => {
+        const row = raw[key];
+        if (!row || !row.name) return null;
+        return { ...row, id: row.id != null ? row.id : key };
+      });
+  return list.filter(Boolean);
+}
+
+function catalogCovers(rows, expectedCount) {
+  const n = rows.length;
+  if (!n) return false;
+  if (expectedCount == null || expectedCount === '') return n >= 1000;
+  const count = Number(expectedCount);
+  if (Number.isNaN(count)) return n >= 1000;
+  return n >= count;
+}
+
 function plateUrl(header) {
-  const rel = header && header.url;
-  if (!rel) return '';
-  const parts = String(rel).split('/');
+  const rel = (header && header.illustrationUrl) || '';
+  if (rel) return PHOTO + rel;
+  const fallback = header && header.url;
+  if (!fallback) return '';
+  const parts = String(fallback).split('/');
   if (parts.length < 3) return '';
   return PHOTO + parts.slice(0, 3).join('/') + '/' + parts[2] + '.webp';
+}
+
+function labelFor(header, labels) {
+  if (!labels || header.id == null) return header && header.name;
+  const id = header.id;
+  const row = Array.isArray(labels) ? labels[id] : labels[id] != null ? labels[id] : labels[String(id)];
+  return row || header.name;
 }
 
 function genusOf(name) {
@@ -121,11 +151,16 @@ async function main() {
   }
   const template = fs.readFileSync(templatePath, 'utf8');
 
-  const [headers, translations] = await Promise.all([
+  const [catalog, count, headers, translations, enLabels] = await Promise.all([
+    getJson(DB + '/web/catalog.json').catch(() => null),
+    getJson(DB + '/plants_to_update/count.json').catch(() => null),
     getJson(DB + '/plants_headers.json'),
     getJson(DB + '/translations/en.json'),
+    getJson(DB + '/web/labels/en.json').catch(() => null),
   ]);
-  const plants = (Array.isArray(headers) ? headers : []).filter((h) => h && h.name);
+  const catalogRows = namedRows(catalog);
+  const headerRows = namedRows(headers);
+  const plants = catalogCovers(catalogRows, count) ? catalogRows : headerRows;
   const byName = translations && typeof translations === 'object' ? translations : {};
 
   const urls = [
@@ -200,7 +235,7 @@ async function main() {
   plants.forEach((header) => {
     const name = header.name;
     const text = byName[name] || {};
-    const label = displayName(text.label, name);
+    const label = displayName(text.label || labelFor(header, enLabels), name);
     const title = label + ' (' + name + ') — ' + APP;
     const description = String(text.description || label + ' — botanical plate and notes in ' + APP).slice(
       0,

@@ -273,9 +273,42 @@ export function sessionFeatured(headers) {
   return picked;
 }
 
+function withId(header, fallbackId) {
+  if (!header || !header.name) return null;
+  const rawId = header.id != null ? header.id : fallbackId;
+  const id = typeof rawId === 'number' ? rawId : Number(rawId);
+  return {
+    ...header,
+    id: Number.isNaN(id) ? fallbackId : id,
+  };
+}
+
 export function compactHeaders(raw) {
   if (!raw) return [];
-  return (Array.isArray(raw) ? raw : Object.keys(raw).map((k) => raw[k])).filter((h) => h && h.name);
+  if (Array.isArray(raw)) {
+    return raw.map((header, index) => withId(header, index)).filter(Boolean);
+  }
+  return Object.keys(raw)
+    .map((key) => withId(raw[key], key))
+    .filter(Boolean);
+}
+
+export function indexHeadersById(headers) {
+  const map = {};
+  (headers || []).forEach((header) => {
+    if (!header || header.id == null) return;
+    map[header.id] = header;
+  });
+  return map;
+}
+
+export function catalogCovers(rows, expectedCount) {
+  const n = (rows || []).length;
+  if (!n) return false;
+  if (expectedCount == null || expectedCount === '') return n >= 1000;
+  const count = Number(expectedCount);
+  if (Number.isNaN(count)) return n >= 1000;
+  return n >= count;
 }
 
 export function sourceHost(href) {

@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { pageview } from './analytics';
-import { loadHeaders, loadWebStrings } from './api';
+import { loadLabels, loadPlantIndex } from './api';
 import Header from './components/Header';
 import { uiText } from './copy';
 import languages from './languages';
-import { RTL, compactHeaders, detectLang } from './lib';
+import { RTL, compactHeaders, detectLang, indexHeadersById } from './lib';
 import AboutPage from './pages/AboutPage';
 import FamiliesPage from './pages/FamiliesPage';
 import GeneraPage from './pages/GeneraPage';
@@ -21,19 +21,38 @@ export default function App() {
   const lang = detectLang(location.search, languages);
   const queryPlant = new URLSearchParams(location.search).get('plant');
   const [rawHeaders, setRawHeaders] = useState([]);
-  const [loc, setLoc] = useState({});
+  const [fromCatalog, setFromCatalog] = useState(false);
+  const [labels, setLabels] = useState(null);
 
   useEffect(() => {
-    loadHeaders()
-      .then((data) => setRawHeaders(Array.isArray(data) ? data : []))
-      .catch(() => setRawHeaders([]));
+    loadPlantIndex()
+      .then((index) => {
+        setRawHeaders(index.raw || []);
+        setFromCatalog(Boolean(index.fromCatalog));
+      })
+      .catch(() => {
+        setRawHeaders([]);
+        setFromCatalog(false);
+      });
   }, []);
 
   useEffect(() => {
-    loadWebStrings(lang)
-      .then((data) => setLoc(data || {}))
-      .catch(() => setLoc({}));
-  }, [lang]);
+    if (!fromCatalog) {
+      setLabels(null);
+      return undefined;
+    }
+    let live = true;
+    loadLabels(lang)
+      .then((data) => {
+        if (live) setLabels(data);
+      })
+      .catch(() => {
+        if (live) setLabels(null);
+      });
+    return () => {
+      live = false;
+    };
+  }, [lang, fromCatalog]);
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -51,7 +70,8 @@ export default function App() {
   }, [location.pathname, location.search]);
 
   const headers = useMemo(() => compactHeaders(rawHeaders), [rawHeaders]);
-  const t = useMemo(() => uiText(lang, loc), [lang, loc]);
+  const headersById = useMemo(() => indexHeadersById(headers), [headers]);
+  const t = useMemo(() => uiText(lang), [lang]);
 
   const setLang = (next) => {
     const params = new URLSearchParams(location.search);
@@ -66,17 +86,35 @@ export default function App() {
         <Route path="/translate_flower" element={<Navigate to="/" replace />} />
         <Route path="/translate_app" element={<Navigate to="/" replace />} />
         <Route path="/identify" element={<IdentifyPage lang={lang} t={t} />} />
-        <Route path="/about" element={<AboutPage lang={lang} t={t} loc={loc} />} />
-        <Route path="/help" element={<HelpPage lang={lang} t={t} loc={loc} />} />
+        <Route path="/about" element={<AboutPage lang={lang} t={t} />} />
+        <Route path="/help" element={<HelpPage lang={lang} t={t} />} />
         <Route path="/families" element={<FamiliesPage lang={lang} t={t} headers={headers} />} />
         <Route path="/genera" element={<GeneraPage lang={lang} t={t} headers={headers} />} />
         <Route
           path="/family/:family"
-          element={<FamilyPage lang={lang} t={t} headers={headers} mode="family" />}
+          element={
+            <FamilyPage
+              lang={lang}
+              t={t}
+              headers={headers}
+              labels={labels}
+              fromCatalog={fromCatalog}
+              mode="family"
+            />
+          }
         />
         <Route
           path="/genus/:genus"
-          element={<FamilyPage lang={lang} t={t} headers={headers} mode="genus" />}
+          element={
+            <FamilyPage
+              lang={lang}
+              t={t}
+              headers={headers}
+              labels={labels}
+              fromCatalog={fromCatalog}
+              mode="genus"
+            />
+          }
         />
         <Route path="/plant/:name" element={<PlantPage lang={lang} t={t} />} />
         <Route
@@ -85,7 +123,14 @@ export default function App() {
             queryPlant ? (
               <PlantPage lang={lang} t={t} requestedName={queryPlant} />
             ) : (
-              <HomePage lang={lang} t={t} headers={headers} headersById={rawHeaders} />
+              <HomePage
+                lang={lang}
+                t={t}
+                headers={headers}
+                headersById={headersById}
+                labels={labels}
+                fromCatalog={fromCatalog}
+              />
             )
           }
         />

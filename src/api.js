@@ -50,6 +50,43 @@ export function loadHeaders() {
   return getJson('plants_headers');
 }
 
+export function labelAt(labels, id) {
+  if (labels == null || id == null) return '';
+  const row = Array.isArray(labels) ? labels[id] : labels[id] ?? labels[String(id)];
+  return typeof row === 'string' ? row : '';
+}
+
+function namedCount(raw) {
+  if (!raw) return 0;
+  if (Array.isArray(raw)) return raw.filter((row) => row && row.name).length;
+  return Object.keys(raw).reduce((n, key) => n + (raw[key] && raw[key].name ? 1 : 0), 0);
+}
+
+function catalogCoversCount(n, expectedCount) {
+  if (!n) return false;
+  if (expectedCount == null || expectedCount === '') return n >= 1000;
+  const count = Number(expectedCount);
+  if (Number.isNaN(count)) return n >= 1000;
+  return n >= count;
+}
+
+export async function loadPlantIndex() {
+  const [catalog, count] = await Promise.all([
+    getJson('web/catalog').catch(() => null),
+    getJson('plants_to_update/count').catch(() => null),
+  ]);
+  if (catalogCoversCount(namedCount(catalog), count)) {
+    return { raw: catalog, fromCatalog: true };
+  }
+  const headers = await getJson('plants_headers');
+  return { raw: headers, fromCatalog: false };
+}
+
+export function loadLabels(lang) {
+  if (!lang) return Promise.resolve(null);
+  return getJson(`web/labels/${enc(lang)}`).catch(() => null);
+}
+
 export function loadPlant(name) {
   return getJson(`plants_v2/${enc(name)}`);
 }
@@ -64,10 +101,6 @@ export function loadObservations(name) {
 
 export function loadTaxonLabel(lang, taxon) {
   return getJson(`translations_taxonomy/${enc(lang)}/${enc(taxon)}`);
-}
-
-export function loadWebStrings(lang) {
-  return getJson(`web/${enc(lang)}`);
 }
 
 export function normalizeSearch(value) {
