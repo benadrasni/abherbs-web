@@ -161,8 +161,8 @@ export async function loadPlantText(lang, name) {
   ]);
   const sources = [primary, gt, fallback];
   const text = {
-    label: pickField('label', primary, fallback) || name,
-    names: (primary && primary.names) || (fallback && fallback.names) || [],
+    label: pickField('label', primary) || name,
+    names: (primary && primary.names) || [],
     wikipedia: pickField('wikipedia', primary, fallback),
     sourceUrls: (primary && primary.sourceUrls) || (fallback && fallback.sourceUrls) || [],
   };
