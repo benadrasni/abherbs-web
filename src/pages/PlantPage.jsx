@@ -10,8 +10,9 @@ import {
 } from '../api';
 import Footer from '../components/Footer';
 import Lightbox from '../components/Lightbox';
+import RichPlantText from '../components/RichPlantText';
+import StoreLinks from '../components/StoreLinks';
 import {
-  PLAY_URL,
   collectPlantSources,
   countByCountry,
   countryName,
@@ -99,7 +100,7 @@ export default function PlantPage({ lang, t, requestedName }) {
     if (!text || !plant) return;
     const title = `${displayName(text.label, plant.name)} (${plant.name}) — ${t.app_name}`;
     document.title = title;
-    const desc = text.description || t.app_short;
+    const desc = String(text.description || t.app_short).replace(/<\/?b>/g, '');
     let tag = document.querySelector('meta[name="description"]');
     if (!tag) {
       tag = document.createElement('meta');
@@ -189,7 +190,7 @@ export default function PlantPage({ lang, t, requestedName }) {
           <div className="facts">
             <div className="fact">
               <div className="k">{t.height}</div>
-              <div className="v">{formatHeight(plant.heightFrom, plant.heightTo, lang) || '—'}</div>
+              <div className="v ltr">{formatHeight(plant.heightFrom, plant.heightTo, lang) || '—'}</div>
             </div>
             <div className="fact">
               <div className="k">{t.flowering}</div>
@@ -200,12 +201,18 @@ export default function PlantPage({ lang, t, requestedName }) {
               <div className="v">{toxicityLabel(plant.toxicityClass, t)}</div>
             </div>
           </div>
-          {text.description ? <p className="lede">{text.description}</p> : null}
+          {text.description ? (
+            <p className="lede">
+              <RichPlantText value={text.description} />
+            </p>
+          ) : null}
           {SECTIONS.map(([key, copyKey]) =>
             text[key] ? (
               <div className="sec" key={key}>
                 <div className="k">{t[copyKey] || copyKey}</div>
-                <p>{text[key]}</p>
+                <p>
+                  <RichPlantText value={text[key]} />
+                </p>
               </div>
             ) : null
           )}
@@ -366,7 +373,6 @@ export default function PlantPage({ lang, t, requestedName }) {
           </div>
           <aside className="aside">
             <h3>{t.public_records(obs.length)}</h3>
-            <p>{t.seen_lede}</p>
             {countries.length ? (
               <ul className="places">
                 {countries.map((c) => (
@@ -376,7 +382,8 @@ export default function PlantPage({ lang, t, requestedName }) {
                 ))}
               </ul>
             ) : null}
-            <a className="cta" href={PLAY_URL}>{t.record_in_app}</a>
+            <p>{t.record_in_app}</p>
+            <StoreLinks t={t} />
           </aside>
         </div>
       </section>
@@ -412,10 +419,10 @@ export default function PlantPage({ lang, t, requestedName }) {
 function SynonymName({ syn }) {
   const latin = [syn.name, syn.suffix].filter(Boolean).join(' ');
   return (
-    <>
+    <span className="ltr">
       <span className="latin">{latin}</span>
       {syn.author ? ` ${syn.author}` : ''}
-    </>
+    </span>
   );
 }
 
