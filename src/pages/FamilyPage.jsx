@@ -1,19 +1,17 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { labelAt, loadCardExtras } from '../api';
+import { labelAt } from '../api';
 import Footer from '../components/Footer';
 import PlateGrid from '../components/PlateGrid';
 import { genusOf, withLang } from '../lib';
 
-function withCatalogLabel(header, labels) {
-  const label = labelAt(labels, header.id);
-  return { ...header, label: label || '' };
+function withLabel(header, labels) {
+  return { ...header, label: labelAt(labels, header.id) || '' };
 }
 
-export default function FamilyPage({ lang, t, headers, labels, fromCatalog, mode }) {
+export default function FamilyPage({ lang, t, headers, labels, mode }) {
   const params = useParams();
   const key = decodeURIComponent(mode === 'genus' ? params.genus : params.family);
-  const [items, setItems] = useState([]);
 
   const raw = useMemo(() => {
     if (mode === 'genus') {
@@ -22,36 +20,17 @@ export default function FamilyPage({ lang, t, headers, labels, fromCatalog, mode
     return headers.filter((h) => h.family === key);
   }, [headers, key, mode]);
 
-  const catalogItems = useMemo(() => {
-    if (!fromCatalog) return null;
-    return raw
-      .map((h) => withCatalogLabel(h, labels))
-      .sort((a, b) => (a.label || a.name).localeCompare(b.label || b.name, lang));
-  }, [fromCatalog, raw, labels, lang]);
+  const items = useMemo(
+    () =>
+      raw
+        .map((h) => withLabel(h, labels))
+        .sort((a, b) => (a.label || a.name).localeCompare(b.label || b.name, lang)),
+    [raw, labels, lang]
+  );
 
   useEffect(() => {
     document.title = `${key} — ${t.app_name}`;
   }, [key, t.app_name]);
-
-  useEffect(() => {
-    if (fromCatalog) {
-      setItems([]);
-      return undefined;
-    }
-    let live = true;
-    Promise.all(
-      raw.map((h) =>
-        loadCardExtras(lang, h.name)
-          .then((extra) => ({ ...h, ...extra }))
-          .catch(() => ({ ...h, label: h.name }))
-      )
-    ).then((rows) => {
-      if (live) setItems(rows.sort((a, b) => (a.label || a.name).localeCompare(b.label || b.name, lang)));
-    });
-    return () => {
-      live = false;
-    };
-  }, [raw, lang, fromCatalog]);
 
   return (
     <div className="page">
@@ -69,11 +48,7 @@ export default function FamilyPage({ lang, t, headers, labels, fromCatalog, mode
         </p>
       </div>
       {raw.length ? (
-        <PlateGrid
-          items={catalogItems || (items.length ? items : raw)}
-          lang={lang}
-          genusLabel={mode === 'family'}
-        />
+        <PlateGrid items={items} lang={lang} genusLabel={mode === 'family'} />
       ) : (
         <p className="center-msg">{t.empty_taxon}</p>
       )}

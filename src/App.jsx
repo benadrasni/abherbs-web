@@ -21,26 +21,15 @@ export default function App() {
   const lang = detectLang(location.search, languages);
   const queryPlant = new URLSearchParams(location.search).get('plant');
   const [rawHeaders, setRawHeaders] = useState([]);
-  const [fromCatalog, setFromCatalog] = useState(false);
   const [labels, setLabels] = useState(null);
 
   useEffect(() => {
     loadPlantIndex()
-      .then((index) => {
-        setRawHeaders(index.raw || []);
-        setFromCatalog(Boolean(index.fromCatalog));
-      })
-      .catch(() => {
-        setRawHeaders([]);
-        setFromCatalog(false);
-      });
+      .then((index) => setRawHeaders(index.raw || []))
+      .catch(() => setRawHeaders([]));
   }, []);
 
   useEffect(() => {
-    if (!fromCatalog) {
-      setLabels(null);
-      return undefined;
-    }
     let live = true;
     loadLabels(lang)
       .then((data) => {
@@ -52,7 +41,7 @@ export default function App() {
     return () => {
       live = false;
     };
-  }, [lang, fromCatalog]);
+  }, [lang]);
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -98,7 +87,6 @@ export default function App() {
               t={t}
               headers={headers}
               labels={labels}
-              fromCatalog={fromCatalog}
               mode="family"
             />
           }
@@ -111,7 +99,6 @@ export default function App() {
               t={t}
               headers={headers}
               labels={labels}
-              fromCatalog={fromCatalog}
               mode="genus"
             />
           }
@@ -129,7 +116,6 @@ export default function App() {
                 headers={headers}
                 headersById={headersById}
                 labels={labels}
-                fromCatalog={fromCatalog}
               />
             )
           }

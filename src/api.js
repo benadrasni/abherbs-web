@@ -140,25 +140,6 @@ export function idsFromSearchIndex(index, query) {
   return ids;
 }
 
-export function loadLabel(lang, name) {
-  return getJson(`translations/${enc(lang)}/${enc(name)}/label`);
-}
-
-export function loadIllustrationUrl(name) {
-  return getJson(`plants_v2/${enc(name)}/illustrationUrl`);
-}
-
-export async function loadCardExtras(lang, name) {
-  const [label, illustrationUrl] = await Promise.all([
-    loadLabel(lang, name).catch(() => null),
-    loadIllustrationUrl(name).catch(() => null),
-  ]);
-  return {
-    label: label || name,
-    illustrationUrl: illustrationUrl || '',
-  };
-}
-
 const BODY_FIELDS = [
   'description',
   'flower',
