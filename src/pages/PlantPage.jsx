@@ -7,7 +7,9 @@ import {
   loadSynonyms,
   loadTaxonLabel,
   photoUrl,
+  plateFiles,
 } from '../api';
+import PlateImage from '../components/PlateImage';
 import Footer from '../components/Footer';
 import Lightbox from '../components/Lightbox';
 import RichPlantText from '../components/RichPlantText';
@@ -133,7 +135,10 @@ export default function PlantPage({ lang, t, requestedName }) {
   }
 
   const photos = plant.photoUrls || [];
-  const plate = plant.illustrationUrl ? photoUrl(plant.illustrationUrl) : '';
+  const plateRel = plant.illustrationUrl || '';
+  const platePaths = plateFiles(plateRel);
+  const plate = plateRel ? photoUrl(platePaths.master) : '';
+  const plateLegacy = plateRel ? photoUrl(platePaths.legacy) : '';
   const sourceList = groupedSources.name.concat(groupedSources.text, groupedSources.images);
   const video = (plant.videoUrls || []).map(youtubeId).filter(Boolean)[0];
 
@@ -166,8 +171,13 @@ export default function PlantPage({ lang, t, requestedName }) {
       <section className="spread">
         <div className="plate">
           {plate ? (
-            <button type="button" onClick={() => setLight({ src: plate, caption: t.illustration })}>
-              <img src={plate} alt={t.plate_alt(plant.name)} />
+            <button type="button" onClick={() => setLight({ src: plate, fallbackSrc: plateLegacy, caption: t.illustration })}>
+              <PlateImage
+                rel={plateRel}
+                preferred="master"
+                sizes="(max-width: 860px) 92vw, 46vw"
+                alt={t.plate_alt(plant.name)}
+              />
             </button>
           ) : null}
           <div className="cap">{t.illustration}</div>
@@ -411,7 +421,12 @@ export default function PlantPage({ lang, t, requestedName }) {
             : t.app_name
         }
       />
-      <Lightbox src={light && light.src} caption={light && light.caption} onClose={() => setLight(null)} />
+      <Lightbox
+        src={light && light.src}
+        fallbackSrc={light && light.fallbackSrc}
+        caption={light && light.caption}
+        onClose={() => setLight(null)}
+      />
     </div>
   );
 }

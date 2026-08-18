@@ -38,6 +38,26 @@ export function photoUrl(rel) {
   return PHOTO_ROOT + rel;
 }
 
+export function plateFiles(rel) {
+  if (!rel) return { legacy: '', master: '', grid: '' };
+  const parts = String(rel).split('/');
+  const file = parts.pop() || '';
+  const match = file.match(/^(.*?)(?:@(?:1600|400))?(\.[^.]+)$/);
+  const stem = match ? match[1] : file.replace(/\.[^.]+$/, '');
+  const ext = match ? match[2] : '.webp';
+  if (!stem) return { legacy: '', master: '', grid: '' };
+  const prefix = parts.length ? parts.join('/') + '/' : '';
+  return {
+    legacy: prefix + stem + ext,
+    master: prefix + stem + '@1600' + ext,
+    grid: prefix + stem + '@400' + ext,
+  };
+}
+
+export function plateGridUrl(rel) {
+  return plateFiles(rel).grid || rel || '';
+}
+
 export function illustrationFromHeaderUrl(url) {
   if (!url) return '';
   const parts = url.split('/');

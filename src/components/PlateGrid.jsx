@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { displayName, headerPlate, plantPath } from '../lib';
+import PlateImage from './PlateImage';
+import { displayName, headerPlateRel, plantPath } from '../lib';
 
 export default function PlateGrid({ items, lang, genusLabel }) {
   return (
@@ -8,7 +9,7 @@ export default function PlateGrid({ items, lang, genusLabel }) {
       {items.map((item) => (
         <Link key={item.name} className="cell" to={plantPath(item.name, lang)}>
           <div className="art">
-            <img src={headerPlate(item)} alt="" loading="lazy" />
+            <PlateImage rel={headerPlateRel(item)} preferred="grid" alt="" />
           </div>
           <div className="n">{displayName(item.label, item.name)}</div>
           <div className="l latin">{item.name}</div>

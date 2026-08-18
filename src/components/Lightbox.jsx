@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-export default function Lightbox({ src, caption, onClose }) {
+export default function Lightbox({ src, fallbackSrc, caption, onClose }) {
   const rootRef = useRef(null);
   const closeRef = useRef(null);
   const prevFocus = useRef(null);
@@ -46,6 +46,11 @@ export default function Lightbox({ src, caption, onClose }) {
     };
   }, [src, onClose]);
 
+  const [shown, setShown] = useState(src);
+  useEffect(() => {
+    setShown(src);
+  }, [src]);
+
   if (!src) return null;
   return (
     <div
@@ -69,7 +74,13 @@ export default function Lightbox({ src, caption, onClose }) {
       >
         ×
       </button>
-      <img src={src} alt={caption || ''} />
+      <img
+        src={shown}
+        alt={caption || ''}
+        onError={() => {
+          if (fallbackSrc && shown !== fallbackSrc) setShown(fallbackSrc);
+        }}
+      />
       {caption ? <p>{caption}</p> : null}
     </div>
   );
