@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
+  distributionRel,
   loadObservations,
   loadPlant,
   loadPlantText,
@@ -56,11 +57,17 @@ export default function PlantPage({ lang, t, requestedName }) {
   const [familyCommon, setFamilyCommon] = useState('');
   const [error, setError] = useState('');
   const [light, setLight] = useState(null);
+  const [mapFailed, setMapFailed] = useState(false);
+  const [mapReady, setMapReady] = useState(false);
+  const [mapSrc, setMapSrc] = useState('');
 
   useEffect(() => {
     let live = true;
     setPlant(null);
     setError('');
+    setMapFailed(false);
+    setMapReady(false);
+    setMapSrc('');
     if (!name) {
       setError('missing');
       return undefined;
@@ -139,6 +146,14 @@ export default function PlantPage({ lang, t, requestedName }) {
   const platePaths = plateFiles(plateRel);
   const plate = plateRel ? photoUrl(platePaths.master) : '';
   const plateLegacy = plateRel ? photoUrl(platePaths.legacy) : '';
+  const distRel = distributionRel(plant);
+  const distRemote = distRel ? photoUrl(distRel) : '';
+  const distLocal = plant.name
+    ? `/images/${String(plant.name).replace(/ /g, '_')}_distribution.webp`
+    : '';
+  const distSrc = mapSrc || distRemote;
+  const showMap = Boolean(distSrc) && !mapFailed && mapReady;
+  const probeMap = Boolean(distSrc) && !mapFailed;
   const sourceList = groupedSources.name.concat(groupedSources.text, groupedSources.images);
   const video = (plant.videoUrls || []).map(youtubeId).filter(Boolean)[0];
 
@@ -263,12 +278,12 @@ export default function PlantPage({ lang, t, requestedName }) {
       ) : null}
 
       <section className="band">
-        <div className="band-h">
-          <h2>{t.classification}</h2>
-          <p>{t.classification_lede}</p>
-        </div>
-        <div className="tax-grid">
-          <div>
+        <div className={showMap ? 'tax-grid' : 'tax-grid no-map'}>
+          <div className="tax-col">
+            <div className="band-h">
+              <h2>{t.classification}</h2>
+              {showMap ? null : <p>{t.classification_lede}</p>}
+            </div>
             <div className="ranks">
               {order ? (
                 <div className="rank">
@@ -328,8 +343,6 @@ export default function PlantPage({ lang, t, requestedName }) {
                 </div>
               ) : null}
             </div>
-          </div>
-          <div>
             {ranks.length ? (
               <details className="details tax-ranks-full">
                 <summary>{t.show_ranks}</summary>
@@ -350,6 +363,35 @@ export default function PlantPage({ lang, t, requestedName }) {
               </details>
             ) : null}
           </div>
+          {probeMap ? (
+            <div className={showMap ? 'dist-col' : 'dist-col dist-col-probe'}>
+              {showMap ? (
+                <div className="band-h">
+                  <h2>{t.distribution}</h2>
+                </div>
+              ) : null}
+              <figure className="dist-map">
+                <button
+                  type="button"
+                  onClick={() => setLight({ src: distSrc, caption: t.distribution })}
+                >
+                  <img
+                    src={distSrc}
+                    alt={t.distribution_alt(plant.name)}
+                    onLoad={() => setMapReady(true)}
+                    onError={() => {
+                      setMapReady(false);
+                      if (import.meta.env.DEV && distLocal && distSrc !== distLocal) {
+                        setMapSrc(distLocal);
+                      } else {
+                        setMapFailed(true);
+                      }
+                    }}
+                  />
+                </button>
+              </figure>
+            </div>
+          ) : null}
         </div>
       </section>
 

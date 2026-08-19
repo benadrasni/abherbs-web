@@ -33,9 +33,18 @@ export function familyIconUrl(family) {
 
 export function photoUrl(rel) {
   if (!rel) return '';
-  if (rel.startsWith('http')) return rel;
+  if (rel.startsWith('http') || rel.startsWith('/')) return rel;
   if (rel.startsWith('observations/')) return STORAGE + rel;
   return PHOTO_ROOT + rel;
+}
+
+export function distributionRel(plant) {
+  if (!plant) return '';
+  if (plant.distributionUrl) return plant.distributionUrl;
+  const ill = String(plant.illustrationUrl || '');
+  const match = ill.match(/^(.*?)(\.[^.]+)$/);
+  if (!match) return '';
+  return `${match[1]}_distribution${match[2]}`;
 }
 
 export function plateFiles(rel) {

@@ -179,7 +179,55 @@ img { max-width: 100%; }
   color: #c4b49a;
 }
 
-.tax-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; }
+.tax-grid {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.85fr) minmax(0, 1.15fr);
+  gap: 32px 48px;
+  align-items: start;
+}
+.tax-grid.no-map { grid-template-columns: 1fr; max-width: 40rem; }
+.tax-col, .dist-col { min-width: 0; }
+.tax-col .band-h, .dist-col .band-h {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.tax-col .band-h p { text-align: start; }
+.tax-grid.no-map .tax-col .band-h {
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+}
+.tax-grid.no-map .tax-col .band-h p { text-align: end; }
+.dist-col-probe {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+.dist-map {
+  margin: 0;
+  background: #c0dde5;
+}
+.dist-map button {
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+.dist-map img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 2754 / 1398;
+  object-fit: contain;
+  background: #c0dde5;
+}
 .path { font-size: 16px; line-height: 1.7; }
 .path a { text-decoration: none; border-bottom: 1px solid var(--rule); }
 .ranks { margin-top: 0; }
@@ -213,6 +261,7 @@ img { max-width: 100%; }
 .links a:hover, .links a:active { border-color: var(--ink); }
 .details { margin-top: 0; color: var(--ink-2); font-size: 14px; }
 .details summary { cursor: pointer; }
+.tax-ranks-full { margin-top: 16px; }
 .tax-ranks-full[open] summary { margin-bottom: 8px; }
 .rank-full { display: grid; grid-template-columns: 140px 1fr; gap: 8px; padding: 5px 0; border-top: 1px solid var(--rule); }
 .rank-full a { text-decoration: none; border-bottom: 1px solid var(--rule); }
@@ -481,6 +530,7 @@ img { max-width: 100%; }
   .photos, .obs { grid-template-columns: repeat(2, 1fr); }
   .tax-grid, .seen, .home-hero, .bib { grid-template-columns: 1fr; display: block; }
   .bib > div + div { margin-top: 22px; }
+  .tax-grid .dist-col { margin-top: 28px; }
   .tax-ranks-full { margin-top: 16px; }
   .band-h { flex-direction: column; align-items: flex-start; }
   .band-h p { text-align: start; }

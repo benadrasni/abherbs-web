@@ -59,5 +59,6 @@ export function uiText(lang) {
     public_records: (n) =>
       Number(n) === 1 ? text('public_records_one') : text('public_records_other', { n }),
     plate_alt: (name) => text('plate_alt', { name }),
+    distribution_alt: (name) => text('distribution_alt', { name }),
   };
 }
