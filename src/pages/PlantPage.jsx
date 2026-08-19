@@ -282,7 +282,7 @@ export default function PlantPage({ lang, t, requestedName }) {
           <div className="tax-col">
             <div className="band-h">
               <h2>{t.classification}</h2>
-              {showMap ? null : <p>{t.classification_lede}</p>}
+              <p>{t.classification_lede}</p>
             </div>
             <div className="ranks">
               {order ? (
@@ -368,6 +368,16 @@ export default function PlantPage({ lang, t, requestedName }) {
               {showMap ? (
                 <div className="band-h">
                   <h2>{t.distribution}</h2>
+                  <ul className="dist-legend">
+                    <li>
+                      <i className="swatch native" aria-hidden="true" />
+                      {t.distribution_native}
+                    </li>
+                    <li>
+                      <i className="swatch introduced" aria-hidden="true" />
+                      {t.distribution_introduced}
+                    </li>
+                  </ul>
                 </div>
               ) : null}
               <figure className="dist-map">
