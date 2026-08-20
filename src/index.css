@@ -356,6 +356,9 @@ img { max-width: 100%; }
 
 .home-hero { padding: 36px 28px 8px; display: flex; justify-content: space-between; gap: 24px; align-items: end; }
 .home-hero h1 { font-size: clamp(40px, 6vw, 64px); margin: 6px 0 0; }
+.home-hero .binomen { font-size: 20px; color: var(--ink-2); margin-top: 6px; }
+.home-hero .aka { margin-top: 8px; font-size: 15px; color: var(--ink-2); }
+.taxon-gloss { font-style: normal; font-family: inherit; color: var(--ink-2); }
 .search {
   margin: 18px 28px 8px;
   max-width: 560px;
@@ -424,7 +427,14 @@ img { max-width: 100%; }
   object-fit: contain;
   background: transparent;
 }
-.tile-copy { min-width: 0; flex: 1; }
+.tile-copy {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
 .tile b {
   font-family: Fraunces, Georgia, serif;
   font-weight: 520;

@@ -1,16 +1,22 @@
 import React, { useEffect, useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
-import { familyIconUrl } from '../api';
-import { countByFamily, familyPath } from '../lib';
+import TaxonTile from '../components/TaxonTile';
+import { familyIconUrl, taxonLabel } from '../api';
+import { countByFamily, displayName, familyPath } from '../lib';
 
-export default function FamiliesPage({ lang, t, headers }) {
+export default function FamiliesPage({ lang, t, headers, taxonomy }) {
   useEffect(() => {
     document.title = `${t.families} — ${t.app_name}`;
   }, [t]);
   const families = useMemo(
-    () => countByFamily(headers).sort((a, b) => a.name.localeCompare(b.name)),
-    [headers]
+    () =>
+      countByFamily(headers).sort((a, b) =>
+        displayName(taxonLabel(taxonomy, a.name), a.name).localeCompare(
+          displayName(taxonLabel(taxonomy, b.name), b.name),
+          lang
+        )
+      ),
+    [headers, taxonomy, lang]
   );
 
   return (
@@ -25,21 +31,15 @@ export default function FamiliesPage({ lang, t, headers }) {
       <section className="band">
         <div className="tiles">
           {families.map((f) => (
-            <Link key={f.name} className="tile tile-with-icon" to={familyPath(f.name, lang)}>
-              <img
-                className="tile-icon"
-                src={familyIconUrl(f.name)}
-                alt=""
-                loading="lazy"
-                onError={(e) => {
-                  e.currentTarget.hidden = true;
-                }}
-              />
-              <span className="tile-copy">
-                <b>{f.name}</b>
-                <span>{t.plants_count(f.count)}</span>
-              </span>
-            </Link>
+            <TaxonTile
+              key={f.name}
+              to={familyPath(f.name, lang)}
+              name={f.name}
+              label={taxonLabel(taxonomy, f.name)}
+              count={f.count}
+              t={t}
+              iconSrc={familyIconUrl(f.name)}
+            />
           ))}
         </div>
       </section>

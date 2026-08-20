@@ -51,6 +51,14 @@ export function uiText(lang) {
     return text(`${base}_other`, { n: formatted });
   };
 
+  const taxonRank = (latin) => {
+    const suffix = String(latin || '').toLowerCase();
+    if (!suffix) return text('taxonomy_unknown');
+    const key = `taxonomy_${suffix}`;
+    if (raw(key) != null) return text(key);
+    return text('taxonomy_unknown');
+  };
+
   return {
     ...catalog,
     plants_count: (n) => plural('plants_count', n),
@@ -60,5 +68,6 @@ export function uiText(lang) {
       Number(n) === 1 ? text('public_records_one') : text('public_records_other', { n }),
     plate_alt: (name) => text('plate_alt', { name }),
     distribution_alt: (name) => text('distribution_alt', { name }),
+    taxonRank,
   };
 }

@@ -5,8 +5,21 @@ import os
 import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ARB_DIR = os.path.join(os.path.dirname(ROOT), "app", "lib", "l10n")
 OUT = os.path.join(ROOT, "src", "locales.json")
+
+
+def first_dir(*paths):
+    for path in paths:
+        if path and os.path.isdir(path):
+            return path
+    return paths[0]
+
+
+ARB_DIR = first_dir(
+    os.path.join(os.path.dirname(ROOT), "app", "lib", "l10n"),
+    os.path.expanduser("~/whatsthatflower/app/lib/l10n"),
+    os.path.expanduser("~/StudioProjects/abherbs_flutter/lib/l10n"),
+)
 
 WEB_TO_ARB = {
     "ar": "intl_ar_EG.arb",
@@ -61,6 +74,23 @@ ARB_SEED = {
     "family": "taxonomy_familia",
     "genus": "taxonomy_genus",
     "species": "taxonomy_species",
+    "taxonomy_superregnum": "taxonomy_superregnum",
+    "taxonomy_regnum": "taxonomy_regnum",
+    "taxonomy_cladus": "taxonomy_cladus",
+    "taxonomy_ordo": "taxonomy_ordo",
+    "taxonomy_familia": "taxonomy_familia",
+    "taxonomy_subfamilia": "taxonomy_subfamilia",
+    "taxonomy_tribus": "taxonomy_tribus",
+    "taxonomy_subtribus": "taxonomy_subtribus",
+    "taxonomy_genus": "taxonomy_genus",
+    "taxonomy_subgenus": "taxonomy_subgenus",
+    "taxonomy_supersectio": "taxonomy_supersectio",
+    "taxonomy_sectio": "taxonomy_sectio",
+    "taxonomy_subsectio": "taxonomy_subsectio",
+    "taxonomy_serie": "taxonomy_serie",
+    "taxonomy_subserie": "taxonomy_subserie",
+    "taxonomy_species": "taxonomy_species",
+    "taxonomy_unknown": "taxonomy_unknown",
     "toxicity_high": "toxicity1",
     "toxicity_low": "toxicity2",
 }
@@ -1158,7 +1188,11 @@ NEW = {
     "toxicity_low": {"en": "slightly poisonous plant", "pa": "ਥੋੜ੍ਹਾ ਜ਼ਹਿਰੀਲਾ ਪੌਦਾ"},
 }
 
-ANDROID_RES = os.path.join(os.path.dirname(ROOT), "app", "android", "app", "src", "main", "res")
+ANDROID_RES = first_dir(
+    os.path.join(os.path.dirname(ROOT), "app", "android", "app", "src", "main", "res"),
+    os.path.expanduser("~/whatsthatflower/app/android/app/src/main/res"),
+    os.path.expanduser("~/StudioProjects/abherbs_flutter/android/app/src/main/res"),
+)
 
 
 def load_android_app_name(lang):
@@ -1188,12 +1222,16 @@ def load_arb(path):
 def main():
     langs = ["en"] + [c for c in WEB_TO_ARB if c != "en"] + ["pa"]
     catalogs = {lang: {} for lang in langs}
+    if not os.path.isdir(ARB_DIR):
+        raise SystemExit("ARB dir missing: " + ARB_DIR)
 
+    loaded = 0
     for lang, arb_name in WEB_TO_ARB.items():
         path = os.path.join(ARB_DIR, arb_name)
         if not os.path.isfile(path):
             continue
         arb = load_arb(path)
+        loaded += 1
         for dest, src in ARB_SEED.items():
             if src in arb and isinstance(arb[src], str):
                 catalogs[lang][dest] = arb[src]
@@ -1210,9 +1248,22 @@ def main():
         en = by_lang["en"]
         for lang in langs:
             if lang in by_lang:
-                catalogs[lang][key] = by_lang[lang]
+                catalogs[lang].setdefault(key, by_lang[lang])
             elif key not in SPARSE:
                 catalogs[lang].setdefault(key, en)
+
+    RANK_ALIASES = (
+        ("order", "taxonomy_ordo"),
+        ("family", "taxonomy_familia"),
+        ("genus", "taxonomy_genus"),
+        ("species", "taxonomy_species"),
+    )
+    for cat in catalogs.values():
+        for short, long in RANK_ALIASES:
+            if short in cat:
+                cat.setdefault(long, cat[short])
+            if long in cat:
+                cat.setdefault(short, cat[long])
 
     # Keep About/Help and other keys already in locales.json that this
     # script does not generate (so a regenerate does not wipe them).
@@ -1245,6 +1296,7 @@ def main():
         for key, val in cat.items():
             if lang != "en" and val == catalogs["en"][key] and key not in ("store_play", "store_apple", "app_name"):
                 missing.append(f"{lang}.{key}")
+    print("arb", ARB_DIR, "files", loaded)
     print("wrote", OUT, "langs", len(catalogs), "keys", len(catalogs["en"]))
     leftover = [m for m in missing if not m.startswith("en.")]
     print("untranslated (fallback en)", len(leftover))

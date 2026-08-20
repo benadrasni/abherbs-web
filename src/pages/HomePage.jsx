@@ -1,12 +1,45 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { familyIconUrl, idsFromSearchIndex, labelAt, loadSearchIndex, normalizeSearch } from '../api';
+import {
+  familyIconUrl,
+  idsFromSearchIndex,
+  labelAt,
+  loadSearchIndex,
+  normalizeSearch,
+  taxonLabel,
+  taxonNames,
+} from '../api';
 import Footer from '../components/Footer';
 import PlateGrid from '../components/PlateGrid';
 import StoreLinks from '../components/StoreLinks';
-import { countByFamily, countByGenus, familyPath, genusPath, plantPath, sessionFeatured, withLang } from '../lib';
+import TaxonTile from '../components/TaxonTile';
+import {
+  countByFamily,
+  countByGenus,
+  displayName,
+  familyPath,
+  genusOf,
+  genusPath,
+  plantPath,
+  sessionFeatured,
+  withLang,
+} from '../lib';
 
-export default function HomePage({ lang, t, headers, headersById, labels }) {
+function taxonMatches(taxonomy, latin, needle) {
+  return taxonMatchScore(taxonomy, latin, needle) < 99;
+}
+
+function taxonMatchScore(taxonomy, latin, needle) {
+  if (!latin || !needle) return 99;
+  const nLatin = normalizeSearch(latin);
+  const names = taxonNames(taxonomy, latin).map((name) => normalizeSearch(name));
+  if (nLatin === needle || names.includes(needle)) return 0;
+  if (nLatin.startsWith(needle) || names.some((name) => name.startsWith(needle))) return 1;
+  if (nLatin.includes(needle) || names.some((name) => name.includes(needle))) return 2;
+  return 99;
+}
+
+export default function HomePage({ lang, t, headers, headersById, labels, taxonomy }) {
   const [q, setQ] = useState('');
   const [hits, setHits] = useState([]);
 
@@ -41,9 +74,35 @@ export default function HomePage({ lang, t, headers, headersById, labels }) {
       .filter(
         (h) =>
           normalizeSearch(h.name).includes(needle) ||
-          (h.family && normalizeSearch(h.family).includes(needle))
+          taxonMatches(taxonomy, h.family, needle) ||
+          taxonMatches(taxonomy, genusOf(h.name), needle)
       )
       .slice(0, 12);
+
+    const taxonHits = [];
+    families.forEach((f) => {
+      const score = taxonMatchScore(taxonomy, f.name, needle);
+      if (score === 99) return;
+      taxonHits.push({
+        kind: 'family',
+        name: f.name,
+        label: taxonLabel(taxonomy, f.name),
+        count: f.count,
+        score,
+      });
+    });
+    genera.forEach((g) => {
+      const score = taxonMatchScore(taxonomy, g.name, needle);
+      if (score === 99) return;
+      taxonHits.push({
+        kind: 'genus',
+        name: g.name,
+        label: taxonLabel(taxonomy, g.name),
+        count: g.count,
+        score,
+      });
+    });
+    taxonHits.sort((a, b) => a.score - b.score || b.count - a.count);
 
     const timer = setTimeout(() => {
       Promise.all([loadSearchIndex(lang).catch(() => null), loadSearchIndex('la').catch(() => null)])
@@ -67,20 +126,27 @@ export default function HomePage({ lang, t, headers, headersById, labels }) {
             merged.push(h);
           });
           if (live) {
-            setHits(
-              merged.slice(0, 12).map((h) => ({ ...h, label: labelAt(labels, h.id) || '' }))
-            );
+            const plants = merged.slice(0, 12).map((h) => ({
+              ...h,
+              kind: 'plant',
+              label: labelAt(labels, h.id) || '',
+            }));
+            setHits(taxonHits.slice(0, 6).concat(plants).slice(0, 12));
           }
         })
         .catch(() => {
-          if (live) setHits(local);
+          if (live) {
+            setHits(
+              taxonHits.slice(0, 6).concat(local.map((h) => ({ ...h, kind: 'plant' }))).slice(0, 12)
+            );
+          }
         });
     }, 220);
     return () => {
       live = false;
       clearTimeout(timer);
     };
-  }, [q, lang, headers, headersById, labels]);
+  }, [q, lang, headers, headersById, labels, taxonomy, families, genera]);
 
   return (
     <div className="page">
@@ -103,15 +169,36 @@ export default function HomePage({ lang, t, headers, headersById, labels }) {
       {q.trim().length >= 2 ? (
         <div className="results">
           {hits.length ? (
-            hits.map((h) => (
-              <Link key={h.name} className="result" to={plantPath(h.name, lang)}>
-                <span>
-                  <b>{h.label || h.name}</b>
-                  <span className="latin"> {h.name}</span>
-                </span>
-                <span className="muted">{h.family}</span>
-              </Link>
-            ))
+            hits.map((h) => {
+              if (h.kind === 'family' || h.kind === 'genus') {
+                const common = h.label ? displayName(h.label) : '';
+                return (
+                  <Link
+                    key={`${h.kind}:${h.name}`}
+                    className="result"
+                    to={h.kind === 'family' ? familyPath(h.name, lang) : genusPath(h.name, lang)}
+                  >
+                    <span>
+                      <b className={!common && h.kind === 'genus' ? 'latin' : undefined}>
+                        {common || h.name}
+                      </b>
+                      {common ? <span className="latin"> {h.name}</span> : null}
+                    </span>
+                    <span className="muted">{h.kind === 'family' ? t.family : t.genus}</span>
+                  </Link>
+                );
+              }
+              const familyCommon = taxonLabel(taxonomy, h.family);
+              return (
+                <Link key={h.name} className="result" to={plantPath(h.name, lang)}>
+                  <span>
+                    <b>{h.label || h.name}</b>
+                    <span className="latin"> {h.name}</span>
+                  </span>
+                  <span className="muted">{familyCommon ? displayName(familyCommon) : h.family}</span>
+                </Link>
+              );
+            })
           ) : (
             <p className="muted">{t.search_empty}</p>
           )}
@@ -123,7 +210,7 @@ export default function HomePage({ lang, t, headers, headersById, labels }) {
           <div className="band-h">
             <h2>{t.from_collection}</h2>
           </div>
-          <PlateGrid items={featured} lang={lang} />
+          <PlateGrid items={featured} lang={lang} taxonomy={taxonomy} />
         </section>
       ) : null}
 
@@ -138,21 +225,15 @@ export default function HomePage({ lang, t, headers, headersById, labels }) {
           </div>
           <div className="tiles">
             {families.slice(0, 12).map((f) => (
-              <Link key={f.name} className="tile tile-with-icon" to={familyPath(f.name, lang)}>
-                <img
-                  className="tile-icon"
-                  src={familyIconUrl(f.name)}
-                  alt=""
-                  loading="lazy"
-                  onError={(e) => {
-                    e.currentTarget.hidden = true;
-                  }}
-                />
-                <span className="tile-copy">
-                  <b>{f.name}</b>
-                  <span>{t.plants_count(f.count)}</span>
-                </span>
-              </Link>
+              <TaxonTile
+                key={f.name}
+                to={familyPath(f.name, lang)}
+                name={f.name}
+                label={taxonLabel(taxonomy, f.name)}
+                count={f.count}
+                t={t}
+                iconSrc={familyIconUrl(f.name)}
+              />
             ))}
           </div>
         </div>
@@ -163,10 +244,15 @@ export default function HomePage({ lang, t, headers, headersById, labels }) {
           </div>
           <div className="tiles">
             {genera.slice(0, 12).map((g) => (
-              <Link key={g.name} className="tile" to={genusPath(g.name, lang)}>
-                <b className="latin">{g.name}</b>
-                <span>{t.plants_count(g.count)}</span>
-              </Link>
+              <TaxonTile
+                key={g.name}
+                to={genusPath(g.name, lang)}
+                name={g.name}
+                label={taxonLabel(taxonomy, g.name)}
+                count={g.count}
+                t={t}
+                italicLatin
+              />
             ))}
           </div>
         </div>

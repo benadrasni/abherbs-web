@@ -124,8 +124,40 @@ export function loadObservations(name) {
   return getJson(`observations/public/by plant/${enc(name)}/list`);
 }
 
-export function loadTaxonLabel(lang, taxon) {
-  return getJson(`translations_taxonomy/${enc(lang)}/${enc(taxon)}`);
+export function loadTaxonomyLabels(lang) {
+  if (!lang) return Promise.resolve(null);
+  return getJson(`translations_taxonomy/${enc(lang)}`).catch(() => null);
+}
+
+export function taxonNames(taxonomy, latin) {
+  if (!taxonomy || !latin) return [];
+  const raw = taxonomy[latin];
+  if (raw == null) return [];
+  if (typeof raw === 'string') {
+    const name = raw.trim();
+    return name ? [name] : [];
+  }
+  const values = Array.isArray(raw)
+    ? raw
+    : Object.keys(raw)
+        .sort((a, b) => Number(a) - Number(b))
+        .map((key) => raw[key]);
+  return values
+    .filter((name) => typeof name === 'string' && name.trim())
+    .map((name) => name.trim());
+}
+
+function distinctTaxonNames(taxonomy, latin) {
+  const latinKey = String(latin || '').toLocaleLowerCase();
+  return taxonNames(taxonomy, latin).filter((name) => name.toLocaleLowerCase() !== latinKey);
+}
+
+export function taxonLabel(taxonomy, latin) {
+  return distinctTaxonNames(taxonomy, latin)[0] || '';
+}
+
+export function taxonGloss(taxonomy, latin) {
+  return distinctTaxonNames(taxonomy, latin).join(', ');
 }
 
 export function normalizeSearch(value) {

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { pageview } from './analytics';
-import { loadLabels, loadPlantIndex } from './api';
+import { loadLabels, loadPlantIndex, loadTaxonomyLabels } from './api';
 import Header from './components/Header';
 import { uiText } from './copy';
 import languages from './languages';
@@ -40,6 +40,7 @@ export default function App() {
   const needsLabels = !queryPlant && routeNeedsLabels(location.pathname);
   const [rawHeaders, setRawHeaders] = useState([]);
   const [labels, setLabels] = useState(null);
+  const [taxonomy, setTaxonomy] = useState(null);
 
   useEffect(() => {
     if (!needsIndex) return undefined;
@@ -70,6 +71,20 @@ export default function App() {
       live = false;
     };
   }, [needsLabels, lang]);
+
+  useEffect(() => {
+    let live = true;
+    loadTaxonomyLabels(lang)
+      .then((data) => {
+        if (live) setTaxonomy(data && typeof data === 'object' ? data : null);
+      })
+      .catch(() => {
+        if (live) setTaxonomy(null);
+      });
+    return () => {
+      live = false;
+    };
+  }, [lang]);
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -105,8 +120,14 @@ export default function App() {
         <Route path="/identify" element={<IdentifyPage lang={lang} t={t} />} />
         <Route path="/about" element={<AboutPage lang={lang} t={t} />} />
         <Route path="/help" element={<HelpPage lang={lang} t={t} />} />
-        <Route path="/families" element={<FamiliesPage lang={lang} t={t} headers={headers} />} />
-        <Route path="/genera" element={<GeneraPage lang={lang} t={t} headers={headers} />} />
+        <Route
+          path="/families"
+          element={<FamiliesPage lang={lang} t={t} headers={headers} taxonomy={taxonomy} />}
+        />
+        <Route
+          path="/genera"
+          element={<GeneraPage lang={lang} t={t} headers={headers} taxonomy={taxonomy} />}
+        />
         <Route
           path="/family/:family"
           element={
@@ -115,6 +136,7 @@ export default function App() {
               t={t}
               headers={headers}
               labels={labels}
+              taxonomy={taxonomy}
               mode="family"
             />
           }
@@ -127,16 +149,17 @@ export default function App() {
               t={t}
               headers={headers}
               labels={labels}
+              taxonomy={taxonomy}
               mode="genus"
             />
           }
         />
-        <Route path="/plant/:name" element={<PlantPage lang={lang} t={t} />} />
+        <Route path="/plant/:name" element={<PlantPage lang={lang} t={t} taxonomy={taxonomy} />} />
         <Route
           path="/"
           element={
             queryPlant ? (
-              <PlantPage lang={lang} t={t} requestedName={queryPlant} />
+              <PlantPage lang={lang} t={t} requestedName={queryPlant} taxonomy={taxonomy} />
             ) : (
               <HomePage
                 lang={lang}
@@ -144,6 +167,7 @@ export default function App() {
                 headers={headers}
                 headersById={headersById}
                 labels={labels}
+                taxonomy={taxonomy}
               />
             )
           }

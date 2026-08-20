@@ -6,9 +6,9 @@ import {
   loadPlant,
   loadPlantText,
   loadSynonyms,
-  loadTaxonLabel,
   photoUrl,
   plateFiles,
+  taxonGloss,
 } from '../api';
 import PlateImage from '../components/PlateImage';
 import Footer from '../components/Footer';
@@ -47,14 +47,13 @@ const SECTIONS = [
   ['trivia', 'trivia'],
 ];
 
-export default function PlantPage({ lang, t, requestedName }) {
+export default function PlantPage({ lang, t, requestedName, taxonomy }) {
   const params = useParams();
   const name = decodeURIComponent(requestedName || params.name || '').replace(/_/g, ' ');
   const [plant, setPlant] = useState(null);
   const [text, setText] = useState(null);
   const [synonyms, setSynonyms] = useState([]);
   const [obs, setObs] = useState([]);
-  const [familyCommon, setFamilyCommon] = useState('');
   const [error, setError] = useState('');
   const [light, setLight] = useState(null);
   const [mapFailed, setMapFailed] = useState(false);
@@ -88,14 +87,6 @@ export default function PlantPage({ lang, t, requestedName }) {
         setText(tx);
         setSynonyms((syn && syn.ipni) || []);
         setObs(publicObservations(rawObs));
-        const family = rankValue(p.APGIV, 'Familia');
-        if (family) {
-          loadTaxonLabel(lang, family)
-            .then((labels) => {
-              if (live && Array.isArray(labels) && labels[0]) setFamilyCommon(labels[0]);
-            })
-            .catch(() => {});
-        }
       })
       .catch(() => {
         if (live) setError('missing');
@@ -287,29 +278,35 @@ export default function PlantPage({ lang, t, requestedName }) {
             <div className="ranks">
               {order ? (
                 <div className="rank">
-                  <div className="rk">{t.order}</div>
-                  <div>{order}</div>
+                  <div className="rk">{t.taxonRank('Ordo')}</div>
+                  <div>
+                    {order}
+                    <TaxonGloss taxonomy={taxonomy} latin={order} />
+                  </div>
                 </div>
               ) : null}
               {family ? (
                 <div className="rank">
-                  <div className="rk">{t.family}</div>
+                  <div className="rk">{t.taxonRank('Familia')}</div>
                   <div>
                     <Link to={familyPath(family, lang)}>{family}</Link>
-                    {familyCommon ? ` · ${familyCommon}` : ''}
+                    <TaxonGloss taxonomy={taxonomy} latin={family} />
                   </div>
                 </div>
               ) : null}
               {genus ? (
                 <div className="rank">
-                  <div className="rk">{t.genus}</div>
-                  <div className="latin">
-                    <Link to={genusPath(genus, lang)}>{genus}</Link>
+                  <div className="rk">{t.taxonRank('Genus')}</div>
+                  <div>
+                    <Link className="latin" to={genusPath(genus, lang)}>
+                      {genus}
+                    </Link>
+                    <TaxonGloss taxonomy={taxonomy} latin={genus} />
                   </div>
                 </div>
               ) : null}
               <div className="rank">
-                <div className="rk">{t.species}</div>
+                <div className="rk">{t.taxonRank('Species')}</div>
                 <div className="latin">
                   {plant.name} <span className="author">{plant.author || ''}</span>
                 </div>
@@ -348,14 +345,20 @@ export default function PlantPage({ lang, t, requestedName }) {
                 <summary>{t.show_ranks}</summary>
                 {ranks.map((r) => (
                   <div className="rank-full" key={r.key}>
-                    <div className="rk">{fullRankLabel(r, t)}</div>
-                    <div className={r.label === 'Genus' ? 'latin' : undefined}>
-                      <FullRankValue rank={r} family={family} genus={genus} lang={lang} />
+                    <div className="rk">{t.taxonRank(r.label)}</div>
+                    <div>
+                      <FullRankValue
+                        rank={r}
+                        family={family}
+                        genus={genus}
+                        lang={lang}
+                        taxonomy={taxonomy}
+                      />
                     </div>
                   </div>
                 ))}
                 <div className="rank-full">
-                  <div className="rk">{t.species}</div>
+                  <div className="rk">{t.taxonRank('Species')}</div>
                   <div className="latin">
                     {plant.name} <span className="author">{plant.author || ''}</span>
                   </div>
@@ -493,22 +496,31 @@ function SynonymName({ syn }) {
   );
 }
 
-function fullRankLabel(rank, t) {
-  if (rank.label === 'Ordo') return t.order;
-  if (rank.label === 'Familia') return t.family;
-  if (rank.label === 'Genus') return t.genus;
-  if (rank.label === 'Species') return t.species;
-  return rank.label;
+function TaxonGloss({ taxonomy, latin }) {
+  const gloss = taxonGloss(taxonomy, latin);
+  if (!gloss) return null;
+  return <span className="taxon-gloss">{` · ${gloss}`}</span>;
 }
 
-function FullRankValue({ rank, family, genus, lang }) {
+function FullRankValue({ rank, family, genus, lang, taxonomy }) {
+  let value = rank.value;
   if (rank.label === 'Familia' && rank.value === family) {
-    return <Link to={familyPath(family, lang)}>{rank.value}</Link>;
+    value = <Link to={familyPath(family, lang)}>{rank.value}</Link>;
+  } else if (rank.label === 'Genus' && rank.value === genus) {
+    value = (
+      <Link className="latin" to={genusPath(genus, lang)}>
+        {rank.value}
+      </Link>
+    );
+  } else if (rank.label === 'Genus') {
+    value = <span className="latin">{rank.value}</span>;
   }
-  if (rank.label === 'Genus' && rank.value === genus) {
-    return <Link to={genusPath(genus, lang)}>{rank.value}</Link>;
-  }
-  return rank.value;
+  return (
+    <>
+      {value}
+      <TaxonGloss taxonomy={taxonomy} latin={rank.value} />
+    </>
+  );
 }
 
 function SourceColumn({ title, items, t }) {

@@ -1,15 +1,22 @@
 import React, { useEffect, useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
-import { countByGenus, genusPath } from '../lib';
+import TaxonTile from '../components/TaxonTile';
+import { taxonLabel } from '../api';
+import { countByGenus, displayName, genusPath } from '../lib';
 
-export default function GeneraPage({ lang, t, headers }) {
+export default function GeneraPage({ lang, t, headers, taxonomy }) {
   useEffect(() => {
     document.title = `${t.genera} — ${t.app_name}`;
   }, [t]);
   const genera = useMemo(
-    () => countByGenus(headers).sort((a, b) => a.name.localeCompare(b.name, 'la')),
-    [headers]
+    () =>
+      countByGenus(headers).sort((a, b) =>
+        displayName(taxonLabel(taxonomy, a.name), a.name).localeCompare(
+          displayName(taxonLabel(taxonomy, b.name), b.name),
+          lang
+        )
+      ),
+    [headers, taxonomy, lang]
   );
 
   return (
@@ -24,10 +31,15 @@ export default function GeneraPage({ lang, t, headers }) {
       <section className="band">
         <div className="tiles">
           {genera.map((g) => (
-            <Link key={g.name} className="tile" to={genusPath(g.name, lang)}>
-              <b className="latin">{g.name}</b>
-              <span>{t.plants_count(g.count)}</span>
-            </Link>
+            <TaxonTile
+              key={g.name}
+              to={genusPath(g.name, lang)}
+              name={g.name}
+              label={taxonLabel(taxonomy, g.name)}
+              count={g.count}
+              t={t}
+              italicLatin
+            />
           ))}
         </div>
       </section>

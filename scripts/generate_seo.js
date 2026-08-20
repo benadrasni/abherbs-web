@@ -68,6 +68,25 @@ function labelFor(header, labels) {
   return row || header.name;
 }
 
+function taxonLabel(taxonomy, latin) {
+  if (!taxonomy || !latin) return '';
+  const raw = taxonomy[latin];
+  const values = Array.isArray(raw)
+    ? raw
+    : raw && typeof raw === 'object'
+      ? Object.keys(raw)
+          .sort((a, b) => Number(a) - Number(b))
+          .map((key) => raw[key])
+      : typeof raw === 'string'
+        ? [raw]
+        : [];
+  const latinKey = String(latin).toLocaleLowerCase();
+  const hit = values.find(
+    (name) => typeof name === 'string' && name.trim() && name.trim().toLocaleLowerCase() !== latinKey
+  );
+  return hit ? String(hit).trim() : '';
+}
+
 function genusOf(name) {
   if (!name) return '';
   return String(name).split(' ')[0];
@@ -151,12 +170,13 @@ async function main() {
   }
   const template = fs.readFileSync(templatePath, 'utf8');
 
-  const [catalog, count, headers, translations, enLabels] = await Promise.all([
+  const [catalog, count, headers, translations, enLabels, taxonomyEn] = await Promise.all([
     getJson(DB + '/web/catalog.json').catch(() => null),
     getJson(DB + '/plants_to_update/count.json').catch(() => null),
     getJson(DB + '/plants_headers.json'),
     getJson(DB + '/translations/en.json'),
     getJson(DB + '/web/labels/en.json').catch(() => null),
+    getJson(DB + '/translations_taxonomy/en.json').catch(() => null),
   ]);
   const catalogRows = namedRows(catalog);
   const headerRows = namedRows(headers);
@@ -286,24 +306,34 @@ async function main() {
     .forEach((family) => {
       const url = encodePath(['family', family]);
       const n = families[family];
+      const common = displayName(taxonLabel(taxonomyEn, family), '');
+      const titled = common ? common + ' (' + family + ')' : family;
       const description =
         n === 1
-          ? '1 plant in the family ' + family + '.'
-          : n + ' plants in the family ' + family + '.';
+          ? '1 plant in the family ' + titled + '.'
+          : n + ' plants in the family ' + titled + '.';
       writePage(
         ['family', family],
         inject(template, {
-          title: family + ' — ' + APP,
+          title: titled + ' — ' + APP,
           description,
           url,
           jsonLd: {
             '@context': 'https://schema.org',
             '@type': 'Taxon',
             name: family,
+            alternateName: common || undefined,
             taxonRank: 'Family',
             url,
           },
-          noscript: '<h1>' + escapeHtml(family) + '</h1><p>' + escapeHtml(description) + '</p>',
+          noscript:
+            '<h1>' +
+            escapeHtml(common || family) +
+            '</h1>' +
+            (common ? '<p><i>' + escapeHtml(family) + '</i></p>' : '') +
+            '<p>' +
+            escapeHtml(description) +
+            '</p>',
         })
       );
       urls.push(url);
@@ -314,22 +344,32 @@ async function main() {
     .forEach((genus) => {
       const url = encodePath(['genus', genus]);
       const n = genera[genus];
+      const common = displayName(taxonLabel(taxonomyEn, genus), '');
+      const titled = common ? common + ' (' + genus + ')' : genus;
       const description =
-        n === 1 ? '1 plant in the genus ' + genus + '.' : n + ' plants in the genus ' + genus + '.';
+        n === 1 ? '1 plant in the genus ' + titled + '.' : n + ' plants in the genus ' + titled + '.';
       writePage(
         ['genus', genus],
         inject(template, {
-          title: genus + ' — ' + APP,
+          title: titled + ' — ' + APP,
           description,
           url,
           jsonLd: {
             '@context': 'https://schema.org',
             '@type': 'Taxon',
             name: genus,
+            alternateName: common || undefined,
             taxonRank: 'Genus',
             url,
           },
-          noscript: '<h1>' + escapeHtml(genus) + '</h1><p>' + escapeHtml(description) + '</p>',
+          noscript:
+            '<h1>' +
+            escapeHtml(common || genus) +
+            '</h1>' +
+            (common ? '<p><i>' + escapeHtml(genus) + '</i></p>' : '') +
+            '<p>' +
+            escapeHtml(description) +
+            '</p>',
         })
       );
       urls.push(url);
