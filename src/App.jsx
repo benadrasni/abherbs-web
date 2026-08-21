@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { pageview } from './analytics';
 import { loadLabels, loadPlantIndex, loadTaxonomyLabels } from './api';
@@ -31,9 +31,112 @@ function routeNeedsLabels(pathname) {
   return path === '/' || path.startsWith('/family/') || path.startsWith('/genus/');
 }
 
+const PAGE_SCROLL_KEY = 'wtf-page-scroll';
+const pageScrollPositions = new Map();
+let pageScrollHydrated = false;
+
+function pageScrollKey(location) {
+  const path = normPath(location.pathname);
+  const plant = new URLSearchParams(location.search).get('plant');
+  return plant ? `${path}?plant=${plant}` : path;
+}
+
+function loadPageScrolls() {
+  if (!pageScrollHydrated) {
+    pageScrollHydrated = true;
+    try {
+      const raw = JSON.parse(sessionStorage.getItem(PAGE_SCROLL_KEY) || '{}');
+      Object.entries(raw).forEach(([k, v]) => pageScrollPositions.set(k, Number(v) || 0));
+    } catch (err) {
+      // private mode / quota
+    }
+  }
+  return pageScrollPositions;
+}
+
+function savePageScroll(key, y) {
+  const positions = loadPageScrolls();
+  positions.set(key, y);
+  try {
+    sessionStorage.setItem(PAGE_SCROLL_KEY, JSON.stringify(Object.fromEntries(positions)));
+  } catch (err) {
+    // private mode / quota
+  }
+}
+
+function usePageScroll(location) {
+  const prevKey = useRef(pageScrollKey(location));
+  const key = pageScrollKey(location);
+
+  useLayoutEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    let frame = 0;
+    const persist = () => {
+      const y = window.scrollY;
+      if (y > 0) savePageScroll(prevKey.current, y);
+    };
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        persist();
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('pagehide', persist);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('pagehide', persist);
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    const prev = prevKey.current;
+    if (prev !== key) {
+      const current = window.scrollY;
+      if (current > 0) savePageScroll(prev, current);
+      prevKey.current = key;
+    }
+    const y = loadPageScrolls().get(key) || 0;
+    let done = false;
+    const apply = () => {
+      if (done) return;
+      window.scrollTo(0, y);
+      if (y <= 0) {
+        done = true;
+        return;
+      }
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (max >= y - 1) done = true;
+    };
+    apply();
+    if (done) return undefined;
+    const root = document.documentElement;
+    const ro = typeof ResizeObserver === 'function' ? new ResizeObserver(apply) : null;
+    if (ro) ro.observe(root);
+    const stop = () => {
+      done = true;
+    };
+    window.addEventListener('wheel', stop, { passive: true, once: true });
+    window.addEventListener('touchmove', stop, { passive: true, once: true });
+    const timer = window.setTimeout(stop, 2500);
+    return () => {
+      done = true;
+      if (ro) ro.disconnect();
+      window.clearTimeout(timer);
+      window.removeEventListener('wheel', stop);
+      window.removeEventListener('touchmove', stop);
+    };
+  }, [key]);
+}
+
 export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
+  usePageScroll(location);
   const lang = detectLang(location.search, languages);
   const queryPlant = new URLSearchParams(location.search).get('plant');
   const needsIndex = !queryPlant && routeNeedsIndex(location.pathname);
