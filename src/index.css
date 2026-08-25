@@ -553,6 +553,7 @@ img { max-width: 100%; }
   position: absolute;
   top: 16px;
   inset-inline-end: 16px;
+  z-index: 1;
   border: 0;
   background: transparent;
   color: #e9e2d3;
@@ -562,6 +563,36 @@ img { max-width: 100%; }
   cursor: pointer;
 }
 .lightbox-close:focus-visible { outline-color: #e9e2d3; }
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  transform: translateY(-50%);
+  border: 0;
+  background: rgba(20, 16, 12, 0.5);
+  color: #e9e2d3;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border-radius: 999px;
+  font-size: 42px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.lightbox-nav:hover, .lightbox-nav:focus-visible { background: rgba(20, 16, 12, 0.75); }
+.lightbox-nav:focus-visible { outline-color: #e9e2d3; }
+.lightbox-prev { left: 16px; }
+.lightbox-next { right: 16px; }
+.lightbox-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  cursor: default;
+}
 .lightbox img { max-width: min(1100px, 94vw); max-height: 86vh; object-fit: contain; background: var(--cream); }
 .lightbox p { color: #e9e2d3; margin: 10px 0 0; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
 
@@ -593,6 +624,14 @@ img { max-width: 100%; }
   .search { margin-left: 16px; margin-right: 16px; }
 }
 @media (max-width: 560px) {
+  .lightbox { padding: 16px 8px; }
+  .lightbox-nav {
+    width: 44px;
+    height: 44px;
+    font-size: 34px;
+  }
+  .lightbox-prev { left: 8px; }
+  .lightbox-next { right: 8px; }
   .photos, .obs { grid-template-columns: 1fr 1fr; }
   .site-bar { flex-wrap: wrap; row-gap: 8px; }
   .mark { flex: 0 0 auto; white-space: nowrap; }

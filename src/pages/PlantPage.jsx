@@ -133,6 +133,17 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
   }
 
   const photos = plant.photoUrls || [];
+  const photoItems = photos.map((rel, i) => ({
+    src: photoUrl(rel),
+    caption: t.photo_n(i + 1, photos.length),
+  }));
+  const obsItems = obs.slice(0, 8).map((row) => {
+    const src = photoUrl(row.photoPaths[0]);
+    const when = formatObsWhen(row, lang);
+    const where = countryName(row.country, lang);
+    const cap = [when, where].filter(Boolean).join(' · ');
+    return { src, caption: cap, id: row.id };
+  });
   const plateRel = plant.illustrationUrl || '';
   const platePaths = plateFiles(plateRel);
   const plate = plateRel ? photoUrl(platePaths.master) : '';
@@ -177,7 +188,12 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
       <section className="spread">
         <div className="plate">
           {plate ? (
-            <button type="button" onClick={() => setLight({ src: plate, fallbackSrc: plateLegacy, caption: t.illustration })}>
+            <button
+              type="button"
+              onClick={() =>
+                setLight({ items: [{ src: plate, fallbackSrc: plateLegacy, caption: t.illustration }], index: 0 })
+              }
+            >
               <PlateImage
                 rel={plateRel}
                 preferred="master"
@@ -242,17 +258,14 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
             <p>{t.in_the_field_lede}</p>
           </div>
           <div className="photos">
-            {photos.map((rel, i) => {
-              const src = photoUrl(rel);
-              return (
-                <figure key={rel}>
-                  <button type="button" onClick={() => setLight({ src, caption: t.photo_n(i + 1, photos.length) })}>
-                    <img src={src} alt="" loading="lazy" />
-                  </button>
-                  <figcaption className="dark-cap">{t.photo_n(i + 1, photos.length)}</figcaption>
-                </figure>
-              );
-            })}
+            {photoItems.map((item, i) => (
+              <figure key={photos[i]}>
+                <button type="button" onClick={() => setLight({ items: photoItems, index: i })}>
+                  <img src={item.src} alt="" loading="lazy" />
+                </button>
+                <figcaption className="dark-cap">{item.caption}</figcaption>
+              </figure>
+            ))}
           </div>
           {video ? (
             <div className="video">
@@ -386,7 +399,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
               <figure className="dist-map">
                 <button
                   type="button"
-                  onClick={() => setLight({ src: distSrc, caption: t.distribution })}
+                  onClick={() => setLight({ items: [{ src: distSrc, caption: t.distribution }], index: 0 })}
                 >
                   <img
                     src={distSrc}
@@ -415,22 +428,16 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
         </div>
         <div className="seen">
           <div>
-            {obs.length ? (
+            {obsItems.length ? (
               <div className="obs">
-                {obs.slice(0, 8).map((row) => {
-                  const src = photoUrl(row.photoPaths[0]);
-                  const when = formatObsWhen(row, lang);
-                  const where = countryName(row.country, lang);
-                  const cap = [when, where].filter(Boolean).join(' · ');
-                  return (
-                    <figure key={row.id}>
-                      <button type="button" onClick={() => setLight({ src, caption: cap })}>
-                        <img src={src} alt="" loading="lazy" />
-                      </button>
-                      {cap ? <figcaption>{cap}</figcaption> : null}
-                    </figure>
-                  );
-                })}
+                {obsItems.map((item, i) => (
+                  <figure key={item.id}>
+                    <button type="button" onClick={() => setLight({ items: obsItems, index: i })}>
+                      <img src={item.src} alt="" loading="lazy" />
+                    </button>
+                    {item.caption ? <figcaption>{item.caption}</figcaption> : null}
+                  </figure>
+                ))}
               </div>
             ) : (
               <p className="muted">{t.no_sightings}</p>
@@ -477,10 +484,12 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
         }
       />
       <Lightbox
-        src={light && light.src}
-        fallbackSrc={light && light.fallbackSrc}
-        caption={light && light.caption}
+        items={light && light.items}
+        index={light ? light.index : 0}
+        onIndexChange={(next) => setLight((cur) => (cur ? { ...cur, index: next } : cur))}
         onClose={() => setLight(null)}
+        prevLabel={t.lightbox_prev}
+        nextLabel={t.lightbox_next}
       />
     </div>
   );
