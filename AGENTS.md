@@ -17,3 +17,15 @@ firebase deploy --only hosting --project abherbs-backend --non-interactive
 `npm run build` is `vite build` then `scripts/generate_seo.js` (plant/family/genus HTML shells + sitemap from live RTDB). Output is `build/`. `.firebaserc` project is `abherbs-backend`. Confirm the new hashed `/assets/index-*.js` is on both live URLs after deploy.
 
 Do not deploy database rules or Storage from this repo.
+
+## Cloudflare (whatsthatflower.com)
+
+Live: NS `leo`/`jule.ns.cloudflare.com`, apex A orange-clouded (origin `151.101.1.195` and `151.101.65.195`), SSL **Full (strict)**. Deploy is unchanged: still `firebase deploy --only hosting`. Registrar is Squarespace Domains; do not drop Mailgun MX/SPF/`pic._domainkey` or the Google site-verification TXT.
+
+WAF custom rule: `(ip.src.country eq "SG" and not cf.client.bot)` → **Managed Challenge**. Tighten to Block from the dashboard if Security Events still show SG scrapers. Do not enable Bot Fight Mode, Rocket Loader, Email Obfuscation, Mirage/Polish, Auto Minify, or “Cache Everything”.
+
+`www` is still a grey CNAME to Squarespace (`ext-sq.squarespace.com`); optional later: proxied A to the Fastly origin + 301 to the apex. `abherbs-backend.web.app`, RTDB, and GCS photos are not behind this proxy.
+
+DNSSEC is off (`unsigned`). To turn it back on: enable DNSSEC in Cloudflare, then add Cloudflare’s DS at Squarespace.
+
+Rollback: grey-cloud the apex A records. Full rollback: restore `ns-cloud-e{1-4}.googledomains.com` from `dns-snapshot-pre-cloudflare.txt` (re-add the old DS only after Google Cloud DNS is authoritative again). If origin TLS 526s, grey-cloud until Firebase renews the custom-domain cert, then orange-cloud again.

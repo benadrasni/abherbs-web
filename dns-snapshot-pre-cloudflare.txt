@@ -1,0 +1,112 @@
+DNS snapshot before Cloudflare nameserver cutover
+captured: 2026-08-27T06:02:00Z
+resolvers: 8.8.8.8 and a.gtld-servers.net (parent)
+Squarespace dashboard was not opened (no screenshot).
+
+================================================================
+Registrar / parent
+================================================================
+Registrar: Squarespace Domains II LLC (IANA 895)
+Created: 2018-01-12  Expires: 2027-01-12
+Status: clientDeleteProhibited, clientTransferProhibited
+DNSSEC: signedDelegation
+
+Parent NS (TLD, TTL 172800):
+  ns-cloud-e1.googledomains.com.
+  ns-cloud-e2.googledomains.com.
+  ns-cloud-e3.googledomains.com.
+  ns-cloud-e4.googledomains.com.
+
+Parent DS (TTL 86400) — wait until this is gone before changing NS:
+  whatsthatflower.com.  DS  6140 8 2 8056F72C2F4656A9E95D98869D70412B0411D39FC122DE6BCB3C478E81807F79
+
+================================================================
+Zone records to restore (Cloudflare import / full rollback)
+================================================================
+SOA
+  ns-cloud-e1.googledomains.com. cloud-dns-hostmaster.google.com. 11 21600 3600 259200 300
+
+NS (TTL 21600)
+  ns-cloud-e1.googledomains.com.
+  ns-cloud-e2.googledomains.com.
+  ns-cloud-e3.googledomains.com.
+  ns-cloud-e4.googledomains.com.
+
+A @ (TTL 3600)  — Firebase Hosting Fastly; Cloudflare origin
+  151.101.1.195
+  151.101.65.195
+
+AAAA @
+  (none)
+
+MX @ (TTL 3600)  — grey-cloud; do not proxy
+  10 mxa.mailgun.org.
+  10 mxb.mailgun.org.
+
+TXT @ (TTL 14400)  — grey-cloud
+  v=spf1 include:mailgun.org ~all
+  google-site-verification=SvSn7A3JDwgzupofPHTCBcmaYjn4remSjwi4-M2s_Uw
+
+CAA @
+  (none)
+
+CNAME www (TTL 14400)  — leftover Squarespace, not Firebase
+  ext-sq.squarespace.com.
+  resolves to 198.185.159.144 198.185.159.145 198.49.23.144 198.49.23.145
+
+CNAME _domainconnect  — Squarespace Domain Connect (seen in Cloudflare scan 2026-08-27)
+  connect.domains.squarespace.com (truncated in UI as connect.domain…)
+  keep DNS only; do not proxy
+
+TXT pic._domainkey (TTL 14400)  — Mailgun DKIM, grey-cloud
+  wire (two strings):
+    "k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCzSz3uhiYh8zE/VdWnF1HZ/UIzHkbaxiNmDZC49CyvVPmKYMACVPTQeVZU6EDMJNQhmZ+BaqU3SpUkMZ2aHe9xXjAllknH17A6HnrS6W4vNi9Fs9KxNlxVog0Zo6lm3WEHMOCMdZ9JWFE/dR0ffqbpMdC+" "QwSKdjeBsp8kwGdmrwIDAQAB"
+  concatenated for Cloudflare:
+    k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCzSz3uhiYh8zE/VdWnF1HZ/UIzHkbaxiNmDZC49CyvVPmKYMACVPTQeVZU6EDMJNQhmZ+BaqU3SpUkMZ2aHe9xXjAllknH17A6HnrS6W4vNi9Fs9KxNlxVog0Zo6lm3WEHMOCMdZ9JWFE/dR0ffqbpMdC+QwSKdjeBsp8kwGdmrwIDAQAB
+
+Not present (probed):
+  AAAA apex, CAA, _dmarc, _acme-challenge, hosting-site TXT, other _domainkey names
+
+DNSKEY (Google Cloud DNS; do not copy to Cloudflare)
+  257 3 8 (KSK) AwEAAb/8i23VySVUNaM/JBNDf1DNgVYJiLgEUtiN0pfoUxmxChNr5Tma s48DDDKwonLlpVEv2jFYlCssPCbcI6mdgdv0b7j64iH7Xkre775gYuWZ Ar4BOIEuPPUgg3E/yJChUBu5vdVTfAQc9Ip1kHoV22wXKEPGrwuQdLQm CglpFL8Q5dI1z5MTiIIYYmJUIuZvJHfiTi51gmal3OSPCn5OzZnA535x YDo4l/za6rMQxbyfxW127UtZdWdSekGHNIc0Ah8Xduc7M/t09auMPwOj w6HwEOOXX8utRf5D9nSo668PgmZ2sJ+rbNbvKQjGiM3pp9pFNuQ+qnx8 t3TUrfoB7B0=
+  256 3 8 (ZSK) AwEAAe0z0qi8q4R0sqS++TBck3vKus1LJuVI+0iJPwBo/UqB+TMXsO8p Auf2hx18cGRBUGzD+NrU1CD4lWgoJOffjINf7W9aAPqBH4vJb+m6nSA0 zwWl0frrdhdzHWcUIKi4fmpVuKOkqCsIFkoEkydmroAOw9Cg/y2Xh+Os 0AWWhVUD
+
+================================================================
+Firebase Hosting (API, 2026-08-27)
+================================================================
+Site: abherbs-backend  default https://abherbs-backend.web.app
+Live channel last release: 2026-08-25 13:41:48
+web.app A: 199.36.158.100
+
+Custom domain whatsthatflower.com
+  hostState: HOST_ACTIVE
+  ownershipState: OWNERSHIP_ACTIVE
+  cert: GROUPED CERT_ACTIVE
+    createTime: 2026-07-23T10:01:47Z
+    expireTime: 2026-10-21T10:57:19Z
+  legacy domains.provisioning.expectedIps: 199.36.158.100
+  public A today is Fastly 151.101.1.195 / 151.101.65.195 (keep those as Cloudflare origin)
+  no hosting-site= TXT in public DNS
+  apex TLS SAN includes DNS:whatsthatflower.com
+  issuer: Google Trust Services WR3
+
+www is NOT a Firebase custom domain (Squarespace leftover).
+
+================================================================
+HTTP fingerprints
+================================================================
+https://whatsthatflower.com/  HTTP/2 200  title What's that flower?
+  cache-control: no-cache
+  last-modified: Tue, 25 Aug 2026 18:41:47 GMT
+  x-served-by: cache-vie* (Fastly)
+  no cf-ray
+
+http://www.whatsthatflower.com/  HTTP/1.1 301 Location: http://whatsthatflower.com  Server: Squarespace
+https://www.whatsthatflower.com/ HTTP/2 200  Server: Squarespace  (separate leftover site, not the encyclopedia)
+
+================================================================
+Not captured
+================================================================
+- Squarespace Domains UI (DNSSEC toggle / nameserver form)
+- Full Cloud DNS zone dump (service account 403 on dns.googleapis.com)
+- Direct queries to ns-cloud-e*.googledomains.com were REFUSED from this network; public resolver answers above match whois
