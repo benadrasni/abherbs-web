@@ -9,6 +9,9 @@
 # production
 /build
 
+# local layout previews
+/.preview
+
 # Firebase CLI deploy cache
 .firebase/
 

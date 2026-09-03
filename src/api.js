@@ -228,6 +228,10 @@ export async function loadPlantText(lang, name) {
     sourceUrls: (primary && primary.sourceUrls) || (fallback && fallback.sourceUrls) || [],
   };
   BODY_FIELDS.forEach((field) => {
+    if (field === 'trivia') {
+      text[field] = (primary && primary[field]) || '';
+      return;
+    }
     text[field] = pickField(field, ...sources);
   });
   return text;

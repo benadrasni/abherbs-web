@@ -44,7 +44,6 @@ const SECTIONS = [
   ['habitat', 'habitat'],
   ['toxicity', 'toxicity'],
   ['herbalism', 'herbalism'],
-  ['trivia', 'trivia'],
 ];
 
 export default function PlantPage({ lang, t, requestedName, taxonomy }) {
@@ -237,6 +236,14 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
             <p className="lede">
               <RichPlantText value={text.description} />
             </p>
+          ) : null}
+          {text.trivia ? (
+            <aside className="note">
+              <div className="k">{t.notes || t.trivia}</div>
+              <p>
+                <RichPlantText value={text.trivia} />
+              </p>
+            </aside>
           ) : null}
           {SECTIONS.map(([key, copyKey]) =>
             text[key] ? (
