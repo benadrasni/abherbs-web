@@ -43,7 +43,6 @@ const SECTIONS = [
   ['stem', 'stem'],
   ['habitat', 'habitat'],
   ['toxicity', 'toxicity'],
-  ['herbalism', 'herbalism'],
 ];
 
 export default function PlantPage({ lang, t, requestedName, taxonomy }) {
@@ -255,6 +254,15 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
               </div>
             ) : null
           )}
+          {text.herbalism ? (
+            <aside className="note uses">
+              <div className="k">{t.herbalism}</div>
+              <p className="disclaimer">{t.herbalism_disclaimer}</p>
+              <p>
+                <RichPlantText value={text.herbalism} />
+              </p>
+            </aside>
+          ) : null}
         </div>
       </section>
 

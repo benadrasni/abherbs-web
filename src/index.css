@@ -171,6 +171,18 @@ img { max-width: 100%; }
   color: var(--ink);
   margin: 0;
 }
+.note .disclaimer {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--ink-3);
+  font-style: italic;
+  margin: 0 0 8px;
+}
+.note.uses {
+  margin-top: 18px;
+  border-inline-start-color: var(--moss);
+}
+.note.uses .k { color: var(--moss); }
 .sec { margin-top: 16px; }
 .sec .k {
   font-size: 11px;
