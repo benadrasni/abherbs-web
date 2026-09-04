@@ -11,6 +11,7 @@ import {
   taxonGloss,
 } from '../api';
 import PlateImage from '../components/PlateImage';
+import FlowerSchema from '../components/FlowerSchema';
 import Footer from '../components/Footer';
 import Lightbox from '../components/Lightbox';
 import RichPlantText from '../components/RichPlantText';
@@ -54,6 +55,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
   const [obs, setObs] = useState([]);
   const [error, setError] = useState('');
   const [light, setLight] = useState(null);
+  const [schemaOpen, setSchemaOpen] = useState(false);
   const [mapFailed, setMapFailed] = useState(false);
   const [mapReady, setMapReady] = useState(false);
   const [mapSrc, setMapSrc] = useState('');
@@ -62,6 +64,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
     let live = true;
     setPlant(null);
     setError('');
+    setSchemaOpen(false);
     setMapFailed(false);
     setMapReady(false);
     setMapSrc('');
@@ -247,7 +250,20 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
           {SECTIONS.map(([key, copyKey]) =>
             text[key] ? (
               <div className="sec" key={key}>
-                <div className="k">{t[copyKey] || copyKey}</div>
+                {key === 'flower' ? (
+                  <button
+                    type="button"
+                    className="k sec-term"
+                    onClick={() => setSchemaOpen(true)}
+                    aria-haspopup="dialog"
+                    aria-expanded={schemaOpen}
+                    title={t.flower_schema_open}
+                  >
+                    {t[copyKey] || copyKey}
+                  </button>
+                ) : (
+                  <div className="k">{t[copyKey] || copyKey}</div>
+                )}
                 <p>
                   <RichPlantText value={text[key]} />
                 </p>
@@ -498,6 +514,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
             : t.app_name
         }
       />
+      <FlowerSchema t={t} open={schemaOpen} onClose={() => setSchemaOpen(false)} />
       <Lightbox
         items={light && light.items}
         index={light ? light.index : 0}
