@@ -98,6 +98,26 @@ ARB_SEED = {
 for i in range(1, 18):
     key = f"legend_flower_{i}"
     ARB_SEED[key] = key
+for key in (
+    "legend_inflorescence_raceme",
+    "legend_inflorescence_spike",
+    "legend_inflorescence_spadix",
+    "legend_inflorescence_corymb",
+    "legend_inflorescence_umbel",
+    "legend_inflorescence_compound_umbel",
+    "legend_inflorescence_capitulum",
+    "legend_inflorescence_head",
+    "legend_inflorescence_panicle",
+    "legend_inflorescence_compound_spike",
+    "legend_inflorescence_cyme",
+    "legend_inflorescence_helicoid",
+    "legend_inflorescence_rhipidium",
+    "legend_inflorescence_scorpioid",
+    "legend_inflorescence_scorpioid_thyrse",
+    "legend_inflorescence_dichasial_thyrse",
+    "legend_inflorescence_double_scorpioid_thyrse",
+):
+    ARB_SEED[key] = key
 
 # New encyclopedia chrome. Each value is {lang: text}. Missing langs fall back to en.
 NEW = {
@@ -1350,6 +1370,38 @@ NEW = {
         "ja": "花の各部を表示", "ko": "꽃의 부분 보기", "zh": "顯示花的構造",
         "hi": "फूल के भाग दिखाएँ", "pa": "ਫੁੱਲ ਦੇ ਹਿੱਸੇ ਵੇਖੋ",
         "ar": "عرض أجزاء الزهرة", "fa": "نمایش بخش‌های گل", "he": "הצגת חלקי הפרח",
+    },
+    "inflorescence_schema_title": {
+        "en": "Types of inflorescence", "sk": "Typy súkvetí", "cs": "Typy květenství",
+        "sl": "Vrste socvetij", "hr": "Vrste cvatova", "sr": "Типови цвасти",
+        "pl": "Typy kwiatostanów", "ru": "Типы соцветий", "uk": "Типи суцвіть",
+        "bg": "Типове съцветия", "de": "Arten von Blütenständen",
+        "nl": "Typen bloeiwijze", "da": "Typer af blomsterstand",
+        "sv": "Typer av blomställning", "no": "Typer blomsterstand", "fi": "Kukintotyypit",
+        "fr": "Types d’inflorescence", "es": "Tipos de inflorescencia",
+        "it": "Tipi di infiorescenza", "pt": "Tipos de inflorescência",
+        "ro": "Tipuri de inflorescență", "hu": "Virágzattípusok",
+        "et": "Õisiku tüübid", "lv": "Ziedkopu tipi", "lt": "Žiedyno tipai",
+        "ja": "花序の種類", "ko": "꽃차례의 종류", "zh": "花序類型",
+        "hi": "पुष्पक्रम के प्रकार", "pa": "ਫੁੱਲ-ਗੁੱਛੇ ਦੀਆਂ ਕਿਸਮਾਂ",
+        "ar": "أنواع النورة", "fa": "انواع گل‌آذین", "he": "סוגי תפרחת",
+    },
+    "inflorescence_schema_open": {
+        "en": "Show types of inflorescence", "sk": "Zobraziť typy súkvetí",
+        "cs": "Zobrazit typy květenství", "sl": "Pokaži vrste socvetij",
+        "hr": "Prikaži vrste cvatova", "sr": "Прикажи типове цвасти",
+        "pl": "Pokaż typy kwiatostanów", "ru": "Показать типы соцветий",
+        "uk": "Показати типи суцвіть", "bg": "Покажи типовете съцветия",
+        "de": "Blütenstandstypen anzeigen", "nl": "Typen bloeiwijze tonen",
+        "da": "Vis typer af blomsterstand", "sv": "Visa typer av blomställning",
+        "no": "Vis typer blomsterstand", "fi": "Näytä kukintotyypit",
+        "fr": "Afficher les types d’inflorescence", "es": "Mostrar tipos de inflorescencia",
+        "it": "Mostra i tipi di infiorescenza", "pt": "Mostrar tipos de inflorescência",
+        "ro": "Arată tipurile de inflorescență", "hu": "Virágzattípusok megjelenítése",
+        "et": "Näita õisiku tüüpe", "lv": "Rādīt ziedkopu tipus", "lt": "Rodyti žiedyno tipus",
+        "ja": "花序の種類を表示", "ko": "꽃차례 종류 보기", "zh": "顯示花序類型",
+        "hi": "पुष्पक्रम के प्रकार दिखाएँ", "pa": "ਫੁੱਲ-ਗੁੱਛੇ ਦੀਆਂ ਕਿਸਮਾਂ ਵੇਖੋ",
+        "ar": "عرض أنواع النورة", "fa": "نمایش انواع گل‌آذین", "he": "הצגת סוגי תפרחת",
     },
 }
 

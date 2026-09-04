@@ -12,6 +12,8 @@ import {
 } from '../api';
 import PlateImage from '../components/PlateImage';
 import FlowerSchema from '../components/FlowerSchema';
+import InflorescenceSchema from '../components/InflorescenceSchema';
+import { matchedInflorescenceKeys } from '../inflorescenceMatch';
 import Footer from '../components/Footer';
 import Lightbox from '../components/Lightbox';
 import RichPlantText from '../components/RichPlantText';
@@ -56,6 +58,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
   const [error, setError] = useState('');
   const [light, setLight] = useState(null);
   const [schemaOpen, setSchemaOpen] = useState(false);
+  const [inflorescenceOpen, setInflorescenceOpen] = useState(false);
   const [mapFailed, setMapFailed] = useState(false);
   const [mapReady, setMapReady] = useState(false);
   const [mapSrc, setMapSrc] = useState('');
@@ -65,6 +68,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
     setPlant(null);
     setError('');
     setSchemaOpen(false);
+    setInflorescenceOpen(false);
     setMapFailed(false);
     setMapReady(false);
     setMapSrc('');
@@ -258,6 +262,17 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
                     aria-haspopup="dialog"
                     aria-expanded={schemaOpen}
                     title={t.flower_schema_open}
+                  >
+                    {t[copyKey] || copyKey}
+                  </button>
+                ) : key === 'inflorescence' ? (
+                  <button
+                    type="button"
+                    className="k sec-term"
+                    onClick={() => setInflorescenceOpen(true)}
+                    aria-haspopup="dialog"
+                    aria-expanded={inflorescenceOpen}
+                    title={t.inflorescence_schema_open}
                   >
                     {t[copyKey] || copyKey}
                   </button>
@@ -515,6 +530,12 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
         }
       />
       <FlowerSchema t={t} open={schemaOpen} onClose={() => setSchemaOpen(false)} />
+      <InflorescenceSchema
+        t={t}
+        open={inflorescenceOpen}
+        onClose={() => setInflorescenceOpen(false)}
+        matchedKeys={matchedInflorescenceKeys(plant, text && text.inflorescence, t)}
+      />
       <Lightbox
         items={light && light.items}
         index={light ? light.index : 0}
