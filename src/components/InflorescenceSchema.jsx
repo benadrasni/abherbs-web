@@ -14,7 +14,6 @@ export function inflorescenceTypes(t) {
 export default function InflorescenceSchema({ t, open, onClose, matchedKeys = [] }) {
   const rootRef = useRef(null);
   const closeRef = useRef(null);
-  const matchRef = useRef(null);
   const prevFocus = useRef(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
@@ -55,7 +54,6 @@ export default function InflorescenceSchema({ t, open, onClose, matchedKeys = []
     document.body.style.overflow = 'hidden';
     const id = window.requestAnimationFrame(() => {
       (closeRef.current || rootRef.current)?.focus();
-      matchRef.current?.scrollIntoView({ block: 'center', inline: 'nearest' });
     });
     return () => {
       window.cancelAnimationFrame(id);
@@ -97,7 +95,6 @@ export default function InflorescenceSchema({ t, open, onClose, matchedKeys = []
             return (
               <figure
                 key={item.key}
-                ref={isPrimary ? matchRef : null}
                 className={`schema-cell${isMatch ? ' is-match' : ''}${isPrimary ? ' is-primary' : ''}`}
                 aria-current={isPrimary ? 'true' : undefined}
               >
