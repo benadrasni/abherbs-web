@@ -211,11 +211,15 @@ function pickField(field, ...sources) {
   return '';
 }
 
+const LANGUAGES_WITHOUT_GT = new Set(['en', 'sk', 'de']);
+
 export async function loadPlantText(lang, name) {
   const code = lang || 'en';
   const [primary, gt, fallback] = await Promise.all([
     getJson(`translations/${enc(code)}/${enc(name)}`),
-    getJson(`translations/${enc(code)}-GT/${enc(name)}`).catch(() => null),
+    LANGUAGES_WITHOUT_GT.has(code)
+      ? Promise.resolve(null)
+      : getJson(`translations/${enc(code)}-GT/${enc(name)}`).catch(() => null),
     code === 'en'
       ? Promise.resolve(null)
       : getJson(`translations/${code === 'cs' ? 'sk' : 'en'}/${enc(name)}`),
