@@ -337,6 +337,8 @@ export default function App() {
           }
         />
         <Route path={p('/plant/:name')} element={<PlantPage lang={lang} t={t} taxonomy={taxonomy} />} />
+        <Route path={p('/translate_flower')} element={<Navigate to={withLang('/', lang)} replace />} />
+        <Route path={p('/translate_app')} element={<Navigate to={withLang('/', lang)} replace />} />
         <Route path={prefix ? `/${prefix}` : '/'} element={home} />
         {prefix ? <Route path={`/${prefix}/`} element={home} /> : null}
       </Fragment>

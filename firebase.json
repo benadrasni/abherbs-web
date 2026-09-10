@@ -22,6 +22,46 @@
         "source": "/en/:path*",
         "destination": "/:path",
         "type": 301
+      },
+      {
+        "source": "/translate_flower",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/translate_flower/",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/translate_app",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/translate_app/",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/:lang/translate_flower",
+        "destination": "/:lang",
+        "type": 301
+      },
+      {
+        "source": "/:lang/translate_flower/",
+        "destination": "/:lang",
+        "type": 301
+      },
+      {
+        "source": "/:lang/translate_app",
+        "destination": "/:lang",
+        "type": 301
+      },
+      {
+        "source": "/:lang/translate_app/",
+        "destination": "/:lang",
+        "type": 301
       }
     ],
     "rewrites": [
