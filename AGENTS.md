@@ -4,6 +4,19 @@ Public encyclopedia at https://whatsthatflower.com/ (also https://abherbs-backen
 
 UI chrome and About/Help copy live in `src/locales.json`. Do not fetch Firebase `web/{lang}` for strings. Regenerating locales keeps extra keys already in that file. Plant labels and the slim index come from RTDB `web/catalog` and `web/labels/{lang}`.
 
+## Language URLs
+
+Indexed languages (official body text): **en** unprefixed, **sk / de / fr / cs** as the first path segment.
+
+- `https://whatsthatflower.com/plant/Bellis%20perennis/` English (`hreflang` + `x-default`)
+- `https://whatsthatflower.com/de/plant/Bellis%20perennis/` German
+
+Other UI languages stay on `?lang=pl` (not in the sitemap). `/en/...` 301s to the unprefixed URL (Firebase Hosting). Old `?lang=de` is rewritten in the client to `/de/...`; a crawler 301 needs a Cloudflare Redirect Rule (Firebase cannot match query strings):
+
+`(http.request.uri.query matches "(^|&)lang=(sk|de|fr|cs)(&|$)")` → 301 to `/{lang}` + path, stripping that `lang` param. Skip when the path already starts with `/{lang}`. `lang=en` → same path without the param.
+
+`scripts/generate_seo.js` writes shells + sitemap hreflang for the five indexed languages. Keep `INDEXED_LANGS` in sync with `src/lib.js`.
+
 ## Deploy Hosting
 
 Only when the user asks to deploy the website. From this directory:

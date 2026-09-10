@@ -1403,6 +1403,48 @@ NEW = {
         "hi": "पुष्पक्रम के प्रकार दिखाएँ", "pa": "ਫੁੱਲ-ਗੁੱਛੇ ਦੀਆਂ ਕਿਸਮਾਂ ਵੇਖੋ",
         "ar": "عرض أنواع النورة", "fa": "نمایش انواع گل‌آذین", "he": "הצגת סוגי תפרחת",
     },
+    "seo_home": {
+        "en": "A plant encyclopedia with 19th-century botanical plates, field photographs, and public sightings.",
+        "sk": "Encyklopédia rastlín s botanickými tabuľami z 19. storočia, terénnymi fotografiami a verejnými pozorovaniami.",
+        "cs": "Encyklopedie rostlin s botanickými tabulemi z 19. století, terénními fotografiemi a veřejnými pozorováními.",
+        "de": "Eine Pflanzenenzyklopädie mit botanischen Tafeln des 19. Jahrhunderts, Feldfotos und öffentlichen Beobachtungen.",
+        "fr": "Une encyclopédie des plantes avec des planches botaniques du XIXe siècle, des photographies de terrain et des observations publiques.",
+    },
+    "seo_families": {
+        "en": "Browse flowering-plant families in the encyclopedia.",
+        "sk": "Prehľad čeľadí kvitnúcich rastlín v encyklopédii.",
+        "cs": "Přehled čeledí kvetoucích rostlin v encyklopedii.",
+        "de": "Blütenpflanzen-Familien in der Enzyklopädie durchstöbern.",
+        "fr": "Parcourir les familles de plantes à fleurs de l’encyclopédie.",
+    },
+    "seo_genera": {
+        "en": "Browse flowering-plant genera in the encyclopedia.",
+        "sk": "Prehľad rodov kvitnúcich rastlín v encyklopédii.",
+        "cs": "Přehled rodů kvetoucích rostlin v encyklopedii.",
+        "de": "Blütenpflanzen-Gattungen in der Enzyklopädie durchstöbern.",
+        "fr": "Parcourir les genres de plantes à fleurs de l’encyclopédie.",
+    },
+    "seo_identify": {
+        "en": "Identify a flower with the four-step key in the app.",
+        "sk": "Určite kvet štvorstupňovým kľúčom v aplikácii.",
+        "cs": "Určete květ čtyřkrokovým klíčem v aplikaci.",
+        "de": "Bestimmen Sie eine Blume mit dem Vier-Schritte-Schlüssel in der App.",
+        "fr": "Identifier une fleur avec la clé en quatre étapes dans l’application.",
+    },
+    "seo_about": {
+        "en": "About the plant encyclopedia What's that flower?",
+        "sk": "O encyklopédii rastlín Čo to tu kvitne?",
+        "cs": "O encyklopedii rostlin Co to tu kvete?",
+        "de": "Über die Pflanzenenzyklopädie Welche Blume ist das?",
+        "fr": "À propos de l’encyclopédie Quelle est cette fleur?",
+    },
+    "seo_help": {
+        "en": "Help for What's that flower?",
+        "sk": "Pomocník pre Čo to tu kvitne?",
+        "cs": "Nápověda pro Co to tu kvete?",
+        "de": "Hilfe für Welche Blume ist das?",
+        "fr": "Aide pour Quelle est cette fleur?",
+    },
 }
 
 ANDROID_RES = first_dir(

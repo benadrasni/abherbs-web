@@ -7,6 +7,23 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "redirects": [
+      {
+        "source": "/en",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/en/",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/en/:path*",
+        "destination": "/:path",
+        "type": 301
+      }
+    ],
     "rewrites": [
       {
         "source": "**",

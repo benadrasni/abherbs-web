@@ -1,11 +1,24 @@
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { pageview } from './analytics';
 import { loadLabels, loadPlantIndex, loadTaxonomyLabels } from './api';
 import Header from './components/Header';
+import SeoHead from './components/SeoHead';
 import { uiText } from './copy';
 import languages from './languages';
-import { RTL, compactHeaders, detectLang, indexHeadersById, normPath } from './lib';
+import {
+  PATH_LANGS,
+  compactHeaders,
+  contentPath,
+  detectLang,
+  indexHeadersById,
+  langFromPath,
+  normPath,
+  normalizeLang,
+  readLangCookie,
+  withLang,
+  writeLangCookie,
+} from './lib';
 import AboutPage from './pages/AboutPage';
 import FamiliesPage from './pages/FamiliesPage';
 import GeneraPage from './pages/GeneraPage';
@@ -16,7 +29,7 @@ import IdentifyPage from './pages/IdentifyPage';
 import PlantPage from './pages/PlantPage';
 
 function routeNeedsIndex(pathname) {
-  const path = normPath(pathname);
+  const path = contentPath(pathname);
   return (
     path === '/' ||
     path === '/families' ||
@@ -27,8 +40,57 @@ function routeNeedsIndex(pathname) {
 }
 
 function routeNeedsLabels(pathname) {
-  const path = normPath(pathname);
+  const path = contentPath(pathname);
   return path === '/' || path.startsWith('/family/') || path.startsWith('/genus/');
+}
+
+function samePlace(location, dest) {
+  const url = new URL(dest, 'https://whatsthatflower.com');
+  return (
+    normPath(url.pathname) === normPath(location.pathname) &&
+    url.search === location.search &&
+    url.hash === (location.hash || '')
+  );
+}
+
+function migratedLocation(location) {
+  const params = new URLSearchParams(location.search);
+  const qLangRaw = params.get('lang');
+  const parts = normPath(location.pathname).split('/').filter(Boolean);
+  const hash = location.hash || '';
+
+  if (parts[0] === 'en') {
+    params.delete('lang');
+    const rest = parts.length === 1 ? '/' : '/' + parts.slice(1).join('/');
+    const q = params.toString();
+    return rest + (q ? `?${q}` : '') + hash;
+  }
+
+  const pathLang = langFromPath(location.pathname);
+  if (qLangRaw) {
+    const qLang = normalizeLang(qLangRaw, languages);
+    if (pathLang !== 'en' || PATH_LANGS.includes(qLang) || qLang === 'en') {
+      params.delete('lang');
+      const rest = contentPath(location.pathname);
+      const body = pathLang !== 'en' ? normPath(location.pathname) : withLang(rest, qLang);
+      const q = params.toString();
+      return body + (q ? `?${q}` : '') + hash;
+    }
+  }
+
+  if (normPath(location.pathname) === '/' && !params.get('lang') && !params.get('plant')) {
+    const preferred = normalizeLang(readLangCookie(), languages);
+    if (preferred && preferred !== 'en') {
+      return withLang('/', preferred) + hash;
+    }
+  }
+  return null;
+}
+
+function StripEn() {
+  const location = useLocation();
+  const rest = location.pathname.replace(/^\/en(?=\/|$)/, '') || '/';
+  return <Navigate to={`${rest}${location.search}${location.hash}`} replace />;
 }
 
 const PAGE_SCROLL_KEY = 'wtf-page-scroll';
@@ -137,7 +199,15 @@ export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
   usePageScroll(location);
-  const lang = detectLang(location.search, languages);
+
+  useLayoutEffect(() => {
+    const dest = migratedLocation(location);
+    if (dest && !samePlace(location, dest)) {
+      navigate(dest, { replace: true });
+    }
+  }, [location, navigate]);
+
+  const lang = detectLang(location.pathname, location.search, languages);
   const queryPlant = new URLSearchParams(location.search).get('plant');
   const needsIndex = !queryPlant && routeNeedsIndex(location.pathname);
   const needsLabels = !queryPlant && routeNeedsLabels(location.pathname);
@@ -190,13 +260,8 @@ export default function App() {
   }, [lang]);
 
   useEffect(() => {
-    document.documentElement.lang = lang;
-    document.documentElement.dir = RTL.has(lang) ? 'rtl' : 'ltr';
-  }, [lang]);
-
-  useEffect(() => {
     if (location.hash === '#app') {
-      navigate(`/identify?lang=${encodeURIComponent(lang)}`, { replace: true });
+      navigate(withLang('/identify', lang), { replace: true });
     }
   }, [location.hash, lang, navigate]);
 
@@ -209,30 +274,44 @@ export default function App() {
   const t = useMemo(() => uiText(lang), [lang]);
 
   const setLang = (next) => {
+    writeLangCookie(next);
     const params = new URLSearchParams(location.search);
-    params.set('lang', next);
-    navigate(`${location.pathname}?${params.toString()}${location.hash || ''}`);
+    params.delete('lang');
+    const rest = contentPath(location.pathname);
+    const q = params.toString();
+    navigate(withLang(rest, next) + (q ? `?${q}` : '') + (location.hash || ''));
   };
 
-  return (
-    <>
-      <Header lang={lang} t={t} onLang={setLang} />
-      <Routes>
-        <Route path="/translate_flower" element={<Navigate to="/" replace />} />
-        <Route path="/translate_app" element={<Navigate to="/" replace />} />
-        <Route path="/identify" element={<IdentifyPage lang={lang} t={t} />} />
-        <Route path="/about" element={<AboutPage lang={lang} t={t} />} />
-        <Route path="/help" element={<HelpPage lang={lang} t={t} />} />
+  const home = queryPlant ? (
+    <PlantPage lang={lang} t={t} requestedName={queryPlant} taxonomy={taxonomy} />
+  ) : (
+    <HomePage
+      lang={lang}
+      t={t}
+      headers={headers}
+      headersById={headersById}
+      labels={labels}
+      taxonomy={taxonomy}
+    />
+  );
+
+  const catalogRoutes = (prefix) => {
+    const p = (seg) => (prefix ? `/${prefix}${seg}` : seg);
+    return (
+      <Fragment key={prefix || 'en'}>
+        <Route path={p('/identify')} element={<IdentifyPage lang={lang} t={t} />} />
+        <Route path={p('/about')} element={<AboutPage lang={lang} t={t} />} />
+        <Route path={p('/help')} element={<HelpPage lang={lang} t={t} />} />
         <Route
-          path="/families"
+          path={p('/families')}
           element={<FamiliesPage lang={lang} t={t} headers={headers} taxonomy={taxonomy} />}
         />
         <Route
-          path="/genera"
+          path={p('/genera')}
           element={<GeneraPage lang={lang} t={t} headers={headers} taxonomy={taxonomy} />}
         />
         <Route
-          path="/family/:family"
+          path={p('/family/:family')}
           element={
             <FamilyPage
               lang={lang}
@@ -245,7 +324,7 @@ export default function App() {
           }
         />
         <Route
-          path="/genus/:genus"
+          path={p('/genus/:genus')}
           element={
             <FamilyPage
               lang={lang}
@@ -257,24 +336,24 @@ export default function App() {
             />
           }
         />
-        <Route path="/plant/:name" element={<PlantPage lang={lang} t={t} taxonomy={taxonomy} />} />
-        <Route
-          path="/"
-          element={
-            queryPlant ? (
-              <PlantPage lang={lang} t={t} requestedName={queryPlant} taxonomy={taxonomy} />
-            ) : (
-              <HomePage
-                lang={lang}
-                t={t}
-                headers={headers}
-                headersById={headersById}
-                labels={labels}
-                taxonomy={taxonomy}
-              />
-            )
-          }
-        />
+        <Route path={p('/plant/:name')} element={<PlantPage lang={lang} t={t} taxonomy={taxonomy} />} />
+        <Route path={prefix ? `/${prefix}` : '/'} element={home} />
+        {prefix ? <Route path={`/${prefix}/`} element={home} /> : null}
+      </Fragment>
+    );
+  };
+
+  return (
+    <>
+      <Header lang={lang} t={t} onLang={setLang} />
+      <SeoHead lang={lang} pathname={location.pathname} search={location.search} />
+      <Routes>
+        <Route path="/translate_flower" element={<Navigate to={withLang('/', lang)} replace />} />
+        <Route path="/translate_app" element={<Navigate to={withLang('/', lang)} replace />} />
+        <Route path="/en" element={<Navigate to="/" replace />} />
+        <Route path="/en/*" element={<StripEn />} />
+        {catalogRoutes('')}
+        {PATH_LANGS.map((code) => catalogRoutes(code))}
       </Routes>
     </>
   );

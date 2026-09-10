@@ -54,15 +54,62 @@ export function countryName(code, lang) {
   return COUNTRIES[cc] || cc.toUpperCase();
 }
 
+export const SITE_ORIGIN = 'https://whatsthatflower.com';
+
+/** Languages with path prefixes and SEO shells. English is unprefixed. Keep in sync with scripts/generate_seo.js. */
+export const INDEXED_LANGS = ['en', 'sk', 'de', 'fr', 'cs'];
+export const PATH_LANGS = INDEXED_LANGS.filter((code) => code !== 'en');
+
+const LANG_COOKIE = 'wtf-lang';
+
 export function normPath(pathname) {
   if (!pathname || pathname === '/') return '/';
   return pathname.replace(/\/+$/, '') || '/';
 }
 
+export function normalizeLang(code, supported) {
+  if (!code) return 'en';
+  let lang = String(code);
+  if (lang.indexOf('-') > 0) lang = lang.slice(0, lang.indexOf('-'));
+  if (lang === 'nb' || lang === 'nn') lang = 'no';
+  if (supported && !supported[lang]) return 'en';
+  return lang;
+}
+
+export function langFromPath(pathname) {
+  const first = normPath(pathname).split('/').filter(Boolean)[0];
+  if (first && PATH_LANGS.includes(first)) return first;
+  return 'en';
+}
+
+export function contentPath(pathname) {
+  const norm = normPath(pathname);
+  const parts = norm.split('/').filter(Boolean);
+  if (parts[0] && PATH_LANGS.includes(parts[0])) {
+    const rest = parts.slice(1);
+    return rest.length ? '/' + rest.join('/') : '/';
+  }
+  return norm;
+}
+
 export function withLang(path, lang) {
-  if (!lang) return path;
-  const join = path.includes('?') ? '&' : '?';
-  return `${path}${join}lang=${encodeURIComponent(lang)}`;
+  const raw = path || '/';
+  const qIndex = raw.indexOf('?');
+  let pathname = qIndex >= 0 ? raw.slice(0, qIndex) : raw;
+  const extra = qIndex >= 0 ? raw.slice(qIndex + 1) : '';
+  const params = new URLSearchParams(extra);
+  params.delete('lang');
+  if (!pathname.startsWith('/')) pathname = '/' + pathname;
+  if (pathname.length > 1 && pathname.endsWith('/')) pathname = pathname.slice(0, -1);
+  const code = lang || 'en';
+  let body = pathname;
+  if (PATH_LANGS.includes(code)) {
+    body = pathname === '/' ? '/' + code : '/' + code + pathname;
+  } else if (code !== 'en') {
+    params.set('lang', code);
+  }
+  const q = params.toString();
+  return q ? `${body}?${q}` : body;
 }
 
 export function plantPath(name, lang) {
@@ -77,13 +124,41 @@ export function genusPath(genus, lang) {
   return withLang(`/genus/${encodeURIComponent(genus)}`, lang);
 }
 
-export function detectLang(search, supported) {
+export function detectLang(pathname, search, supported) {
+  const fromPath = langFromPath(pathname);
+  if (fromPath !== 'en') return fromPath;
   const params = new URLSearchParams(search || '');
-  let lang = params.get('lang') || (navigator.languages && navigator.languages[0]) || navigator.language || 'en';
-  if (lang.indexOf('-') > 0) lang = lang.slice(0, lang.indexOf('-'));
-  if (lang === 'nb' || lang === 'nn') lang = 'no';
-  if (!supported[lang]) return 'en';
-  return lang;
+  const q = params.get('lang');
+  if (q) return normalizeLang(q, supported);
+  return 'en';
+}
+
+export function canonicalUrl(pathname, lang) {
+  const code = INDEXED_LANGS.includes(lang) ? lang : 'en';
+  const path = withLang(contentPath(pathname), code);
+  if (path === '/') return SITE_ORIGIN + '/';
+  return SITE_ORIGIN + path.replace(/\/+$/, '') + '/';
+}
+
+export function hreflangUrls(pathname) {
+  const rest = contentPath(pathname);
+  const urls = {};
+  INDEXED_LANGS.forEach((code) => {
+    urls[code] = canonicalUrl(rest, code);
+  });
+  urls['x-default'] = urls.en;
+  return urls;
+}
+
+export function readLangCookie() {
+  if (typeof document === 'undefined') return '';
+  const match = document.cookie.match(/(?:^|; )wtf-lang=([^;]*)/);
+  return match ? decodeURIComponent(match[1]) : '';
+}
+
+export function writeLangCookie(lang) {
+  if (typeof document === 'undefined' || !lang) return;
+  document.cookie = `${LANG_COOKIE}=${encodeURIComponent(lang)}; Max-Age=31536000; Path=/; SameSite=Lax`;
 }
 
 export function parseApg(apg) {

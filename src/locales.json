@@ -166,7 +166,13 @@
     "help4_text": "<li>Preferred language: Choose preferred language.</li>\n<li>Cache size in MB (for photos and illustrations): set cache for downloaded photos and illustrations (default 50 MB).</li>\n\n<h4>Only in extended (+) version:</h4>\n\n<li>Offline mode: Download pictures and data to device (requires 300+ MB additional space).</li>",
     "help5_title": "Localization:",
     "help5_text": "<p>\nApplication takes localization from the device on which it's running. Unsupported localization display texts from default localization (English).\n</p>\n<p>\nInformation about flowers which are displayed on detail screen is different issue. Many languages are supported for flower's names and taxonomy. Latin names are displayed if localized names is missing. Other texts are downloaded from a server and translated to locale language using Google Translate if necessary. You can see information about using Google translate below description. Touch left button to show original English texts. Touch left button again to see localized texts. Touch right button to send suggestion for better translation to developer.\n</p>",
-    "app_short": "Identify flowers with smartphone"
+    "app_short": "Identify flowers with smartphone",
+    "seo_home": "A plant encyclopedia with 19th-century botanical plates, field photographs, and public sightings.",
+    "seo_families": "Browse flowering-plant families in the encyclopedia.",
+    "seo_genera": "Browse flowering-plant genera in the encyclopedia.",
+    "seo_identify": "Identify a flower with the four-step key in the app.",
+    "seo_about": "About the plant encyclopedia What's that flower?",
+    "seo_help": "Help for What's that flower?"
   },
   "ar": {
     "about": "حول",
@@ -668,7 +674,13 @@
     "help4_text": "<li>Preferovaný jazyk: Vyber si svůj preferovaný jazyk pro ovládací prvky a detailní informace o květu.</li>\n<li>Velikost cache v MB (pro fotky a ilustrace): Nastavit velikost vyrovnávací paměti pro stažené obrázky (přednastavené 50 MB).</li>\n\n<h4>Pouze v rozšířené (+) verzi</h4>\n\n<li>Offline režim: Stáhnout obrázky a data do zařízení (vyžaduje 300 MB dodatečného prostoru).</li>",
     "help5_title": "Lokalizace:",
     "help5_text": "<p>\nPo spuštění aplikace je lokalizace nastavena podle mobilního zařízení. Lokalizace, pro kterou aplikace nemá lokalizační soubor, přebírá texty z přednastavené lokalizace, kterou je anglická.\n</p>\n<p>\nSpecifickou kapitolou jsou detailní informace o samotných květinách. Názvy květů a taxonomie se zobrazují v jazyce mobilního zařízení nebo v přednastaveném jazyce jestli jsou tyto zadané v databázi, jinak se zobrazují latinské názvy. Ostatní texty se stahují ze serveru, který je, pokud je to nutné, přeloží do lokálního jazyka mobilního zařízení. V takovém případě se informace o tom objeví pod textem. Po stisknutí levého tlačítka se zobrazí původní anglické texty. Po opětovném stisknutí levého tlačítka se zobrazí přeložené texty. Po stisknutí pravého tlačítka můžete poslat návrh na lepší překlad textů přímo vývojáři, který ho následně zapíše do databáze.\n</p>",
-    "app_short": "Identifikuj rostlinu pomocí smartphonu"
+    "app_short": "Identifikuj rostlinu pomocí smartphonu",
+    "seo_home": "Encyklopedie rostlin s botanickými tabulemi z 19. století, terénními fotografiemi a veřejnými pozorováními.",
+    "seo_families": "Přehled čeledí kvetoucích rostlin v encyklopedii.",
+    "seo_genera": "Přehled rodů kvetoucích rostlin v encyklopedii.",
+    "seo_identify": "Určete květ čtyřkrokovým klíčem v aplikaci.",
+    "seo_about": "O encyklopedii rostlin Co to tu kvete?",
+    "seo_help": "Nápověda pro Co to tu kvete?"
   },
   "da": {
     "about": "Om ansøgning",
@@ -1000,7 +1012,13 @@
     "help4_text": "<li>Bevorzugte Sprache: Wählen Sie die bevorzugte Sprache.</li>\n<li>Cache-Größe in MB (für Fotos und Illustrationen): Legen Sie den Cache für heruntergeladene Fotos und Illustrationen fest (Standard 50 MB).</li>\n\n<h4>Nur in der erweiterten (+) Version:</h4>\n\n<li>Offline-Modus: Laden Sie Bilder und Daten auf das Gerät herunter (erfordert mehr als 300 MB zusätzlichen Speicherplatz).</li>",
     "help5_title": "Übersetzungen:",
     "help5_text": "<p>\nDie Anwendung verwendet die Spracheinstellung des Geräts, auf dem sie ausgeführt wird. Wird die Sprache nicht unterstützt, werden die Texte in der vorgegebenen Sprache (Englisch) angezeigt.\n</p>\n<p>\nDie Informationen zu Blumen, die auf dem Detailbildschirm angezeigt werden, sind ein anderes Thema. Die Blumenbezeichnungen und die Taxonomie stehen in vielen Sprachen zur Verfügung. Fehlt die Übersetzung einer Bezeichnung, werden lateinische Namen angezeigt. Weitere Texte werden von einem Server heruntergeladen und, wenn nötig, mithilfe von Google Translate in die Systemsprache übersetzt. Bei Verwendung von Google Translate finden Sie unter der Beschreibung einen Hinweis darauf. Berühren Sie die linke Taste, um die englischen Originaltexte anzuzeigen. Berühren Sie die linke Taste erneut, um wieder die Übersetzung zu sehen. Berühren Sie die rechte Taste, um dem Entwickler einen Vorschlag mit einer besseren Übersetzung zu senden.\n</p>",
-    "app_short": "Blumen mit dem Smartphone bestimmen"
+    "app_short": "Blumen mit dem Smartphone bestimmen",
+    "seo_home": "Eine Pflanzenenzyklopädie mit botanischen Tafeln des 19. Jahrhunderts, Feldfotos und öffentlichen Beobachtungen.",
+    "seo_families": "Blütenpflanzen-Familien in der Enzyklopädie durchstöbern.",
+    "seo_genera": "Blütenpflanzen-Gattungen in der Enzyklopädie durchstöbern.",
+    "seo_identify": "Bestimmen Sie eine Blume mit dem Vier-Schritte-Schlüssel in der App.",
+    "seo_about": "Über die Pflanzenenzyklopädie Welche Blume ist das?",
+    "seo_help": "Hilfe für Welche Blume ist das?"
   },
   "es": {
     "about": "Información",
@@ -1664,7 +1682,13 @@
     "help4_text": "<li>Preferred language: Choose preferred language.</li>\n<li>Cache size in MB (for photos and illustrations): set cache for downloaded photos and illustrations (default 50 MB).</li>\n\n<h4>Only in extended (+) version:</h4>\n\n<li>Offline mode: Download pictures and data to device (requires 250+ MB additional space).</li>",
     "help5_title": "Localization:",
     "help5_text": "<p>\nApplication takes localization from the device on which it's running. Unsupported localization display texts from default localization (English).\n</p>\n<p>\nInformation about flowers which are displayed on detail screen is different issue. Many languages are supported for flower's names and taxonomy. Latin names are displayed if localized names is missing. Other texts are downloaded from a server and translated to locale language using Google Translate if necessary. You can see information about using Google translate below description. Touch left button to show original English texts. Touch left button again to see localized texts. Touch right button to send suggestion for better translation to developer.\n</p>",
-    "app_short": "Identifier les fleurs avec un smartphone"
+    "app_short": "Identifier les fleurs avec un smartphone",
+    "seo_home": "Une encyclopédie des plantes avec des planches botaniques du XIXe siècle, des photographies de terrain et des observations publiques.",
+    "seo_families": "Parcourir les familles de plantes à fleurs de l’encyclopédie.",
+    "seo_genera": "Parcourir les genres de plantes à fleurs de l’encyclopédie.",
+    "seo_identify": "Identifier une fleur avec la clé en quatre étapes dans l’application.",
+    "seo_about": "À propos de l’encyclopédie Quelle est cette fleur?",
+    "seo_help": "Aide pour Quelle est cette fleur?"
   },
   "hi": {
     "about": "के बारे में",
@@ -4326,7 +4350,13 @@
     "help4_text": "<li>Preferovaný jazyk: Vyber si svoj preferovaný jazyk pre ovládacie prvky a detailné informácie o kvete.</li>\n<li>Veľkosť cache v MB (pre fotky a ilustrácie): Nastaviť veľkosť vyrovnávacej pamäte pre stiahnuté obrázky (prednastavené 50 MB).</li>\n\n<h4>Iba v rozšírenej (+) verzii</h4>\n\n<li>Offline režim: Stiahnuť obrázky a dáta do zariadenia (vyžaduje 300 MB dodatočného priestoru).</li>",
     "help5_title": "Lokalizácia:",
     "help5_text": "<p>\nPo spustení aplikácie je lokalizácia nastavená podľa mobilného zariadenia. Lokálizácia, pre ktorú aplikácia nemá lokalizačný súbor, preberá texty z prednastavenej lokalizácie, ktorou je anglická.\n</p>\n<p>\nOsobitnou kapitolou su detailné informácie o samotných kvetoch. Názvy kvetov a taxonómia sa zobrazujú v jazyku mobilného zariadenia alebo v prednastavenom jazyku ak sú tieto zadané v databáze, inak sa zobrazujú latinské názvy. Ostatné texty sa sťahujú zo servera, ktorý ich, ak je to potrebné, preloží do lokálneho jazyka mobilného zariadenia. V takom prípade sa informácia o tom objaví pod textom. Po stlačení ľavého tlačidla sa zobrazia pôvodné anglické texty. Po opätovnom stlačení ľavého tlačidla sa zobrazia preložené texty. Po stlačení pravého tlačidla môžete poslať návrh na lepší preklad textov priamo vývojarovi, ktorý ho následne zapíše do databázy.\n</p>",
-    "app_short": "Identifikuj rastlinu pomocou smartfónu"
+    "app_short": "Identifikuj rastlinu pomocou smartfónu",
+    "seo_home": "Encyklopédia rastlín s botanickými tabuľami z 19. storočia, terénnymi fotografiami a verejnými pozorovaniami.",
+    "seo_families": "Prehľad čeľadí kvitnúcich rastlín v encyklopédii.",
+    "seo_genera": "Prehľad rodov kvitnúcich rastlín v encyklopédii.",
+    "seo_identify": "Určite kvet štvorstupňovým kľúčom v aplikácii.",
+    "seo_about": "O encyklopédii rastlín Čo to tu kvitne?",
+    "seo_help": "Pomocník pre Čo to tu kvitne?"
   },
   "sl": {
     "about": "O aplikaciji",

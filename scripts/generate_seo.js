@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
  * After Vite build: sitemap.xml + unique HTML shells for plant/family/genus URLs.
+ * Indexed languages (keep in sync with src/lib.js INDEXED_LANGS): en unprefixed, others /{lang}/.
  */
 const fs = require('fs');
 const path = require('path');
@@ -11,6 +12,9 @@ const DB = 'https://abherbs-backend.firebaseio.com';
 const PHOTO = 'https://storage.googleapis.com/abherbs-resources/photos/';
 const ROOT = path.join(__dirname, '..');
 const BUILD = path.join(ROOT, 'build');
+const INDEXED_LANGS = ['en', 'sk', 'de', 'fr', 'cs'];
+const OG_LOCALE = { en: 'en_US', sk: 'sk_SK', de: 'de_DE', fr: 'fr_FR', cs: 'cs_CZ' };
+const locales = require('../src/locales.json');
 
 function escapeHtml(value) {
   return String(value || '')
@@ -20,8 +24,42 @@ function escapeHtml(value) {
     .replace(/"/g, '&quot;');
 }
 
-function encodePath(parts) {
-  return SITE + '/' + parts.map((part) => encodeURIComponent(part)).join('/') + '/';
+function localeOf(lang) {
+  return Object.assign({}, locales.en || {}, locales[lang] || {});
+}
+
+function t(lang, key) {
+  const cat = localeOf(lang);
+  if (cat[key] != null) return cat[key];
+  if ((locales.en || {})[key] != null) return locales.en[key];
+  return key;
+}
+
+function plantsCount(lang, n) {
+  const key = n === 1 ? 'plants_count_one' : 'plants_count_other';
+  return String(t(lang, key)).replace('{n}', String(n));
+}
+
+function stripText(value) {
+  return String(value || '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function pageUrl(lang, parts) {
+  const segs = lang && lang !== 'en' ? [lang].concat(parts) : parts;
+  if (!segs.length) return SITE + '/';
+  return SITE + '/' + segs.map((part) => encodeURIComponent(part)).join('/') + '/';
+}
+
+function hreflangTags(parts) {
+  return INDEXED_LANGS.map(
+    (lang) =>
+      '<link rel="alternate" hreflang="' + lang + '" href="' + escapeHtml(pageUrl(lang, parts)) + '">'
+  ).concat([
+    '<link rel="alternate" hreflang="x-default" href="' + escapeHtml(pageUrl('en', parts)) + '">',
+  ]);
 }
 
 function displayName(label, fallback) {
@@ -106,28 +144,44 @@ async function getJson(url) {
   return res.json();
 }
 
+function stripSeo(html) {
+  return String(html || '')
+    .replace(/<link rel="canonical"[^>]*>/g, '')
+    .replace(/<link rel="alternate" hreflang="[^"]+"[^>]*>/g, '')
+    .replace(/<meta property="og:[^"]+"[^>]*>/g, '')
+    .replace(/<meta name="twitter:[^"]+"[^>]*>/g, '')
+    .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, '')
+    .replace(/<div id="root"><\/div><noscript>[\s\S]*?<\/noscript>/g, '<div id="root"></div>');
+}
+
 function inject(template, opts) {
   const title = escapeHtml(opts.title);
   const description = escapeHtml((opts.description || '').slice(0, 240));
   const url = escapeHtml(opts.url);
-  let html = template.replace(/<title>[^<]*<\/title>/, '<title>' + title + '</title>');
+  const lang = opts.lang || 'en';
+  let html = template.replace(/<html lang="[^"]*">/, '<html lang="' + lang + '">');
+  html = html.replace(/<title>[^<]*<\/title>/, '<title>' + title + '</title>');
   html = html.replace(
     /<meta name="description" content="[^"]*">/,
     '<meta name="description" content="' + description + '">'
   );
   const extra = [
     '<link rel="canonical" href="' + url + '">',
-    '<meta property="og:type" content="website">',
-    '<meta property="og:site_name" content="' + escapeHtml(APP) + '">',
-    '<meta property="og:title" content="' + title + '">',
-    '<meta property="og:description" content="' + description + '">',
-    '<meta property="og:url" content="' + url + '">',
-    opts.image ? '<meta property="og:image" content="' + escapeHtml(opts.image) + '">' : '',
-    '<meta name="twitter:card" content="' + (opts.image ? 'summary_large_image' : 'summary') + '">',
-    opts.jsonLd
-      ? '<script type="application/ld+json">' + JSON.stringify(opts.jsonLd) + '</script>'
-      : '',
   ]
+    .concat(hreflangTags(opts.parts || []))
+    .concat([
+      '<meta property="og:type" content="website">',
+      '<meta property="og:site_name" content="' + escapeHtml(t(lang, 'app_name') || APP) + '">',
+      '<meta property="og:locale" content="' + (OG_LOCALE[lang] || 'en_US') + '">',
+      '<meta property="og:title" content="' + title + '">',
+      '<meta property="og:description" content="' + description + '">',
+      '<meta property="og:url" content="' + url + '">',
+      opts.image ? '<meta property="og:image" content="' + escapeHtml(opts.image) + '">' : '',
+      '<meta name="twitter:card" content="' + (opts.image ? 'summary_large_image' : 'summary') + '">',
+      opts.jsonLd
+        ? '<script type="application/ld+json">' + JSON.stringify(opts.jsonLd) + '</script>'
+        : '',
+    ])
     .filter(Boolean)
     .join('');
   html = html.replace('</head>', extra + '</head>');
@@ -146,18 +200,34 @@ function writePage(relParts, html) {
   fs.writeFileSync(path.join(dir, 'index.html'), html);
 }
 
-function sitemapXml(urls) {
-  const body = urls
-    .map(
-      (loc) =>
-        '  <url><loc>' +
+function sitemapXml(entries) {
+  const body = entries
+    .map((entry) => {
+      const loc = pageUrl(entry.lang, entry.parts);
+      const links = INDEXED_LANGS.map(
+        (lang) =>
+          '    <xhtml:link rel="alternate" hreflang="' +
+          lang +
+          '" href="' +
+          pageUrl(lang, entry.parts).replace(/&/g, '&amp;') +
+          '"/>'
+      ).concat([
+        '    <xhtml:link rel="alternate" hreflang="x-default" href="' +
+          pageUrl('en', entry.parts).replace(/&/g, '&amp;') +
+          '"/>',
+      ]);
+      return (
+        '  <url>\n    <loc>' +
         loc.replace(/&/g, '&amp;') +
-        '</loc></url>'
-    )
+        '</loc>\n' +
+        links.join('\n') +
+        '\n  </url>'
+      );
+    })
     .join('\n');
   return (
     '<?xml version="1.0" encoding="UTF-8"?>\n' +
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' +
     body +
     '\n</urlset>\n'
   );
@@ -168,112 +238,101 @@ async function main() {
   if (!fs.existsSync(templatePath)) {
     throw new Error('build/index.html missing; run vite build first');
   }
-  const template = fs.readFileSync(templatePath, 'utf8');
+  const template = stripSeo(fs.readFileSync(templatePath, 'utf8'));
 
-  const [catalog, count, headers, translations, enLabels, taxonomyEn] = await Promise.all([
+  const langPacks = await Promise.all(
+    INDEXED_LANGS.map((lang) =>
+      Promise.all([
+        getJson(DB + '/translations/' + lang + '.json').catch(() => ({})),
+        getJson(DB + '/web/labels/' + lang + '.json').catch(() => null),
+        getJson(DB + '/translations_taxonomy/' + lang + '.json').catch(() => null),
+      ]).then(([translations, labels, taxonomy]) => ({
+        lang,
+        translations: translations && typeof translations === 'object' ? translations : {},
+        labels,
+        taxonomy,
+      }))
+    )
+  );
+  const [webCatalog, count, headers] = await Promise.all([
     getJson(DB + '/web/catalog.json').catch(() => null),
     getJson(DB + '/plants_to_update/count.json').catch(() => null),
     getJson(DB + '/plants_headers.json'),
-    getJson(DB + '/translations/en.json'),
-    getJson(DB + '/web/labels/en.json').catch(() => null),
-    getJson(DB + '/translations_taxonomy/en.json').catch(() => null),
   ]);
-  const catalogRows = namedRows(catalog);
+  const catalogRows = namedRows(webCatalog);
   const headerRows = namedRows(headers);
   const plants = catalogCovers(catalogRows, count) ? catalogRows : headerRows;
-  const byName = translations && typeof translations === 'object' ? translations : {};
-
-  const urls = [
-    SITE + '/',
-    SITE + '/families/',
-    SITE + '/genera/',
-    SITE + '/identify/',
-    SITE + '/about/',
-    SITE + '/help/',
-  ];
-
-  const homeDesc =
-    "A plant encyclopedia with 19th-century botanical plates, field photographs, and public sightings. What's that flower?";
-  fs.writeFileSync(
-    templatePath,
-    inject(template, {
-      title: APP,
-      description: homeDesc,
-      url: SITE + '/',
-      noscript:
-        '<h1>' +
-        escapeHtml(APP) +
-        '</h1><p>' +
-        escapeHtml(homeDesc) +
-        '</p>',
-    })
-  );
-
-  const staticPages = [
-    {
-      parts: ['families'],
-      title: 'Families — ' + APP,
-      description: 'Browse flowering-plant families in the encyclopedia.',
-    },
-    {
-      parts: ['genera'],
-      title: 'Genera — ' + APP,
-      description: 'Browse flowering-plant genera in the encyclopedia.',
-    },
-    {
-      parts: ['identify'],
-      title: 'Identify — ' + APP,
-      description: 'Identify a flower with the four-step key in the app.',
-    },
-    {
-      parts: ['about'],
-      title: 'About — ' + APP,
-      description: 'About the plant encyclopedia What\'s that flower?',
-    },
-    {
-      parts: ['help'],
-      title: 'Help — ' + APP,
-      description: 'Help for What\'s that flower?',
-    },
-  ];
-  staticPages.forEach((page) => {
-    const url = encodePath(page.parts);
-    writePage(
-      page.parts,
-      inject(template, {
-        title: page.title,
-        description: page.description,
-        url,
-        noscript: '<h1>' + escapeHtml(page.title) + '</h1><p>' + escapeHtml(page.description) + '</p>',
-      })
-    );
+  const packByLang = {};
+  langPacks.forEach((pack) => {
+    packByLang[pack.lang] = pack;
   });
 
   const families = {};
   const genera = {};
-
   plants.forEach((header) => {
-    const name = header.name;
-    const text = byName[name] || {};
-    const label = displayName(text.label || labelFor(header, enLabels), name);
-    const title = label + ' (' + name + ') — ' + APP;
-    const description = String(text.description || label + ' — botanical plate and notes in ' + APP).slice(
-      0,
-      240
-    );
-    const url = encodePath(['plant', name]);
-    const image = plateUrl(header);
     const family = header.family || '';
-    const genus = genusOf(name);
+    const genus = genusOf(header.name);
     if (family) families[family] = (families[family] || 0) + 1;
     if (genus) genera[genus] = (genera[genus] || 0) + 1;
+  });
 
-    writePage(
-      ['plant', name],
-      inject(template, {
+  const entries = [];
+
+  function emit(lang, parts, opts) {
+    const url = pageUrl(lang, parts);
+    const html = inject(template, {
+      ...opts,
+      lang,
+      parts,
+      url,
+    });
+    if (!parts.length) {
+      if (lang === 'en') fs.writeFileSync(templatePath, html);
+      else writePage([lang], html);
+    } else {
+      writePage(lang === 'en' ? parts : [lang].concat(parts), html);
+    }
+    entries.push({ lang, parts });
+  }
+
+  INDEXED_LANGS.forEach((lang) => {
+    const app = t(lang, 'app_name') || APP;
+    const pack = packByLang[lang] || { translations: {}, labels: null, taxonomy: null };
+    const homeDesc = t(lang, 'seo_home');
+    emit(lang, [], {
+      title: app,
+      description: homeDesc,
+      noscript: '<h1>' + escapeHtml(app) + '</h1><p>' + escapeHtml(homeDesc) + '</p>',
+    });
+
+    const staticPages = [
+      ['families', t(lang, 'families'), t(lang, 'seo_families')],
+      ['genera', t(lang, 'genera'), t(lang, 'seo_genera')],
+      ['identify', t(lang, 'identify'), t(lang, 'seo_identify')],
+      ['about', t(lang, 'about'), t(lang, 'seo_about')],
+      ['help', t(lang, 'help'), t(lang, 'seo_help')],
+    ];
+    staticPages.forEach(([slug, heading, description]) => {
+      const title = heading + ' — ' + app;
+      emit(lang, [slug], {
         title,
         description,
-        url,
+        noscript: '<h1>' + escapeHtml(title) + '</h1><p>' + escapeHtml(description) + '</p>',
+      });
+    });
+
+    plants.forEach((header) => {
+      const name = header.name;
+      const text = pack.translations[name] || {};
+      const label = displayName(text.label || labelFor(header, pack.labels), name);
+      const title = label + ' (' + name + ') — ' + app;
+      const description = stripText(text.description || title).slice(0, 240);
+      const url = pageUrl(lang, ['plant', name]);
+      const image = plateUrl(header);
+      const family = header.family || '';
+      emit(lang, ['plant', name], {
+        title,
+        description,
         image,
         jsonLd: {
           '@context': 'https://schema.org',
@@ -282,6 +341,7 @@ async function main() {
           alternateName: text.label || undefined,
           description,
           taxonRank: 'Species',
+          inLanguage: lang,
           url,
           image: image || undefined,
           parentTaxon: family
@@ -296,34 +356,27 @@ async function main() {
           '</i></p><p>' +
           escapeHtml(description) +
           '</p>',
-      })
-    );
-    urls.push(url);
-  });
+      });
+    });
 
-  Object.keys(families)
-    .sort()
-    .forEach((family) => {
-      const url = encodePath(['family', family]);
-      const n = families[family];
-      const common = displayName(taxonLabel(taxonomyEn, family), '');
-      const titled = common ? common + ' (' + family + ')' : family;
-      const description =
-        n === 1
-          ? '1 plant in the family ' + titled + '.'
-          : n + ' plants in the family ' + titled + '.';
-      writePage(
-        ['family', family],
-        inject(template, {
-          title: titled + ' — ' + APP,
+    Object.keys(families)
+      .sort()
+      .forEach((family) => {
+        const n = families[family];
+        const common = displayName(taxonLabel(pack.taxonomy, family), '');
+        const titled = common ? common + ' (' + family + ')' : family;
+        const description = titled + '. ' + plantsCount(lang, n);
+        const url = pageUrl(lang, ['family', family]);
+        emit(lang, ['family', family], {
+          title: titled + ' — ' + app,
           description,
-          url,
           jsonLd: {
             '@context': 'https://schema.org',
             '@type': 'Taxon',
             name: family,
             alternateName: common || undefined,
             taxonRank: 'Family',
+            inLanguage: lang,
             url,
           },
           noscript:
@@ -334,32 +387,27 @@ async function main() {
             '<p>' +
             escapeHtml(description) +
             '</p>',
-        })
-      );
-      urls.push(url);
-    });
+        });
+      });
 
-  Object.keys(genera)
-    .sort()
-    .forEach((genus) => {
-      const url = encodePath(['genus', genus]);
-      const n = genera[genus];
-      const common = displayName(taxonLabel(taxonomyEn, genus), '');
-      const titled = common ? common + ' (' + genus + ')' : genus;
-      const description =
-        n === 1 ? '1 plant in the genus ' + titled + '.' : n + ' plants in the genus ' + titled + '.';
-      writePage(
-        ['genus', genus],
-        inject(template, {
-          title: titled + ' — ' + APP,
+    Object.keys(genera)
+      .sort()
+      .forEach((genus) => {
+        const n = genera[genus];
+        const common = displayName(taxonLabel(pack.taxonomy, genus), '');
+        const titled = common ? common + ' (' + genus + ')' : genus;
+        const description = titled + '. ' + plantsCount(lang, n);
+        const url = pageUrl(lang, ['genus', genus]);
+        emit(lang, ['genus', genus], {
+          title: titled + ' — ' + app,
           description,
-          url,
           jsonLd: {
             '@context': 'https://schema.org',
             '@type': 'Taxon',
             name: genus,
             alternateName: common || undefined,
             taxonRank: 'Genus',
+            inLanguage: lang,
             url,
           },
           noscript:
@@ -370,12 +418,11 @@ async function main() {
             '<p>' +
             escapeHtml(description) +
             '</p>',
-        })
-      );
-      urls.push(url);
-    });
+        });
+      });
+  });
 
-  fs.writeFileSync(path.join(BUILD, 'sitemap.xml'), sitemapXml(urls));
+  fs.writeFileSync(path.join(BUILD, 'sitemap.xml'), sitemapXml(entries));
   console.log(
     'seo pages',
     plants.length,
@@ -384,8 +431,10 @@ async function main() {
     'families',
     Object.keys(genera).length,
     'genera',
+    'langs',
+    INDEXED_LANGS.join(','),
     'sitemap',
-    urls.length
+    entries.length
   );
 }
 
