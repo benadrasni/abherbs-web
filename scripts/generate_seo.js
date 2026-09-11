@@ -71,9 +71,7 @@ function hreflangTags(parts) {
 }
 
 function displayName(label, fallback) {
-  const raw = String(label || fallback || '').trim();
-  if (!raw) return '';
-  return raw.charAt(0).toLocaleUpperCase() + raw.slice(1);
+  return String(label || fallback || '').trim();
 }
 
 function namedRows(raw) {

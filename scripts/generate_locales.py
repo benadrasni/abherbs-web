@@ -71,10 +71,8 @@ ARB_SEED = {
     "trivia": "plant_trivia",
     "sources": "plant_sources",
     "classification": "plant_taxonomy",
-    "order": "taxonomy_ordo",
     "family": "taxonomy_familia",
     "genus": "taxonomy_genus",
-    "species": "taxonomy_species",
     "taxonomy_superregnum": "taxonomy_superregnum",
     "taxonomy_regnum": "taxonomy_regnum",
     "taxonomy_cladus": "taxonomy_cladus",
@@ -90,7 +88,6 @@ ARB_SEED = {
     "taxonomy_subsectio": "taxonomy_subsectio",
     "taxonomy_serie": "taxonomy_serie",
     "taxonomy_subserie": "taxonomy_subserie",
-    "taxonomy_species": "taxonomy_species",
     "taxonomy_unknown": "taxonomy_unknown",
     "toxicity_high": "toxicity1",
     "toxicity_low": "toxicity2",
@@ -449,19 +446,6 @@ NEW = {
     "plate_alt": {
         "en": "{name}",
     },
-    "illustration_note": {
-        "en": "19th-century illustration", "sk": "Ilustrácia z 19. storočia", "cs": "Ilustrace z 19. století",
-        "sl": "Ilustracija iz 19. stoletja", "hr": "Ilustracija iz 19. stoljeća", "sr": "Илустрација из 19. века",
-        "pl": "Ilustracja z XIX wieku", "ru": "Иллюстрация XIX века", "uk": "Ілюстрація XIX століття",
-        "bg": "Илюстрация от XIX век", "de": "Illustration aus dem 19. Jahrhundert", "nl": "19e-eeuwse illustratie",
-        "da": "1800-tals illustration", "sv": "1800-talsillustration", "no": "1800-talls illustrasjon", "fi": "1800-luvun kuvitus",
-        "fr": "Illustration du XIXe siècle", "es": "Ilustración del siglo XIX", "it": "Illustrazione dell'Ottocento",
-        "pt": "Ilustração do século XIX", "ro": "Ilustrație din secolul al XIX-lea", "hu": "19. századi illusztráció",
-        "et": "19. sajandi illustratsioon", "lv": "19. gadsimta ilustrācija", "lt": "XIX a. iliustracija",
-        "ja": "19世紀の図版", "ko": "19세기 도판", "zh": "十九世紀圖版",
-        "hi": "19वीं सदी का चित्र", "pa": "19ਵੀਂ ਸਦੀ ਦਾ ਚਿੱਤਰ",
-        "ar": "رسم من القرن التاسع عشر", "fa": "تصویر سدهٔ نوزدهم", "he": "איור מהמאה ה־19",
-    },
     "also_called": {
         "en": "Also called", "sk": "Tiež", "cs": "Také", "sl": "Tudi", "hr": "Također",
         "sr": "Такође", "pl": "Zwana też", "ru": "Также", "uk": "Також", "bg": "Също",
@@ -699,14 +683,6 @@ NEW = {
         "hu": "tábla", "et": "tahvel", "lv": "tabula", "lt": "lenta", "ja": "図版", "ko": "도판",
         "zh": "圖版", "hi": "पट्ट", "pa": "ਪਲੇਟ", "ar": "لوحة", "fa": "لوح", "he": "לוח",
     },
-    "species": {
-        "en": "Species", "sk": "Druh", "cs": "Druh", "sl": "Vrsta", "hr": "Vrsta", "sr": "Врста",
-        "pl": "Gatunek", "ru": "Вид", "uk": "Вид", "bg": "Вид", "de": "Art", "nl": "Soort",
-        "da": "Art", "sv": "Art", "no": "Art", "fi": "Laji", "fr": "Espèce", "es": "Especie",
-        "it": "Specie", "pt": "Espécie", "ro": "Specie", "hu": "Faj", "et": "Liik", "lv": "Suga",
-        "lt": "Rūšis", "ja": "種", "ko": "종", "zh": "種", "hi": "जाति", "pa": "ਕਿਸਮ",
-        "ar": "النوع", "fa": "گونه", "he": "מין",
-    },
     "synonym": {
         "en": "Synonym", "sk": "Synonymum", "cs": "Synonymum", "sl": "Sinonima", "hr": "Sinonima",
         "sr": "Синоним", "pl": "Synonim", "ru": "Синоним", "uk": "Синонім", "bg": "Синоним",
@@ -789,27 +765,6 @@ NEW = {
         "ja": "すべての階級を表示", "ko": "모든 계급 보기", "zh": "顯示所有階級",
         "hi": "सभी स्तर दिखाएँ", "pa": "ਸਾਰੇ ਪੱਧਰ ਵੇਖੋ", "ar": "إظهار كل الرتب", "fa": "نمایش همهٔ رتبه‌ها",
         "he": "הצג את כל הדרגות",
-    },
-    "hide_ranks": {
-        "en": "Hide ranks", "sk": "Skryť úrovne", "cs": "Skrýt úrovně", "sl": "Skrij range",
-        "hr": "Sakrij rangove", "sr": "Сакриј рангове", "pl": "Ukryj rangi", "ru": "Скрыть ранги",
-        "uk": "Сховати ранги", "bg": "Скрий ранговете", "de": "Ränge ausblenden", "nl": "Rangen verbergen",
-        "da": "Skjul ranger", "sv": "Dölj ranger", "no": "Skjul ranger", "fi": "Piilota tasot",
-        "fr": "Masquer les rangs", "es": "Ocultar rangos", "it": "Nascondi i ranghi", "pt": "Ocultar níveis",
-        "ro": "Ascunde rangurile", "hu": "Rangok elrejtése", "et": "Peida tasemed", "lv": "Slēpt rangus",
-        "lt": "Slėpti rangus", "ja": "階級を隠す", "ko": "계급 숨기기", "zh": "隱藏階級",
-        "hi": "स्तर छिपाएँ", "pa": "ਪੱਧਰ ਲੁਕਾਓ", "ar": "إخفاء الرتب", "fa": "پنهان‌کردن رتبه‌ها",
-        "he": "הסתר דרגות",
-    },
-    "authorities": {
-        "en": "Authorities", "sk": "Autority", "cs": "Autority", "sl": "Avtoritete", "hr": "Autoriteti",
-        "sr": "Ауторитети", "pl": "Autorytety", "ru": "Авторитетные источники", "uk": "Авторитетні джерела",
-        "bg": "Авторитети", "de": "Autoritäten", "nl": "Autoriteiten", "da": "Autoriteter",
-        "sv": "Auktoriteter", "no": "Autoriteter", "fi": "Lähteet", "fr": "Autorités",
-        "es": "Autoridades", "it": "Autorità", "pt": "Autoridades", "ro": "Autorități",
-        "hu": "Hatóságok", "et": "Autoriteedid", "lv": "Autoritatīvie avoti", "lt": "Autoritetai",
-        "ja": "典拠", "ko": "전거", "zh": "權威來源", "hi": "प्राधिकार", "pa": "ਅਥਾਰਟੀਆਂ",
-        "ar": "السلطات", "fa": "مراجع", "he": "רשויות",
     },
     "seen_wild": {
         "en": "Seen in the wild", "sk": "Nájdené v prírode", "cs": "Viděno v přírodě",
@@ -1128,16 +1083,6 @@ NEW = {
         "hi": "पुष्पी पौधे", "pa": "ਫੁੱਲਦਾਰ ਪੌਦੇ", "ar": "النباتات المزهرة", "fa": "گیاهان گل‌دار",
         "he": "צמחים פורחים",
     },
-    "open_plant": {
-        "en": "Open plant", "sk": "Otvoriť rastlinu", "cs": "Otevřít rostlinu", "sl": "Odpri rastlino",
-        "hr": "Otvori biljku", "sr": "Отвори биљку", "pl": "Otwórz roślinę", "ru": "Открыть растение",
-        "uk": "Відкрити рослину", "bg": "Отвори растението", "de": "Pflanze öffnen", "nl": "Plant openen",
-        "da": "Åbn plante", "sv": "Öppna växt", "no": "Åpne plante", "fi": "Avaa kasvi",
-        "fr": "Ouvrir la plante", "es": "Abrir planta", "it": "Apri pianta", "pt": "Abrir planta",
-        "ro": "Deschide planta", "hu": "Növény megnyitása", "et": "Ava taim", "lv": "Atvērt augu",
-        "lt": "Atidaryti augalą", "ja": "植物を開く", "ko": "식물 열기", "zh": "開啟植物",
-        "hi": "पौधा खोलें", "pa": "ਪੌਦਾ ਖੋਲ੍ਹੋ", "ar": "افتح النبات", "fa": "گشودن گیاه", "he": "פתח צמח",
-    },
     "store_play": {
         "en": "Get it on Google Play",
         "sk": "Stiahnuť z Google Play",
@@ -1295,7 +1240,6 @@ NEW = {
     },
     "sources": {"en": "Sources", "pa": "ਸਰੋਤ"},
     "classification": {"en": "Taxonomy", "pa": "ਵਰਗੀਕਰਨ"},
-    "order": {"en": "Order", "pa": "ਗਣ"},
     "family": {"en": "Family", "pa": "ਪਰਿਵਾਰ"},
     "genus": {"en": "Genus", "pa": "ਵੰਸ਼"},
     "toxicity_high": {"en": "poisonous plant", "pa": "ਜ਼ਹਿਰੀਲਾ ਪੌਦਾ"},
@@ -1512,10 +1456,8 @@ def main():
                 catalogs[lang].setdefault(key, en)
 
     RANK_ALIASES = (
-        ("order", "taxonomy_ordo"),
         ("family", "taxonomy_familia"),
         ("genus", "taxonomy_genus"),
-        ("species", "taxonomy_species"),
     )
     for cat in catalogs.values():
         for short, long in RANK_ALIASES:

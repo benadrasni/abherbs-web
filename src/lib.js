@@ -206,9 +206,7 @@ export function rankValue(apg, suffix) {
 }
 
 export function displayName(label, fallback) {
-  const raw = (label || fallback || '').trim();
-  if (!raw) return '';
-  return raw.charAt(0).toLocaleUpperCase() + raw.slice(1);
+  return (label || fallback || '').trim();
 }
 
 export function genusOf(name) {
