@@ -7,6 +7,7 @@ export default function Lightbox({
   onIndexChange,
   prevLabel = 'Previous',
   nextLabel = 'Next',
+  closeLabel = 'Close',
 }) {
   const rootRef = useRef(null);
   const closeRef = useRef(null);
@@ -125,7 +126,7 @@ export default function Lightbox({
           e.stopPropagation();
           onClose();
         }}
-        aria-label="Close"
+        aria-label={closeLabel}
       >
         ×
       </button>

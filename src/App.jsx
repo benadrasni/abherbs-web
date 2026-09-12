@@ -32,6 +32,7 @@ function routeNeedsIndex(pathname) {
   const path = contentPath(pathname);
   return (
     path === '/' ||
+    path === '/about' ||
     path === '/families' ||
     path === '/genera' ||
     path.startsWith('/family/') ||
@@ -300,7 +301,7 @@ export default function App() {
     return (
       <Fragment key={prefix || 'en'}>
         <Route path={p('/identify')} element={<IdentifyPage lang={lang} t={t} />} />
-        <Route path={p('/about')} element={<AboutPage lang={lang} t={t} />} />
+        <Route path={p('/about')} element={<AboutPage lang={lang} t={t} headers={headers} />} />
         <Route path={p('/help')} element={<HelpPage lang={lang} t={t} />} />
         <Route
           path={p('/families')}

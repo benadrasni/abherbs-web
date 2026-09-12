@@ -543,6 +543,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
         onClose={() => setLight(null)}
         prevLabel={t.lightbox_prev}
         nextLabel={t.lightbox_next}
+        closeLabel={t.close}
       />
     </div>
   );

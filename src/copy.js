@@ -68,6 +68,9 @@ export function uiText(lang) {
       Number(n) === 1 ? text('public_records_one') : text('public_records_other', { n }),
     plate_alt: (name) => text('plate_alt', { name }),
     distribution_alt: (name) => text('distribution_alt', { name }),
+    about_why_p1: () => text('about_why_p1', { app: catalog.app_name }),
+    about_langs_lede: (n) => text('about_langs_lede', { n: Number(n).toLocaleString(lang || 'en') }),
+    about_langs_more: (n) => text('about_langs_more', { n }),
     taxonRank,
   };
 }
