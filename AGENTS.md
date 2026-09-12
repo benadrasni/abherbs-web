@@ -6,18 +6,20 @@ UI chrome and About/Help copy live in `src/locales.json`. Do not fetch Firebase 
 
 ## Language URLs
 
-Indexed languages (official body text): **en** unprefixed, **sk / de / fr / cs / pl / ru** as the first path segment.
+Indexed languages (official body text): **en** unprefixed, **sk / de / fr / cs / pl / ru / es / pt** as the first path segment.
 
 - `https://whatsthatflower.com/plant/Bellis%20perennis/` English (`hreflang` + `x-default`)
 - `https://whatsthatflower.com/de/plant/Bellis%20perennis/` German
 - `https://whatsthatflower.com/pl/plant/Bellis%20perennis/` Polish
 - `https://whatsthatflower.com/ru/plant/Bellis%20perennis/` Russian
+- `https://whatsthatflower.com/es/plant/Bellis%20perennis/` Spanish
+- `https://whatsthatflower.com/pt/plant/Bellis%20perennis/` Portuguese
 
 Other UI languages stay on `?lang=` (not in the sitemap). `/en/...` 301s to the unprefixed URL (Firebase Hosting). Old `?lang=de` is rewritten in the client to `/de/...`; a crawler 301 needs a Cloudflare Redirect Rule (Firebase cannot match query strings):
 
-`(http.request.uri.query matches "(^|&)lang=(sk|de|fr|cs|pl|ru)(&|$)")` → 301 to `/{lang}` + path, stripping that `lang` param. Skip when the path already starts with `/{lang}`. `lang=en` → same path without the param.
+`(http.request.uri.query matches "(^|&)lang=(sk|de|fr|cs|pl|ru|es|pt)(&|$)")` → 301 to `/{lang}` + path, stripping that `lang` param. Skip when the path already starts with `/{lang}`. `lang=en` → same path without the param.
 
-`scripts/generate_seo.js` writes shells + sitemap hreflang for the seven indexed languages. Keep `INDEXED_LANGS` in sync with `src/lib.js`.
+`scripts/generate_seo.js` writes shells + sitemap hreflang for the nine indexed languages. Keep `INDEXED_LANGS` in sync with `src/lib.js`.
 
 ## Deploy Hosting
 

@@ -1355,6 +1355,8 @@ NEW = {
         "fr": "Une encyclopédie des plantes",
         "pl": "Encyklopedia roślin",
         "ru": "Энциклопедия растений",
+        "es": "Una enciclopedia de plantas",
+        "pt": "Uma enciclopédia de plantas",
     },
     "about_lede": {
         "en": "Species pages you can trust: a botanical plate, field photographs, sourced text, and a native/introduced map. Identify with the four-step key here or in the app.",
@@ -1376,7 +1378,7 @@ NEW = {
     "about_fact_body": {
         "en": "Official body text", "sk": "Oficiálny text", "cs": "Oficiální text",
         "de": "Offizieller Text", "fr": "Texte officiel", "pl": "Tekst oficjalny",
-        "ru": "Официальный текст",
+        "ru": "Официальный текст", "es": "Texto oficial", "pt": "Texto oficial",
     },
     "about_fact_key": {
         "en": "Identification", "sk": "Určovanie", "cs": "Určování", "de": "Bestimmung",
@@ -1504,30 +1506,33 @@ NEW = {
     "about_langs_title": {
         "en": "Languages", "sk": "Jazyky", "cs": "Jazyky", "de": "Sprachen",
         "fr": "Langues", "pl": "Języki", "ru": "Языки",
+        "es": "Idiomas", "pt": "Línguas",
     },
     "about_langs_lede": {
-        "en": "The interface is in {n} languages. Identification text is written in seven. Spanish and Portuguese are in progress. Common names are never invented.",
-        "sk": "Rozhranie je v {n} jazykoch. Identifikačný text je napísaný v siedmich. Španielčina a portugalčina sa pripravujú. Ľudové názvy sa nevymýšľajú.",
-        "cs": "Rozhraní je v {n} jazycích. Identifikační text je napsaný v sedmi. Španělština a portugalština se připravují. Lidové názvy se nevymýšlejí.",
-        "de": "Die Oberfläche gibt es in {n} Sprachen. Der Bestimmungstext ist in sieben Sprachen geschrieben. Spanisch und Portugiesisch sind in Arbeit. Trivialnamen werden nicht erfunden.",
-        "fr": "L’interface existe en {n} langues. Le texte d’identification est rédigé en sept langues. L’espagnol et le portugais sont en cours. Les noms vernaculaires ne sont jamais inventés.",
-        "pl": "Interfejs jest w {n} językach. Tekst identyfikacyjny jest napisany w siedmiu. Hiszpański i portugalski są w toku. Nazw zwyczajowych się nie wymyśla.",
-        "ru": "Интерфейс на {n} языках. Определительный текст написан на семи. Испанский и португальский готовятся. Народные имена не выдумываются.",
+        "en": "The interface is in {n} languages. Identification text is written in nine. Common names are never invented.",
+        "sk": "Rozhranie je v {n} jazykoch. Identifikačný text je napísaný v deviatich. Ľudové názvy sa nevymýšľajú.",
+        "cs": "Rozhraní je v {n} jazycích. Identifikační text je napsaný v devíti. Lidové názvy se nevymýšlejí.",
+        "de": "Die Oberfläche gibt es in {n} Sprachen. Der Bestimmungstext ist in neun Sprachen geschrieben. Trivialnamen werden nicht erfunden.",
+        "fr": "L’interface existe en {n} langues. Le texte d’identification est rédigé en neuf langues. Les noms vernaculaires ne sont jamais inventés.",
+        "pl": "Interfejs jest w {n} językach. Tekst identyfikacyjny jest napisany w dziewięciu. Nazw zwyczajowych się nie wymyśla.",
+        "ru": "Интерфейс на {n} языках. Определительный текст написан на девяти. Народные имена не выдумываются.",
+        "es": "La interfaz está en {n} idiomas. El texto de identificación está escrito en nueve. Los nombres comunes no se inventan.",
+        "pt": "A interface está em {n} línguas. O texto de identificação está escrito em nove. Os nomes comuns nunca se inventam.",
     },
     "about_langs_official": {
         "en": "Official body text", "sk": "Oficiálny text", "cs": "Oficiální text",
         "de": "Offizieller Text", "fr": "Texte officiel", "pl": "Tekst oficjalny",
-        "ru": "Официальный текст",
+        "ru": "Официальный текст", "es": "Texto oficial", "pt": "Texto oficial",
     },
     "about_langs_also": {
         "en": "Interface also in", "sk": "Rozhranie aj v", "cs": "Rozhraní také v",
         "de": "Oberfläche auch auf", "fr": "Interface aussi en", "pl": "Interfejs także w",
-        "ru": "Интерфейс также на",
+        "ru": "Интерфейс также на", "es": "Interfaz también en", "pt": "Interface também em",
     },
     "about_langs_more": {
         "en": "+ {n} more", "sk": "+ {n} ďalších", "cs": "+ {n} dalších",
         "de": "+ {n} weitere", "fr": "+ {n} de plus", "pl": "+ {n} więcej",
-        "ru": "+ ещё {n}",
+        "ru": "+ ещё {n}", "es": "+ {n} más", "pt": "+ {n} mais",
     },
     "about_names_k": {
         "en": "Names", "sk": "Názvy", "cs": "Jména", "de": "Namen",
@@ -1675,6 +1680,8 @@ NEW = {
         "fr": "Une encyclopédie des plantes avec des planches botaniques du XIXe siècle, des photographies de terrain et des observations publiques.",
         "pl": "Encyklopedia roślin z XIX-wiecznymi tablicami botanicznymi, fotografiami terenowymi i obserwacjami publicznymi.",
         "ru": "Энциклопедия растений с ботаническими иллюстрациями XIX века, фотографиями в природе и наблюдениями.",
+        "es": "Una enciclopedia de plantas con láminas botánicas del siglo XIX, fotografías de campo y avistamientos públicos.",
+        "pt": "Uma enciclopédia de plantas com pranchas botânicas do século XIX, fotografias de campo e avistamentos públicos.",
     },
     "seo_families": {
         "en": "Browse flowering-plant families in the encyclopedia.",
@@ -1684,6 +1691,8 @@ NEW = {
         "fr": "Parcourir les familles de plantes à fleurs de l’encyclopédie.",
         "pl": "Przeglądaj rodziny roślin kwiatowych w encyklopedii.",
         "ru": "Обзор семейств цветковых растений в энциклопедии.",
+        "es": "Consultar las familias de plantas con flor de la enciclopedia.",
+        "pt": "Percorrer as famílias de plantas com flor da enciclopédia.",
     },
     "seo_genera": {
         "en": "Browse flowering-plant genera in the encyclopedia.",
@@ -1693,6 +1702,8 @@ NEW = {
         "fr": "Parcourir les genres de plantes à fleurs de l’encyclopédie.",
         "pl": "Przeglądaj rodzaje roślin kwiatowych w encyklopedii.",
         "ru": "Обзор родов цветковых растений в энциклопедии.",
+        "es": "Consultar los géneros de plantas con flor de la enciclopedia.",
+        "pt": "Percorrer os géneros de plantas com flor da enciclopédia.",
     },
     "seo_identify": {
         "en": "Identify a flower with the four-step key in the app.",
@@ -1702,6 +1713,8 @@ NEW = {
         "fr": "Identifier une fleur avec la clé en quatre étapes dans l’application.",
         "pl": "Rozpoznaj kwiat za pomocą czterostopniowego klucza w aplikacji.",
         "ru": "Определите цветок с помощью четырехшагового ключа в приложении.",
+        "es": "Identificar una flor con la clave de cuatro pasos en la aplicación.",
+        "pt": "Identificar uma flor com a chave de quatro passos na aplicação.",
     },
     "seo_about": {
         "en": "About the plant encyclopedia What's that flower?",
@@ -1711,6 +1724,8 @@ NEW = {
         "fr": "À propos de l’encyclopédie Quelle est cette fleur?",
         "pl": "O encyklopedii roślin Co to za kwiat?",
         "ru": "Об энциклопедии растений Что это за цветок?",
+        "es": "Acerca de la enciclopedia de plantas ¿Qué flor es?",
+        "pt": "Sobre a enciclopédia de plantas Que flor é esta?",
     },
     "seo_help": {
         "en": "Help for What's that flower?",
@@ -1720,6 +1735,8 @@ NEW = {
         "fr": "Aide pour Quelle est cette fleur?",
         "pl": "Pomoc dla Co to za kwiat?",
         "ru": "Справка по приложению Что это за цветок?",
+        "es": "Ayuda para ¿Qué flor es?",
+        "pt": "Ajuda para Que flor é esta?",
     },
 }
 
