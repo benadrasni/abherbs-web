@@ -1,6 +1,6 @@
 # Agent notes — abherbs-web
 
-Public encyclopedia at https://whatsthatflower.com/ (also https://abherbs-backend.web.app/). Vite + React. Repo: `~/WebstormProjects/abherbs-web`, workspace link `~/whatsthatflower/web`.
+Public encyclopedia at https://whatsthatflower.com/ (also https://abherbs-backend.web.app/). Vite + React. Repo: `~/whatsthatflower/web`.
 
 UI chrome and About/Help copy live in `src/locales.json`. Do not fetch Firebase `web/{lang}` for strings. Regenerating locales keeps extra keys already in that file. Plant labels and the slim index come from RTDB `web/catalog` and `web/labels/{lang}`.
 
