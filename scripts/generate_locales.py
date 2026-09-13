@@ -1357,6 +1357,7 @@ NEW = {
         "ru": "Энциклопедия растений",
         "es": "Una enciclopedia de plantas",
         "pt": "Uma enciclopédia de plantas",
+        "ja": "植物図鑑",
     },
     "about_lede": {
         "en": "Species pages you can trust: a botanical plate, field photographs, sourced text, and a native/introduced map. Identify with the four-step key here or in the app.",
@@ -1366,32 +1367,39 @@ NEW = {
         "fr": "Des pages d’espèces fiables : une planche botanique, des photographies de terrain, un texte sourcé et une carte de l’aire native et introduite. Identifiez avec la clé en quatre étapes ici ou dans l’application.",
         "pl": "Strony gatunków, którym można zaufać: tablica botaniczna, zdjęcia terenowe, tekst ze źródeł i mapa zasięgu rodzimego i zawleczonego. Rozpoznawaj czterostopniowym kluczem tutaj lub w aplikacji.",
         "ru": "Страницы видов, которым можно доверять: ботаническая таблица, полевые фотографии, текст по источникам и карта природного и заносного ареала. Определяйте четырёхшаговым ключом здесь или в приложении.",
+        "ja": "信頼できる種のページです。植物図版、野外写真、出典のある本文、自生と帰化の分布図があります。四段階の検索キーで、このサイトでもアプリでも識別できます。",
     },
     "about_fact_collection": {
         "en": "Collection", "sk": "Zbierka", "cs": "Sbírka", "de": "Sammlung",
         "fr": "Collection", "pl": "Zbiór", "ru": "Коллекция",
+        "ja": "収録",
     },
     "about_fact_languages": {
         "en": "Languages", "sk": "Jazyky", "cs": "Jazyky", "de": "Sprachen",
         "fr": "Langues", "pl": "Języki", "ru": "Языки",
+        "ja": "言語",
     },
     "about_fact_body": {
         "en": "Official body text", "sk": "Oficiálny text", "cs": "Oficiální text",
         "de": "Offizieller Text", "fr": "Texte officiel", "pl": "Tekst oficjalny",
         "ru": "Официальный текст", "es": "Texto oficial", "pt": "Texto oficial",
+        "ja": "公式本文",
     },
     "about_fact_key": {
         "en": "Identification", "sk": "Určovanie", "cs": "Určování", "de": "Bestimmung",
         "fr": "Identification", "pl": "Rozpoznawanie", "ru": "Определение",
+        "ja": "識別",
     },
     "about_fact_steps": {
         "en": "4 steps", "sk": "4 kroky", "cs": "4 kroky", "de": "4 Schritte",
         "fr": "4 étapes", "pl": "4 kroki", "ru": "4 шага",
+        "ja": "4段階",
     },
     "about_why_kicker": {
         "en": "Why it exists", "sk": "Prečo to existuje", "cs": "Proč to existuje",
         "de": "Warum es das gibt", "fr": "Pourquoi ça existe", "pl": "Po co to jest",
         "ru": "Зачем это нужно",
+        "ja": "なぜあるのか",
     },
     "about_why_title": {
         "en": "A catalog of flowering plants",
@@ -1401,6 +1409,7 @@ NEW = {
         "fr": "Un catalogue de plantes à fleurs",
         "pl": "Katalog roślin kwiatowych",
         "ru": "Каталог цветковых растений",
+        "ja": "顕花植物の図鑑",
     },
     "about_why_p1": {
         "en": "Search and read here. Identify by color, habitat, petal type, and world region — on this site or in the app.",
@@ -1410,6 +1419,7 @@ NEW = {
         "fr": "Cherchez et lisez ici. Identifiez par la couleur, l’habitat, le type de pétales et la région du monde — sur ce site ou dans l’application.",
         "pl": "Tutaj szukasz i czytasz. Rozpoznawaj według koloru, siedliska, typu płatków i regionu świata — na tej stronie lub w aplikacji.",
         "ru": "Здесь ищут и читают. Определяйте по цвету, местообитанию, типу околоцветника и региону мира — на этом сайте или в приложении.",
+        "ja": "ここで検索し、読みます。花の色、生育地、花弁の型、世界の地域で識別します。このサイトでもアプリでもできます。",
     },
     "about_why_p2": {
         "en": "Each species page is prepared by hand: photographs, a botanical plate on cream paper, and identification text rewritten from floras that actually cover the plant. Common names come from sources in that language. If none exist, the Latin name stands.",
@@ -1419,6 +1429,7 @@ NEW = {
         "fr": "Chaque page d’espèce est préparée à la main : photographies, planche botanique sur papier crème, et texte d’identification réécrit d’après des flores qui traitent vraiment la plante. Les noms vernaculaires viennent de sources dans cette langue. S’il n’y en a pas, le nom latin demeure.",
         "pl": "Każda strona gatunku jest przygotowywana ręcznie: zdjęcia, tablica botaniczna na kremowym papierze i tekst identyfikacyjny przepisany z flor, które naprawdę opisują tę roślinę. Nazwy zwyczajowe pochodzą ze źródeł w danym języku. Jeśli ich nie ma, zostaje nazwa łacińska.",
         "ru": "Каждая страница вида готовится вручную: фотографии, ботаническая таблица на кремовой бумаге и определительный текст, переписанный по флорам, которые действительно описывают растение. Народные имена берутся из источников на этом языке. Если их нет, остаётся латинское имя.",
+        "ja": "各種のページは手作業で作ります。写真、クリーム色の紙の植物図版、その植物を実際に扱う植物誌から書き直した識別文です。和名はその言語の出典があるときだけ使います。なければ学名のままです。",
     },
     "about_why_p3": {
         "en": "This is a curated collection of flowering plants, not a flora of the world.",
@@ -1428,6 +1439,7 @@ NEW = {
         "fr": "C’est une collection soignée de plantes à fleurs, pas une flore du monde.",
         "pl": "To starannie zestawiony zbiór roślin kwiatowych, nie flora świata.",
         "ru": "Это подготовленная коллекция цветковых растений, а не флора всего мира.",
+        "ja": "これは選んだ顕花植物の図鑑であり、世界の植物誌ではありません。",
     },
     "about_how_title": {
         "en": "How a species page is made",
@@ -1437,6 +1449,7 @@ NEW = {
         "fr": "Comment une page d’espèce est faite",
         "pl": "Jak powstaje strona gatunku",
         "ru": "Как делается страница вида",
+        "ja": "種のページの作り方",
     },
     "about_how_lede": {
         "en": "Plate, photographs, sourced text, and a distribution map.",
@@ -1446,11 +1459,13 @@ NEW = {
         "fr": "Planche, photographies, texte sourcé et carte de répartition.",
         "pl": "Tablica, zdjęcia, tekst ze źródeł i mapa zasięgu.",
         "ru": "Таблица, фотографии, текст по источникам и карта распространения.",
+        "ja": "図版、写真、出典のある本文、分布図。",
     },
     "about_tile_plate_t": {
         "en": "One official plate", "sk": "Jedna oficiálna tabuľa", "cs": "Jedna oficiální tabule",
         "de": "Eine offizielle Tafel", "fr": "Une planche officielle", "pl": "Jedna oficjalna tablica",
         "ru": "Одна официальная таблица",
+        "ja": "公式図版1点",
     },
     "about_tile_plate_d": {
         "en": "A botanical plate on cream paper, from a historic original or colorized. Plates come from botanicalillustrations.org.",
@@ -1460,11 +1475,13 @@ NEW = {
         "fr": "Une planche botanique sur papier crème, d’après un original historique ou colorisée. Les planches viennent de botanicalillustrations.org.",
         "pl": "Tablica botaniczna na kremowym papierze, z historycznego oryginału lub pokolorowana. Tablice pochodzą z botanicalillustrations.org.",
         "ru": "Ботаническая таблица на кремовой бумаге — с исторического оригинала или раскрашенная. Таблицы с botanicalillustrations.org.",
+        "ja": "クリーム色の紙の植物図版です。歴史的原図によるもの、または着色したものです。図版は botanicalillustrations.org から来ます。",
     },
     "about_tile_photo_t": {
         "en": "Curated photographs", "sk": "Vybrané fotografie", "cs": "Vybrané fotografie",
         "de": "Kuratierte Fotos", "fr": "Photographies choisies", "pl": "Wybrane zdjęcia",
         "ru": "Отобранные фотографии",
+        "ja": "選定写真",
     },
     "about_tile_photo_d": {
         "en": "Field photos prepared for the catalog, distinct from public sightings on the species page.",
@@ -1474,11 +1491,13 @@ NEW = {
         "fr": "Photos de terrain préparées pour le catalogue, distinctes des observations publiques sur la page d’espèce.",
         "pl": "Zdjęcia terenowe przygotowane do katalogu, osobne od obserwacji publicznych na stronie gatunku.",
         "ru": "Полевые фотографии для каталога, отдельно от публичных наблюдений на странице вида.",
+        "ja": "図鑑用に整えた野外写真です。種のページの公開観察とは別です。",
     },
     "about_tile_text_t": {
         "en": "Seven written fields", "sk": "Sedem písaných polí", "cs": "Sedm psaných polí",
         "de": "Sieben Textfelder", "fr": "Sept champs rédigés", "pl": "Siedem pól tekstu",
         "ru": "Семь текстовых полей",
+        "ja": "7つの本文欄",
     },
     "about_tile_text_d": {
         "en": "Description, flower, inflorescence, fruit, leaf, stem, habitat — plus toxicity, uses, and trivia when sourced.",
@@ -1488,11 +1507,13 @@ NEW = {
         "fr": "Description, fleur, inflorescence, fruit, feuille, tige, habitat — plus toxicité, usages et notes, lorsqu’ils sont sourcés.",
         "pl": "Opis, kwiat, kwiatostan, owoc, liść, łodyga, siedlisko — oraz toksyczność, zastosowania i ciekawostki, gdy są ze źródła.",
         "ru": "Описание, цветок, соцветие, плод, лист, стебель, местообитание — а также ядовитость, применение и заметки, если они из источника.",
+        "ja": "記載、花、花序、果実、葉、茎、生育地。毒性、用途、豆知識は出典があるときだけ。",
     },
     "about_tile_map_t": {
         "en": "Native and introduced", "sk": "Pôvodné a zavlečené", "cs": "Původní a zavlečené",
         "de": "Heimisch und eingeführt", "fr": "Native et introduite", "pl": "Rodzime i zawleczone",
         "ru": "Природное и заносное",
+        "ja": "自生と帰化",
     },
     "about_tile_map_d": {
         "en": "World distribution from the World Checklist of Vascular Plants. Olive native, terracotta introduced.",
@@ -1502,41 +1523,48 @@ NEW = {
         "fr": "Répartition mondiale d’après la World Checklist of Vascular Plants. Olive : native ; terre cuite : introduite.",
         "pl": "Zasięg światowy według World Checklist of Vascular Plants. Oliwka — rodzime, terakota — zawleczone.",
         "ru": "Мировое распространение по World Checklist of Vascular Plants. Оливковый — природный ареал, терракота — заносный.",
+        "ja": "World Checklist of Vascular Plants による世界分布です。オリーブ色が自生、テラコッタが帰化です。",
     },
     "about_langs_title": {
         "en": "Languages", "sk": "Jazyky", "cs": "Jazyky", "de": "Sprachen",
         "fr": "Langues", "pl": "Języki", "ru": "Языки",
         "es": "Idiomas", "pt": "Línguas",
+        "ja": "言語",
     },
     "about_langs_lede": {
-        "en": "The interface is in {n} languages. Identification text is written in nine. Common names are never invented.",
-        "sk": "Rozhranie je v {n} jazykoch. Identifikačný text je napísaný v deviatich. Ľudové názvy sa nevymýšľajú.",
-        "cs": "Rozhraní je v {n} jazycích. Identifikační text je napsaný v devíti. Lidové názvy se nevymýšlejí.",
-        "de": "Die Oberfläche gibt es in {n} Sprachen. Der Bestimmungstext ist in neun Sprachen geschrieben. Trivialnamen werden nicht erfunden.",
-        "fr": "L’interface existe en {n} langues. Le texte d’identification est rédigé en neuf langues. Les noms vernaculaires ne sont jamais inventés.",
-        "pl": "Interfejs jest w {n} językach. Tekst identyfikacyjny jest napisany w dziewięciu. Nazw zwyczajowych się nie wymyśla.",
-        "ru": "Интерфейс на {n} языках. Определительный текст написан на девяти. Народные имена не выдумываются.",
-        "es": "La interfaz está en {n} idiomas. El texto de identificación está escrito en nueve. Los nombres comunes no se inventan.",
-        "pt": "A interface está em {n} línguas. O texto de identificação está escrito em nove. Os nomes comuns nunca se inventam.",
+        "en": "The interface is in {n} languages. Identification text is written in ten. Common names are never invented.",
+        "sk": "Rozhranie je v {n} jazykoch. Identifikačný text je napísaný v desiatich. Ľudové názvy sa nevymýšľajú.",
+        "cs": "Rozhraní je v {n} jazycích. Identifikační text je napsaný v deseti. Lidové názvy se nevymýšlejí.",
+        "de": "Die Oberfläche gibt es in {n} Sprachen. Der Bestimmungstext ist in zehn Sprachen geschrieben. Trivialnamen werden nicht erfunden.",
+        "fr": "L’interface existe en {n} langues. Le texte d’identification est rédigé en dix langues. Les noms vernaculaires ne sont jamais inventés.",
+        "pl": "Interfejs jest w {n} językach. Tekst identyfikacyjny jest napisany w dziesięciu. Nazw zwyczajowych się nie wymyśla.",
+        "ru": "Интерфейс на {n} языках. Определительный текст написан на десяти. Народные имена не выдумываются.",
+        "es": "La interfaz está en {n} idiomas. El texto de identificación está escrito en diez. Los nombres comunes no se inventan.",
+        "pt": "A interface está em {n} línguas. O texto de identificação está escrito em dez. Os nomes comuns nunca se inventam.",
+        "ja": "画面は {n} 言語です。識別文は10言語で書いてあります。和名は作りません。",
     },
     "about_langs_official": {
         "en": "Official body text", "sk": "Oficiálny text", "cs": "Oficiální text",
         "de": "Offizieller Text", "fr": "Texte officiel", "pl": "Tekst oficjalny",
         "ru": "Официальный текст", "es": "Texto oficial", "pt": "Texto oficial",
+        "ja": "公式本文",
     },
     "about_langs_also": {
         "en": "Interface also in", "sk": "Rozhranie aj v", "cs": "Rozhraní také v",
         "de": "Oberfläche auch auf", "fr": "Interface aussi en", "pl": "Interfejs także w",
         "ru": "Интерфейс также на", "es": "Interfaz también en", "pt": "Interface também em",
+        "ja": "画面はほかに",
     },
     "about_langs_more": {
         "en": "+ {n} more", "sk": "+ {n} ďalších", "cs": "+ {n} dalších",
         "de": "+ {n} weitere", "fr": "+ {n} de plus", "pl": "+ {n} więcej",
         "ru": "+ ещё {n}", "es": "+ {n} más", "pt": "+ {n} mais",
+        "ja": "ほか {n}",
     },
     "about_names_k": {
         "en": "Names", "sk": "Názvy", "cs": "Jména", "de": "Namen",
         "fr": "Noms", "pl": "Nazwy", "ru": "Имена",
+        "ja": "名前",
     },
     "about_names_note": {
         "en": "A vernacular label is used only when a source in that language has it — Wikidata, that Wikipedia, EPPO, GBIF, or a flora. Otherwise the page shows the Latin name.",
@@ -1546,6 +1574,7 @@ NEW = {
         "fr": "Un nom vernaculaire n’est utilisé que si une source dans cette langue l’a — Wikidata, Wikipédia dans cette langue, EPPO, GBIF ou une flore. Sinon la page montre le nom latin.",
         "pl": "Nazwa zwyczajowa pojawia się tylko wtedy, gdy ma ją źródło w tym języku — Wikidane, Wikipedia w tym języku, EPPO, GBIF lub flora. W przeciwnym razie strona pokazuje nazwę łacińską.",
         "ru": "Народное имя ставится только если его даёт источник на этом языке — Викиданные, Википедия на этом языке, EPPO, GBIF или флора. Иначе страница показывает латинское имя.",
+        "ja": "和名は、その言語の出典にあるときだけ使います。ウィキデータ、その言語のウィキペディア、EPPO、GBIF、植物誌です。なければページは学名を示します。",
     },
     "about_sources_intro": {
         "en": "Each species page lists the pages actually used. The catalog does not invent facts from an unused flora.",
@@ -1555,6 +1584,7 @@ NEW = {
         "fr": "Chaque page d’espèce liste les pages vraiment utilisées. Le catalogue n’invente pas de faits à partir d’une flore non consultée.",
         "pl": "Każda strona gatunku podaje strony, z których naprawdę skorzystano. Katalog nie wymyśla faktów z flory, której nie użyto.",
         "ru": "Каждая страница вида указывает страницы, которые действительно использованы. Каталог не выдумывает факты по флоре, которой не пользовались.",
+        "ja": "各種のページは、実際に使ったページを挙げます。使っていない植物誌から事実を作りません。",
     },
     "about_src_wcvp_sub": {
         "en": "Accepted name and range",
@@ -1564,6 +1594,7 @@ NEW = {
         "fr": "Nom accepté et aire",
         "pl": "Nazwa akceptowana i zasięg",
         "ru": "Принятое имя и ареал",
+        "ja": "正名と分布",
     },
     "about_src_wikidata_sub": {
         "en": "Labels, aliases, crosswalk ids",
@@ -1573,6 +1604,7 @@ NEW = {
         "fr": "Libellés, alias, identifiants",
         "pl": "Etykiety, aliasy, powiązania",
         "ru": "Метки, синонимы, идентификаторы",
+        "ja": "ラベル、別名、照合ID",
     },
     "about_src_floras": {
         "en": "Regional floras cited on the species page",
@@ -1582,6 +1614,7 @@ NEW = {
         "fr": "Flores régionales citées sur la page d’espèce",
         "pl": "Flory regionalne podane na stronie gatunku",
         "ru": "Региональные флоры на странице вида",
+        "ja": "種のページで引用した地域植物誌",
     },
     "about_src_floras_sub": {
         "en": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias, and others when they cover the plant",
@@ -1591,6 +1624,7 @@ NEW = {
         "fr": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias, et d’autres lorsqu’elles traitent la plante",
         "pl": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias i inne, gdy opisują tę roślinę",
         "ru": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias и другие, если они описывают растение",
+        "ja": "Flóra Slovenska、Flora Iberica、Flora-On、Pladias など、その植物を扱うもの",
     },
     "about_src_photos": {
         "en": "Photographs taken for the catalog",
@@ -1600,6 +1634,7 @@ NEW = {
         "fr": "Photographies prises pour le catalogue",
         "pl": "Zdjęcia zrobione do katalogu",
         "ru": "Фотографии, сделанные для каталога",
+        "ja": "図鑑用に撮った写真",
     },
     "about_src_commons_sub": {
         "en": "Non-public-domain pictures are linked on the species page",
@@ -1609,6 +1644,7 @@ NEW = {
         "fr": "Les images hors domaine public sont liées sur la page d’espèce",
         "pl": "Obrazy spoza domeny publicznej mają odnośnik na stronie gatunku",
         "ru": "Изображения не из общественного достояния указаны на странице вида",
+        "ja": "パブリックドメインでない画像は種のページにリンクします",
     },
     "about_src_plates": {
         "en": "Historic plates from botanicalillustrations.org",
@@ -1618,6 +1654,7 @@ NEW = {
         "fr": "Planches historiques de botanicalillustrations.org",
         "pl": "Historyczne tablice z botanicalillustrations.org",
         "ru": "Исторические таблицы с botanicalillustrations.org",
+        "ja": "botanicalillustrations.org の歴史的図版",
     },
     "about_src_obs": {
         "en": "Public observations from the app",
@@ -1627,6 +1664,7 @@ NEW = {
         "fr": "Observations publiques de l’application",
         "pl": "Obserwacje publiczne z aplikacji",
         "ru": "Публичные наблюдения из приложения",
+        "ja": "アプリからの公開観察",
     },
     "about_src_obs_sub": {
         "en": "Reviewed before they appear",
@@ -1636,10 +1674,12 @@ NEW = {
         "fr": "Relues avant publication",
         "pl": "Sprawdzane przed publikacją",
         "ru": "Проверяются до публикации",
+        "ja": "掲載前に確認します",
     },
     "about_thanks_title": {
         "en": "Thanks", "sk": "Poďakovanie", "cs": "Poděkování", "de": "Danksagung",
         "fr": "Remerciements", "pl": "Podziękowania", "ru": "Благодарности",
+        "ja": "謝辞",
     },
     "about_thanks_lede": {
         "en": "People who helped translate the app and the early catalog.",
@@ -1649,6 +1689,7 @@ NEW = {
         "fr": "Les personnes qui ont aidé à traduire l’application et le premier catalogue.",
         "pl": "Osoby, które pomogły w tłumaczeniu aplikacji i wczesnego katalogu.",
         "ru": "Люди, которые помогли с переводом приложения и раннего каталога.",
+        "ja": "アプリと初期の図鑑の翻訳を手伝ってくれた人たちです。",
     },
     "about_app_lede": {
         "en": "Color, habitat, petal type, and world region — here or in the app. Then open the matching plant. Offline photos and field notes are paid add-ons.",
@@ -1658,6 +1699,7 @@ NEW = {
         "fr": "Couleur, habitat, type de pétales et région du monde — ici ou dans l’application. Puis ouvrez la plante correspondante. Photos hors ligne et notes de terrain sont des options payantes.",
         "pl": "Kolor, siedlisko, typ płatków i region świata — tutaj lub w aplikacji. Potem otwórz pasującą roślinę. Zdjęcia offline i notatki terenowe to płatne dodatki.",
         "ru": "Цвет, местообитание, тип околоцветника и регион мира — здесь или в приложении. Затем откройте подходящее растение. Офлайн-фотографии и полевые записи — платные дополнения.",
+        "ja": "花の色、生育地、花弁の型、世界の地域。ここでもアプリでも。次に該当する植物を開きます。オフライン写真と野外メモは有料の追加機能です。",
     },
     "about_identify_here": {
         "en": "Identify on this site",
@@ -1667,10 +1709,12 @@ NEW = {
         "fr": "Identifier sur ce site",
         "pl": "Rozpoznawaj na tej stronie",
         "ru": "Определять на этом сайте",
+        "ja": "このサイトで識別",
     },
     "about_contact": {
         "en": "Questions", "sk": "Otázky", "cs": "Otázky", "de": "Fragen",
         "fr": "Questions", "pl": "Pytania", "ru": "Вопросы",
+        "ja": "問い合わせ",
     },
     "seo_home": {
         "en": "A plant encyclopedia with 19th-century botanical plates, field photographs, and public sightings.",
@@ -1682,6 +1726,7 @@ NEW = {
         "ru": "Энциклопедия растений с ботаническими иллюстрациями XIX века, фотографиями в природе и наблюдениями.",
         "es": "Una enciclopedia de plantas con láminas botánicas del siglo XIX, fotografías de campo y avistamientos públicos.",
         "pt": "Uma enciclopédia de plantas com pranchas botânicas do século XIX, fotografias de campo e avistamentos públicos.",
+        "ja": "19世紀の植物図版、野外写真、公開観察のある植物図鑑です。",
     },
     "seo_families": {
         "en": "Browse flowering-plant families in the encyclopedia.",
@@ -1693,6 +1738,7 @@ NEW = {
         "ru": "Обзор семейств цветковых растений в энциклопедии.",
         "es": "Consultar las familias de plantas con flor de la enciclopedia.",
         "pt": "Percorrer as famílias de plantas com flor da enciclopédia.",
+        "ja": "図鑑の顕花植物の科を見る。",
     },
     "seo_genera": {
         "en": "Browse flowering-plant genera in the encyclopedia.",
@@ -1704,6 +1750,7 @@ NEW = {
         "ru": "Обзор родов цветковых растений в энциклопедии.",
         "es": "Consultar los géneros de plantas con flor de la enciclopedia.",
         "pt": "Percorrer os géneros de plantas com flor da enciclopédia.",
+        "ja": "図鑑の顕花植物の属を見る。",
     },
     "seo_identify": {
         "en": "Identify a flower with the four-step key in the app.",
@@ -1715,6 +1762,7 @@ NEW = {
         "ru": "Определите цветок с помощью четырехшагового ключа в приложении.",
         "es": "Identificar una flor con la clave de cuatro pasos en la aplicación.",
         "pt": "Identificar uma flor com a chave de quatro passos na aplicação.",
+        "ja": "アプリの四段階キーで花を識別する。",
     },
     "seo_about": {
         "en": "About the plant encyclopedia What's that flower?",
@@ -1726,6 +1774,7 @@ NEW = {
         "ru": "Об энциклопедии растений Что это за цветок?",
         "es": "Acerca de la enciclopedia de plantas ¿Qué flor es?",
         "pt": "Sobre a enciclopédia de plantas Que flor é esta?",
+        "ja": "植物図鑑「あの花は何ですか？」について",
     },
     "seo_help": {
         "en": "Help for What's that flower?",
@@ -1737,6 +1786,7 @@ NEW = {
         "ru": "Справка по приложению Что это за цветок?",
         "es": "Ayuda para ¿Qué flor es?",
         "pt": "Ajuda para Que flor é esta?",
+        "ja": "「あの花は何ですか？」のヘルプ",
     },
 }
 
