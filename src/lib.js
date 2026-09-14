@@ -312,43 +312,106 @@ export function countByCountry(rows, lang) {
     .sort((a, b) => b.count - a.count);
 }
 
-const FEATURED_KEY = 'wtf-featured';
-const FEATURED_COUNT = 8;
+export const RECENT_COUNT = 7;
 
-function shuffleTake(items, count) {
-  const pool = items.slice();
-  for (let i = pool.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const tmp = pool[i];
-    pool[i] = pool[j];
-    pool[j] = tmp;
-  }
-  return pool.slice(0, count);
+function isYmd(value) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(value);
 }
 
-export function sessionFeatured(headers) {
-  const catalog = (headers || []).filter((h) => h && h.name);
-  if (!catalog.length) return [];
-  const byName = {};
-  catalog.forEach((h) => {
-    byName[h.name] = h;
-  });
-  try {
-    const stored = JSON.parse(sessionStorage.getItem(FEATURED_KEY) || 'null');
-    if (Array.isArray(stored) && stored.length) {
-      const rows = stored.map((name) => byName[name]).filter(Boolean);
-      if (rows.length === FEATURED_COUNT) return rows;
-    }
-  } catch (err) {
-    // pick a new set
+function plantIdsFromList(list) {
+  if (!list) return [];
+  if (Array.isArray(list)) {
+    return list.map((value, index) => (value ? index : null)).filter((id) => id != null);
   }
-  const picked = shuffleTake(catalog, FEATURED_COUNT);
-  try {
-    sessionStorage.setItem(FEATURED_KEY, JSON.stringify(picked.map((h) => h.name)));
-  } catch (err) {
-    // private mode
+  return Object.keys(list)
+    .filter((key) => list[key])
+    .map((key) => Number(key))
+    .filter((id) => !Number.isNaN(id));
+}
+
+function headerAtId(headersById, id) {
+  if (!headersById) return null;
+  return headersById[id] || headersById[String(id)] || null;
+}
+
+/** Newest catalog adds from lists_custom/new, newest date first. */
+export function recentAddsFromLists(raw, headersById, count = RECENT_COUNT) {
+  const days = [];
+  Object.keys(raw || {}).forEach((date) => {
+    if (!isYmd(date)) return;
+    const rec = raw[date] && typeof raw[date] === 'object' ? raw[date] : {};
+    const list = rec.list != null ? rec.list : rec;
+    const ids = plantIdsFromList(list);
+    if (!ids.length) return;
+    const time = typeof rec.time === 'number' ? rec.time : 0;
+    days.push({ date, time, ids });
+  });
+  days.sort((a, b) => {
+    if (a.time !== b.time) return a.time - b.time;
+    return b.date.localeCompare(a.date);
+  });
+
+  const picked = [];
+  const seen = new Set();
+  for (let i = 0; i < days.length; i++) {
+    const day = days[i];
+    const ids = day.ids.slice().sort((a, b) => b - a);
+    for (let j = 0; j < ids.length; j++) {
+      const id = ids[j];
+      if (seen.has(id)) continue;
+      const header = headerAtId(headersById, id);
+      if (!header || !header.name) continue;
+      seen.add(id);
+      picked.push({ ...header, addedDate: day.date });
+      if (picked.length >= count) return picked;
+    }
   }
   return picked;
+}
+
+export function groupByAddedDate(items) {
+  const groups = [];
+  (items || []).forEach((item) => {
+    const date = item.addedDate || '';
+    const last = groups[groups.length - 1];
+    if (last && last.date === date) {
+      last.items.push(item);
+    } else {
+      groups.push({ date, items: [item] });
+    }
+  });
+  return groups;
+}
+
+function localYmd(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+function shiftYmd(ymd, days) {
+  const [y, m, d] = String(ymd).split('-').map(Number);
+  if (!y || !m || !d) return '';
+  return localYmd(new Date(y, m - 1, d + days));
+}
+
+export function formatAddedDate(iso, lang, t, now) {
+  if (!iso) return '';
+  const today = localYmd(now || new Date());
+  if (iso === today) return t.today;
+  if (iso === shiftYmd(today, -1)) return t.yesterday;
+  const [y, m, d] = String(iso).split('-').map(Number);
+  if (!y || !m || !d) return iso;
+  try {
+    return new Date(y, m - 1, d).toLocaleDateString(lang || 'en', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+  } catch (err) {
+    return iso;
+  }
 }
 
 function withId(header, fallbackId) {

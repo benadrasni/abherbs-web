@@ -4,13 +4,14 @@ import {
   familyIconUrl,
   idsFromSearchIndex,
   labelAt,
+  loadNewPlantLists,
   loadSearchIndex,
   normalizeSearch,
   taxonLabel,
   taxonNames,
 } from '../api';
 import Footer from '../components/Footer';
-import PlateGrid from '../components/PlateGrid';
+import { PlateCell } from '../components/PlateGrid';
 import StoreLinks from '../components/StoreLinks';
 import TaxonTile from '../components/TaxonTile';
 import {
@@ -18,10 +19,12 @@ import {
   countByGenus,
   displayName,
   familyPath,
+  formatAddedDate,
   genusOf,
   genusPath,
+  groupByAddedDate,
   plantPath,
-  sessionFeatured,
+  recentAddsFromLists,
   withLang,
 } from '../lib';
 
@@ -42,6 +45,7 @@ function taxonMatchScore(taxonomy, latin, needle) {
 export default function HomePage({ lang, t, headers, headersById, labels, taxonomy }) {
   const [q, setQ] = useState('');
   const [hits, setHits] = useState([]);
+  const [newLists, setNewLists] = useState(null);
 
   const families = useMemo(
     () => countByFamily(headers).sort((a, b) => b.count - a.count),
@@ -52,11 +56,27 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
     [headers]
   );
 
-  const featuredBase = useMemo(() => sessionFeatured(headers), [headers]);
-  const featured = useMemo(
-    () => featuredBase.map((h) => ({ ...h, label: labelAt(labels, h.id) || '' })),
-    [featuredBase, labels]
-  );
+  useEffect(() => {
+    let live = true;
+    loadNewPlantLists()
+      .then((data) => {
+        if (live) setNewLists(data && typeof data === 'object' ? data : {});
+      })
+      .catch(() => {
+        if (live) setNewLists({});
+      });
+    return () => {
+      live = false;
+    };
+  }, []);
+
+  const recentGroups = useMemo(() => {
+    const rows = recentAddsFromLists(newLists, headersById).map((h) => ({
+      ...h,
+      label: labelAt(labels, h.id) || '',
+    }));
+    return groupByAddedDate(rows);
+  }, [newLists, headersById, labels]);
 
   useEffect(() => {
     document.title = t.app_name;
@@ -205,12 +225,32 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
         </div>
       ) : null}
 
-      {featured.length ? (
+      {recentGroups.length ? (
         <section className="band">
           <div className="band-h">
-            <h2>{t.from_collection}</h2>
+            <h2>{t.recently_added}</h2>
           </div>
-          <PlateGrid items={featured} lang={lang} taxonomy={taxonomy} />
+          <div
+            className="recent-line"
+            style={{
+              '--recent-n': String(recentGroups.reduce((n, group) => n + group.items.length, 0)),
+            }}
+          >
+            {recentGroups.map((group) => (
+              <h3
+                key={group.date}
+                className="recent-date"
+                style={{ gridColumn: `span ${group.items.length}` }}
+              >
+                {formatAddedDate(group.date, lang, t)}
+              </h3>
+            ))}
+            {recentGroups.flatMap((group) =>
+              group.items.map((item) => (
+                <PlateCell key={item.name} item={item} lang={lang} taxonomy={taxonomy} />
+              ))
+            )}
+          </div>
         </section>
       ) : null}
 

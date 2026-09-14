@@ -568,6 +568,30 @@ a.lang-chip.official:hover, a.lang-chip.official.on { border-color: var(--moss);
 }
 .tile span { font-size: 13px; color: var(--ink-2); }
 
+.recent-line {
+  display: grid;
+  grid-template-columns: repeat(var(--recent-n, 7), minmax(148px, 1fr));
+  grid-template-rows: auto auto;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  border-top: 1px solid var(--rule);
+}
+.recent-line .recent-date {
+  grid-row: 1;
+  margin: 0;
+  padding: 10px 16px 8px;
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 520;
+  font-size: 15px;
+  color: var(--gold);
+  border-inline-end: 1px solid var(--rule);
+  white-space: nowrap;
+}
+.recent-line .cell {
+  grid-row: 2;
+  border-bottom: 0;
+}
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));

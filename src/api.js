@@ -112,6 +112,10 @@ export function loadLabels(lang) {
   return getJson(`web/labels/${enc(lang)}`).catch(() => null);
 }
 
+export function loadNewPlantLists() {
+  return getJson('lists_custom/new').catch(() => null);
+}
+
 export function loadPlant(name) {
   return getJson(`plants_v2/${enc(name)}`);
 }
