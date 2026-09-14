@@ -215,7 +215,7 @@ function pickField(field, ...sources) {
   return '';
 }
 
-const LANGUAGES_WITHOUT_GT = new Set(['en', 'sk', 'de', 'fr', 'cs', 'pl', 'ru', 'es', 'pt', 'ja']);
+const LANGUAGES_WITHOUT_GT = new Set(['en', 'sk', 'de', 'fr', 'cs', 'pl', 'ru', 'es', 'pt', 'ja', 'it', 'nl', 'uk']);
 
 export async function loadPlantText(lang, name) {
   const code = lang || 'en';

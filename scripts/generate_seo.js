@@ -12,7 +12,7 @@ const DB = 'https://abherbs-backend.firebaseio.com';
 const PHOTO = 'https://storage.googleapis.com/abherbs-resources/photos/';
 const ROOT = path.join(__dirname, '..');
 const BUILD = path.join(ROOT, 'build');
-const INDEXED_LANGS = ['en', 'sk', 'de', 'fr', 'cs', 'pl', 'ru', 'es', 'pt', 'ja'];
+const INDEXED_LANGS = ['en', 'sk', 'de', 'fr', 'cs', 'pl', 'ru', 'es', 'pt', 'ja', 'it', 'nl', 'uk'];
 const OG_LOCALE = {
   en: 'en_US',
   sk: 'sk_SK',
@@ -24,6 +24,9 @@ const OG_LOCALE = {
   es: 'es_ES',
   pt: 'pt_PT',
   ja: 'ja_JP',
+  it: 'it_IT',
+  nl: 'nl_NL',
+  uk: 'uk_UA',
 };
 const locales = require('../src/locales.json');
 
