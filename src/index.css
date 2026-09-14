@@ -521,7 +521,7 @@ a.lang-chip.official:hover, a.lang-chip.official.on { border-color: var(--moss);
 .browse-block .band-h { margin-bottom: 12px; }
 .tiles {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 10px;
 }
 .tile {
@@ -562,9 +562,13 @@ a.lang-chip.official:hover, a.lang-chip.official.on { border-color: var(--moss);
   font-weight: 520;
   font-size: 18px;
   display: block;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-  line-height: 1.15;
+  width: 100%;
+  line-height: 1.25;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 6 4;
 }
 .tile span { font-size: 13px; color: var(--ink-2); }
 
