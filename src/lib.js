@@ -504,6 +504,12 @@ export function sourceHost(href) {
   }
 }
 
+export function sourceLabel(href) {
+  const host = sourceHost(href);
+  const info = lookupSourceHost(host);
+  return info.name || host;
+}
+
 const SOURCE_HOSTS = [
   ['powo.science.kew.org', 'Plants of the World Online', 'name'],
   ['ipni.org', 'IPNI', 'name'],
@@ -527,6 +533,9 @@ const SOURCE_HOSTS = [
   ['flora.org.il', 'Flora of Israel Online', 'text'],
   ['pacificbulbsociety.org', 'Pacific Bulb Society', 'text'],
   ['onrockgarden.com', 'Ontario Rock Garden & Hardy Plant Society', 'text'],
+  ['loki-schmidt-stiftung.de', 'Loki Schmidt Stiftung', 'text'],
+  ['baum-des-jahres.de', 'Dr. Silvius Wodarz Stiftung', 'text'],
+  ['orchideen-deutschlands.de', 'Arbeitskreise Heimische Orchideen', 'text'],
 ];
 
 function hostEndsWith(host, domain) {

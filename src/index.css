@@ -478,6 +478,15 @@ a.lang-chip.official:hover, a.lang-chip.official.on { border-color: var(--moss);
 .about-contact a { color: var(--madder); }
 .home-hero { padding: 36px 28px 8px; display: flex; justify-content: space-between; gap: 24px; align-items: end; }
 .home-hero h1 { font-size: clamp(40px, 6vw, 64px); margin: 6px 0 0; }
+.list-source {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--madder);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+}
+.list-source:hover { border-bottom-color: var(--madder); }
 .home-hero .binomen { font-size: 20px; color: var(--ink-2); margin-top: 6px; }
 .home-hero .aka { margin-top: 8px; font-size: 15px; color: var(--ink-2); }
 .taxon-gloss { font-style: normal; font-family: inherit; color: var(--ink-2); }

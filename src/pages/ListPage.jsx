@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { labelAt, loadLanguageList } from '../api';
 import Footer from '../components/Footer';
 import PlateGrid from '../components/PlateGrid';
-import { headersForIds, plantIdsFromList, plantYearsFromList, withLang } from '../lib';
+import { headersForIds, plantIdsFromList, plantYearsFromList, sourceLabel, withLang } from '../lib';
 
 function withLabel(header, labels) {
   return { ...header, label: labelAt(labels, header.id) || '' };
@@ -52,6 +52,7 @@ export default function ListPage({ lang, t, headersById, labels, taxonomy }) {
   }, [name, t.app_name]);
 
   const loaded = raw !== undefined;
+  const sourceUrl = raw && typeof raw.sourceUrl === 'string' ? raw.sourceUrl.trim() : '';
 
   return (
     <div className="page">
@@ -63,6 +64,16 @@ export default function ListPage({ lang, t, headersById, labels, taxonomy }) {
             {t.lists}
           </div>
           <h1 className="common">{name}</h1>
+          {sourceUrl ? (
+            <a
+              className="list-source"
+              href={sourceUrl}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {sourceLabel(sourceUrl)}
+            </a>
+          ) : null}
         </div>
         <p className="lede" style={{ margin: 0 }}>
           {t.list_lede} {loaded ? t.plants_count(items.length) : ''}
