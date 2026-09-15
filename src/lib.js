@@ -393,7 +393,16 @@ export function headersForIds(ids, headersById) {
     .filter((header) => header && header.name);
 }
 
-function pickListCover(ids, headersById, icon) {
+function pickListCover(ids, headersById, icon, list) {
+  const years = plantYearsFromList(list);
+  const yearIds = Object.keys(years)
+    .map(Number)
+    .filter((id) => years[id]);
+  if (yearIds.length) {
+    yearIds.sort((a, b) => years[b] - years[a] || a - b);
+    const newest = headerAtId(headersById, yearIds[0]);
+    if (newest && newest.name) return newest;
+  }
   const headers = headersForIds(ids, headersById);
   if (!headers.length) return null;
   if (icon) {
@@ -422,7 +431,7 @@ export function customListsFromRaw(raw, headersById, lang) {
         sourceUrl: listSourceUrl(rec),
         ids,
         count: items.length,
-        cover: pickListCover(ids, headersById, rec.icon),
+        cover: pickListCover(ids, headersById, rec.icon, rec.list),
       };
     })
     .filter((row) => row.count > 0)
