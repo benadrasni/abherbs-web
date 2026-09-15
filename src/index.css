@@ -646,6 +646,14 @@ a.lang-chip.official:hover, a.lang-chip.official.on { border-color: var(--moss);
   object-fit: contain;
 }
 .cell .n { font-family: Fraunces, Georgia, serif; font-size: 20px; margin-top: 12px; }
+.cell .year {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 12px;
+}
+.cell .year + .n { margin-top: 2px; }
 .cell .l { font-size: 14px; color: var(--ink-2); }
 .cell .g { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin-top: 4px; }
 

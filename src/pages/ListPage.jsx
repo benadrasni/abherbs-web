@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { labelAt, loadLanguageList } from '../api';
 import Footer from '../components/Footer';
 import PlateGrid from '../components/PlateGrid';
-import { headersForIds, plantIdsFromList, withLang } from '../lib';
+import { headersForIds, plantIdsFromList, plantYearsFromList, withLang } from '../lib';
 
 function withLabel(header, labels) {
   return { ...header, label: labelAt(labels, header.id) || '' };
@@ -31,9 +31,20 @@ export default function ListPage({ lang, t, headersById, labels, taxonomy }) {
 
   const items = useMemo(() => {
     const ids = plantIdsFromList(raw && raw.list);
-    return headersForIds(ids, headersById)
-      .map((header) => withLabel(header, labels))
-      .sort((a, b) => (a.label || a.name).localeCompare(b.label || b.name, lang));
+    const years = plantYearsFromList(raw && raw.list);
+    const rows = headersForIds(ids, headersById).map((header) => ({
+      ...withLabel(header, labels),
+      year: years[header.id],
+    }));
+    const byYear = rows.some((row) => row.year);
+    rows.sort((a, b) => {
+      if (byYear) {
+        const c = (b.year || 0) - (a.year || 0);
+        if (c) return c;
+      }
+      return (a.label || a.name).localeCompare(b.label || b.name, lang);
+    });
+    return rows;
   }, [raw, headersById, labels, lang]);
 
   useEffect(() => {

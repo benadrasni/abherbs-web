@@ -333,6 +333,20 @@ export function plantIdsFromList(list) {
     .filter((id) => !Number.isNaN(id));
 }
 
+/** Custom-list values of 1900–2100 are designation years; `1` is presence-only. */
+export function isCustomListYear(value) {
+  return typeof value === 'number' && Number.isFinite(value) && value >= 1900 && value <= 2100;
+}
+
+export function plantYearsFromList(list) {
+  const years = {};
+  if (!list || typeof list !== 'object' || Array.isArray(list)) return years;
+  Object.keys(list).forEach((key) => {
+    if (isCustomListYear(list[key])) years[Number(key)] = list[key];
+  });
+  return years;
+}
+
 function headerAtId(headersById, id) {
   if (!headersById) return null;
   return headersById[id] || headersById[String(id)] || null;

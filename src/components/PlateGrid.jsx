@@ -12,6 +12,7 @@ export function PlateCell({ item, lang, genusLabel, taxonomy }) {
       <div className="art">
         <PlateImage rel={headerPlateRel(item)} preferred="grid" alt="" />
       </div>
+      {item.year ? <div className="year">{item.year}</div> : null}
       <div className="n">{displayName(item.label, item.name)}</div>
       <div className="l latin">{item.name}</div>
       <div className="g">{common ? displayName(common) : taxon}</div>
