@@ -596,6 +596,25 @@ a.lang-chip.official:hover, a.lang-chip.official.on { border-color: var(--moss);
   grid-row: 2;
   border-bottom: 0;
 }
+.list-line {
+  display: grid;
+  grid-template-columns: repeat(var(--list-n, 4), minmax(216px, 1fr));
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  border-top: 1px solid var(--rule);
+}
+.list-line .cell {
+  border-bottom: 0;
+  min-width: 0;
+}
+.list-line .cell .n {
+  font-size: 18px;
+  line-height: 1.25;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));

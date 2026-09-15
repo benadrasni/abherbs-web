@@ -6,7 +6,7 @@ import { contentPath, withLang } from '../lib';
 export default function Header({ lang, t, onLang }) {
   const pathname = contentPath(useLocation().pathname);
   const nav = [
-    { to: withLang('/', lang), label: t.plants, match: pathname === '/' || pathname.startsWith('/plant') || pathname.startsWith('/family') || pathname.startsWith('/genus') || pathname.startsWith('/genera') },
+    { to: withLang('/', lang), label: t.plants, match: pathname === '/' || pathname.startsWith('/plant') || pathname.startsWith('/family') || pathname.startsWith('/genus') || pathname.startsWith('/genera') || pathname.startsWith('/list') },
     { to: withLang('/identify', lang), label: t.identify, match: pathname === '/identify' },
     { to: withLang('/about', lang), label: t.about, match: pathname === '/about', optional: true },
   ];

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PlateImage from './PlateImage';
 import { taxonLabel } from '../api';
-import { displayName, genusOf, headerPlateRel, plantPath } from '../lib';
+import { displayName, genusOf, headerPlateRel, listPath, plantPath } from '../lib';
 
 export function PlateCell({ item, lang, genusLabel, taxonomy }) {
   const taxon = genusLabel ? genusOf(item.name) : item.family;
@@ -15,6 +15,19 @@ export function PlateCell({ item, lang, genusLabel, taxonomy }) {
       <div className="n">{displayName(item.label, item.name)}</div>
       <div className="l latin">{item.name}</div>
       <div className="g">{common ? displayName(common) : taxon}</div>
+    </Link>
+  );
+}
+
+export function ListCell({ list, lang, t }) {
+  const cover = list && list.cover;
+  return (
+    <Link className="cell" to={listPath(list.name, lang)}>
+      <div className="art">
+        {cover ? <PlateImage rel={headerPlateRel(cover)} preferred="grid" alt="" /> : null}
+      </div>
+      <div className="n">{list.name}</div>
+      <div className="g">{t.plants_count(list.count)}</div>
     </Link>
   );
 }

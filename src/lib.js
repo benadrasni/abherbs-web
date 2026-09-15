@@ -124,6 +124,10 @@ export function genusPath(genus, lang) {
   return withLang(`/genus/${encodeURIComponent(genus)}`, lang);
 }
 
+export function listPath(name, lang) {
+  return withLang(`/list/${encodeURIComponent(name)}`, lang);
+}
+
 export function detectLang(pathname, search, supported) {
   const fromPath = langFromPath(pathname);
   if (fromPath !== 'en') return fromPath;
@@ -318,7 +322,7 @@ function isYmd(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value);
 }
 
-function plantIdsFromList(list) {
+export function plantIdsFromList(list) {
   if (!list) return [];
   if (Array.isArray(list)) {
     return list.map((value, index) => (value ? index : null)).filter((id) => id != null);
@@ -367,6 +371,41 @@ export function recentAddsFromLists(raw, headersById, count = RECENT_COUNT) {
     }
   }
   return picked;
+}
+
+export function headersForIds(ids, headersById) {
+  return (ids || [])
+    .map((id) => headerAtId(headersById, id))
+    .filter((header) => header && header.name);
+}
+
+function pickListCover(ids, headersById, icon) {
+  const headers = headersForIds(ids, headersById);
+  if (!headers.length) return null;
+  if (icon) {
+    const match = headers.find((header) => header.family === icon);
+    if (match) return match;
+  }
+  return headers[0];
+}
+
+/** Editorial lists for one UI language from lists_custom/by language/{lang}. */
+export function customListsFromRaw(raw, headersById) {
+  if (!raw || typeof raw !== 'object') return [];
+  return Object.keys(raw)
+    .map((name) => {
+      const rec = raw[name] && typeof raw[name] === 'object' ? raw[name] : {};
+      const ids = plantIdsFromList(rec.list);
+      const items = headersForIds(ids, headersById);
+      return {
+        name,
+        icon: rec.icon || '',
+        ids,
+        count: items.length,
+        cover: pickListCover(ids, headersById, rec.icon),
+      };
+    })
+    .filter((row) => row.count > 0);
 }
 
 export function groupByAddedDate(items) {

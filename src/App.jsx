@@ -26,6 +26,7 @@ import FamilyPage from './pages/FamilyPage';
 import HelpPage from './pages/HelpPage';
 import HomePage from './pages/HomePage';
 import IdentifyPage from './pages/IdentifyPage';
+import ListPage from './pages/ListPage';
 import PlantPage from './pages/PlantPage';
 
 function routeNeedsIndex(pathname) {
@@ -36,13 +37,19 @@ function routeNeedsIndex(pathname) {
     path === '/families' ||
     path === '/genera' ||
     path.startsWith('/family/') ||
-    path.startsWith('/genus/')
+    path.startsWith('/genus/') ||
+    path.startsWith('/list/')
   );
 }
 
 function routeNeedsLabels(pathname) {
   const path = contentPath(pathname);
-  return path === '/' || path.startsWith('/family/') || path.startsWith('/genus/');
+  return (
+    path === '/' ||
+    path.startsWith('/family/') ||
+    path.startsWith('/genus/') ||
+    path.startsWith('/list/')
+  );
 }
 
 function samePlace(location, dest) {
@@ -334,6 +341,18 @@ export default function App() {
               labels={labels}
               taxonomy={taxonomy}
               mode="genus"
+            />
+          }
+        />
+        <Route
+          path={p('/list/:name')}
+          element={
+            <ListPage
+              lang={lang}
+              t={t}
+              headersById={headersById}
+              labels={labels}
+              taxonomy={taxonomy}
             />
           }
         />

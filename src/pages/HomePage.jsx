@@ -4,6 +4,7 @@ import {
   familyIconUrl,
   idsFromSearchIndex,
   labelAt,
+  loadLanguageLists,
   loadNewPlantLists,
   loadSearchIndex,
   normalizeSearch,
@@ -11,12 +12,13 @@ import {
   taxonNames,
 } from '../api';
 import Footer from '../components/Footer';
-import { PlateCell } from '../components/PlateGrid';
+import { ListCell, PlateCell } from '../components/PlateGrid';
 import StoreLinks from '../components/StoreLinks';
 import TaxonTile from '../components/TaxonTile';
 import {
   countByFamily,
   countByGenus,
+  customListsFromRaw,
   displayName,
   familyPath,
   formatAddedDate,
@@ -46,6 +48,7 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
   const [q, setQ] = useState('');
   const [hits, setHits] = useState([]);
   const [newLists, setNewLists] = useState(null);
+  const [languageLists, setLanguageLists] = useState(null);
 
   const families = useMemo(
     () => countByFamily(headers).sort((a, b) => b.count - a.count),
@@ -70,6 +73,21 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
     };
   }, []);
 
+  useEffect(() => {
+    let live = true;
+    setLanguageLists(null);
+    loadLanguageLists(lang)
+      .then((data) => {
+        if (live) setLanguageLists(data && typeof data === 'object' ? data : {});
+      })
+      .catch(() => {
+        if (live) setLanguageLists({});
+      });
+    return () => {
+      live = false;
+    };
+  }, [lang]);
+
   const recentGroups = useMemo(() => {
     const rows = recentAddsFromLists(newLists, headersById).map((h) => ({
       ...h,
@@ -77,6 +95,14 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
     }));
     return groupByAddedDate(rows);
   }, [newLists, headersById, labels]);
+
+  const customLists = useMemo(
+    () =>
+      customListsFromRaw(languageLists, headersById).sort((a, b) =>
+        a.name.localeCompare(b.name, lang)
+      ),
+    [languageLists, headersById, lang]
+  );
 
   useEffect(() => {
     document.title = t.app_name;
@@ -250,6 +276,19 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
                 <PlateCell key={item.name} item={item} lang={lang} taxonomy={taxonomy} />
               ))
             )}
+          </div>
+        </section>
+      ) : null}
+
+      {customLists.length ? (
+        <section className="band">
+          <div className="band-h">
+            <h2>{t.lists}</h2>
+          </div>
+          <div className="list-line" style={{ '--list-n': String(customLists.length) }}>
+            {customLists.map((list) => (
+              <ListCell key={list.name} list={list} lang={lang} t={t} />
+            ))}
           </div>
         </section>
       ) : null}

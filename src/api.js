@@ -116,6 +116,16 @@ export function loadNewPlantLists() {
   return getJson('lists_custom/new').catch(() => null);
 }
 
+export function loadLanguageLists(lang) {
+  if (!lang) return Promise.resolve(null);
+  return getJson(`lists_custom/by%20language/${enc(lang)}`).catch(() => null);
+}
+
+export function loadLanguageList(lang, name) {
+  if (!lang || !name) return Promise.resolve(null);
+  return getJson(`lists_custom/by%20language/${enc(lang)}/${enc(name)}`).catch(() => null);
+}
+
 export function loadPlant(name) {
   return getJson(`plants_v2/${enc(name)}`);
 }
