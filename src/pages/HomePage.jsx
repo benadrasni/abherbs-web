@@ -97,10 +97,7 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
   }, [newLists, headersById, labels]);
 
   const customLists = useMemo(
-    () =>
-      customListsFromRaw(languageLists, headersById).sort((a, b) =>
-        a.name.localeCompare(b.name, lang)
-      ),
+    () => customListsFromRaw(languageLists, headersById, lang),
     [languageLists, headersById, lang]
   );
 

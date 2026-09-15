@@ -403,8 +403,13 @@ function pickListCover(ids, headersById, icon) {
   return headers[0];
 }
 
+function listSourceUrl(rec) {
+  if (!rec || typeof rec.sourceUrl !== 'string') return '';
+  return rec.sourceUrl.trim();
+}
+
 /** Editorial lists for one UI language from lists_custom/by language/{lang}. */
-export function customListsFromRaw(raw, headersById) {
+export function customListsFromRaw(raw, headersById, lang) {
   if (!raw || typeof raw !== 'object') return [];
   return Object.keys(raw)
     .map((name) => {
@@ -414,12 +419,19 @@ export function customListsFromRaw(raw, headersById) {
       return {
         name,
         icon: rec.icon || '',
+        sourceUrl: listSourceUrl(rec),
         ids,
         count: items.length,
         cover: pickListCover(ids, headersById, rec.icon),
       };
     })
-    .filter((row) => row.count > 0);
+    .filter((row) => row.count > 0)
+    .sort((a, b) => {
+      const ar = a.sourceUrl ? 0 : 1;
+      const br = b.sourceUrl ? 0 : 1;
+      if (ar !== br) return ar - br;
+      return a.name.localeCompare(b.name, lang);
+    });
 }
 
 export function groupByAddedDate(items) {
