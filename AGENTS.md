@@ -6,7 +6,7 @@ UI chrome and About/Help copy live in `src/locales.json`. Do not fetch Firebase 
 
 ## Language URLs
 
-Indexed languages (official body text): **en** unprefixed, **sk / de / fr / cs / pl / ru / es / pt / ja / it / nl / uk / hu / da** as the first path segment.
+Indexed languages (official body text): **en** unprefixed, **sk / de / fr / cs / pl / ru / es / pt / ja / it / nl / uk / hu / da / sv / no / fi** as the first path segment.
 
 - `https://whatsthatflower.com/plant/Bellis%20perennis/` English (`hreflang` + `x-default`)
 - `https://whatsthatflower.com/de/plant/Bellis%20perennis/` German
@@ -20,12 +20,15 @@ Indexed languages (official body text): **en** unprefixed, **sk / de / fr / cs /
 - `https://whatsthatflower.com/uk/plant/Bellis%20perennis/` Ukrainian
 - `https://whatsthatflower.com/hu/plant/Bellis%20perennis/` Hungarian
 - `https://whatsthatflower.com/da/plant/Bellis%20perennis/` Danish
+- `https://whatsthatflower.com/sv/plant/Bellis%20perennis/` Swedish
+- `https://whatsthatflower.com/no/plant/Bellis%20perennis/` Norwegian
+- `https://whatsthatflower.com/fi/plant/Bellis%20perennis/` Finnish
 
 Other UI languages stay on `?lang=` (not in the sitemap). `/en/...` 301s to the unprefixed URL (Firebase Hosting). Old `?lang=de` is rewritten in the client to `/de/...`; a crawler 301 needs a Cloudflare Redirect Rule (Firebase cannot match query strings):
 
-`(http.request.uri.query matches "(^|&)lang=(sk|de|fr|cs|pl|ru|es|pt|ja|it|nl|uk|hu|da)(&|$)")` → 301 to `/{lang}` + path, stripping that `lang` param. Skip when the path already starts with `/{lang}`. `lang=en` → same path without the param.
+`(http.request.uri.query matches "(^|&)lang=(sk|de|fr|cs|pl|ru|es|pt|ja|it|nl|uk|hu|da|sv|no|fi)(&|$)")` → 301 to `/{lang}` + path, stripping that `lang` param. Skip when the path already starts with `/{lang}`. `lang=en` → same path without the param.
 
-`scripts/generate_seo.js` writes shells + sitemap hreflang for the fifteen indexed languages. Keep `INDEXED_LANGS` in sync with `src/lib.js`.
+`scripts/generate_seo.js` writes shells + sitemap hreflang for the eighteen indexed languages. Keep `INDEXED_LANGS` in sync with `src/lib.js`.
 
 ## Deploy Hosting
 

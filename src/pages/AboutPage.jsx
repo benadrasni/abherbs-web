@@ -8,7 +8,7 @@ import languages from '../languages';
 import { INDEXED_LANGS, plantPath, withLang, writeLangCookie } from '../lib';
 
 const ABOUT_PLANT = 'Bellis perennis';
-const ALSO_LANGS = ['sv', 'no', 'fi', 'et', 'hr'];
+const ALSO_LANGS = ['et', 'hr'];
 const SUPPORT_EMAIL = 'support@whatsthatflower.com';
 const CREDITS = [
   { name: 'Lucia Kleinová', codes: ['es'] },
