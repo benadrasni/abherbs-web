@@ -15,6 +15,7 @@ import {
   langFromPath,
   normPath,
   normalizeLang,
+  plantPath,
   readLangCookie,
   withLang,
   writeLangCookie,
@@ -61,38 +62,53 @@ function samePlace(location, dest) {
   );
 }
 
+function joinPath(path, params, hash) {
+  const q = params.toString();
+  if (!q) return path + hash;
+  return path + (path.includes('?') ? '&' : '?') + q + hash;
+}
+
 function migratedLocation(location) {
   const params = new URLSearchParams(location.search);
-  const qLangRaw = params.get('lang');
-  const parts = normPath(location.pathname).split('/').filter(Boolean);
   const hash = location.hash || '';
+  let pathname = location.pathname;
+  const parts = normPath(pathname).split('/').filter(Boolean);
 
   if (parts[0] === 'en') {
     params.delete('lang');
-    const rest = parts.length === 1 ? '/' : '/' + parts.slice(1).join('/');
-    const q = params.toString();
-    return rest + (q ? `?${q}` : '') + hash;
+    pathname = parts.length === 1 ? '/' : '/' + parts.slice(1).join('/');
   }
 
-  const pathLang = langFromPath(location.pathname);
+  const qLangRaw = params.get('lang');
   if (qLangRaw) {
+    const pathLang = langFromPath(pathname);
     const qLang = normalizeLang(qLangRaw, languages);
     if (pathLang !== 'en' || PATH_LANGS.includes(qLang) || qLang === 'en') {
       params.delete('lang');
-      const rest = contentPath(location.pathname);
-      const body = pathLang !== 'en' ? normPath(location.pathname) : withLang(rest, qLang);
-      const q = params.toString();
-      return body + (q ? `?${q}` : '') + hash;
+      if (pathLang === 'en') pathname = withLang(contentPath(pathname), qLang);
     }
   }
 
-  if (normPath(location.pathname) === '/' && !params.get('lang') && !params.get('plant')) {
-    const preferred = normalizeLang(readLangCookie(), languages);
-    if (preferred && preferred !== 'en') {
-      return withLang('/', preferred) + hash;
-    }
+  const qPlant = params.get('plant');
+  if (qPlant) {
+    params.delete('plant');
+    const name = String(qPlant).replace(/_/g, ' ').trim();
+    if (name) pathname = plantPath(name, langFromPath(pathname));
   }
-  return null;
+
+  const plantSeg = contentPath(pathname).split('/').filter(Boolean);
+  if (plantSeg[0] === 'plant' && plantSeg[1] && plantSeg[1].includes('_')) {
+    const name = decodeURIComponent(plantSeg[1]).replace(/_/g, ' ').trim();
+    if (name) pathname = plantPath(name, langFromPath(pathname));
+  }
+
+  if (normPath(pathname) === '/' && !params.get('lang') && !params.get('plant')) {
+    const preferred = normalizeLang(readLangCookie(), languages);
+    if (preferred && preferred !== 'en') pathname = withLang('/', preferred);
+  }
+
+  const dest = joinPath(pathname, params, hash);
+  return dest === joinPath(location.pathname, new URLSearchParams(location.search), hash) ? null : dest;
 }
 
 function StripEn() {

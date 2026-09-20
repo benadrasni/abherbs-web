@@ -27,11 +27,17 @@ Indexed languages (official body text): **en** unprefixed, **sk / de / fr / cs /
 - `https://whatsthatflower.com/lv/plant/Bellis%20perennis/` Latvian
 - `https://whatsthatflower.com/lt/plant/Bellis%20perennis/` Lithuanian
 
-Other UI languages stay on `?lang=` (not in the sitemap). `/en/...` 301s to the unprefixed URL (Firebase Hosting). Old `?lang=de` is rewritten in the client to `/de/...`; a crawler 301 needs a Cloudflare Redirect Rule (Firebase cannot match query strings):
+Other UI languages stay on `?lang=` (not in the sitemap). `/en/...` 301s to the unprefixed URL (Firebase Hosting). The `/en/:path*` destination must keep the trailing slash (`/:path/`) so Google does not get a second hop from `trailingSlash: true`. Old `?lang=de` is rewritten in the client to `/de/...`; a crawler 301 needs a Cloudflare Redirect Rule (Firebase cannot match query strings):
 
 `(http.request.uri.query matches "(^|&)lang=(sk|de|fr|cs|pl|ru|es|pt|ja|it|nl|uk|hu|da|sv|no|fi|et|lv|lt)(&|$)")` → 301 to `/{lang}` + path, stripping that `lang` param. Skip when the path already starts with `/{lang}`. `lang=en` → same path without the param.
 
-`scripts/generate_seo.js` writes shells + sitemap hreflang for the twenty-one indexed languages. Keep `INDEXED_LANGS` in sync with `src/lib.js`.
+Old homepage query `?plant=Bellis%20perennis` is rewritten in the client to `/plant/Bellis%20perennis/`. A crawler 301 also needs a Cloudflare Redirect Rule (keep **Preserve query string** off so `plant` is dropped):
+
+- When: `len(http.request.uri.args["plant"]) > 0` and path is `/` or `/{lang}/` for an indexed path lang (`sk|de|fr|cs|pl|ru|es|pt|ja|it|nl|uk|hu|da|sv|no|fi|et|lv|lt`).
+- Then: Dynamic 301 to `concat("https://whatsthatflower.com", <lang prefix or empty>, "/plant/", url_encode(http.request.uri.args["plant"][0]), "/")`. If `lang` is also in the query, use that prefix (same codes); `lang=en` stays unprefixed.
+- Place this next to the `?lang=` rule. If both `plant` and `lang` are present, one hop to `/{lang}/plant/{name}/` is better than `?lang=` first then `?plant=`.
+
+`scripts/generate_seo.js` writes shells + sitemap hreflang for the twenty-one indexed languages. Keep `INDEXED_LANGS` in sync with `src/lib.js`. Client `withLang` / `plantPath` links include a trailing slash so they match the sitemap and do not 301.
 
 ## Deploy Hosting
 

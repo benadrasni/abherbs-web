@@ -108,6 +108,7 @@ export function withLang(path, lang) {
   } else if (code !== 'en') {
     params.set('lang', code);
   }
+  if (body !== '/') body += '/';
   const q = params.toString();
   return q ? `${body}?${q}` : body;
 }
