@@ -225,7 +225,7 @@ function pickField(field, ...sources) {
   return '';
 }
 
-const LANGUAGES_WITHOUT_GT = new Set(['en', 'sk', 'de', 'fr', 'cs', 'pl', 'ru', 'es', 'pt', 'ja', 'it', 'nl', 'uk', 'hu', 'da', 'sv', 'no', 'fi']);
+const LANGUAGES_WITHOUT_GT = new Set(['en', 'sk', 'de', 'fr', 'cs', 'pl', 'ru', 'es', 'pt', 'ja', 'it', 'nl', 'uk', 'hu', 'da', 'sv', 'no', 'fi', 'et', 'lv', 'lt']);
 
 export async function loadPlantText(lang, name) {
   const code = lang || 'en';
