@@ -70,7 +70,6 @@ export function uiText(lang) {
     distribution_alt: (name) => text('distribution_alt', { name }),
     about_why_p1: () => text('about_why_p1', { app: catalog.app_name }),
     about_langs_lede: (n) => text('about_langs_lede', { n: Number(n).toLocaleString(lang || 'en') }),
-    about_langs_more: (n) => text('about_langs_more', { n }),
     taxonRank,
   };
 }

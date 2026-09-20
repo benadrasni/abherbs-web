@@ -446,8 +446,6 @@ img { max-width: 100%; }
 .about-photos a { display: block; background: #1f1b16; }
 .about-photos img { width: 100%; height: 160px; object-fit: cover; display: block; }
 .langs { display: flex; flex-wrap: wrap; gap: 8px; }
-.langs-label { margin-bottom: 8px; }
-.langs-label-more { margin: 18px 0 8px; }
 .langs + .note { margin-top: 22px; }
 .lang-chip {
   display: inline-block;
@@ -458,9 +456,7 @@ img { max-width: 100%; }
   text-decoration: none;
   color: inherit;
 }
-.lang-chip.official { border-color: var(--moss); color: var(--moss); }
 a.lang-chip:hover, a.lang-chip.on { border-color: var(--ink); }
-a.lang-chip.official:hover, a.lang-chip.official.on { border-color: var(--moss); }
 .credits {
   list-style: none;
   margin: 0;

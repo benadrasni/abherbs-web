@@ -5,10 +5,9 @@ import Footer from '../components/Footer';
 import PlateImage from '../components/PlateImage';
 import StoreLinks from '../components/StoreLinks';
 import languages from '../languages';
-import { INDEXED_LANGS, plantPath, withLang, writeLangCookie } from '../lib';
+import { plantPath, withLang, writeLangCookie } from '../lib';
 
 const ABOUT_PLANT = 'Bellis perennis';
-const ALSO_LANGS = ['hr'];
 const SUPPORT_EMAIL = 'support@whatsthatflower.com';
 const CREDITS = [
   { name: 'Lucia Kleinová', codes: ['es'] },
@@ -26,8 +25,9 @@ const CREDITS = [
 export default function AboutPage({ lang, t, headers }) {
   const [plant, setPlant] = useState(null);
   const langCount = Object.keys(languages).length;
-  const officialCount = INDEXED_LANGS.length;
-  const moreCount = Math.max(0, langCount - officialCount - ALSO_LANGS.length);
+  const langCodes = Object.keys(languages).sort((a, b) =>
+    (languages[a] || a).localeCompare(languages[b] || b, lang || 'en', { sensitivity: 'base' })
+  );
 
   useEffect(() => {
     document.title = `${t.about} — ${t.app_name}`;
@@ -72,10 +72,6 @@ export default function AboutPage({ lang, t, headers }) {
         <div className="fact">
           <div className="k">{t.about_fact_languages}</div>
           <div className="v">{langCount.toLocaleString(lang)}</div>
-        </div>
-        <div className="fact">
-          <div className="k">{t.about_fact_body}</div>
-          <div className="v">{officialCount.toLocaleString(lang)}</div>
         </div>
         <div className="fact">
           <div className="k">{t.about_fact_key}</div>
@@ -149,20 +145,10 @@ export default function AboutPage({ lang, t, headers }) {
           <h2>{t.about_langs_title}</h2>
           <p>{t.about_langs_lede(langCount)}</p>
         </div>
-        <div className="kicker langs-label">{t.about_langs_official}</div>
         <div className="langs">
-          {INDEXED_LANGS.map((code) => (
-            <LangChip key={code} code={code} current={lang} official />
-          ))}
-        </div>
-        <div className="kicker langs-label-more">
-          {t.about_langs_also}
-        </div>
-        <div className="langs">
-          {ALSO_LANGS.map((code) => (
+          {langCodes.map((code) => (
             <LangChip key={code} code={code} current={lang} />
           ))}
-          {moreCount ? <span className="lang-chip">{t.about_langs_more(moreCount)}</span> : null}
         </div>
         <aside className="note">
           <div className="k">{t.about_names_k}</div>
@@ -277,10 +263,10 @@ export default function AboutPage({ lang, t, headers }) {
   );
 }
 
-function LangChip({ code, current, official }) {
+function LangChip({ code, current }) {
   return (
     <Link
-      className={`lang-chip${official ? ' official' : ''}${code === current ? ' on' : ''}`}
+      className={`lang-chip${code === current ? ' on' : ''}`}
       to={withLang('/about', code)}
       onClick={() => writeLangCookie(code)}
       aria-current={code === current ? 'page' : undefined}
