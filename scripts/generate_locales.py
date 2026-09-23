@@ -1486,6 +1486,8 @@ NEW = {
         "et": "Taimeentsüklopeedia",
         "lv": "Augu enciklopēdija",
         "lt": "Augalų enciklopedija",
+        "hr": "Enciklopedija biljaka",
+        "sl": "Enciklopedija rastlin",
     },
     "about_lede": {
         "en": "Species pages you can trust: a botanical plate, field photographs, sourced text, and a native/introduced map. Identify with the four-step key here or in the app.",
@@ -1507,6 +1509,8 @@ NEW = {
         "et": "Liigilehed, millele saab toetuda: botaaniline illustratsioon, välifotod, allikatega tekst ning pärismaise ja sissetoodud levila kaart. Määrake neljaastmelise võtmega siin või rakenduses.",
         "lv": "Sugu lapas, kurām var uzticēties: botāniska ilustrācija, lauka fotogrāfijas, teksts no avotiem un vietējā un ievazātā areāla karte. Nosakiet ar četrpakāpju atslēgu šeit vai lietotnē.",
         "lt": "Rūšių puslapiai, kuriais galima pasikliauti: botaninė iliustracija, lauko nuotraukos, tekstas iš šaltinių ir savaiminio bei įvežtinio arealo žemėlapis. Nustatykite keturių žingsnių raktu čia arba programėlėje.",
+        "hr": "Stranice vrsta kojima se može vjerovati: botanička ploča, terenske fotografije, tekst iz izvora i karta samoniklog i unesenog areala. Određujte četverostupanjskim ključem ovdje ili u aplikaciji.",
+        "sl": "Strani vrst, ki jim lahko zaupate: botanična tabla, terenske fotografije, besedilo iz virov in zemljevid samoniklega in vnesenega areala. Določajte s štiristopenjskim ključem tukaj ali v aplikaciji.",
     },
     "about_fact_collection": {
         "en": "Collection", "sk": "Zbierka", "cs": "Sbírka", "de": "Sammlung",
@@ -1523,6 +1527,8 @@ NEW = {
         "et": "Kogu",
         "lv": "Kolekcija",
         "lt": "Rinkinys",
+        "hr": "Zbirka",
+        "sl": "Zbirka",
     },
     "about_fact_languages": {
         "en": "Languages", "sk": "Jazyky", "cs": "Jazyky", "de": "Sprachen",
@@ -1539,6 +1545,8 @@ NEW = {
         "et": "Keeled",
         "lv": "Valodas",
         "lt": "Kalbos",
+        "hr": "Jezici",
+        "sl": "Jeziki",
     },
     "about_fact_key": {
         "en": "Identification", "sk": "Určovanie", "cs": "Určování", "de": "Bestimmung",
@@ -1555,6 +1563,8 @@ NEW = {
         "et": "Määramine",
         "lv": "Noteikšana",
         "lt": "Nustatymas",
+        "hr": "Određivanje",
+        "sl": "Določanje",
     },
     "about_fact_steps": {
         "en": "4 steps", "sk": "4 kroky", "cs": "4 kroky", "de": "4 Schritte",
@@ -1571,6 +1581,8 @@ NEW = {
         "et": "4 sammu",
         "lv": "4 soļi",
         "lt": "4 žingsniai",
+        "hr": "4 koraka",
+        "sl": "4 koraki",
     },
     "about_why_kicker": {
         "en": "Why it exists", "sk": "Prečo to existuje", "cs": "Proč to existuje",
@@ -1588,6 +1600,8 @@ NEW = {
         "et": "Miks see on olemas",
         "lv": "Kāpēc tas ir",
         "lt": "Kodėl tai egzistuoja",
+        "hr": "Zašto postoji",
+        "sl": "Zakaj obstaja",
     },
     "about_why_title": {
         "en": "A catalog of flowering plants",
@@ -1609,6 +1623,8 @@ NEW = {
         "et": "Õistaimede kataloog",
         "lv": "Ziedaugu katalogs",
         "lt": "Žiedinių augalų katalogas",
+        "hr": "Katalog cvjetnica",
+        "sl": "Katalog cvetnic",
     },
     "about_why_p1": {
         "en": "Search and read here. Identify by color, habitat, petal type, and world region — on this site or in the app.",
@@ -1630,6 +1646,8 @@ NEW = {
         "et": "Otsige ja lugege siin. Määrake värvi, kasvukoha, õielehtede tüübi ja maailma piirkonna järgi — sellel veebisaidil või rakenduses.",
         "lv": "Meklējiet un lasiet šeit. Nosakiet pēc krāsas, dzīvotnes, vainaglapu tipa un pasaules reģiona — šajā tīmekļa vietnē vai lietotnē.",
         "lt": "Ieškokite ir skaitykite čia. Nustatykite pagal spalvą, buveinę, vainiklapių tipą ir pasaulio regioną — šioje svetainėje arba programėlėje.",
+        "hr": "Ovdje tražite i čitate. Određujete prema boji, staništu, tipu latica i regiji svijeta — na ovom web-mjestu ili u aplikaciji.",
+        "sl": "Tukaj iščete in berete. Določate po barvi, rastišču, tipu venca in območju sveta — na tem spletišču ali v aplikaciji.",
     },
     "about_why_p2": {
         "en": "Each species page is prepared by hand: photographs, a botanical plate on cream paper, and identification text rewritten from floras that actually cover the plant. Common names come from sources in that language. If none exist, the Latin name stands.",
@@ -1651,6 +1669,8 @@ NEW = {
         "et": "Iga liigileht valmistatakse käsitsi: fotod, botaaniline tahvel kreemjal paberil ja määramistekst, mis on ümber kirjutatud flooradest, mis taime tegelikult käsitlevad. Rahvapärased nimed tulevad selle keele allikatest. Kui nime pole, jääb ladinakeelne nimi.",
         "lv": "Katra sugas lapa tiek gatavota ar roku: fotogrāfijas, botāniska tabula uz krēmkrāsas papīra un noteikšanas teksts, kas pārrakstīts no florām, kuras augu tiešām apraksta. Tautas nosaukumi nāk no avotiem attiecīgajā valodā. Ja tādu nav, paliek latīniskais nosaukums.",
         "lt": "Kiekvienas rūšies puslapis rengiamas rankomis: nuotraukos, botaninė lenta kreminės spalvos popieriuje ir nustatymo tekstas, perrašytas iš florų, kurios iš tikrųjų aprašo augalą. Liaudiški pavadinimai ateina iš tos kalbos šaltinių. Jei jų nėra, lieka lotyniškas pavadinimas.",
+        "hr": "Svaka stranica vrste priprema se ručno: fotografije, botanička ploča na krem papiru i tekst za određivanje prepisan iz flora koje tu biljku stvarno opisuju. Narodno ime dolazi iz izvora na tom jeziku. Ako ga nema, ostaje latinsko ime.",
+        "sl": "Vsaka stran vrste se pripravi ročno: fotografije, botanična tabla na kremnem papirju in določevalno besedilo, prepisano iz flor, ki rastlino dejansko obravnavajo. Ljudsko ime pride iz vira v tem jeziku. Če ga ni, ostane latinsko ime.",
     },
     "about_why_p3": {
         "en": "This is a curated collection of flowering plants, not a flora of the world.",
@@ -1672,6 +1692,8 @@ NEW = {
         "et": "See on valitud õistaimede kogu, mitte kogu maailma floora.",
         "lv": "Šī ir atlasīta ziedaugu kolekcija, nevis visas pasaules flora.",
         "lt": "Tai atrinkta žiedinių augalų kolekcija, ne viso pasaulio flora.",
+        "hr": "Ovo je pomno sastavljena zbirka cvjetnica, a ne flora cijeloga svijeta.",
+        "sl": "To je skrbno izbrana zbirka cvetnic, ne flora celega sveta.",
     },
     "about_how_title": {
         "en": "How a species page is made",
@@ -1693,6 +1715,8 @@ NEW = {
         "et": "Kuidas liigileht valmib",
         "lv": "Kā top sugas lapa",
         "lt": "Kaip rengiamas rūšies puslapis",
+        "hr": "Kako nastaje stranica vrste",
+        "sl": "Kako nastane stran vrste",
     },
     "about_how_lede": {
         "en": "Plate, photographs, sourced text, and a distribution map.",
@@ -1714,6 +1738,8 @@ NEW = {
         "et": "Tahvel, fotod, allikatega tekst ja levikukaart.",
         "lv": "Tabula, fotogrāfijas, teksts no avotiem un izplatības karte.",
         "lt": "Lenta, nuotraukos, tekstas iš šaltinių ir paplitimo žemėlapis.",
+        "hr": "Ploča, fotografije, tekst iz izvora i karta rasprostranjenosti.",
+        "sl": "Tabla, fotografije, besedilo iz virov in zemljevid razširjenosti.",
     },
     "about_tile_plate_t": {
         "en": "One official plate", "sk": "Jedna oficiálna tabuľa", "cs": "Jedna oficiální tabule",
@@ -1731,6 +1757,8 @@ NEW = {
         "et": "Üks ametlik tahvel",
         "lv": "Viena oficiāla tabula",
         "lt": "Viena oficiali lenta",
+        "hr": "Jedna službena ploča",
+        "sl": "Ena uradna tabla",
     },
     "about_tile_plate_d": {
         "en": "A botanical plate on cream paper, from a historic original or colorized. Plates come from botanicalillustrations.org.",
@@ -1752,6 +1780,8 @@ NEW = {
         "et": "Botaaniline tahvel kreemjal paberil, ajaloolisest originaalist või koloreeritud. Tahvlid pärinevad saidilt botanicalillustrations.org.",
         "lv": "Botāniska tabula uz krēmkrāsas papīra, pēc vēsturiska oriģināla vai kolorēta. Tabulas nāk no botanicalillustrations.org.",
         "lt": "Botaninė lenta kreminės spalvos popieriuje, iš istorinio originalo arba spalvinta. Lentos ateina iš botanicalillustrations.org.",
+        "hr": "Botanička ploča na krem papiru, prema povijesnom originalu ili obojena. Ploče dolaze s botanicalillustrations.org.",
+        "sl": "Botanična tabla na kremnem papirju, po zgodovinskem izvirniku ali pobarvana. Table prihajajo z botanicalillustrations.org.",
     },
     "about_tile_photo_t": {
         "en": "Curated photographs", "sk": "Vybrané fotografie", "cs": "Vybrané fotografie",
@@ -1769,6 +1799,8 @@ NEW = {
         "et": "Valitud fotod",
         "lv": "Atlasītas fotogrāfijas",
         "lt": "Atrinktos nuotraukos",
+        "hr": "Odabrane fotografije",
+        "sl": "Izbrane fotografije",
     },
     "about_tile_photo_d": {
         "en": "Field photos prepared for the catalog, distinct from public sightings on the species page.",
@@ -1790,6 +1822,8 @@ NEW = {
         "et": "Kataloogi jaoks valmistatud välifotod, eraldi liigilehe avalikest vaatlustest.",
         "lv": "Katalogam sagatavotas lauka fotogrāfijas, atšķirīgas no publiskajiem novērojumiem sugas lapā.",
         "lt": "Katalogui parengtos lauko nuotraukos, atskiros nuo viešų stebėjimų rūšies puslapyje.",
+        "hr": "Terenske fotografije pripremljene za katalog, odvojene od javnih opažanja na stranici vrste.",
+        "sl": "Terenske fotografije, pripravljene za katalog, ločene od javnih opažanj na strani vrste.",
     },
     "about_tile_text_t": {
         "en": "Seven written fields", "sk": "Sedem písaných polí", "cs": "Sedm psaných polí",
@@ -1807,6 +1841,8 @@ NEW = {
         "et": "Seitse kirjutatud välja",
         "lv": "Septiņi rakstīti lauki",
         "lt": "Septyni rašytiniai laukai",
+        "hr": "Sedam pisanih polja",
+        "sl": "Sedem zapisanih polj",
     },
     "about_tile_text_d": {
         "en": "Description, flower, inflorescence, fruit, leaf, stem, habitat — plus toxicity, uses, and trivia when sourced.",
@@ -1828,6 +1864,8 @@ NEW = {
         "et": "Kirjeldus, õis, õisik, vili, leht, vars, kasvukoht — ning mürgisus, kasutus ja huvitavat, kui on allikas.",
         "lv": "Apraksts, zieds, ziedkopa, auglis, lapa, stublājs, dzīvotne — plus toksiskums, lietojums un piezīmes, kad ir avots.",
         "lt": "Aprašymas, žiedas, žiedynas, vaisius, lapas, stiebas, buveinė — taip pat toksiškumas, naudojimas ir įdomybės, kai yra šaltinis.",
+        "hr": "Opis, cvijet, cvat, plod, list, stabljika, stanište — te otrovnost, uporaba i zanimljivosti, kad za njih postoji izvor.",
+        "sl": "Opis, cvet, socvetje, plod, list, steblo, rastišče — ter strupenost, raba in zanimivosti, kadar zanje obstaja vir.",
     },
     "about_tile_map_t": {
         "en": "Native and introduced", "sk": "Pôvodné a zavlečené", "cs": "Původní a zavlečené",
@@ -1845,6 +1883,8 @@ NEW = {
         "et": "Pärismaine ja sissetoodud",
         "lv": "Vietējais un ievazātais",
         "lt": "Savaiminis ir įvežtinis",
+        "hr": "Domaći i unesen",
+        "sl": "Domač in vnesen",
     },
     "about_tile_map_d": {
         "en": "World distribution from the World Checklist of Vascular Plants. Olive native, terracotta introduced.",
@@ -1866,6 +1906,8 @@ NEW = {
         "et": "Maailma levik World Checklist of Vascular Plantsi järgi. Oliivroheline pärismaine, terrakota sissetoodud.",
         "lv": "Pasaules izplatība pēc World Checklist of Vascular Plants. Olīvzaļš vietējais, terakota ievazātais.",
         "lt": "Pasaulinis paplitimas pagal World Checklist of Vascular Plants. Olivinė — savaiminis, terakota — įvežtinis.",
+        "hr": "Svjetska rasprostranjenost prema World Checklist of Vascular Plants. Maslinastozeleno: domaće; terakota: uneseno.",
+        "sl": "Svetovna razširjenost po World Checklist of Vascular Plants. Olivnozeleno: domače; terakota: vneseno.",
     },
     "about_langs_title": {
         "en": "Languages", "sk": "Jazyky", "cs": "Jazyky", "de": "Sprachen",
@@ -1883,6 +1925,8 @@ NEW = {
         "et": "Keeled",
         "lv": "Valodas",
         "lt": "Kalbos",
+        "hr": "Jezici",
+        "sl": "Jeziki",
     },
     "about_langs_lede": {
         "en": "The app and the website are in {n} languages. Identification text is written in each of them. Common names are never invented.",
@@ -1906,6 +1950,8 @@ NEW = {
         "et": "Rakendus ja veebisait on {n} keeles. Määramistekst on kirjutatud igas neist. Rahvapäraseid nimesid ei leiutata.",
         "lv": "Lietotne un tīmekļa vietne ir {n} valodās. Noteikšanas teksts ir uzrakstīts katrā no tām. Tautas nosaukumus neizdomā.",
         "lt": "Programėlė ir svetainė yra {n} kalbomis. Identifikavimo tekstas parašytas kiekviena iš jų. Liaudiški pavadinimai neišgalvojami.",
+        "hr": "Aplikacija i web-mjesto dostupni su na {n} jezika. Tekst za određivanje napisan je na svakom od njih. Narodna imena se ne izmišljaju.",
+        "sl": "Aplikacija in spletno mesto sta v {n} jezikih. Določevalno besedilo je napisano v vsakem od njih. Ljudskih imen se ne izmišlja.",
     },
     "about_names_k": {
         "en": "Names", "sk": "Názvy", "cs": "Jména", "de": "Namen",
@@ -1922,6 +1968,8 @@ NEW = {
         "et": "Nimed",
         "lv": "Nosaukumi",
         "lt": "Pavadinimai",
+        "hr": "Imena",
+        "sl": "Imena",
     },
     "about_names_note": {
         "en": "A vernacular label is used only when a source in that language has it — Wikidata, that Wikipedia, EPPO, GBIF, or a flora. Otherwise the page shows the Latin name.",
@@ -1943,6 +1991,8 @@ NEW = {
         "et": "Rahvapärast nime kasutatakse ainult siis, kui selle keele allikas selle annab — Wikidata, selle keele Vikipeedia, EPPO, GBIF või floora. Muidu näitab leht ladinakeelset nime.",
         "lv": "Tautas nosaukumu lieto tikai tad, ja avots attiecīgajā valodā to dod — Wikidata, Vikipēdija šajā valodā, EPPO, GBIF vai flora. Citādi lapa rāda latīnisko nosaukumu.",
         "lt": "Liaudiškas pavadinimas naudojamas tik tada, kai jį turi tos kalbos šaltinis — Wikidata, tos kalbos Vikipedija, EPPO, GBIF arba flora. Kitaip puslapis rodo lotynišką pavadinimą.",
+        "hr": "Narodno ime upotrebljava se samo ako ga ima izvor na tom jeziku — Wikidata, Wikipedija na tom jeziku, EPPO, GBIF ili flora. Inače stranica pokazuje latinsko ime.",
+        "sl": "Ljudsko ime se uporabi samo, kadar ga ima vir v tem jeziku — Wikidata, Wikipedija v tem jeziku, EPPO, GBIF ali flora. Sicer stran pokaže latinsko ime.",
     },
     "about_sources_intro": {
         "en": "Each species page lists the pages actually used. The catalog does not invent facts from an unused flora.",
@@ -1964,6 +2014,8 @@ NEW = {
         "et": "Iga liigileht loetleb tegelikult kasutatud lehed. Kataloog ei leiuta fakte kasutamata floorast.",
         "lv": "Katra sugas lapa uzskaita lapas, kas tiešām izmantotas. Katalogs neizdomā faktus no neizmantotas floras.",
         "lt": "Kiekvienas rūšies puslapis nurodo puslapius, kurie iš tikrųjų panaudoti. Katalogas neišgalvoja faktų iš nenaudotos floros.",
+        "hr": "Svaka stranica vrste navodi stranice koje su stvarno korištene. Katalog ne izmišlja činjenice iz flore koja biljku ne opisuje.",
+        "sl": "Vsaka stran vrste navede strani, ki so bile dejansko uporabljene. Katalog ne izmišlja dejstev iz flore, ki rastline ne obravnava.",
     },
     "about_src_wcvp_sub": {
         "en": "Accepted name and range",
@@ -1985,6 +2037,8 @@ NEW = {
         "et": "Aktsepteeritud nimi ja levila",
         "lv": "Pieņemtais nosaukums un areāls",
         "lt": "Priimtas pavadinimas ir arealas",
+        "hr": "Prihvaćeno ime i areal",
+        "sl": "Sprejeto ime in areal",
     },
     "about_src_wikidata_sub": {
         "en": "Labels, aliases, crosswalk ids",
@@ -2006,6 +2060,8 @@ NEW = {
         "et": "Nimetused, aliasnimed, seosed",
         "lv": "Etiķetes, aizstājvārdi, identifikatori",
         "lt": "Etiketės, sinonimai, identifikatoriai",
+        "hr": "Oznake, aliasi, poveznice",
+        "sl": "Oznake, vzdevki, povezave",
     },
     "about_src_floras": {
         "en": "Regional floras cited on the species page",
@@ -2027,6 +2083,8 @@ NEW = {
         "et": "Liigilehel viidatud piirkondlikud floorad",
         "lv": "Reģionālās floras, kas norādītas sugas lapā",
         "lt": "Regioninės floros, nurodytos rūšies puslapyje",
+        "hr": "Regionalne flore navedene na stranici vrste",
+        "sl": "Regionalne flore, navedene na strani vrste",
     },
     "about_src_floras_sub": {
         "en": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias, and others when they cover the plant",
@@ -2048,6 +2106,8 @@ NEW = {
         "et": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias ja teised, kui nad taime käsitlevad",
         "lv": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias un citas, kad tās apraksta augu",
         "lt": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias ir kitos, kai jos aprašo augalą",
+        "hr": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias i druge, kad biljku stvarno opisuju",
+        "sl": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias in druge, kadar rastlino dejansko obravnavajo",
     },
     "about_src_photos": {
         "en": "Photographs taken for the catalog",
@@ -2069,6 +2129,8 @@ NEW = {
         "et": "Kataloogi jaoks tehtud fotod",
         "lv": "Katalogam uzņemtās fotogrāfijas",
         "lt": "Katalogui darytos nuotraukos",
+        "hr": "Fotografije snimljene za katalog",
+        "sl": "Fotografije, posnete za katalog",
     },
     "about_src_commons_sub": {
         "en": "Non-public-domain pictures are linked on the species page",
@@ -2090,6 +2152,8 @@ NEW = {
         "et": "Pildid, mis ei ole public domain, on liigilehel lingitud",
         "lv": "Attēli ārpus public domain ir saistīti sugas lapā",
         "lt": "Paveikslai, kurie nėra public domain, susieti rūšies puslapyje",
+        "hr": "Slike izvan javne domene povezane su na stranici vrste",
+        "sl": "Slike zunaj javne domene so povezane na strani vrste",
     },
     "about_src_plates": {
         "en": "Historic plates from botanicalillustrations.org",
@@ -2111,6 +2175,8 @@ NEW = {
         "et": "Ajaloolised tahvlid saidilt botanicalillustrations.org",
         "lv": "Vēsturiskas tabulas no botanicalillustrations.org",
         "lt": "Istorinės lentos iš botanicalillustrations.org",
+        "hr": "Povijesne ploče s botanicalillustrations.org",
+        "sl": "Zgodovinske table z botanicalillustrations.org",
     },
     "about_src_obs": {
         "en": "Public observations from the app",
@@ -2132,6 +2198,8 @@ NEW = {
         "et": "Avalikud vaatlused rakendusest",
         "lv": "Publiski novērojumi no lietotnes",
         "lt": "Vieši stebėjimai iš programėlės",
+        "hr": "Javna opažanja iz aplikacije",
+        "sl": "Javna opažanja iz aplikacije",
     },
     "about_src_obs_sub": {
         "en": "Reviewed before they appear",
@@ -2153,6 +2221,8 @@ NEW = {
         "et": "Enne ilmumist kontrollitud",
         "lv": "Pārbaudīti pirms parādīšanās",
         "lt": "Peržiūrimi prieš pasirodant",
+        "hr": "Pregledavaju se prije objave",
+        "sl": "Pregledana so, preden se pokažejo",
     },
     "about_thanks_title": {
         "en": "Thanks", "sk": "Poďakovanie", "cs": "Poděkování", "de": "Danksagung",
@@ -2169,6 +2239,8 @@ NEW = {
         "et": "Tänusõnad",
         "lv": "Pateicība",
         "lt": "Padėka",
+        "hr": "Zahvala",
+        "sl": "Zahvala",
     },
     "about_thanks_lede": {
         "en": "People who helped translate the app and the early catalog.",
@@ -2190,6 +2262,8 @@ NEW = {
         "et": "Inimesed, kes aitasid rakendust ja varast kataloogi tõlkida.",
         "lv": "Cilvēki, kuri palīdzēja tulkot lietotni un agrīno katalogu.",
         "lt": "Žmonės, padėję versti programėlę ir ankstyvąjį katalogą.",
+        "hr": "Ljudi koji su pomogli prevesti aplikaciju i rani katalog.",
+        "sl": "Ljudje, ki so pomagali prevesti aplikacijo in zgodnji katalog.",
     },
     "about_app_lede": {
         "en": "Color, habitat, petal type, and world region — here or in the app. Then open the matching plant. Offline photos and field notes are paid add-ons.",
@@ -2211,6 +2285,8 @@ NEW = {
         "et": "Värv, kasvukoht, õielehtede tüüp ja maailma piirkond — siin või rakenduses. Seejärel avage sobiv taim. Võrguühenduseta fotod ja väljamärkmed on tasulised lisad.",
         "lv": "Krāsa, dzīvotne, vainaglapu tips un pasaules reģions — šeit vai lietotnē. Pēc tam atveriet atbilstošo augu. Bezsaistes fotogrāfijas un lauka piezīmes ir maksas papildinājumi.",
         "lt": "Spalva, buveinė, vainiklapių tipas ir pasaulio regionas — čia arba programėlėje. Tada atidarykite tinkamą augalą. Neprisijungusios nuotraukos ir lauko užrašai yra mokami priedai.",
+        "hr": "Boja, stanište, tip latica i regija svijeta — ovdje ili u aplikaciji. Zatim otvorite odgovarajuću biljku. Fotografije izvan mreže i terenske bilješke plaćeni su dodaci.",
+        "sl": "Barva, rastišče, tip venca in območje sveta — tukaj ali v aplikaciji. Nato odprite ustrezno rastlino. Fotografije brez povezave in terenski zapiski so plačljivi dodatki.",
     },
     "about_identify_here": {
         "en": "Identify on this site",
@@ -2232,6 +2308,8 @@ NEW = {
         "et": "Määra sellel veebisaidil",
         "lv": "Noteikt šajā vietnē",
         "lt": "Nustatyti šioje svetainėje",
+        "hr": "Odredi na ovom web-mjestu",
+        "sl": "Določi na tem spletišču",
     },
     "about_contact": {
         "en": "Questions", "sk": "Otázky", "cs": "Otázky", "de": "Fragen",
@@ -2248,6 +2326,8 @@ NEW = {
         "et": "Küsimused",
         "lv": "Jautājumi",
         "lt": "Klausimai",
+        "hr": "Pitanja",
+        "sl": "Vprašanja",
     },
     "seo_home": {
         "en": "A plant encyclopedia with 19th-century botanical plates, field photographs, and public sightings.",
@@ -2265,6 +2345,8 @@ NEW = {
         "uk": "Енциклопедія рослин із ботанічними таблицями XIX століття, польовими фотографіями та публічними спостереженнями.",
         "hu": "Növényenciklopédia 19. századi botanikai táblákkal, terepfotókkal és nyilvános megfigyelésekkel.",
         "da": "En planteencyklopædi med botaniske tavler fra 1800-tallet, feltfotografier og offentlige observationer.",
+        "hr": "Enciklopedija biljaka s botaničkim pločama iz 19. stoljeća, terenskim fotografijama i javnim opažanjima.",
+        "sl": "Enciklopedija rastlin z botaničnimi tablami iz 19. stoletja, terenskimi fotografijami in javnimi opažanji.",
     },
     "seo_families": {
         "en": "Browse flowering-plant families in the encyclopedia.",
@@ -2282,6 +2364,8 @@ NEW = {
         "uk": "Огляд родин квіткових рослин в енциклопедії.",
         "hu": "Virágos növények családjainak böngészése az enciklopédiában.",
         "da": "Gennemse blomsterplanternes familier i encyklopædien.",
+        "hr": "Pregled porodica cvjetnica u enciklopediji.",
+        "sl": "Pregled družin cvetnic v enciklopediji.",
     },
     "seo_genera": {
         "en": "Browse flowering-plant genera in the encyclopedia.",
@@ -2299,6 +2383,8 @@ NEW = {
         "uk": "Огляд родів квіткових рослин в енциклопедії.",
         "hu": "Virágos növények nemzetségeinek böngészése az enciklopédiában.",
         "da": "Gennemse blomsterplanternes slægter i encyklopædien.",
+        "hr": "Pregled rodova cvjetnica u enciklopediji.",
+        "sl": "Pregled rodov cvetnic v enciklopediji.",
     },
     "seo_identify": {
         "en": "Identify a flower with the four-step key in the app.",
@@ -2316,6 +2402,8 @@ NEW = {
         "uk": "Визначте квітку за допомогою чотирикрокового ключа в застосунку.",
         "hu": "Határozzon meg egy virágot a négylépéses kulccsal az alkalmazásban.",
         "da": "Bestem en blomst med den firetrinsnøgle i appen.",
+        "hr": "Odredite cvijet četverostupanjskim ključem u aplikaciji.",
+        "sl": "Določite cvet s štiristopenjskim ključem v aplikaciji.",
     },
     "seo_about": {
         "en": "About the plant encyclopedia What's that flower?",
@@ -2339,6 +2427,8 @@ NEW = {
         "et": "Taimeentsüklopeediast Mis on see lill?",
         "lv": "Par augu enciklopēdiju Kas ir tas zieds?",
         "lt": "Apie augalų enciklopediją Kas yra ta gėlė?",
+        "hr": "O enciklopediji biljaka Što je taj cvijet?",
+        "sl": "O enciklopediji rastlin Kaj je ta cvet?",
     },
     "seo_help": {
         "en": "Help for What's that flower?",
@@ -2356,6 +2446,8 @@ NEW = {
         "uk": "Довідка для Що це за квітка?",
         "hu": "Súgó a Miféle virág is ez? enciklopédiához",
         "da": "Hjælp til Hvad er denne blomst?",
+        "hr": "Pomoć za Što je taj cvijet?",
+        "sl": "Pomoč za Kaj je ta cvet?",
     },
 }
 

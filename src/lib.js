@@ -57,7 +57,7 @@ export function countryName(code, lang) {
 export const SITE_ORIGIN = 'https://whatsthatflower.com';
 
 /** Languages with path prefixes and SEO shells. English is unprefixed. Keep in sync with scripts/generate_seo.js. */
-export const INDEXED_LANGS = ['en', 'sk', 'de', 'fr', 'cs', 'pl', 'ru', 'es', 'pt', 'ja', 'it', 'nl', 'uk', 'hu', 'da', 'sv', 'no', 'fi', 'et', 'lv', 'lt'];
+export const INDEXED_LANGS = ['en', 'sk', 'de', 'fr', 'cs', 'pl', 'ru', 'es', 'pt', 'ja', 'it', 'nl', 'uk', 'hu', 'da', 'sv', 'no', 'fi', 'et', 'lv', 'lt', 'hr', 'sl'];
 export const PATH_LANGS = INDEXED_LANGS.filter((code) => code !== 'en');
 
 const LANG_COOKIE = 'wtf-lang';
