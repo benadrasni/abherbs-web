@@ -20,7 +20,6 @@ const languages = {
     "nl":"Nederlands",
     "ja":"日本語",
     "no":"Norsk",
-    "pa":"ਪੰਜਾਬੀ",
     "pl":"Polski",
     "pt":"Português",
     "ro":"Română",

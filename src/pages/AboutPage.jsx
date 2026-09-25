@@ -19,7 +19,7 @@ const CREDITS = [
   { name: 'Dawid Zieliński', codes: ['pl'] },
   { name: 'Marco Schmidt, Chiara Naruli', codes: ['it'] },
   { name: 'Alex Metry', codes: ['ar'] },
-  { name: 'Swati Arora', codes: ['hi', 'pa'] },
+  { name: 'Swati Arora', codes: ['hi'] },
 ];
 
 export default function AboutPage({ lang, t, headers }) {

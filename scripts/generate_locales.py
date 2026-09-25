@@ -137,7 +137,7 @@ NEW = {
         "de": "Pflanzen", "nl": "Planten", "da": "Planter", "sv": "Växter", "no": "Planter",
         "fi": "Kasvit", "fr": "Plantes", "es": "Plantas", "it": "Piante", "pt": "Plantas",
         "ro": "Plante", "hu": "Növények", "et": "Taimed", "lv": "Augi", "lt": "Augalai",
-        "ja": "植物", "ko": "식물", "zh": "植物", "hi": "पौधे", "pa": "ਪੌਦੇ",
+        "ja": "植物", "ko": "식물", "zh": "植物", "hi": "पौधे",
         "ar": "النباتات", "fa": "گیاهان", "he": "צמחים",
     },
     "identify": {
@@ -146,7 +146,7 @@ NEW = {
         "de": "Bestimmen", "nl": "Identificeren", "da": "Identificer", "sv": "Identifiera", "no": "Identifiser",
         "fi": "Tunnista", "fr": "Identifier", "es": "Identificar", "it": "Identifica", "pt": "Identificar",
         "ro": "Identifică", "hu": "Azonosítás", "et": "Määra", "lv": "Noteikt", "lt": "Nustatyti",
-        "ja": "識別", "ko": "식별", "zh": "辨識", "hi": "पहचानें", "pa": "ਪਛਾਣੋ",
+        "ja": "識別", "ko": "식별", "zh": "辨識", "hi": "पहचानें",
         "ar": "تعرّف", "fa": "شناسایی", "he": "זיהוי",
     },
     "language": {
@@ -155,7 +155,7 @@ NEW = {
         "de": "Sprache", "nl": "Taal", "da": "Sprog", "sv": "Språk", "no": "Språk",
         "fi": "Kieli", "fr": "Langue", "es": "Idioma", "it": "Lingua", "pt": "Idioma",
         "ro": "Limbă", "hu": "Nyelv", "et": "Keel", "lv": "Valoda", "lt": "Kalba",
-        "ja": "言語", "ko": "언어", "zh": "語言", "hi": "भाषा", "pa": "ਭਾਸ਼ਾ",
+        "ja": "言語", "ko": "언어", "zh": "語言", "hi": "भाषा",
         "ar": "اللغة", "fa": "زبان", "he": "שפה",
     },
     "search_placeholder": {
@@ -188,7 +188,6 @@ NEW = {
         "ko": "이름, 과, 학명 검색",
         "zh": "搜尋名稱、科、拉丁名",
         "hi": "नाम, कुल, लैटिन खोजें",
-        "pa": "ਨਾਮ, ਪਰਿਵਾਰ, ਲਾਤੀਨੀ ਖੋਜੋ",
         "ar": "ابحث عن الأسماء والعائلات واللاتينية",
         "fa": "جستجوی نام، تیره، لاتین",
         "he": "חיפוש שמות, משפחות, לטינית",
@@ -223,7 +222,6 @@ NEW = {
         "ko": "검색과 일치하는 식물이 없습니다.",
         "zh": "沒有符合此搜尋的植物。",
         "hi": "इस खोज से कोई पौधा नहीं मिला।",
-        "pa": "ਇਸ ਖੋਜ ਨਾਲ ਕੋਈ ਪੌਦਾ ਨਹੀਂ ਮਿਲਿਆ।",
         "ar": "لا توجد نباتات تطابق هذا البحث.",
         "fa": "هیچ گیاهی با این جستجو مطابقت ندارد.",
         "he": "אין צמחים התואמים לחיפוש.",
@@ -236,7 +234,7 @@ NEW = {
         "fr": "{n} plante", "es": "{n} planta", "it": "{n} pianta", "pt": "{n} planta",
         "ro": "{n} plantă", "hu": "{n} növény", "et": "{n} taim", "lv": "{n} augs",
         "lt": "{n} augalas", "ja": "{n} 植物", "ko": "식물 {n}종", "zh": "{n} 種植物",
-        "hi": "{n} पौधा", "pa": "{n} ਪੌਦਾ", "ar": "{n} نبات", "fa": "{n} گیاه",
+        "hi": "{n} पौधा", "ar": "{n} نبات", "fa": "{n} گیاه",
         "he": "צמח אחד",
     },
     "plants_count_two": {
@@ -259,7 +257,7 @@ NEW = {
         "fr": "{n} plantes", "es": "{n} plantas", "it": "{n} piante", "pt": "{n} plantas",
         "ro": "{n} plante", "hu": "{n} növény", "et": "{n} taime", "lv": "{n} augi",
         "lt": "{n} augalų", "ja": "{n} 植物", "ko": "식물 {n}종", "zh": "{n} 種植物",
-        "hi": "{n} पौधे", "pa": "{n} ਪੌਦੇ", "ar": "{n} نباتات", "fa": "{n} گیاه",
+        "hi": "{n} पौधे", "ar": "{n} نباتات", "fa": "{n} گیاه",
         "he": "{n} צמחים",
     },
     "from_collection": {
@@ -270,7 +268,7 @@ NEW = {
         "fr": "Dans la collection", "es": "De la colección", "it": "Dalla collezione", "pt": "Da coleção",
         "ro": "Din colecție", "hu": "A gyűjteményből", "et": "Kogust", "lv": "No kolekcijas",
         "lt": "Iš rinkinio", "ja": "コレクションより", "ko": "컬렉션에서", "zh": "館藏精選",
-        "hi": "संग्रह से", "pa": "ਸੰਗ੍ਰਹਿ ਤੋਂ", "ar": "من المجموعة", "fa": "از مجموعه",
+        "hi": "संग्रह से", "ar": "من المجموعة", "fa": "از مجموعه",
         "he": "מהאוסף",
     },
     "recently_added": {
@@ -282,7 +280,7 @@ NEW = {
         "es": "Añadidos recientemente", "it": "Aggiunti di recente", "pt": "Adicionados recentemente",
         "ro": "Adăugate recent", "hu": "Nemrég hozzáadva", "et": "Hiljuti lisatud",
         "lv": "Nesen pievienoti", "lt": "Neseniai pridėti", "ja": "最近追加", "ko": "최근 추가",
-        "zh": "最近新增", "hi": "हाल ही में जोड़े गए", "pa": "ਹਾਲ ਹੀ ਵਿੱਚ ਜੋੜੇ",
+        "zh": "最近新增", "hi": "हाल ही में जोड़े गए",
         "ar": "أضيفت مؤخرًا", "fa": "به‌تازگی افزوده", "he": "נוספו לאחרונה",
     },
     "today": {
@@ -291,7 +289,7 @@ NEW = {
         "nl": "Vandaag", "da": "I dag", "sv": "Idag", "no": "I dag", "fi": "Tänään",
         "fr": "Aujourd’hui", "es": "Hoy", "it": "Oggi", "pt": "Hoje", "ro": "Azi",
         "hu": "Ma", "et": "Täna", "lv": "Šodien", "lt": "Šiandien", "ja": "今日",
-        "ko": "오늘", "zh": "今天", "hi": "आज", "pa": "ਅੱਜ", "ar": "اليوم", "fa": "امروز",
+        "ko": "오늘", "zh": "今天", "hi": "आज", "ar": "اليوم", "fa": "امروز",
         "he": "היום",
     },
     "yesterday": {
@@ -300,7 +298,7 @@ NEW = {
         "nl": "Gisteren", "da": "I går", "sv": "Igår", "no": "I går", "fi": "Eilen",
         "fr": "Hier", "es": "Ayer", "it": "Ieri", "pt": "Ontem", "ro": "Ieri",
         "hu": "Tegnap", "et": "Eile", "lv": "Vakar", "lt": "Vakar", "ja": "昨日",
-        "ko": "어제", "zh": "昨天", "hi": "कल", "pa": "ਕੱਲ੍ਹ", "ar": "أمس", "fa": "دیروز",
+        "ko": "어제", "zh": "昨天", "hi": "कल", "ar": "أمس", "fa": "دیروز",
         "he": "אתמול",
     },
     "see_all": {
@@ -311,7 +309,7 @@ NEW = {
         "fr": "Toutes les familles", "es": "Todas las familias", "it": "Tutte le famiglie",
         "pt": "Todas as famílias", "ro": "Toate familiile", "hu": "Minden család", "et": "Kõik sugukonnad",
         "lv": "Visas dzimtas", "lt": "Visos šeimos", "ja": "すべての科", "ko": "모든 과", "zh": "所有科",
-        "hi": "सभी कुल", "pa": "ਸਾਰੇ ਪਰਿਵਾਰ", "ar": "كل العائلات", "fa": "همه تیره‌ها", "he": "כל המשפחות",
+        "hi": "सभी कुल", "ar": "كل العائلات", "fa": "همه تیره‌ها", "he": "כל המשפחות",
     },
     "browse": {
         "en": "Browse", "sk": "Listovať", "cs": "Procházet", "sl": "Prebrskaj", "hr": "Pregledaj",
@@ -319,7 +317,7 @@ NEW = {
         "de": "Stöbern", "nl": "Bladeren", "da": "Gennemse", "sv": "Bläddra", "no": "Bla",
         "fi": "Selaa", "fr": "Parcourir", "es": "Explorar", "it": "Sfoglia", "pt": "Explorar",
         "ro": "Răsfoiește", "hu": "Böngészés", "et": "Sirvi", "lv": "Pārlūkot", "lt": "Naršyti",
-        "ja": "見る", "ko": "둘러보기", "zh": "瀏覽", "hi": "ब्राउज़ करें", "pa": "ਵੇਖੋ",
+        "ja": "見る", "ko": "둘러보기", "zh": "瀏覽", "hi": "ब्राउज़ करें",
         "ar": "تصفح", "fa": "مرور", "he": "עיון",
     },
     "by_family": {
@@ -329,8 +327,7 @@ NEW = {
         "da": "Efter familie", "sv": "Efter familj", "no": "Etter familie", "fi": "Heimon mukaan",
         "fr": "Par famille", "es": "Por familia", "it": "Per famiglia", "pt": "Por família",
         "ro": "După familie", "hu": "Család szerint", "et": "Sugukonna järgi", "lv": "Pēc dzimtas",
-        "lt": "Pagal šeimą", "ja": "科別", "ko": "과별", "zh": "依科", "hi": "कुल के अनुसार",
-        "pa": "ਪਰਿਵਾਰ ਅਨੁਸਾਰ", "ar": "حسب العائلة", "fa": "بر اساس تیره", "he": "לפי משפחה",
+        "lt": "Pagal šeimą", "ja": "科別", "ko": "과별", "zh": "依科", "hi": "कुल के अनुसार", "ar": "حسب العائلة", "fa": "بر اساس تیره", "he": "לפי משפחה",
     },
     "by_genus": {
         "en": "By genus", "sk": "Podľa rodu", "cs": "Podle rodu", "sl": "Po rodu",
@@ -339,8 +336,7 @@ NEW = {
         "da": "Efter slægt", "sv": "Efter släkte", "no": "Etter slekt", "fi": "Suvun mukaan",
         "fr": "Par genre", "es": "Por género", "it": "Per genere", "pt": "Por género",
         "ro": "După gen", "hu": "Nemzetség szerint", "et": "Perekonna järgi", "lv": "Pēc ģints",
-        "lt": "Pagal gentį", "ja": "属別", "ko": "속별", "zh": "依屬", "hi": "वंश के अनुसार",
-        "pa": "ਵੰਸ਼ ਅਨੁਸਾਰ", "ar": "حسب الجنس", "fa": "بر اساس سرده", "he": "לפי סוג",
+        "lt": "Pagal gentį", "ja": "属別", "ko": "속별", "zh": "依屬", "hi": "वंश के अनुसार", "ar": "حسب الجنس", "fa": "بر اساس سرده", "he": "לפי סוג",
     },
     "see_all_genera": {
         "en": "See all genera", "sk": "Všetky rody", "cs": "Všechny rody", "sl": "Vsi rodovi",
@@ -350,8 +346,7 @@ NEW = {
         "fr": "Tous les genres", "es": "Todos los géneros", "it": "Tutti i generi",
         "pt": "Todos os géneros", "ro": "Toate genurile", "hu": "Minden nemzetség",
         "et": "Kõik perekonnad", "lv": "Visas ģintis", "lt": "Visos gentys",
-        "ja": "すべての属", "ko": "모든 속", "zh": "所有屬", "hi": "सभी वंश",
-        "pa": "ਸਾਰੇ ਵੰਸ਼", "ar": "كل الأجناس", "fa": "همه سرده‌ها", "he": "כל הסוגים",
+        "ja": "すべての属", "ko": "모든 속", "zh": "所有屬", "hi": "सभी वंश", "ar": "كل الأجناس", "fa": "همه سرده‌ها", "he": "כל הסוגים",
     },
     "genera": {
         "en": "Genera", "sk": "Rody", "cs": "Rody", "sl": "Rodovi", "hr": "Rodovi",
@@ -359,7 +354,7 @@ NEW = {
         "de": "Gattungen", "nl": "Geslachten", "da": "Slægter", "sv": "Släkten", "no": "Slekter",
         "fi": "Suvut", "fr": "Genres", "es": "Géneros", "it": "Generi", "pt": "Géneros",
         "ro": "Genuri", "hu": "Nemzetségek", "et": "Perekonnad", "lv": "Ģintis", "lt": "Gentys",
-        "ja": "属", "ko": "속", "zh": "屬", "hi": "वंश", "pa": "ਵੰਸ਼",
+        "ja": "属", "ko": "속", "zh": "屬", "hi": "वंश",
         "ar": "الأجناس", "fa": "سرده‌ها", "he": "סוגים",
     },
     "families": {
@@ -368,7 +363,7 @@ NEW = {
         "de": "Familien", "nl": "Families", "da": "Familier", "sv": "Familjer", "no": "Familier",
         "fi": "Heimot", "fr": "Familles", "es": "Familias", "it": "Famiglie", "pt": "Famílias",
         "ro": "Familii", "hu": "Családok", "et": "Sugukonnad", "lv": "Dzimtas", "lt": "Šeimos",
-        "ja": "科", "ko": "과", "zh": "科", "hi": "कुल", "pa": "ਪਰਿਵਾਰ",
+        "ja": "科", "ko": "과", "zh": "科", "hi": "कुल",
         "ar": "العائلات", "fa": "تیره‌ها", "he": "משפחות",
     },
     "family_lede": {
@@ -401,7 +396,6 @@ NEW = {
         "ko": "이 과의 식물.",
         "zh": "本科的植物。",
         "hi": "इस कुल के पौधे।",
-        "pa": "ਇਸ ਪਰਿਵਾਰ ਦੇ ਪੌਦੇ।",
         "ar": "نباتات هذه العائلة.",
         "fa": "گیاهان این تیره.",
         "he": "צמחים במשפחה זו.",
@@ -436,7 +430,6 @@ NEW = {
         "ko": "이 속의 종.",
         "zh": "本屬的物種。",
         "hi": "इस वंश की जातियाँ।",
-        "pa": "ਇਸ ਜੀਨਸ ਦੀਆਂ ਕਿਸਮਾਂ।",
         "ar": "أنواع هذا الجنس.",
         "fa": "گونه‌های این سرده.",
         "he": "מינים בסוג זה.",
@@ -471,7 +464,6 @@ NEW = {
         "ko": "이 목록의 식물.",
         "zh": "此清單中的植物。",
         "hi": "इस सूची के पौधे।",
-        "pa": "ਇਸ ਸੂਚੀ ਦੇ ਪੌਦੇ।",
         "ar": "نباتات هذه القائمة.",
         "fa": "گیاهان این فهرست.",
         "he": "צמחים ברשימה זו.",
@@ -506,7 +498,6 @@ NEW = {
         "ko": "이 목록에 식물이 아직 없습니다.",
         "zh": "此清單裡還沒有植物。",
         "hi": "इस सूची में अभी पौधे नहीं हैं।",
-        "pa": "ਇਸ ਸੂਚੀ ਵਿੱਚ ਹਾਲੇ ਪੌਦੇ ਨਹੀਂ ਹਨ।",
         "ar": "لا توجد نباتات في هذه القائمة بعد.",
         "fa": "هنوز گیاهی در این فهرست نیست.",
         "he": "אין עדיין צמחים ברשימה זו.",
@@ -541,7 +532,6 @@ NEW = {
         "ko": "이 이름의 식물이 아직 도감에 없습니다.",
         "zh": "圖鑑裡還沒有這個名稱的植物。",
         "hi": "इस नाम के पौधे अभी सूची में नहीं हैं।",
-        "pa": "ਇਸ ਨਾਮ ਦੇ ਪੌਦੇ ਹਾਲੇ ਸੂਚੀ ਵਿੱਚ ਨਹੀਂ ਹਨ।",
         "ar": "لا توجد نباتات بهذا الاسم في الدليل بعد.",
         "fa": "هنوز گیاهی با این نام در فهرست نیست.",
         "he": "אין עדיין צמחים בשם זה בקטלוג.",
@@ -554,7 +544,7 @@ NEW = {
         "fr": "Illustration", "es": "Ilustración", "it": "Illustrazione", "pt": "Ilustração",
         "ro": "Ilustrație", "hu": "Illusztráció", "et": "Illustratsioon", "lv": "Ilustrācija",
         "lt": "Iliustracija", "ja": "図版", "ko": "도판", "zh": "圖版",
-        "hi": "चित्र", "pa": "ਚਿੱਤਰ", "ar": "رسم", "fa": "تصویر", "he": "איור",
+        "hi": "चित्र", "ar": "رسم", "fa": "تصویر", "he": "איור",
     },
     "plate_alt": {
         "en": "{name}",
@@ -566,7 +556,7 @@ NEW = {
         "no": "Også kalt", "fi": "Myös", "fr": "Aussi appelée", "es": "También llamada",
         "it": "Detta anche", "pt": "Também chamada", "ro": "Numită și", "hu": "Más néven",
         "et": "Ka", "lv": "Sauc arī", "lt": "Dar vadinama", "ja": "別名", "ko": "다른 이름",
-        "zh": "又名", "hi": "अन्य नाम", "pa": "ਹੋਰ ਨਾਮ", "ar": "تُدعى أيضاً", "fa": "نام‌های دیگر",
+        "zh": "又名", "hi": "अन्य नाम", "ar": "تُدعى أيضاً", "fa": "نام‌های دیگر",
         "he": "נקראת גם",
     },
     "height": {
@@ -575,7 +565,7 @@ NEW = {
         "de": "Höhe", "nl": "Hoogte", "da": "Højde", "sv": "Höjd", "no": "Høyde",
         "fi": "Korkeus", "fr": "Hauteur", "es": "Altura", "it": "Altezza", "pt": "Altura",
         "ro": "Înălțime", "hu": "Magasság", "et": "Kõrgus", "lv": "Augstums", "lt": "Aukštis",
-        "ja": "高さ", "ko": "높이", "zh": "高度", "hi": "ऊँचाई", "pa": "ਉਚਾਈ",
+        "ja": "高さ", "ko": "높이", "zh": "高度", "hi": "ऊँचाई",
         "ar": "الارتفاع", "fa": "بلندی", "he": "גובה",
     },
     "flowering": {
@@ -584,7 +574,7 @@ NEW = {
         "de": "Blütezeit", "nl": "Bloeitijd", "da": "Blomstring", "sv": "Blomning", "no": "Blomstring",
         "fi": "Kukinta", "fr": "Floraison", "es": "Floración", "it": "Fioritura", "pt": "Floração",
         "ro": "Înflorire", "hu": "Virágzás", "et": "Õitsemine", "lv": "Ziedēšana", "lt": "Žydėjimas",
-        "ja": "開花", "ko": "개화", "zh": "花期", "hi": "फूलना", "pa": "ਖਿੜਨਾ",
+        "ja": "開花", "ko": "개화", "zh": "花期", "hi": "फूलना",
         "ar": "الإزهار", "fa": "گل‌دهی", "he": "פריחה",
     },
     "toxicity_none": {
@@ -595,7 +585,7 @@ NEW = {
         "fr": "Non indiquée", "es": "No registrada", "it": "Non segnalata", "pt": "Não registada",
         "ro": "Nespecificată", "hu": "Nincs adat", "et": "Märkimata", "lv": "Nav norādīta",
         "lt": "Nenurodyta", "ja": "記録なし", "ko": "기록 없음", "zh": "無紀錄",
-        "hi": "कोई रिकॉर्ड नहीं", "pa": "ਕੋਈ ਰਿਕਾਰਡ ਨਹੀਂ", "ar": "غير مسجّلة", "fa": "ثبت نشده",
+        "hi": "कोई रिकॉर्ड नहीं", "ar": "غير مسجّلة", "fa": "ثبت نشده",
         "he": "לא נרשמה",
     },
     "in_the_field": {
@@ -604,7 +594,7 @@ NEW = {
         "de": "Im Freiland", "nl": "In het veld", "da": "I felten", "sv": "I fält", "no": "I feltet",
         "fi": "Maastossa", "fr": "Sur le terrain", "es": "En el campo", "it": "In campo",
         "pt": "No campo", "ro": "În teren", "hu": "A terepen", "et": "Välitöödel", "lv": "Laukā",
-        "lt": "Lauke", "ja": "野外", "ko": "야외", "zh": "野外", "hi": "मैदान में", "pa": "ਖੇਤਰ ਵਿੱਚ",
+        "lt": "Lauke", "ja": "野外", "ko": "야외", "zh": "野外", "hi": "मैदान में",
         "ar": "في الحقل", "fa": "در طبیعت", "he": "בשטח",
     },
     "in_the_field_lede": {
@@ -637,7 +627,6 @@ NEW = {
         "ko": "이 종의 엄선된 사진입니다. 도판 및 아래 공개 관찰과는 다릅니다.",
         "zh": "本種精選照片。與圖版及下方公開目擊紀錄分開。",
         "hi": "इस जाति की चुनी तस्वीरें। चित्र और नीचे की सार्वजनिक टिप्पणियों से अलग।",
-        "pa": "ਇਸ ਕਿਸਮ ਦੀਆਂ ਚੁਣੀਆਂ ਤਸਵੀਰਾਂ। ਚਿੱਤਰ ਅਤੇ ਹੇਠਾਂ ਜਨਤਕ ਵੇਖਣ ਤੋਂ ਵੱਖ।",
         "ar": "صور مختارة لهذا النوع. منفصلة عن الرسم وعن المشاهدات العامة أدناه.",
         "fa": "عکس‌های برگزیدهٔ این گونه. جدا از تصویر و از دیده‌شدن‌های عمومی پایین.",
         "he": "צילומים נבחרים של המין. נפרדים מהאיור ומהתצפיות הציבוריות למטה.",
@@ -652,7 +641,7 @@ NEW = {
         "it": "Foto {i} di {n}", "pt": "Foto {i} de {n}", "ro": "Foto {i} din {n}",
         "hu": "{i}. / {n} fénykép", "et": "Foto {i}/{n}", "lv": "Foto {i} no {n}",
         "lt": "Nuotrauka {i} iš {n}", "ja": "写真 {i} / {n}", "ko": "사진 {i}/{n}", "zh": "照片 {i}/{n}",
-        "hi": "फ़ोटो {i}/{n}", "pa": "ਫੋਟੋ {i}/{n}", "ar": "صورة {i} من {n}", "fa": "عکس {i} از {n}",
+        "hi": "फ़ोटो {i}/{n}", "ar": "صورة {i} من {n}", "fa": "عکس {i} از {n}",
         "he": "תמונה {i} מתוך {n}",
     },
     "lightbox_prev": {
@@ -663,7 +652,7 @@ NEW = {
         "fr": "Précédent", "es": "Anterior", "it": "Precedente", "pt": "Anterior",
         "ro": "Anterior", "hu": "Előző", "et": "Eelmine", "lv": "Iepriekšējā",
         "lt": "Ankstesnė", "ja": "前へ", "ko": "이전", "zh": "上一張",
-        "hi": "पिछली", "pa": "ਪਿਛਲੀ", "ar": "السابق", "fa": "قبلی", "he": "הקודם",
+        "hi": "पिछली", "ar": "السابق", "fa": "قبلی", "he": "הקודם",
     },
     "lightbox_next": {
         "en": "Next", "sk": "Ďalšia", "cs": "Další", "sl": "Naslednja",
@@ -673,14 +662,14 @@ NEW = {
         "fr": "Suivant", "es": "Siguiente", "it": "Successivo", "pt": "Seguinte",
         "ro": "Următor", "hu": "Következő", "et": "Järgmine", "lv": "Nākamā",
         "lt": "Kita", "ja": "次へ", "ko": "다음", "zh": "下一張",
-        "hi": "अगली", "pa": "ਅਗਲੀ", "ar": "التالي", "fa": "بعدی", "he": "הבא",
+        "hi": "अगली", "ar": "التالي", "fa": "بعدی", "he": "הבא",
     },
     "video": {
         "en": "Video", "sk": "Video", "cs": "Video", "sl": "Video", "hr": "Video", "sr": "Видео",
         "pl": "Wideo", "ru": "Видео", "uk": "Відео", "bg": "Видео", "de": "Video", "nl": "Video",
         "da": "Video", "sv": "Video", "no": "Video", "fi": "Video", "fr": "Vidéo", "es": "Vídeo",
         "it": "Video", "pt": "Vídeo", "ro": "Video", "hu": "Videó", "et": "Video", "lv": "Video",
-        "lt": "Vaizdo įrašas", "ja": "動画", "ko": "동영상", "zh": "影片", "hi": "वीडियो", "pa": "ਵੀਡੀਓ",
+        "lt": "Vaizdo įrašas", "ja": "動画", "ko": "동영상", "zh": "影片", "hi": "वीडियो",
         "ar": "فيديو", "fa": "ویدیو", "he": "וידאו",
     },
     "classification_lede": {
@@ -713,7 +702,6 @@ NEW = {
         "ko": "과와 속은 식물 목록을 엽니다.",
         "zh": "科與屬會打開植物索引。",
         "hi": "कुल और वंश पौधे की सूची खोलते हैं।",
-        "pa": "ਪਰਿਵਾਰ ਅਤੇ ਜੀਨਸ ਪੌਦਿਆਂ ਦੀਆਂ ਸੂਚੀਆਂ ਖੋਲ੍ਹਦੇ ਹਨ।",
         "ar": "العائلة والجنس يفتحان فهارس النباتات.",
         "fa": "تیره و سرده نمایه‌های گیاه را می‌گشایند.",
         "he": "משפחה וסוג פותחים מפתחות צמחים.",
@@ -748,7 +736,6 @@ NEW = {
         "ko": "학명 기록, 본문에 쓴 페이지, 그림의 출처.",
         "zh": "學名紀錄、內文出處，以及圖片來源。",
         "hi": "नाम अभिलेख, पाठ के पृष्ठ, और चित्र कहाँ से आए।",
-        "pa": "ਨਾਮ ਰਿਕਾਰਡ, ਪਾਠ ਲਈ ਵਰਤੇ ਸਫ਼ੇ, ਅਤੇ ਤਸਵੀਰਾਂ ਦਾ ਸਰੋਤ।",
         "ar": "سجلات الاسم، الصفحات المستخدمة للنص، ومصدر الصور.",
         "fa": "رکوردهای نام، صفحه‌های متن، و خاستگاه تصویرها.",
         "he": "רשומות השם, הדפים ששימשו לטקסט, ומקור התמונות.",
@@ -758,7 +745,7 @@ NEW = {
         "pl": "Nazwa", "ru": "Имя", "uk": "Назва", "bg": "Име", "de": "Name", "nl": "Naam",
         "da": "Navn", "sv": "Namn", "no": "Navn", "fi": "Nimi", "fr": "Nom", "es": "Nombre",
         "it": "Nome", "pt": "Nome", "ro": "Nume", "hu": "Név", "et": "Nimi", "lv": "Nosaukums",
-        "lt": "Pavadinimas", "ja": "学名", "ko": "학명", "zh": "學名", "hi": "नाम", "pa": "ਨਾਮ",
+        "lt": "Pavadinimas", "ja": "学名", "ko": "학명", "zh": "學名", "hi": "नाम",
         "ar": "الاسم", "fa": "نام", "he": "שם",
     },
     "sources_text": {
@@ -766,7 +753,7 @@ NEW = {
         "pl": "Tekst", "ru": "Текст", "uk": "Текст", "bg": "Текст", "de": "Text", "nl": "Tekst",
         "da": "Tekst", "sv": "Text", "no": "Tekst", "fi": "Teksti", "fr": "Texte", "es": "Texto",
         "it": "Testo", "pt": "Texto", "ro": "Text", "hu": "Szöveg", "et": "Tekst", "lv": "Teksts",
-        "lt": "Tekstas", "ja": "本文", "ko": "본문", "zh": "內文", "hi": "पाठ", "pa": "ਪਾਠ",
+        "lt": "Tekstas", "ja": "本文", "ko": "본문", "zh": "內文", "hi": "पाठ",
         "ar": "النص", "fa": "متن", "he": "טקסט",
     },
     "sources_images": {
@@ -775,7 +762,7 @@ NEW = {
         "de": "Bilder", "nl": "Beelden", "da": "Billeder", "sv": "Bilder", "no": "Bilder",
         "fi": "Kuvat", "fr": "Images", "es": "Imágenes", "it": "Immagini", "pt": "Imagens",
         "ro": "Imagini", "hu": "Képek", "et": "Pildid", "lv": "Attēli", "lt": "Paveikslai",
-        "ja": "画像", "ko": "이미지", "zh": "圖片", "hi": "चित्र", "pa": "ਤਸਵੀਰਾਂ",
+        "ja": "画像", "ko": "이미지", "zh": "圖片", "hi": "चित्र",
         "ar": "الصور", "fa": "تصویرها", "he": "תמונות",
     },
     "sources_photographs": {
@@ -785,7 +772,7 @@ NEW = {
         "da": "fotografier", "sv": "fotografier", "no": "fotografier", "fi": "valokuvat",
         "fr": "photographies", "es": "fotografías", "it": "fotografie", "pt": "fotografias",
         "ro": "fotografii", "hu": "fényképek", "et": "fotod", "lv": "fotogrāfijas",
-        "lt": "nuotraukos", "ja": "写真", "ko": "사진", "zh": "照片", "hi": "फ़ोटो", "pa": "ਤਸਵੀਰਾਂ",
+        "lt": "nuotraukos", "ja": "写真", "ko": "사진", "zh": "照片", "hi": "फ़ोटो",
         "ar": "صور فوتوغرافية", "fa": "عکس‌ها", "he": "צילומים",
     },
     "sources_plate": {
@@ -794,7 +781,7 @@ NEW = {
         "nl": "plaat", "da": "planche", "sv": "plansche", "no": "plansje", "fi": "taulu",
         "fr": "planche", "es": "lámina", "it": "tavola", "pt": "prancha", "ro": "planșă",
         "hu": "tábla", "et": "tahvel", "lv": "tabula", "lt": "lenta", "ja": "図版", "ko": "도판",
-        "zh": "圖版", "hi": "पट्ट", "pa": "ਪਲੇਟ", "ar": "لوحة", "fa": "لوح", "he": "לוח",
+        "zh": "圖版", "hi": "पट्ट", "ar": "لوحة", "fa": "لوح", "he": "לוח",
     },
     "synonym": {
         "en": "Synonym", "sk": "Synonymum", "cs": "Synonymum", "sl": "Sinonima", "hr": "Sinonima",
@@ -802,7 +789,7 @@ NEW = {
         "de": "Synonym", "nl": "Synoniem", "da": "Synonym", "sv": "Synonym", "no": "Synonym",
         "fi": "Synonyymi", "fr": "Synonyme", "es": "Sinónimo", "it": "Sinonimo", "pt": "Sinónimo",
         "ro": "Sinonima", "hu": "Szinonima", "et": "Sünonüüm", "lv": "Sinonīms", "lt": "Sinonimаs",
-        "ja": "異名", "ko": "이명", "zh": "異名", "hi": "समानार्थी", "pa": "ਸਮਾਨਾਰਥੀ",
+        "ja": "異名", "ko": "이명", "zh": "異名", "hi": "समानार्थी",
         "ar": "مرادف", "fa": "مترادف", "he": "שם נרדף",
     },
     "synonyms": {
@@ -811,7 +798,7 @@ NEW = {
         "de": "Synonyme", "nl": "Synoniemen", "da": "Synonymer", "sv": "Synonymer", "no": "Synonymer",
         "fi": "Synonyymit", "fr": "Synonymes", "es": "Sinónimos", "it": "Sinonimi", "pt": "Sinónimos",
         "ro": "Sinonime", "hu": "Szinonimák", "et": "Sünonüümid", "lv": "Sinonīmi", "lt": "Sinonimai",
-        "ja": "異名", "ko": "이명", "zh": "異名", "hi": "समानार्थी", "pa": "ਸਮਾਨਾਰਥੀ",
+        "ja": "異名", "ko": "이명", "zh": "異名", "hi": "समानार्थी",
         "ar": "مرادفات", "fa": "مترادف‌ها", "he": "שמות נרדפים",
     },
     "more_names": {
@@ -822,7 +809,7 @@ NEW = {
         "fr": "{n} autres noms", "es": "{n} nombres más", "it": "altri {n} nomi", "pt": "mais {n} nomes",
         "ro": "încă {n} nume", "hu": "még {n} név", "et": "veel {n} nime", "lv": "vēl {n} nosaukumi",
         "lt": "dar {n} vardų", "ja": "ほか {n} 名", "ko": "이름 {n}개 더", "zh": "另有 {n} 個名稱",
-        "hi": "और {n} नाम", "pa": "ਹੋਰ {n} ਨਾਮ", "ar": "{n} أسماء أخرى", "fa": "{n} نام دیگر",
+        "hi": "और {n} नाम", "ar": "{n} أسماء أخرى", "fa": "{n} نام دیگر",
         "he": "עוד {n} שמות",
     },
     "distribution": {
@@ -832,7 +819,7 @@ NEW = {
         "da": "Udbredelse", "sv": "Utbredning", "no": "Utbredelse", "fi": "Levinneisyys",
         "fr": "Répartition", "es": "Distribución", "it": "Distribuzione", "pt": "Distribuição",
         "ro": "Răspândire", "hu": "Elterjedés", "et": "Levik", "lv": "Izplatība", "lt": "Paplitimas",
-        "ja": "分布", "ko": "분포", "zh": "分布", "hi": "वितरण", "pa": "ਵੰਡ",
+        "ja": "分布", "ko": "분포", "zh": "分布", "hi": "वितरण",
         "ar": "التوزيع", "fa": "پراکنش", "he": "תפוצה",
     },
     "distribution_alt": {
@@ -854,7 +841,7 @@ NEW = {
         "fr": "Indigène", "es": "Nativo", "it": "Nativo", "pt": "Nativo",
         "ro": "Nativ", "hu": "Őshonos", "et": "Pärismaine", "lv": "Vietējais",
         "lt": "Vietinis", "ja": "自生", "ko": "자생", "zh": "原生",
-        "hi": "मूल", "pa": "ਮੂਲ", "ar": "أصلي", "fa": "بومی", "he": "מקומי",
+        "hi": "मूल", "ar": "أصلي", "fa": "بومی", "he": "מקומי",
     },
     "distribution_introduced": {
         "en": "Introduced", "sk": "Zavlečený", "cs": "Zavlečený", "sl": "Vnesen",
@@ -864,7 +851,7 @@ NEW = {
         "fr": "Introduit", "es": "Introducido", "it": "Introdotto", "pt": "Introduzido",
         "ro": "Introdus", "hu": "Behurcolt", "et": "Sissetoodud", "lv": "Ievazāts",
         "lt": "Introdukuotas", "ja": "帰化", "ko": "도입", "zh": "引進",
-        "hi": "आयातित", "pa": "ਆਯਾਤ", "ar": "مُدخل", "fa": "واردشده", "he": "מובא",
+        "hi": "आयातित", "ar": "مُدخل", "fa": "واردشده", "he": "מובא",
     },
     "show_ranks": {
         "en": "Show all ranks", "sk": "Zobraziť všetky taxóny", "cs": "Zobrazit všechny úrovně",
@@ -876,7 +863,7 @@ NEW = {
         "pt": "Mostrar todos os níveis", "ro": "Arată toate rangurile", "hu": "Minden rang mutatása",
         "et": "Näita kõiki tasemeid", "lv": "Rādīt visus rangus", "lt": "Rodyti visus rangus",
         "ja": "すべての階級を表示", "ko": "모든 계급 보기", "zh": "顯示所有階級",
-        "hi": "सभी स्तर दिखाएँ", "pa": "ਸਾਰੇ ਪੱਧਰ ਵੇਖੋ", "ar": "إظهار كل الرتب", "fa": "نمایش همهٔ رتبه‌ها",
+        "hi": "सभी स्तर दिखाएँ", "ar": "إظهار كل الرتب", "fa": "نمایش همهٔ رتبه‌ها",
         "he": "הצג את כל הדרגות",
     },
     "seen_wild": {
@@ -889,7 +876,7 @@ NEW = {
         "pt": "Visto na natureza", "ro": "Văzut în natură", "hu": "A vadonban látva",
         "et": "Nähtud looduses", "lv": "Redzēts savvaļā", "lt": "Matyta gamtoje",
         "ja": "野外で観察", "ko": "야생에서 봄", "zh": "野外目擊",
-        "hi": "जंगल में देखा", "pa": "ਜੰਗਲ ਵਿੱਚ ਵੇਖਿਆ", "ar": "شوهد في البرية", "fa": "دیده‌شده در طبیعت",
+        "hi": "जंगल में देखा", "ar": "شوهد في البرية", "fa": "دیده‌شده در طبیعت",
         "he": "נצפה בטבע",
     },
     "seen_lede": {
@@ -922,7 +909,6 @@ NEW = {
         "ko": "공개 관찰만 표시합니다. 국가와 달이며 거리 핀이 아닙니다. 새 관찰은 앱에서 추가합니다.",
         "zh": "僅顯示公開觀察。國家與月份，不是街道定位。新紀錄在應用程式中新增。",
         "hi": "केवल सार्वजनिक अवलोकन। देश और महीना, सड़क पिन नहीं। नई टिप्पणियाँ ऐप में जोड़ें।",
-        "pa": "ਸਿਰਫ਼ ਜਨਤਕ ਨਿਰੀਖਣ। ਦੇਸ਼ ਅਤੇ ਮਹੀਨਾ, ਗਲੀ ਪਿੰਨ ਨਹੀਂ। ਨਵੀਆਂ ਰਿਕਾਰਡਾਂ ਐਪ ਵਿੱਚ ਜੋੜੋ।",
         "ar": "المشاهدات العامة فقط. البلد والشهر لا دبوس الشارع. تُضاف المشاهدات الجديدة في التطبيق.",
         "fa": "فقط مشاهده‌های عمومی. کشور و ماه، نه سنجاق خیابان. دیده‌شدن‌های تازه در برنامه افزوده می‌شوند.",
         "he": "תצפיות ציבוריות בלבד. מדינה וחודש, לא סיכת רחוב. תצפיות חדשות מתווספות באפליקציה.",
@@ -937,7 +923,7 @@ NEW = {
         "it": "1 segnalazione pubblica", "pt": "1 registo público", "ro": "1 înregistrare publică",
         "hu": "1 nyilvános bejegyzés", "et": "1 avalik kirje", "lv": "1 publisks ieraksts",
         "lt": "1 viešas įrašas", "ja": "公開記録 1 件", "ko": "공개 기록 1건", "zh": "1 筆公開紀錄",
-        "hi": "1 सार्वजनिक रिकॉर्ड", "pa": "1 ਜਨਤਕ ਰਿਕਾਰਡ", "ar": "سجل عام واحد", "fa": "۱ رکورد عمومی",
+        "hi": "1 सार्वजनिक रिकॉर्ड", "ar": "سجل عام واحد", "fa": "۱ رکورد عمومی",
         "he": "רשומה ציבורית אחת",
     },
     "public_records_other": {
@@ -950,7 +936,7 @@ NEW = {
         "it": "{n} segnalazioni pubbliche", "pt": "{n} registos públicos", "ro": "{n} înregistrări publice",
         "hu": "{n} nyilvános bejegyzés", "et": "{n} avalikku kirjet", "lv": "{n} publiski ieraksti",
         "lt": "{n} viešų įrašų", "ja": "公開記録 {n} 件", "ko": "공개 기록 {n}건", "zh": "{n} 筆公開紀錄",
-        "hi": "{n} सार्वजनिक रिकॉर्ड", "pa": "{n} ਜਨਤਕ ਰਿਕਾਰਡ", "ar": "{n} سجلات عامة",
+        "hi": "{n} सार्वजनिक रिकॉर्ड", "ar": "{n} سجلات عامة",
         "fa": "{n} رکورد عمومی", "he": "{n} רשומות ציבוריות",
     },
     "no_sightings": {
@@ -983,7 +969,6 @@ NEW = {
         "ko": "아직 공개 관찰이 없습니다.",
         "zh": "尚無公開目擊。",
         "hi": "अभी कोई सार्वजनिक अवलोकन नहीं।",
-        "pa": "ਹਾਲੇ ਕੋਈ ਜਨਤਕ ਨਿਰੀਖਣ ਨਹੀਂ।",
         "ar": "لا مشاهدات عامة بعد.",
         "fa": "هنوز مشاهدهٔ عمومی نیست.",
         "he": "אין עדיין תצפיות ציבוריות.",
@@ -998,7 +983,7 @@ NEW = {
         "it": "Registra nell’app", "pt": "Registar na app", "ro": "Adaugă în aplicație",
         "hu": "Rögzítés az alkalmazásban", "et": "Lisa rakenduses", "lv": "Pievienot lietotnē",
         "lt": "Pridėti programėlėje", "ja": "アプリで記録", "ko": "앱에서 기록", "zh": "在應用程式中記錄",
-        "hi": "ऐप में जोड़ें", "pa": "ਐਪ ਵਿੱਚ ਜੋੜੋ", "ar": "سجّل في التطبيق", "fa": "در برنامه ثبت کنید",
+        "hi": "ऐप में जोड़ें", "ar": "سجّل في التطبيق", "fa": "در برنامه ثبت کنید",
         "he": "רשום באפליקציה",
     },
     "get_the_app": {
@@ -1011,7 +996,7 @@ NEW = {
         "it": "Identifica nell’app", "pt": "Identificar na app", "ro": "Identifică în aplicație",
         "hu": "Azonosítás az alkalmazásban", "et": "Määra rakenduses", "lv": "Noteikt lietotnē",
         "lt": "Nustatyti programėlėje", "ja": "アプリで識別", "ko": "앱에서 식별", "zh": "在應用程式中辨識",
-        "hi": "ऐप में पहचानें", "pa": "ਐਪ ਵਿੱਚ ਪਛਾਣੋ", "ar": "التعرّف في التطبيق", "fa": "شناسایی در برنامه",
+        "hi": "ऐप में पहचानें", "ar": "التعرّف في التطبيق", "fa": "شناسایی در برنامه",
         "he": "זיהוי באפליקציה",
     },
     "get_lede": {
@@ -1044,7 +1029,6 @@ NEW = {
         "ko": "4단계 검색 키, 오프라인 식물, 야외 메모는 휴대폰에 있습니다.",
         "zh": "四步檢索、離線植物與野外筆記都在手機上。",
         "hi": "चार-चरणीय कुंजी, ऑफ़लाइन पौधे और मैदानी नोट फ़ोन पर हैं।",
-        "pa": "ਚਾਰ-ਪੜਾਅ ਕੁੰਜੀ, ਆਫਲਾਈਨ ਪੌਦੇ ਅਤੇ ਖੇਤਰੀ ਨੋਟ ਫ਼ੋਨ ਉੱਤੇ ਹਨ।",
         "ar": "مفتاح الزهرة الرباعي والنباتات دون اتصال وملاحظات الحقل على هاتفك.",
         "fa": "کلید چهارمرحله‌ای، گیاهان آفلاین و یادداشت‌های صحرایی روی تلفن‌اند.",
         "he": "מפתח ארבעת הצעדים, הצמחים הלא מקוונים ופתקי השטח נמצאים בטלפון.",
@@ -1057,7 +1041,7 @@ NEW = {
         "fr": "Couleur de la fleur", "es": "Color de la flor", "it": "Colore del fiore",
         "pt": "Cor da flor", "ro": "Culoarea florii", "hu": "A virág színe", "et": "Õie värv",
         "lv": "Zieda krāsa", "lt": "Žiedo spalva", "ja": "花の色", "ko": "꽃 색깔", "zh": "花色",
-        "hi": "फूल का रंग", "pa": "ਫੁੱਲ ਦਾ ਰੰਗ", "ar": "لون الزهرة", "fa": "رنگ گل", "he": "צבע הפרח",
+        "hi": "फूल का रंग", "ar": "لون الزهرة", "fa": "رنگ گل", "he": "צבע הפרח",
     },
     "identify_step_2": {
         "en": "Habitat", "sk": "Lokalita", "cs": "Stanoviště", "sl": "Rastišče", "hr": "Stanište",
@@ -1066,7 +1050,7 @@ NEW = {
         "sv": "Växtplats", "no": "Voksested", "fi": "Elinympäristö", "fr": "Habitat",
         "es": "Hábitat", "it": "Habitat", "pt": "Habitat", "ro": "Habitat", "hu": "Élőhely",
         "et": "Kasvukoht", "lv": "Dzīvotne", "lt": "Buveinė", "ja": "生育地", "ko": "서식지",
-        "zh": "生育地", "hi": "वासस्थान", "pa": "ਵਾਸਸਥਾਨ", "ar": "الموئل", "fa": "زیستگاه", "he": "בית גידול",
+        "zh": "生育地", "hi": "वासस्थान", "ar": "الموئل", "fa": "زیستگاه", "he": "בית גידול",
     },
     "identify_step_3": {
         "en": "Petal type", "sk": "Typ okvetia", "cs": "Typ okvětí", "sl": "Tip venca",
@@ -1076,7 +1060,7 @@ NEW = {
         "fr": "Type de pétales", "es": "Tipo de pétalos", "it": "Tipo di petali", "pt": "Tipo de pétalas",
         "ro": "Tipul petalelor", "hu": "Sziromtípus", "et": "Õielehtede tüüp", "lv": "Vainaglapu tips",
         "lt": "Vainiklapių tipas", "ja": "花弁の型", "ko": "꽃잎 유형", "zh": "花瓣類型",
-        "hi": "पंखुड़ी का प्रकार", "pa": "ਪੱਤੀ ਦੀ ਕਿਸਮ", "ar": "نوع البتلات", "fa": "نوع گلبرگ",
+        "hi": "पंखुड़ी का प्रकार", "ar": "نوع البتلات", "fa": "نوع گلبرگ",
         "he": "סוג עלי הכותרת",
     },
     "identify_step_4": {
@@ -1087,7 +1071,7 @@ NEW = {
         "fr": "Région du monde", "es": "Región del mundo", "it": "Regione del mondo",
         "pt": "Região do mundo", "ro": "Regiunea lumii", "hu": "Világrégió", "et": "Maailma piirkond",
         "lv": "Pasaules reģions", "lt": "Pasaulio regionas", "ja": "世界の地域", "ko": "세계 지역",
-        "zh": "世界地區", "hi": "विश्व क्षेत्र", "pa": "ਸੰਸਾਰ ਖੇਤਰ", "ar": "منطقة العالم",
+        "zh": "世界地區", "hi": "विश्व क्षेत्र", "ar": "منطقة العالم",
         "fa": "منطقهٔ جهان", "he": "אזור בעולם",
     },
     "identify_then": {
@@ -1120,7 +1104,6 @@ NEW = {
         "ko": "그런 다음 맞는 식물을 열고 종 페이지를 읽습니다.",
         "zh": "接著打開對應植物並閱讀物種頁。",
         "hi": "फिर मेल खाता पौधा खोलें और जाति पृष्ठ पढ़ें।",
-        "pa": "ਫਿਰ ਮਿਲਦਾ ਪੌਦਾ ਖੋਲ੍ਹੋ ਅਤੇ ਕਿਸਮ ਦਾ ਪੰਨਾ ਪੜ੍ਹੋ।",
         "ar": "ثم افتح النبات المطابق واقرأ صفحة النوع.",
         "fa": "سپس گیاه هم‌خوان را بگشایید و برگهٔ گونه را بخوانید.",
         "he": "ואז פתחו את הצמח המתאים וקראו את דף המין.",
@@ -1135,7 +1118,7 @@ NEW = {
         "it": "Sfoglia l’enciclopedia", "pt": "Explorar a enciclopédia", "ro": "Răsfoiește enciclopedia",
         "hu": "Az enciklopédia böngészése", "et": "Sirvi entsüklopeediat", "lv": "Pārlūkot enciklopēdiju",
         "lt": "Naršyti enciklopediją", "ja": "図鑑を見る", "ko": "백과사전 둘러보기", "zh": "瀏覽百科",
-        "hi": "विश्वकोश देखें", "pa": "ਐਨਸਾਈਕਲੋਪੀਡੀਆ ਵੇਖੋ", "ar": "تصفح الموسوعة", "fa": "مرور دانشنامه",
+        "hi": "विश्वकोश देखें", "ar": "تصفح الموسوعة", "fa": "مرور دانشنامه",
         "he": "עיון באנציקלופדיה",
     },
     "not_found": {
@@ -1168,7 +1151,6 @@ NEW = {
         "ko": "이 식물은 도감에 없습니다.",
         "zh": "圖鑑裡沒有這種植物。",
         "hi": "यह पौधा सूची में नहीं है।",
-        "pa": "ਇਹ ਪੌਦਾ ਸੂਚੀ ਵਿੱਚ ਨਹੀਂ ਹੈ।",
         "ar": "هذا النبات ليس في الدليل.",
         "fa": "این گیاه در فهرست نیست.",
         "he": "צמח זה אינו בקטלוג.",
@@ -1181,7 +1163,7 @@ NEW = {
         "fr": "Chargement…", "es": "Cargando…", "it": "Caricamento…", "pt": "A carregar…",
         "ro": "Se încarcă…", "hu": "Betöltés…", "et": "Laadimine…", "lv": "Ielādē…",
         "lt": "Įkeliama…", "ja": "読み込み中…", "ko": "불러오는 중…", "zh": "載入中…",
-        "hi": "लोड हो रहा है…", "pa": "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ…", "ar": "جارٍ التحميل…", "fa": "در حال بارگذاری…",
+        "hi": "लोड हो रहा है…", "ar": "جارٍ التحميل…", "fa": "در حال بارگذاری…",
         "he": "טוען…",
     },
     "flowering_plants": {
@@ -1193,7 +1175,7 @@ NEW = {
         "es": "Plantas con flores", "it": "Piante da fiore", "pt": "Plantas com flor",
         "ro": "Plante cu flori", "hu": "Zárvatermők", "et": "Õistaimed", "lv": "Ziedaugi",
         "lt": "Žiediniai augalai", "ja": "顕花植物", "ko": "속씨식물", "zh": "開花植物",
-        "hi": "पुष्पी पौधे", "pa": "ਫੁੱਲਦਾਰ ਪੌਦੇ", "ar": "النباتات المزهرة", "fa": "گیاهان گل‌دار",
+        "hi": "पुष्पी पौधे", "ar": "النباتات المزهرة", "fa": "گیاهان گل‌دار",
         "he": "צמחים פורחים",
     },
     "store_play": {
@@ -1226,7 +1208,6 @@ NEW = {
         "ko": "Google Play에서 다운로드",
         "zh": "在 Google Play 上取得",
         "hi": "Google Play पर पाएँ",
-        "pa": "Google Play ਤੋਂ ਲਵੋ",
         "ar": "احصل عليه من Google Play",
         "fa": "دریافت از Google Play",
         "he": "הורידו ב-Google Play",
@@ -1261,7 +1242,6 @@ NEW = {
         "ko": "App Store에서 다운로드",
         "zh": "從 App Store 下載",
         "hi": "App Store से डाउनलोड करें",
-        "pa": "App Store ਤੋਂ ਡਾਊਨਲੋਡ ਕਰੋ",
         "ar": "حمِّل من App Store",
         "fa": "دانلود از App Store",
         "he": "הורידו ב-App Store",
@@ -1269,17 +1249,16 @@ NEW = {
     "app_name": {
         "en": "What's that flower?",
     },
-    # Punjabi has no Flutter ARB; seed the plant-detail labels here.
-    "about": {"en": "About", "pa": "ਬਾਰੇ"},
-    "help": {"en": "Help", "pa": "ਮਦਦ"},
-    "flower": {"en": "Flower", "pa": "ਫੁੱਲ"},
-    "fruit": {"en": "Fruit", "pa": "ਫਲ"},
-    "leaf": {"en": "Leaf", "pa": "ਪੱਤਾ"},
-    "stem": {"en": "Stem", "pa": "ਤਣਾ"},
-    "habitat": {"en": "Habitat", "pa": "ਵਾਸਸਥਾਨ"},
-    "toxicity": {"en": "Toxicity", "pa": "ਜ਼ਹਿਰੀਲਾਪਣ"},
-    "inflorescence": {"en": "Inflorescence", "pa": "ਪੁਸ਼ਪਵਿਨਿਆਸ"},
-    "herbalism": {"en": "Uses", "pa": "ਵਰਤੋਂ"},
+    "about": {"en": "About"},
+    "help": {"en": "Help"},
+    "flower": {"en": "Flower"},
+    "fruit": {"en": "Fruit"},
+    "leaf": {"en": "Leaf"},
+    "stem": {"en": "Stem"},
+    "habitat": {"en": "Habitat"},
+    "toxicity": {"en": "Toxicity"},
+    "inflorescence": {"en": "Inflorescence"},
+    "herbalism": {"en": "Uses"},
     "herbalism_disclaimer": {
         "en": "Traditional or culinary notes, not medical advice.",
         "sk": "Tradičné alebo kuchynské poznámky, nie lekárska rada.",
@@ -1310,12 +1289,11 @@ NEW = {
         "ko": "전통적 또는 요리 관련 설명이며, 의학적 조언이 아닙니다.",
         "zh": "傳統或烹飪說明，並非醫療建議。",
         "hi": "पारंपरिक या पाक संबंधी टिप्पणियाँ, चिकित्सकीय सलाह नहीं।",
-        "pa": "ਰਵਾਇਤੀ ਜਾਂ ਰਸੋਈ ਨੋਟ, ਡਾਕਟਰੀ ਸਲਾਹ ਨਹੀਂ।",
         "ar": "ملاحظات تقليدية أو طهوية، وليست نصيحة طبية.",
         "fa": "یادداشت‌های سنتی یا آشپزی، نه توصیه پزشکی.",
         "he": "הערות מסורתיות או קולינריות, לא ייעוץ רפואי.",
     },
-    "trivia": {"en": "Trivia", "pa": "ਦਿਲਚਸਪ ਗੱਲਾਂ"},
+    "trivia": {"en": "Trivia"},
     "notes": {
         "en": "Notes",
         "ar": "ملاحظات",
@@ -1338,7 +1316,6 @@ NEW = {
         "nl": "Weetjes",
         "ja": "豆知識",
         "no": "Noter",
-        "pa": "ਦਿਲਚਸਪ ਗੱਲਾਂ",
         "pl": "Ciekawostki",
         "pt": "Curiosidades",
         "ro": "Curiozități",
@@ -1354,20 +1331,19 @@ NEW = {
     "sources": {
         "en": "Sources",
         "lv": "Avoti",
-        "pa": "ਸਰੋਤ",
     },
-    "classification": {"en": "Taxonomy", "pa": "ਵਰਗੀਕਰਨ"},
-    "family": {"en": "Family", "pa": "ਪਰਿਵਾਰ"},
-    "genus": {"en": "Genus", "pa": "ਵੰਸ਼"},
-    "toxicity_high": {"en": "poisonous plant", "pa": "ਜ਼ਹਿਰੀਲਾ ਪੌਦਾ"},
-    "toxicity_low": {"en": "slightly poisonous plant", "pa": "ਥੋੜ੍ਹਾ ਜ਼ਹਿਰੀਲਾ ਪੌਦਾ"},
+    "classification": {"en": "Taxonomy"},
+    "family": {"en": "Family"},
+    "genus": {"en": "Genus"},
+    "toxicity_high": {"en": "poisonous plant"},
+    "toxicity_low": {"en": "slightly poisonous plant"},
     "close": {
         "en": "Close", "sk": "Zavrieť", "cs": "Zavřít", "sl": "Zapri", "hr": "Zatvori",
         "sr": "Затвори", "pl": "Zamknij", "ru": "Закрыть", "uk": "Закрити", "bg": "Затвори",
         "de": "Schließen", "nl": "Sluiten", "da": "Luk", "sv": "Stäng", "no": "Lukk",
         "fi": "Sulje", "fr": "Fermer", "es": "Cerrar", "it": "Chiudi", "pt": "Fechar",
         "ro": "Închide", "hu": "Bezárás", "et": "Sulge", "lv": "Aizvērt", "lt": "Uždaryti",
-        "ja": "閉じる", "ko": "닫기", "zh": "關閉", "hi": "बंद करें", "pa": "ਬੰਦ ਕਰੋ",
+        "ja": "閉じる", "ko": "닫기", "zh": "關閉", "hi": "बंद करें",
         "ar": "إغلاق", "fa": "بستن", "he": "סגור",
     },
     "flower_schema_title": {
@@ -1379,8 +1355,7 @@ NEW = {
         "fr": "Parties d’une fleur", "es": "Partes de una flor", "it": "Parti del fiore",
         "pt": "Partes de uma flor", "ro": "Părțile unei flori", "hu": "A virág részei",
         "et": "Õie osad", "lv": "Zieda daļas", "lt": "Žiedo dalys",
-        "ja": "花の各部", "ko": "꽃의 부분", "zh": "花的構造", "hi": "फूल के भाग",
-        "pa": "ਫੁੱਲ ਦੇ ਹਿੱਸੇ", "ar": "أجزاء الزهرة", "fa": "بخش‌های گل", "he": "חלקי הפרח",
+        "ja": "花の各部", "ko": "꽃의 부분", "zh": "花的構造", "hi": "फूल के भाग", "ar": "أجزاء الزهرة", "fa": "بخش‌های گل", "he": "חלקי הפרח",
     },
     "flower_schema_lede": {
         "en": "A typical complete flower. The numbers match the list.",
@@ -1412,7 +1387,6 @@ NEW = {
         "ko": "전형적인 완전한 꽃입니다. 번호는 목록과 같습니다.",
         "zh": "典型的完整花朵。編號對應右側列表。",
         "hi": "एक सामान्य पूर्ण फूल। संख्याएँ सूची से मेल खाती हैं।",
-        "pa": "ਇੱਕ ਆਮ ਪੂਰਾ ਫੁੱਲ। ਨੰਬਰ ਸੂਚੀ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਹਨ।",
         "ar": "زهرة كاملة نموذجية. الأرقام تطابق القائمة.",
         "fa": "یک گل کامل نمونه. شماره‌ها با فهرست مطابقت دارند.",
         "he": "פרח שלם טיפוסי. המספרים תואמים לרשימה.",
@@ -1429,7 +1403,7 @@ NEW = {
         "ro": "Arată părțile unei flori", "hu": "A virág részeinek megjelenítése",
         "et": "Näita õie osi", "lv": "Rādīt zieda daļas", "lt": "Rodyti žiedo dalis",
         "ja": "花の各部を表示", "ko": "꽃의 부분 보기", "zh": "顯示花的構造",
-        "hi": "फूल के भाग दिखाएँ", "pa": "ਫੁੱਲ ਦੇ ਹਿੱਸੇ ਵੇਖੋ",
+        "hi": "फूल के भाग दिखाएँ",
         "ar": "عرض أجزاء الزهرة", "fa": "نمایش بخش‌های گل", "he": "הצגת חלקי הפרח",
     },
     "inflorescence_schema_title": {
@@ -1444,7 +1418,7 @@ NEW = {
         "ro": "Tipuri de inflorescență", "hu": "Virágzattípusok",
         "et": "Õisiku tüübid", "lv": "Ziedkopu tipi", "lt": "Žiedyno tipai",
         "ja": "花序の種類", "ko": "꽃차례의 종류", "zh": "花序類型",
-        "hi": "पुष्पक्रम के प्रकार", "pa": "ਫੁੱਲ-ਗੁੱਛੇ ਦੀਆਂ ਕਿਸਮਾਂ",
+        "hi": "पुष्पक्रम के प्रकार",
         "ar": "أنواع النورة", "fa": "انواع گل‌آذین", "he": "סוגי תפרחת",
     },
     "inflorescence_schema_open": {
@@ -1461,7 +1435,7 @@ NEW = {
         "ro": "Arată tipurile de inflorescență", "hu": "Virágzattípusok megjelenítése",
         "et": "Näita õisiku tüüpe", "lv": "Rādīt ziedkopu tipus", "lt": "Rodyti žiedyno tipus",
         "ja": "花序の種類を表示", "ko": "꽃차례 종류 보기", "zh": "顯示花序類型",
-        "hi": "पुष्पक्रम के प्रकार दिखाएँ", "pa": "ਫੁੱਲ-ਗੁੱਛੇ ਦੀਆਂ ਕਿਸਮਾਂ ਵੇਖੋ",
+        "hi": "पुष्पक्रम के प्रकार दिखाएँ",
         "ar": "عرض أنواع النورة", "fa": "نمایش انواع گل‌آذین", "he": "הצגת סוגי תפרחת",
     },
     "about_headline": {
@@ -2483,7 +2457,7 @@ def load_arb(path):
 
 
 def main():
-    langs = ["en"] + [c for c in WEB_TO_ARB if c != "en"] + ["pa"]
+    langs = ["en"] + [c for c in WEB_TO_ARB if c != "en"]
     catalogs = {lang: {} for lang in langs}
     if not os.path.isdir(ARB_DIR):
         raise SystemExit("ARB dir missing: " + ARB_DIR)
