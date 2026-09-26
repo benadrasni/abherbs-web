@@ -6,7 +6,7 @@ UI chrome and About/Help copy live in `src/locales.json`. Do not fetch Firebase 
 
 ## Language URLs
 
-Indexed languages (official body text): **en** unprefixed, **sk / de / fr / cs / pl / ru / es / pt / ja / it / nl / uk / hu / da / sv / no / fi / et / lv / lt / hr / sl** as the first path segment.
+Indexed languages (official body text): **en** unprefixed, **sk / de / fr / cs / pl / ru / es / pt / ja / it / nl / uk / hu / da / sv / no / fi / et / lv / lt / hr / sl / sr / bg / ro** as the first path segment.
 
 - `https://whatsthatflower.com/plant/Bellis%20perennis/` English (`hreflang` + `x-default`)
 - `https://whatsthatflower.com/de/plant/Bellis%20perennis/` German
@@ -28,18 +28,21 @@ Indexed languages (official body text): **en** unprefixed, **sk / de / fr / cs /
 - `https://whatsthatflower.com/lt/plant/Bellis%20perennis/` Lithuanian
 - `https://whatsthatflower.com/hr/plant/Bellis%20perennis/` Croatian
 - `https://whatsthatflower.com/sl/plant/Bellis%20perennis/` Slovenian
+- `https://whatsthatflower.com/sr/plant/Bellis%20perennis/` Serbian
+- `https://whatsthatflower.com/bg/plant/Bellis%20perennis/` Bulgarian
+- `https://whatsthatflower.com/ro/plant/Bellis%20perennis/` Romanian
 
 Other UI languages stay on `?lang=` (not in the sitemap). `/en/...` 301s to the unprefixed URL (Firebase Hosting). The `/en/:path*` destination must keep the trailing slash (`/:path/`) so Google does not get a second hop from `trailingSlash: true`. Old `?lang=de` is rewritten in the client to `/de/...`; a crawler 301 needs a Cloudflare Redirect Rule (Firebase cannot match query strings):
 
-`(http.request.uri.query matches "(^|&)lang=(sk|de|fr|cs|pl|ru|es|pt|ja|it|nl|uk|hu|da|sv|no|fi|et|lv|lt|hr|sl)(&|$)")` → 301 to `/{lang}` + path, stripping that `lang` param. Skip when the path already starts with `/{lang}`. `lang=en` → same path without the param.
+`(http.request.uri.query matches "(^|&)lang=(sk|de|fr|cs|pl|ru|es|pt|ja|it|nl|uk|hu|da|sv|no|fi|et|lv|lt|hr|sl|sr|bg|ro)(&|$)")` → 301 to `/{lang}` + path, stripping that `lang` param. Skip when the path already starts with `/{lang}`. `lang=en` → same path without the param.
 
 Old homepage query `?plant=Bellis%20perennis` is rewritten in the client to `/plant/Bellis%20perennis/`. A crawler 301 also needs a Cloudflare Redirect Rule (keep **Preserve query string** off so `plant` is dropped):
 
-- When: `len(http.request.uri.args["plant"]) > 0` and path is `/` or `/{lang}/` for an indexed path lang (`sk|de|fr|cs|pl|ru|es|pt|ja|it|nl|uk|hu|da|sv|no|fi|et|lv|lt|hr|sl`).
+- When: `len(http.request.uri.args["plant"]) > 0` and path is `/` or `/{lang}/` for an indexed path lang (`sk|de|fr|cs|pl|ru|es|pt|ja|it|nl|uk|hu|da|sv|no|fi|et|lv|lt|hr|sl|sr|bg|ro`).
 - Then: Dynamic 301 to `concat("https://whatsthatflower.com", <lang prefix or empty>, "/plant/", url_encode(http.request.uri.args["plant"][0]), "/")`. If `lang` is also in the query, use that prefix (same codes); `lang=en` stays unprefixed.
 - Place this next to the `?lang=` rule. If both `plant` and `lang` are present, one hop to `/{lang}/plant/{name}/` is better than `?lang=` first then `?plant=`.
 
-`scripts/generate_seo.js` writes shells + sitemap hreflang for the twenty-three indexed languages. Keep `INDEXED_LANGS` in sync with `src/lib.js`. Client `withLang` / `plantPath` links include a trailing slash so they match the sitemap and do not 301.
+`scripts/generate_seo.js` writes shells + sitemap hreflang for the twenty-six indexed languages. Keep `INDEXED_LANGS` in sync with `src/lib.js`. Client `withLang` / `plantPath` links include a trailing slash so they match the sitemap and do not 301. The Cloudflare `?lang=` 301 group above is the dashboard rule to add `sr`, `bg`, and `ro`; there is no API token in this repo, so the live rule is unchanged until someone edits it in Cloudflare.
 
 ## Deploy Hosting
 

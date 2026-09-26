@@ -1462,6 +1462,9 @@ NEW = {
         "lt": "Augalų enciklopedija",
         "hr": "Enciklopedija biljaka",
         "sl": "Enciklopedija rastlin",
+        "sr": "Енциклопедија биљака",
+        "bg": "Енциклопедия на растенията",
+        "ro": "O enciclopedie de plante",
     },
     "about_lede": {
         "en": "Species pages you can trust: a botanical plate, field photographs, sourced text, and a native/introduced map. Identify with the four-step key here or in the app.",
@@ -1485,6 +1488,9 @@ NEW = {
         "lt": "Rūšių puslapiai, kuriais galima pasikliauti: botaninė iliustracija, lauko nuotraukos, tekstas iš šaltinių ir savaiminio bei įvežtinio arealo žemėlapis. Nustatykite keturių žingsnių raktu čia arba programėlėje.",
         "hr": "Stranice vrsta kojima se može vjerovati: botanička ploča, terenske fotografije, tekst iz izvora i karta samoniklog i unesenog areala. Određujte četverostupanjskim ključem ovdje ili u aplikaciji.",
         "sl": "Strani vrst, ki jim lahko zaupate: botanična tabla, terenske fotografije, besedilo iz virov in zemljevid samoniklega in vnesenega areala. Določajte s štiristopenjskim ključem tukaj ali v aplikaciji.",
+        "sr": "Странице врста којима се може веровати: ботаничка табла, теренске фотографије, текст из извора и карта домаћег и унесеног ареала. Одређујте четворостепеним кључем овде или у апликацији.",
+        "bg": "Страници на видове, на които може да се разчита: ботаническа илюстрация, теренни снимки, текст по източници и карта на местния и внесения ареал. Разпознавайте с ключа в четири стъпки тук или в приложението.",
+        "ro": "Pagini de specii pe care te poți baza: o planșă botanică, fotografii de teren, text cu surse și o hartă a arealului nativ și introdus. Identifică cu cheia în patru pași aici sau în aplicație.",
     },
     "about_fact_collection": {
         "en": "Collection", "sk": "Zbierka", "cs": "Sbírka", "de": "Sammlung",
@@ -1503,6 +1509,9 @@ NEW = {
         "lt": "Rinkinys",
         "hr": "Zbirka",
         "sl": "Zbirka",
+        "sr": "Збирка",
+        "bg": "Сбирка",
+        "ro": "Colecție",
     },
     "about_fact_languages": {
         "en": "Languages", "sk": "Jazyky", "cs": "Jazyky", "de": "Sprachen",
@@ -1521,6 +1530,9 @@ NEW = {
         "lt": "Kalbos",
         "hr": "Jezici",
         "sl": "Jeziki",
+        "sr": "Језици",
+        "bg": "Езици",
+        "ro": "Limbi",
     },
     "about_fact_key": {
         "en": "Identification", "sk": "Určovanie", "cs": "Určování", "de": "Bestimmung",
@@ -1539,6 +1551,9 @@ NEW = {
         "lt": "Nustatymas",
         "hr": "Određivanje",
         "sl": "Določanje",
+        "sr": "Одређивање",
+        "bg": "Разпознаване",
+        "ro": "Identificare",
     },
     "about_fact_steps": {
         "en": "4 steps", "sk": "4 kroky", "cs": "4 kroky", "de": "4 Schritte",
@@ -1557,6 +1572,9 @@ NEW = {
         "lt": "4 žingsniai",
         "hr": "4 koraka",
         "sl": "4 koraki",
+        "sr": "4 корака",
+        "bg": "4 стъпки",
+        "ro": "4 pași",
     },
     "about_why_kicker": {
         "en": "Why it exists", "sk": "Prečo to existuje", "cs": "Proč to existuje",
@@ -1576,6 +1594,9 @@ NEW = {
         "lt": "Kodėl tai egzistuoja",
         "hr": "Zašto postoji",
         "sl": "Zakaj obstaja",
+        "sr": "Зашто постоји",
+        "bg": "Защо съществува",
+        "ro": "De ce există",
     },
     "about_why_title": {
         "en": "A catalog of flowering plants",
@@ -1599,6 +1620,9 @@ NEW = {
         "lt": "Žiedinių augalų katalogas",
         "hr": "Katalog cvjetnica",
         "sl": "Katalog cvetnic",
+        "sr": "Каталог скривеносеменица",
+        "bg": "Каталог на цветните растения",
+        "ro": "Un catalog de plante cu flori",
     },
     "about_why_p1": {
         "en": "Search and read here. Identify by color, habitat, petal type, and world region — on this site or in the app.",
@@ -1622,6 +1646,9 @@ NEW = {
         "lt": "Ieškokite ir skaitykite čia. Nustatykite pagal spalvą, buveinę, vainiklapių tipą ir pasaulio regioną — šioje svetainėje arba programėlėje.",
         "hr": "Ovdje tražite i čitate. Određujete prema boji, staništu, tipu latica i regiji svijeta — na ovom web-mjestu ili u aplikaciji.",
         "sl": "Tukaj iščete in berete. Določate po barvi, rastišču, tipu venca in območju sveta — na tem spletišču ali v aplikaciji.",
+        "sr": "Овде тражите и читате. Одређујете према боји цвета, станишту, типу крунице и региону света — на овом сајту или у апликацији.",
+        "bg": "Тук търсите и четете. Разпознавате по цвят на цвета, местообитание, тип на венчелистчетата и регион на света — на този сайт или в приложението.",
+        "ro": "Căutați și citiți aici. Identificați după culoarea florii, habitat, tipul petalelor și regiunea lumii — pe acest site sau în aplicație.",
     },
     "about_why_p2": {
         "en": "Each species page is prepared by hand: photographs, a botanical plate on cream paper, and identification text rewritten from floras that actually cover the plant. Common names come from sources in that language. If none exist, the Latin name stands.",
@@ -1645,6 +1672,9 @@ NEW = {
         "lt": "Kiekvienas rūšies puslapis rengiamas rankomis: nuotraukos, botaninė lenta kreminės spalvos popieriuje ir nustatymo tekstas, perrašytas iš florų, kurios iš tikrųjų aprašo augalą. Liaudiški pavadinimai ateina iš tos kalbos šaltinių. Jei jų nėra, lieka lotyniškas pavadinimas.",
         "hr": "Svaka stranica vrste priprema se ručno: fotografije, botanička ploča na krem papiru i tekst za određivanje prepisan iz flora koje tu biljku stvarno opisuju. Narodno ime dolazi iz izvora na tom jeziku. Ako ga nema, ostaje latinsko ime.",
         "sl": "Vsaka stran vrste se pripravi ročno: fotografije, botanična tabla na kremnem papirju in določevalno besedilo, prepisano iz flor, ki rastlino dejansko obravnavajo. Ljudsko ime pride iz vira v tem jeziku. Če ga ni, ostane latinsko ime.",
+        "sr": "Свака страница врсте припрема се ручно: фотографије, ботаничка табла на крем папиру и текст за одређивање преписан из флора које ту биљку заиста описују. Народно име долази из извора на том језику. Ако га нема, остаје латинско име.",
+        "bg": "Всяка страница на вид се подготвя ръчно: снимки, ботаническа илюстрация върху кремава хартия и текст за разпознаване, преписан от флори, които наистина описват растението. Народното име идва от източник на този език. Ако няма такова, остава латинското име.",
+        "ro": "Fiecare pagină de specie este pregătită manual: fotografii, o planșă botanică pe hârtie crem și text de identificare rescris din flore care tratează chiar planta. Numele popular vine din surse în limba respectivă. Dacă nu există, rămâne numele latin.",
     },
     "about_why_p3": {
         "en": "This is a curated collection of flowering plants, not a flora of the world.",
@@ -1668,6 +1698,9 @@ NEW = {
         "lt": "Tai atrinkta žiedinių augalų kolekcija, ne viso pasaulio flora.",
         "hr": "Ovo je pomno sastavljena zbirka cvjetnica, a ne flora cijeloga svijeta.",
         "sl": "To je skrbno izbrana zbirka cvetnic, ne flora celega sveta.",
+        "sr": "Ово је одабрана збирка скривеносеменица, а не флора целог света.",
+        "bg": "Това е подбрана сбирка от цветни растения, а не флора на целия свят.",
+        "ro": "Aceasta este o colecție aleasă de plante cu flori, nu o floră a lumii întregi.",
     },
     "about_how_title": {
         "en": "How a species page is made",
@@ -1691,6 +1724,9 @@ NEW = {
         "lt": "Kaip rengiamas rūšies puslapis",
         "hr": "Kako nastaje stranica vrste",
         "sl": "Kako nastane stran vrste",
+        "sr": "Како настаје страница врсте",
+        "bg": "Как се прави страница на вид",
+        "ro": "Cum se face o pagină de specie",
     },
     "about_how_lede": {
         "en": "Plate, photographs, sourced text, and a distribution map.",
@@ -1714,6 +1750,9 @@ NEW = {
         "lt": "Lenta, nuotraukos, tekstas iš šaltinių ir paplitimo žemėlapis.",
         "hr": "Ploča, fotografije, tekst iz izvora i karta rasprostranjenosti.",
         "sl": "Tabla, fotografije, besedilo iz virov in zemljevid razširjenosti.",
+        "sr": "Табла, фотографије, текст из извора и карта распрострањености.",
+        "bg": "Илюстрация, снимки, текст по източници и карта на разпространението.",
+        "ro": "Planșă, fotografii, text cu surse și o hartă de răspândire.",
     },
     "about_tile_plate_t": {
         "en": "One official plate", "sk": "Jedna oficiálna tabuľa", "cs": "Jedna oficiální tabule",
@@ -1733,6 +1772,9 @@ NEW = {
         "lt": "Viena oficiali lenta",
         "hr": "Jedna službena ploča",
         "sl": "Ena uradna tabla",
+        "sr": "Једна званична табла",
+        "bg": "Една официална илюстрация",
+        "ro": "O singură planșă oficială",
     },
     "about_tile_plate_d": {
         "en": "A botanical plate on cream paper, from a historic original or colorized. Plates come from botanicalillustrations.org.",
@@ -1756,6 +1798,9 @@ NEW = {
         "lt": "Botaninė lenta kreminės spalvos popieriuje, iš istorinio originalo arba spalvinta. Lentos ateina iš botanicalillustrations.org.",
         "hr": "Botanička ploča na krem papiru, prema povijesnom originalu ili obojena. Ploče dolaze s botanicalillustrations.org.",
         "sl": "Botanična tabla na kremnem papirju, po zgodovinskem izvirniku ali pobarvana. Table prihajajo z botanicalillustrations.org.",
+        "sr": "Ботаничка табла на крем папиру, с историјског оригинала или накнадно обојена. Табле су с botanicalillustrations.org.",
+        "bg": "Ботаническа илюстрация върху кремава хартия, по исторически оригинал или оцветена допълнително. Илюстрациите са от botanicalillustrations.org.",
+        "ro": "O planșă botanică pe hârtie crem, după un original istoric sau colorată ulterior. Planșele vin de la botanicalillustrations.org.",
     },
     "about_tile_photo_t": {
         "en": "Curated photographs", "sk": "Vybrané fotografie", "cs": "Vybrané fotografie",
@@ -1775,6 +1820,9 @@ NEW = {
         "lt": "Atrinktos nuotraukos",
         "hr": "Odabrane fotografije",
         "sl": "Izbrane fotografije",
+        "sr": "Одабране фотографије",
+        "bg": "Подбрани снимки",
+        "ro": "Fotografii alese",
     },
     "about_tile_photo_d": {
         "en": "Field photos prepared for the catalog, distinct from public sightings on the species page.",
@@ -1798,6 +1846,9 @@ NEW = {
         "lt": "Katalogui parengtos lauko nuotraukos, atskiros nuo viešų stebėjimų rūšies puslapyje.",
         "hr": "Terenske fotografije pripremljene za katalog, odvojene od javnih opažanja na stranici vrste.",
         "sl": "Terenske fotografije, pripravljene za katalog, ločene od javnih opažanj na strani vrste.",
+        "sr": "Теренске фотографије припремљене за каталог, одвојене од јавних опажања на страници врсте.",
+        "bg": "Теренни снимки, подготвени за каталога, отделени от публичните наблюдения на страницата на вида.",
+        "ro": "Fotografii de teren pregătite pentru catalog, separate de observațiile publice de pe pagina speciei.",
     },
     "about_tile_text_t": {
         "en": "Seven written fields", "sk": "Sedem písaných polí", "cs": "Sedm psaných polí",
@@ -1817,6 +1868,9 @@ NEW = {
         "lt": "Septyni rašytiniai laukai",
         "hr": "Sedam pisanih polja",
         "sl": "Sedem zapisanih polj",
+        "sr": "Седам писаних поља",
+        "bg": "Седем написани полета",
+        "ro": "Șapte câmpuri scrise",
     },
     "about_tile_text_d": {
         "en": "Description, flower, inflorescence, fruit, leaf, stem, habitat — plus toxicity, uses, and trivia when sourced.",
@@ -1840,6 +1894,9 @@ NEW = {
         "lt": "Aprašymas, žiedas, žiedynas, vaisius, lapas, stiebas, buveinė — taip pat toksiškumas, naudojimas ir įdomybės, kai yra šaltinis.",
         "hr": "Opis, cvijet, cvat, plod, list, stabljika, stanište — te otrovnost, uporaba i zanimljivosti, kad za njih postoji izvor.",
         "sl": "Opis, cvet, socvetje, plod, list, steblo, rastišče — ter strupenost, raba in zanimivosti, kadar zanje obstaja vir.",
+        "sr": "Опис, цвет, цваст, плод, лист, стабло, станиште — и токсичност, употреба и занимљивости, кад за њих постоји извор.",
+        "bg": "Описание, цвят, съцветие, плод, лист, стъбло, местообитание — и токсичност, употреба и любопитни факти, когато за тях има източник.",
+        "ro": "Descriere, floare, inflorescență, fruct, frunză, tulpină, habitat — și toxicitate, utilizări și curiozități, când există o sursă.",
     },
     "about_tile_map_t": {
         "en": "Native and introduced", "sk": "Pôvodné a zavlečené", "cs": "Původní a zavlečené",
@@ -1859,6 +1916,9 @@ NEW = {
         "lt": "Savaiminis ir įvežtinis",
         "hr": "Domaći i unesen",
         "sl": "Domač in vnesen",
+        "sr": "Домаћи и унесен",
+        "bg": "Местен и внесен",
+        "ro": "Nativ și introdus",
     },
     "about_tile_map_d": {
         "en": "World distribution from the World Checklist of Vascular Plants. Olive native, terracotta introduced.",
@@ -1882,6 +1942,9 @@ NEW = {
         "lt": "Pasaulinis paplitimas pagal World Checklist of Vascular Plants. Olivinė — savaiminis, terakota — įvežtinis.",
         "hr": "Svjetska rasprostranjenost prema World Checklist of Vascular Plants. Maslinastozeleno: domaće; terakota: uneseno.",
         "sl": "Svetovna razširjenost po World Checklist of Vascular Plants. Olivnozeleno: domače; terakota: vneseno.",
+        "sr": "Светска распрострањеност према World Checklist of Vascular Plants. Маслинастозелено: домаће; теракота: унесено.",
+        "bg": "Световно разпространение по World Checklist of Vascular Plants. Маслинено: местно; теракота: внесено.",
+        "ro": "Răspândire mondială după World Checklist of Vascular Plants. Oliv: nativ; teracotă: introdus.",
     },
     "about_langs_title": {
         "en": "Languages", "sk": "Jazyky", "cs": "Jazyky", "de": "Sprachen",
@@ -1901,6 +1964,9 @@ NEW = {
         "lt": "Kalbos",
         "hr": "Jezici",
         "sl": "Jeziki",
+        "sr": "Језици",
+        "bg": "Езици",
+        "ro": "Limbi",
     },
     "about_langs_lede": {
         "en": "The app and the website are in {n} languages. Identification text is written in each of them. Common names are never invented.",
@@ -1926,6 +1992,9 @@ NEW = {
         "lt": "Programėlė ir svetainė yra {n} kalbomis. Identifikavimo tekstas parašytas kiekviena iš jų. Liaudiški pavadinimai neišgalvojami.",
         "hr": "Aplikacija i web-mjesto dostupni su na {n} jezika. Tekst za određivanje napisan je na svakom od njih. Narodna imena se ne izmišljaju.",
         "sl": "Aplikacija in spletno mesto sta v {n} jezikih. Določevalno besedilo je napisano v vsakem od njih. Ljudskih imen se ne izmišlja.",
+        "sr": "Апликација и сајт су на {n} језика. Текст за одређивање написан је на сваком од њих. Народна имена се не измишљају.",
+        "bg": "Приложението и сайтът са на {n} езика. Текстът за разпознаване е написан на всеки от тях. Народните имена не се измислят.",
+        "ro": "Aplicația și site-ul sunt în {n} limbi. Textul de identificare este scris în fiecare dintre ele. Numele populare nu sunt inventate.",
     },
     "about_names_k": {
         "en": "Names", "sk": "Názvy", "cs": "Jména", "de": "Namen",
@@ -1944,6 +2013,9 @@ NEW = {
         "lt": "Pavadinimai",
         "hr": "Imena",
         "sl": "Imena",
+        "sr": "Имена",
+        "bg": "Имена",
+        "ro": "Nume",
     },
     "about_names_note": {
         "en": "A vernacular label is used only when a source in that language has it — Wikidata, that Wikipedia, EPPO, GBIF, or a flora. Otherwise the page shows the Latin name.",
@@ -1967,6 +2039,9 @@ NEW = {
         "lt": "Liaudiškas pavadinimas naudojamas tik tada, kai jį turi tos kalbos šaltinis — Wikidata, tos kalbos Vikipedija, EPPO, GBIF arba flora. Kitaip puslapis rodo lotynišką pavadinimą.",
         "hr": "Narodno ime upotrebljava se samo ako ga ima izvor na tom jeziku — Wikidata, Wikipedija na tom jeziku, EPPO, GBIF ili flora. Inače stranica pokazuje latinsko ime.",
         "sl": "Ljudsko ime se uporabi samo, kadar ga ima vir v tem jeziku — Wikidata, Wikipedija v tem jeziku, EPPO, GBIF ali flora. Sicer stran pokaže latinsko ime.",
+        "sr": "Народно име стоји само кад га има извор на том језику — Wikidata, Википедија на том језику, EPPO, GBIF или флора. Иначе страница показује латинско име.",
+        "bg": "Народно име се използва само когато източник на този език го има — Wikidata, Уикипедия на този език, EPPO, GBIF или флора. Иначе страницата показва латинското име.",
+        "ro": "Un nume popular se folosește numai când o sursă în limba respectivă îl are — Wikidata, Wikipedia în acea limbă, EPPO, GBIF sau o floră. Altfel pagina arată numele latin.",
     },
     "about_sources_intro": {
         "en": "Each species page lists the pages actually used. The catalog does not invent facts from an unused flora.",
@@ -1990,6 +2065,9 @@ NEW = {
         "lt": "Kiekvienas rūšies puslapis nurodo puslapius, kurie iš tikrųjų panaudoti. Katalogas neišgalvoja faktų iš nenaudotos floros.",
         "hr": "Svaka stranica vrste navodi stranice koje su stvarno korištene. Katalog ne izmišlja činjenice iz flore koja biljku ne opisuje.",
         "sl": "Vsaka stran vrste navede strani, ki so bile dejansko uporabljene. Katalog ne izmišlja dejstev iz flore, ki rastline ne obravnava.",
+        "sr": "Свака страница врсте наводи странице које су стварно коришћене. Каталог не измишља чињенице из флоре која биљку не описује.",
+        "bg": "Всяка страница на вид изброява страниците, които наистина са използвани. Каталогът не измисля факти от флора, която не описва растението.",
+        "ro": "Fiecare pagină de specie enumeră paginile folosite de fapt. Catalogul nu inventează fapte dintr-o floră care nu tratează planta.",
     },
     "about_src_wcvp_sub": {
         "en": "Accepted name and range",
@@ -2013,6 +2091,9 @@ NEW = {
         "lt": "Priimtas pavadinimas ir arealas",
         "hr": "Prihvaćeno ime i areal",
         "sl": "Sprejeto ime in areal",
+        "sr": "Прихваћено име и ареал",
+        "bg": "Прието име и ареал",
+        "ro": "Nume acceptat și areal",
     },
     "about_src_wikidata_sub": {
         "en": "Labels, aliases, crosswalk ids",
@@ -2036,6 +2117,9 @@ NEW = {
         "lt": "Etiketės, sinonimai, identifikatoriai",
         "hr": "Oznake, aliasi, poveznice",
         "sl": "Oznake, vzdevki, povezave",
+        "sr": "Ознаке, алијаси, спољни идентификатори",
+        "bg": "Надписи, псевдоними, външни идентификатори",
+        "ro": "Etichete, aliasuri, identificatori externi",
     },
     "about_src_floras": {
         "en": "Regional floras cited on the species page",
@@ -2059,6 +2143,9 @@ NEW = {
         "lt": "Regioninės floros, nurodytos rūšies puslapyje",
         "hr": "Regionalne flore navedene na stranici vrste",
         "sl": "Regionalne flore, navedene na strani vrste",
+        "sr": "Регионалне флоре наведене на страници врсте",
+        "bg": "Регионални флори, цитирани на страницата на вида",
+        "ro": "Flore regionale citate pe pagina speciei",
     },
     "about_src_floras_sub": {
         "en": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias, and others when they cover the plant",
@@ -2082,6 +2169,9 @@ NEW = {
         "lt": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias ir kitos, kai jos aprašo augalą",
         "hr": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias i druge, kad biljku stvarno opisuju",
         "sl": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias in druge, kadar rastlino dejansko obravnavajo",
+        "sr": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias и друге, кад биљку стварно описују",
+        "bg": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias и други, когато наистина описват растението",
+        "ro": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias și altele, când tratează chiar planta",
     },
     "about_src_photos": {
         "en": "Photographs taken for the catalog",
@@ -2105,6 +2195,9 @@ NEW = {
         "lt": "Katalogui darytos nuotraukos",
         "hr": "Fotografije snimljene za katalog",
         "sl": "Fotografije, posnete za katalog",
+        "sr": "Фотографије снимљене за каталог",
+        "bg": "Снимки, направени за каталога",
+        "ro": "Fotografii făcute pentru catalog",
     },
     "about_src_commons_sub": {
         "en": "Non-public-domain pictures are linked on the species page",
@@ -2128,6 +2221,9 @@ NEW = {
         "lt": "Paveikslai, kurie nėra public domain, susieti rūšies puslapyje",
         "hr": "Slike izvan javne domene povezane su na stranici vrste",
         "sl": "Slike zunaj javne domene so povezane na strani vrste",
+        "sr": "Слике које нису у јавном власништву повезане су на страници врсте.",
+        "bg": "Изображенията извън общественото достояние са свързани на страницата на вида.",
+        "ro": "Imaginile care nu sunt în domeniul public sunt legate pe pagina speciei.",
     },
     "about_src_plates": {
         "en": "Historic plates from botanicalillustrations.org",
@@ -2151,6 +2247,9 @@ NEW = {
         "lt": "Istorinės lentos iš botanicalillustrations.org",
         "hr": "Povijesne ploče s botanicalillustrations.org",
         "sl": "Zgodovinske table z botanicalillustrations.org",
+        "sr": "Историјске табле с botanicalillustrations.org",
+        "bg": "Исторически илюстрации от botanicalillustrations.org",
+        "ro": "Planșe istorice de la botanicalillustrations.org",
     },
     "about_src_obs": {
         "en": "Public observations from the app",
@@ -2174,6 +2273,9 @@ NEW = {
         "lt": "Vieši stebėjimai iš programėlės",
         "hr": "Javna opažanja iz aplikacije",
         "sl": "Javna opažanja iz aplikacije",
+        "sr": "Јавна опажања из апликације",
+        "bg": "Публични наблюдения от приложението",
+        "ro": "Observații publice din aplicație",
     },
     "about_src_obs_sub": {
         "en": "Reviewed before they appear",
@@ -2197,6 +2299,9 @@ NEW = {
         "lt": "Peržiūrimi prieš pasirodant",
         "hr": "Pregledavaju se prije objave",
         "sl": "Pregledana so, preden se pokažejo",
+        "sr": "Прегледају се пре објаве",
+        "bg": "Преглеждат се, преди да се появят",
+        "ro": "Sunt revizuite înainte să apară",
     },
     "about_thanks_title": {
         "en": "Thanks", "sk": "Poďakovanie", "cs": "Poděkování", "de": "Danksagung",
@@ -2215,6 +2320,9 @@ NEW = {
         "lt": "Padėka",
         "hr": "Zahvala",
         "sl": "Zahvala",
+        "sr": "Захвалност",
+        "bg": "Благодарности",
+        "ro": "Mulțumiri",
     },
     "about_thanks_lede": {
         "en": "People who helped translate the app and the early catalog.",
@@ -2238,6 +2346,9 @@ NEW = {
         "lt": "Žmonės, padėję versti programėlę ir ankstyvąjį katalogą.",
         "hr": "Ljudi koji su pomogli prevesti aplikaciju i rani katalog.",
         "sl": "Ljudje, ki so pomagali prevesti aplikacijo in zgodnji katalog.",
+        "sr": "Људи који су помогли да се преведу апликација и рани каталог.",
+        "bg": "Хора, които помогнаха да се преведат приложението и ранният каталог.",
+        "ro": "Oameni care au ajutat la traducerea aplicației și a catalogului de la început.",
     },
     "about_app_lede": {
         "en": "Color, habitat, petal type, and world region — here or in the app. Then open the matching plant. Offline photos and field notes are paid add-ons.",
@@ -2261,6 +2372,9 @@ NEW = {
         "lt": "Spalva, buveinė, vainiklapių tipas ir pasaulio regionas — čia arba programėlėje. Tada atidarykite tinkamą augalą. Neprisijungusios nuotraukos ir lauko užrašai yra mokami priedai.",
         "hr": "Boja, stanište, tip latica i regija svijeta — ovdje ili u aplikaciji. Zatim otvorite odgovarajuću biljku. Fotografije izvan mreže i terenske bilješke plaćeni su dodaci.",
         "sl": "Barva, rastišče, tip venca in območje sveta — tukaj ali v aplikaciji. Nato odprite ustrezno rastlino. Fotografije brez povezave in terenski zapiski so plačljivi dodatki.",
+        "sr": "Боја цвета, станиште, тип крунице и регион света — овде или у апликацији. Затим отворите одговарајућу биљку. Фотографије ван мреже и теренске белешке су плаћени додаци.",
+        "bg": "Цвят на цвета, местообитание, тип на венчелистчетата и регион на света — тук или в приложението. После отворете съответното растение. Снимките без мрежа и теренните бележки са платени добавки.",
+        "ro": "Culoarea florii, habitatul, tipul petalelor și regiunea lumii — aici sau în aplicație. Apoi deschideți planta potrivită. Fotografiile offline și notițele de teren sunt suplimente plătite.",
     },
     "about_identify_here": {
         "en": "Identify on this site",
@@ -2284,6 +2398,9 @@ NEW = {
         "lt": "Nustatyti šioje svetainėje",
         "hr": "Odredi na ovom web-mjestu",
         "sl": "Določi na tem spletišču",
+        "sr": "Одредите на овом сајту",
+        "bg": "Разпознай на този сайт",
+        "ro": "Identifică pe acest site",
     },
     "about_contact": {
         "en": "Questions", "sk": "Otázky", "cs": "Otázky", "de": "Fragen",
@@ -2302,6 +2419,9 @@ NEW = {
         "lt": "Klausimai",
         "hr": "Pitanja",
         "sl": "Vprašanja",
+        "sr": "Питања",
+        "bg": "Въпроси",
+        "ro": "Întrebări",
     },
     "seo_home": {
         "en": "A plant encyclopedia with 19th-century botanical plates, field photographs, and public sightings.",
@@ -2321,6 +2441,9 @@ NEW = {
         "da": "En planteencyklopædi med botaniske tavler fra 1800-tallet, feltfotografier og offentlige observationer.",
         "hr": "Enciklopedija biljaka s botaničkim pločama iz 19. stoljeća, terenskim fotografijama i javnim opažanjima.",
         "sl": "Enciklopedija rastlin z botaničnimi tablami iz 19. stoletja, terenskimi fotografijami in javnimi opažanji.",
+        "sr": "Енциклопедија биљака с ботаничким таблама из 19. века, теренским фотографијама и јавним опажањима.",
+        "bg": "Енциклопедия на растенията с ботанически илюстрации от XIX век, теренни снимки и публични наблюдения.",
+        "ro": "O enciclopedie de plante cu planșe botanice din secolul al XIX-lea, fotografii de teren și observații publice.",
     },
     "seo_families": {
         "en": "Browse flowering-plant families in the encyclopedia.",
@@ -2340,6 +2463,9 @@ NEW = {
         "da": "Gennemse blomsterplanternes familier i encyklopædien.",
         "hr": "Pregled porodica cvjetnica u enciklopediji.",
         "sl": "Pregled družin cvetnic v enciklopediji.",
+        "sr": "Преглед породица скривеносеменица у енциклопедији.",
+        "bg": "Преглед на семействата цветни растения в енциклопедията.",
+        "ro": "Parcurge familiile de plante cu flori din enciclopedie.",
     },
     "seo_genera": {
         "en": "Browse flowering-plant genera in the encyclopedia.",
@@ -2359,6 +2485,9 @@ NEW = {
         "da": "Gennemse blomsterplanternes slægter i encyklopædien.",
         "hr": "Pregled rodova cvjetnica u enciklopediji.",
         "sl": "Pregled rodov cvetnic v enciklopediji.",
+        "sr": "Преглед родова скривеносеменица у енциклопедији.",
+        "bg": "Преглед на родовете цветни растения в енциклопедията.",
+        "ro": "Parcurge genurile de plante cu flori din enciclopedie.",
     },
     "seo_identify": {
         "en": "Identify a flower with the four-step key in the app.",
@@ -2378,6 +2507,9 @@ NEW = {
         "da": "Bestem en blomst med den firetrinsnøgle i appen.",
         "hr": "Odredite cvijet četverostupanjskim ključem u aplikaciji.",
         "sl": "Določite cvet s štiristopenjskim ključem v aplikaciji.",
+        "sr": "Одредите цвет четворостепеним кључем у апликацији.",
+        "bg": "Разпознайте цвете с ключа в четири стъпки в приложението.",
+        "ro": "Identifică o floare cu cheia în patru pași din aplicație.",
     },
     "seo_about": {
         "en": "About the plant encyclopedia What's that flower?",
@@ -2403,6 +2535,9 @@ NEW = {
         "lt": "Apie augalų enciklopediją Kas yra ta gėlė?",
         "hr": "O enciklopediji biljaka Što je taj cvijet?",
         "sl": "O enciklopediji rastlin Kaj je ta cvet?",
+        "sr": "О енциклопедији биљака Шта је тај цвет?",
+        "bg": "За енциклопедията на растенията Какво е това цвете?",
+        "ro": "Despre enciclopedia de plante Ce este acea floare?",
     },
     "seo_help": {
         "en": "Help for What's that flower?",
@@ -2422,6 +2557,9 @@ NEW = {
         "da": "Hjælp til Hvad er denne blomst?",
         "hr": "Pomoć za Što je taj cvijet?",
         "sl": "Pomoč za Kaj je ta cvet?",
+        "sr": "Помоћ за Шта је тај цвет?",
+        "bg": "Помощ за Какво е това цвете?",
+        "ro": "Ajutor pentru Ce este acea floare?",
     },
 }
 
