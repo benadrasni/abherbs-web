@@ -1249,7 +1249,7 @@ NEW = {
     "app_name": {
         "en": "What's that flower?",
     },
-    "about": {"en": "About"},
+    "about": {"en": "About", "hi": "परिचय", "ko": "소개"},
     "help": {"en": "Help"},
     "flower": {"en": "Flower"},
     "fruit": {"en": "Fruit"},
@@ -1465,6 +1465,8 @@ NEW = {
         "sr": "Енциклопедија биљака",
         "bg": "Енциклопедия на растенията",
         "ro": "O enciclopedie de plante",
+        "hi": "पौधों का विश्वकोश",
+        "ko": "식물 백과사전",
     },
     "about_lede": {
         "en": "Species pages you can trust: a botanical plate, field photographs, sourced text, and a native/introduced map. Identify with the four-step key here or in the app.",
@@ -1491,6 +1493,8 @@ NEW = {
         "sr": "Странице врста којима се може веровати: ботаничка табла, теренске фотографије, текст из извора и карта домаћег и унесеног ареала. Одређујте четворостепеним кључем овде или у апликацији.",
         "bg": "Страници на видове, на които може да се разчита: ботаническа илюстрация, теренни снимки, текст по източници и карта на местния и внесения ареал. Разпознавайте с ключа в четири стъпки тук или в приложението.",
         "ro": "Pagini de specii pe care te poți baza: o planșă botanică, fotografii de teren, text cu surse și o hartă a arealului nativ și introdus. Identifică cu cheia în patru pași aici sau în aplicație.",
+        "hi": "भरोसेमंद जाति-पृष्ठ: एक वानस्पतिक पट्ट, मैदानी तस्वीरें, स्रोत से लिखा पाठ, और मूल तथा आयातित क्षेत्र का नक्शा। चार चरणों की कुंजी से यहाँ या ऐप में पहचानें।",
+        "ko": "믿을 수 있는 종 페이지입니다. 식물 도판, 야외 사진, 출처가 있는 본문, 자생과 도입의 분포도가 있습니다. 4단계 검색 키로 이 사이트나 앱에서 식별합니다.",
     },
     "about_fact_collection": {
         "en": "Collection", "sk": "Zbierka", "cs": "Sbírka", "de": "Sammlung",
@@ -1512,6 +1516,8 @@ NEW = {
         "sr": "Збирка",
         "bg": "Сбирка",
         "ro": "Colecție",
+        "hi": "संग्रह",
+        "ko": "컬렉션",
     },
     "about_fact_languages": {
         "en": "Languages", "sk": "Jazyky", "cs": "Jazyky", "de": "Sprachen",
@@ -1533,6 +1539,8 @@ NEW = {
         "sr": "Језици",
         "bg": "Езици",
         "ro": "Limbi",
+        "hi": "भाषाएँ",
+        "ko": "언어",
     },
     "about_fact_key": {
         "en": "Identification", "sk": "Určovanie", "cs": "Určování", "de": "Bestimmung",
@@ -1554,6 +1562,8 @@ NEW = {
         "sr": "Одређивање",
         "bg": "Разпознаване",
         "ro": "Identificare",
+        "hi": "पहचान",
+        "ko": "식별",
     },
     "about_fact_steps": {
         "en": "4 steps", "sk": "4 kroky", "cs": "4 kroky", "de": "4 Schritte",
@@ -1575,6 +1585,8 @@ NEW = {
         "sr": "4 корака",
         "bg": "4 стъпки",
         "ro": "4 pași",
+        "hi": "4 चरण",
+        "ko": "4단계",
     },
     "about_why_kicker": {
         "en": "Why it exists", "sk": "Prečo to existuje", "cs": "Proč to existuje",
@@ -1597,6 +1609,8 @@ NEW = {
         "sr": "Зашто постоји",
         "bg": "Защо съществува",
         "ro": "De ce există",
+        "hi": "यह क्यों है",
+        "ko": "왜 있는가",
     },
     "about_why_title": {
         "en": "A catalog of flowering plants",
@@ -1623,6 +1637,8 @@ NEW = {
         "sr": "Каталог скривеносеменица",
         "bg": "Каталог на цветните растения",
         "ro": "Un catalog de plante cu flori",
+        "hi": "पुष्पी पौधों का संग्रह",
+        "ko": "속씨식물 도감",
     },
     "about_why_p1": {
         "en": "Search and read here. Identify by color, habitat, petal type, and world region — on this site or in the app.",
@@ -1649,6 +1665,8 @@ NEW = {
         "sr": "Овде тражите и читате. Одређујете према боји цвета, станишту, типу крунице и региону света — на овом сајту или у апликацији.",
         "bg": "Тук търсите и четете. Разпознавате по цвят на цвета, местообитание, тип на венчелистчетата и регион на света — на този сайт или в приложението.",
         "ro": "Căutați și citiți aici. Identificați după culoarea florii, habitat, tipul petalelor și regiunea lumii — pe acest site sau în aplicație.",
+        "hi": "यहाँ खोजें और पढ़ें। फूल के रंग, वासस्थान, पंखुड़ी के प्रकार और विश्व क्षेत्र से पहचानें — इस साइट पर या ऐप में।",
+        "ko": "여기서 찾고 읽습니다. 꽃 색깔, 서식지, 꽃잎 유형, 세계 지역으로 식별합니다. 이 사이트에서나 앱에서 할 수 있습니다.",
     },
     "about_why_p2": {
         "en": "Each species page is prepared by hand: photographs, a botanical plate on cream paper, and identification text rewritten from floras that actually cover the plant. Common names come from sources in that language. If none exist, the Latin name stands.",
@@ -1675,6 +1693,8 @@ NEW = {
         "sr": "Свака страница врсте припрема се ручно: фотографије, ботаничка табла на крем папиру и текст за одређивање преписан из флора које ту биљку заиста описују. Народно име долази из извора на том језику. Ако га нема, остаје латинско име.",
         "bg": "Всяка страница на вид се подготвя ръчно: снимки, ботаническа илюстрация върху кремава хартия и текст за разпознаване, преписан от флори, които наистина описват растението. Народното име идва от източник на този език. Ако няма такова, остава латинското име.",
         "ro": "Fiecare pagină de specie este pregătită manual: fotografii, o planșă botanică pe hârtie crem și text de identificare rescris din flore care tratează chiar planta. Numele popular vine din surse în limba respectivă. Dacă nu există, rămâne numele latin.",
+        "hi": "हर जाति-पृष्ठ हाथ से बनता है: तस्वीरें, क्रीम कागज पर एक वानस्पतिक पट्ट, और पहचान का पाठ उन वनस्पतियों से लिखा जाता है जो उस पौधे को सच में बताती हैं। लोकनाम उसी भाषा के स्रोत से आते हैं। स्रोत न हो तो लैटिन नाम रहता है।",
+        "ko": "종 페이지는 하나하나 만듭니다. 사진, 크림색 종이 위의 식물 도판, 그리고 그 식물을 실제로 다룬 식물지에서 다시 쓴 식별 본문입니다. 일반명은 그 언어의 자료에서만 가져옵니다. 자료가 없으면 학명을 그대로 둡니다.",
     },
     "about_why_p3": {
         "en": "This is a curated collection of flowering plants, not a flora of the world.",
@@ -1701,6 +1721,8 @@ NEW = {
         "sr": "Ово је одабрана збирка скривеносеменица, а не флора целог света.",
         "bg": "Това е подбрана сбирка от цветни растения, а не флора на целия свят.",
         "ro": "Aceasta este o colecție aleasă de plante cu flori, nu o floră a lumii întregi.",
+        "hi": "यह पुष्पी पौधों का चुना संग्रह है, सारी दुनिया की वनस्पति नहीं।",
+        "ko": "이것은 속씨식물을 골라 모은 컬렉션이며, 온 세계의 식물지가 아닙니다.",
     },
     "about_how_title": {
         "en": "How a species page is made",
@@ -1727,6 +1749,8 @@ NEW = {
         "sr": "Како настаје страница врсте",
         "bg": "Как се прави страница на вид",
         "ro": "Cum se face o pagină de specie",
+        "hi": "जाति-पृष्ठ कैसे बनता है",
+        "ko": "종 페이지를 만드는 방법",
     },
     "about_how_lede": {
         "en": "Plate, photographs, sourced text, and a distribution map.",
@@ -1753,6 +1777,8 @@ NEW = {
         "sr": "Табла, фотографије, текст из извора и карта распрострањености.",
         "bg": "Илюстрация, снимки, текст по източници и карта на разпространението.",
         "ro": "Planșă, fotografii, text cu surse și o hartă de răspândire.",
+        "hi": "पट्ट, तस्वीरें, स्रोत से लिखा पाठ, और वितरण का नक्शा।",
+        "ko": "도판, 사진, 출처가 있는 본문, 분포도.",
     },
     "about_tile_plate_t": {
         "en": "One official plate", "sk": "Jedna oficiálna tabuľa", "cs": "Jedna oficiální tabule",
@@ -1775,6 +1801,8 @@ NEW = {
         "sr": "Једна званична табла",
         "bg": "Една официална илюстрация",
         "ro": "O singură planșă oficială",
+        "hi": "एक आधिकारिक पट्ट",
+        "ko": "공식 도판 하나",
     },
     "about_tile_plate_d": {
         "en": "A botanical plate on cream paper, from a historic original or colorized. Plates come from botanicalillustrations.org.",
@@ -1801,6 +1829,8 @@ NEW = {
         "sr": "Ботаничка табла на крем папиру, с историјског оригинала или накнадно обојена. Табле су с botanicalillustrations.org.",
         "bg": "Ботаническа илюстрация върху кремава хартия, по исторически оригинал или оцветена допълнително. Илюстрациите са от botanicalillustrations.org.",
         "ro": "O planșă botanică pe hârtie crem, după un original istoric sau colorată ulterior. Planșele vin de la botanicalillustrations.org.",
+        "hi": "क्रीम कागज पर वानस्पतिक पट्ट, किसी ऐतिहासिक मूल से या बाद में रंगा हुआ। पट्ट botanicalillustrations.org से आते हैं।",
+        "ko": "크림색 종이 위의 식물 도판으로, 옛 원도에서 옮기거나 뒤에 채색했습니다. 도판은 botanicalillustrations.org에서 옵니다.",
     },
     "about_tile_photo_t": {
         "en": "Curated photographs", "sk": "Vybrané fotografie", "cs": "Vybrané fotografie",
@@ -1823,6 +1853,8 @@ NEW = {
         "sr": "Одабране фотографије",
         "bg": "Подбрани снимки",
         "ro": "Fotografii alese",
+        "hi": "चुनी तस्वीरें",
+        "ko": "엄선한 사진",
     },
     "about_tile_photo_d": {
         "en": "Field photos prepared for the catalog, distinct from public sightings on the species page.",
@@ -1849,6 +1881,8 @@ NEW = {
         "sr": "Теренске фотографије припремљене за каталог, одвојене од јавних опажања на страници врсте.",
         "bg": "Теренни снимки, подготвени за каталога, отделени от публичните наблюдения на страницата на вида.",
         "ro": "Fotografii de teren pregătite pentru catalog, separate de observațiile publice de pe pagina speciei.",
+        "hi": "सूची के लिए तैयार मैदानी तस्वीरें, जाति-पृष्ठ की सार्वजनिक टिप्पणियों से अलग।",
+        "ko": "도감용으로 준비한 야외 사진입니다. 종 페이지의 공개 관찰과는 다릅니다.",
     },
     "about_tile_text_t": {
         "en": "Seven written fields", "sk": "Sedem písaných polí", "cs": "Sedm psaných polí",
@@ -1871,6 +1905,8 @@ NEW = {
         "sr": "Седам писаних поља",
         "bg": "Седем написани полета",
         "ro": "Șapte câmpuri scrise",
+        "hi": "सात लिखे खंड",
+        "ko": "일곱 개의 본문 칸",
     },
     "about_tile_text_d": {
         "en": "Description, flower, inflorescence, fruit, leaf, stem, habitat — plus toxicity, uses, and trivia when sourced.",
@@ -1897,6 +1933,8 @@ NEW = {
         "sr": "Опис, цвет, цваст, плод, лист, стабло, станиште — и токсичност, употреба и занимљивости, кад за њих постоји извор.",
         "bg": "Описание, цвят, съцветие, плод, лист, стъбло, местообитание — и токсичност, употреба и любопитни факти, когато за тях има източник.",
         "ro": "Descriere, floare, inflorescență, fruct, frunză, tulpină, habitat — și toxicitate, utilizări și curiozități, când există o sursă.",
+        "hi": "वर्णन, पुष्प, पुष्पक्रम, फल, पत्ते, तना, पर्यावास — और स्रोत हो तो आविषता, उपयोग तथा सामान्य ज्ञान।",
+        "ko": "설명, 꽃, 꽃차례, 열매, 잎, 줄기, 서식지. 출처가 있으면 독성, 용도, 잡학도 적습니다.",
     },
     "about_tile_map_t": {
         "en": "Native and introduced", "sk": "Pôvodné a zavlečené", "cs": "Původní a zavlečené",
@@ -1919,6 +1957,8 @@ NEW = {
         "sr": "Домаћи и унесен",
         "bg": "Местен и внесен",
         "ro": "Nativ și introdus",
+        "hi": "मूल और आयातित",
+        "ko": "자생과 도입",
     },
     "about_tile_map_d": {
         "en": "World distribution from the World Checklist of Vascular Plants. Olive native, terracotta introduced.",
@@ -1945,6 +1985,8 @@ NEW = {
         "sr": "Светска распрострањеност према World Checklist of Vascular Plants. Маслинастозелено: домаће; теракота: унесено.",
         "bg": "Световно разпространение по World Checklist of Vascular Plants. Маслинено: местно; теракота: внесено.",
         "ro": "Răspândire mondială după World Checklist of Vascular Plants. Oliv: nativ; teracotă: introdus.",
+        "hi": "विश्व वितरण World Checklist of Vascular Plants के अनुसार। जैतून: मूल; टेराकोटा: आयातित।",
+        "ko": "World Checklist of Vascular Plants에 따른 세계 분포. 올리브색은 자생, 테라코타는 도입.",
     },
     "about_langs_title": {
         "en": "Languages", "sk": "Jazyky", "cs": "Jazyky", "de": "Sprachen",
@@ -1967,6 +2009,8 @@ NEW = {
         "sr": "Језици",
         "bg": "Езици",
         "ro": "Limbi",
+        "hi": "भाषाएँ",
+        "ko": "언어",
     },
     "about_langs_lede": {
         "en": "The app and the website are in {n} languages. Identification text is written in each of them. Common names are never invented.",
@@ -1995,6 +2039,8 @@ NEW = {
         "sr": "Апликација и сајт су на {n} језика. Текст за одређивање написан је на сваком од њих. Народна имена се не измишљају.",
         "bg": "Приложението и сайтът са на {n} езика. Текстът за разпознаване е написан на всеки от тях. Народните имена не се измислят.",
         "ro": "Aplicația și site-ul sunt în {n} limbi. Textul de identificare este scris în fiecare dintre ele. Numele populare nu sunt inventate.",
+        "hi": "ऐप और वेबसाइट {n} भाषाओं में हैं। पहचान का पाठ हर भाषा में लिखा गया है। लोकनाम कभी गढ़े नहीं जाते।",
+        "ko": "앱과 웹사이트는 {n}개 언어로 되어 있습니다. 식별 본문은 각 언어로 씁니다. 일반명은 만들지 않습니다.",
     },
     "about_names_k": {
         "en": "Names", "sk": "Názvy", "cs": "Jména", "de": "Namen",
@@ -2016,6 +2062,8 @@ NEW = {
         "sr": "Имена",
         "bg": "Имена",
         "ro": "Nume",
+        "hi": "नाम",
+        "ko": "이름",
     },
     "about_names_note": {
         "en": "A vernacular label is used only when a source in that language has it — Wikidata, that Wikipedia, EPPO, GBIF, or a flora. Otherwise the page shows the Latin name.",
@@ -2042,6 +2090,8 @@ NEW = {
         "sr": "Народно име стоји само кад га има извор на том језику — Wikidata, Википедија на том језику, EPPO, GBIF или флора. Иначе страница показује латинско име.",
         "bg": "Народно име се използва само когато източник на този език го има — Wikidata, Уикипедия на този език, EPPO, GBIF или флора. Иначе страницата показва латинското име.",
         "ro": "Un nume popular se folosește numai când o sursă în limba respectivă îl are — Wikidata, Wikipedia în acea limbă, EPPO, GBIF sau o floră. Altfel pagina arată numele latin.",
+        "hi": "लोकनाम तभी लगता है जब उस भाषा का स्रोत उसे देता हो — Wikidata, उस भाषा का विकिपीडिया, EPPO, GBIF, या कोई वनस्पति-ग्रंथ। नहीं तो पृष्ठ लैटिन नाम दिखाता है।",
+        "ko": "일반명은 그 언어의 자료에 있을 때만 씁니다. Wikidata, 그 언어의 위키백과, EPPO, GBIF, 또는 식물지입니다. 없으면 페이지는 학명을 보입니다.",
     },
     "about_sources_intro": {
         "en": "Each species page lists the pages actually used. The catalog does not invent facts from an unused flora.",
@@ -2068,6 +2118,8 @@ NEW = {
         "sr": "Свака страница врсте наводи странице које су стварно коришћене. Каталог не измишља чињенице из флоре која биљку не описује.",
         "bg": "Всяка страница на вид изброява страниците, които наистина са използвани. Каталогът не измисля факти от флора, която не описва растението.",
         "ro": "Fiecare pagină de specie enumeră paginile folosite de fapt. Catalogul nu inventează fapte dintr-o floră care nu tratează planta.",
+        "hi": "हर जाति-पृष्ठ उन पृष्ठों की सूची देता है जो सच में काम आए। सूची उस वनस्पति से तथ्य नहीं गढ़ती जिसमें यह पौधा नहीं है।",
+        "ko": "종 페이지마다 실제로 쓴 페이지를 적습니다. 도감은 그 식물을 다루지 않은 식물지에서 사실을 만들지 않습니다.",
     },
     "about_src_wcvp_sub": {
         "en": "Accepted name and range",
@@ -2094,6 +2146,8 @@ NEW = {
         "sr": "Прихваћено име и ареал",
         "bg": "Прието име и ареал",
         "ro": "Nume acceptat și areal",
+        "hi": "स्वीकृत नाम और क्षेत्र",
+        "ko": "승인명과 분포",
     },
     "about_src_wikidata_sub": {
         "en": "Labels, aliases, crosswalk ids",
@@ -2120,6 +2174,8 @@ NEW = {
         "sr": "Ознаке, алијаси, спољни идентификатори",
         "bg": "Надписи, псевдоними, външни идентификатори",
         "ro": "Etichete, aliasuri, identificatori externi",
+        "hi": "लेबल, उपनाम, बाहरी पहचान",
+        "ko": "이름, 별칭, 외부 식별자",
     },
     "about_src_floras": {
         "en": "Regional floras cited on the species page",
@@ -2146,6 +2202,8 @@ NEW = {
         "sr": "Регионалне флоре наведене на страници врсте",
         "bg": "Регионални флори, цитирани на страницата на вида",
         "ro": "Flore regionale citate pe pagina speciei",
+        "hi": "जाति-पृष्ठ पर उद्धृत क्षेत्रीय वनस्पति-ग्रंथ",
+        "ko": "종 페이지에 인용한 지역 식물지",
     },
     "about_src_floras_sub": {
         "en": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias, and others when they cover the plant",
@@ -2172,6 +2230,8 @@ NEW = {
         "sr": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias и друге, кад биљку стварно описују",
         "bg": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias и други, когато наистина описват растението",
         "ro": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias și altele, când tratează chiar planta",
+        "hi": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias, और अन्य, जब वे उस पौधे को लिखते हों",
+        "ko": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias 등, 그 식물을 다룰 때",
     },
     "about_src_photos": {
         "en": "Photographs taken for the catalog",
@@ -2198,6 +2258,8 @@ NEW = {
         "sr": "Фотографије снимљене за каталог",
         "bg": "Снимки, направени за каталога",
         "ro": "Fotografii făcute pentru catalog",
+        "hi": "सूची के लिए ली गई तस्वीरें",
+        "ko": "도감용으로 찍은 사진",
     },
     "about_src_commons_sub": {
         "en": "Non-public-domain pictures are linked on the species page",
@@ -2224,6 +2286,8 @@ NEW = {
         "sr": "Слике које нису у јавном власништву повезане су на страници врсте.",
         "bg": "Изображенията извън общественото достояние са свързани на страницата на вида.",
         "ro": "Imaginile care nu sunt în domeniul public sunt legate pe pagina speciei.",
+        "hi": "सार्वजनिक डोमेन से बाहर की तस्वीरें जाति-पृष्ठ पर जुड़ी होती हैं।",
+        "ko": "퍼블릭 도메인이 아닌 그림은 종 페이지에 링크합니다.",
     },
     "about_src_plates": {
         "en": "Historic plates from botanicalillustrations.org",
@@ -2250,6 +2314,8 @@ NEW = {
         "sr": "Историјске табле с botanicalillustrations.org",
         "bg": "Исторически илюстрации от botanicalillustrations.org",
         "ro": "Planșe istorice de la botanicalillustrations.org",
+        "hi": "botanicalillustrations.org की ऐतिहासिक पट्ट",
+        "ko": "botanicalillustrations.org의 옛 도판",
     },
     "about_src_obs": {
         "en": "Public observations from the app",
@@ -2276,6 +2342,8 @@ NEW = {
         "sr": "Јавна опажања из апликације",
         "bg": "Публични наблюдения от приложението",
         "ro": "Observații publice din aplicație",
+        "hi": "ऐप की सार्वजनिक टिप्पणियाँ",
+        "ko": "앱에서 온 공개 관찰",
     },
     "about_src_obs_sub": {
         "en": "Reviewed before they appear",
@@ -2302,6 +2370,8 @@ NEW = {
         "sr": "Прегледају се пре објаве",
         "bg": "Преглеждат се, преди да се появят",
         "ro": "Sunt revizuite înainte să apară",
+        "hi": "दिखने से पहले जाँची जाती हैं",
+        "ko": "올라오기 전에 검토합니다",
     },
     "about_thanks_title": {
         "en": "Thanks", "sk": "Poďakovanie", "cs": "Poděkování", "de": "Danksagung",
@@ -2323,6 +2393,8 @@ NEW = {
         "sr": "Захвалност",
         "bg": "Благодарности",
         "ro": "Mulțumiri",
+        "hi": "धन्यवाद",
+        "ko": "감사",
     },
     "about_thanks_lede": {
         "en": "People who helped translate the app and the early catalog.",
@@ -2349,6 +2421,8 @@ NEW = {
         "sr": "Људи који су помогли да се преведу апликација и рани каталог.",
         "bg": "Хора, които помогнаха да се преведат приложението и ранният каталог.",
         "ro": "Oameni care au ajutat la traducerea aplicației și a catalogului de la început.",
+        "hi": "जिन लोगों ने ऐप और आरंभिक सूची का अनुवाद किया।",
+        "ko": "앱과 초기의 도감을 번역하는 데 힘을 보탠 사람들.",
     },
     "about_app_lede": {
         "en": "Color, habitat, petal type, and world region — here or in the app. Then open the matching plant. Offline photos and field notes are paid add-ons.",
@@ -2375,6 +2449,8 @@ NEW = {
         "sr": "Боја цвета, станиште, тип крунице и регион света — овде или у апликацији. Затим отворите одговарајућу биљку. Фотографије ван мреже и теренске белешке су плаћени додаци.",
         "bg": "Цвят на цвета, местообитание, тип на венчелистчетата и регион на света — тук или в приложението. После отворете съответното растение. Снимките без мрежа и теренните бележки са платени добавки.",
         "ro": "Culoarea florii, habitatul, tipul petalelor și regiunea lumii — aici sau în aplicație. Apoi deschideți planta potrivită. Fotografiile offline și notițele de teren sunt suplimente plătite.",
+        "hi": "रंग, वासस्थान, पंखुड़ी का प्रकार और विश्व क्षेत्र — यहाँ या ऐप में। फिर मेल खाता पौधा खोलें। ऑफ़लाइन तस्वीरें और मैदानी नोट अलग से खरीदे जाते हैं।",
+        "ko": "꽃 색깔, 서식지, 꽃잎 유형, 세계 지역. 이 사이트에서나 앱에서입니다. 그런 다음 맞는 식물을 엽니다. 오프라인 사진과 야외 메모는 유료 추가 기능입니다.",
     },
     "about_identify_here": {
         "en": "Identify on this site",
@@ -2401,6 +2477,8 @@ NEW = {
         "sr": "Одредите на овом сајту",
         "bg": "Разпознай на този сайт",
         "ro": "Identifică pe acest site",
+        "hi": "इस साइट पर पहचानें",
+        "ko": "이 사이트에서 식별",
     },
     "about_contact": {
         "en": "Questions", "sk": "Otázky", "cs": "Otázky", "de": "Fragen",
@@ -2422,6 +2500,8 @@ NEW = {
         "sr": "Питања",
         "bg": "Въпроси",
         "ro": "Întrebări",
+        "hi": "प्रश्न",
+        "ko": "문의",
     },
     "seo_home": {
         "en": "A plant encyclopedia with 19th-century botanical plates, field photographs, and public sightings.",
@@ -2444,6 +2524,8 @@ NEW = {
         "sr": "Енциклопедија биљака с ботаничким таблама из 19. века, теренским фотографијама и јавним опажањима.",
         "bg": "Енциклопедия на растенията с ботанически илюстрации от XIX век, теренни снимки и публични наблюдения.",
         "ro": "O enciclopedie de plante cu planșe botanice din secolul al XIX-lea, fotografii de teren și observații publice.",
+        "hi": "उन्नीसवीं सदी की वानस्पतिक पट्टों, मैदानी तस्वीरों और सार्वजनिक टिप्पणियों वाला पौधों का विश्वकोश।",
+        "ko": "19세기 식물 도판, 야외 사진, 공개 관찰이 있는 식물 백과사전.",
     },
     "seo_families": {
         "en": "Browse flowering-plant families in the encyclopedia.",
@@ -2466,6 +2548,8 @@ NEW = {
         "sr": "Преглед породица скривеносеменица у енциклопедији.",
         "bg": "Преглед на семействата цветни растения в енциклопедията.",
         "ro": "Parcurge familiile de plante cu flori din enciclopedie.",
+        "hi": "विश्वकोश में पुष्पी पौधों के कुल देखें।",
+        "ko": "백과사전의 속씨식물 과를 둘러봅니다.",
     },
     "seo_genera": {
         "en": "Browse flowering-plant genera in the encyclopedia.",
@@ -2488,6 +2572,8 @@ NEW = {
         "sr": "Преглед родова скривеносеменица у енциклопедији.",
         "bg": "Преглед на родовете цветни растения в енциклопедията.",
         "ro": "Parcurge genurile de plante cu flori din enciclopedie.",
+        "hi": "विश्वकोश में पुष्पी पौधों के वंश देखें।",
+        "ko": "백과사전의 속씨식물 속을 둘러봅니다.",
     },
     "seo_identify": {
         "en": "Identify a flower with the four-step key in the app.",
@@ -2510,6 +2596,8 @@ NEW = {
         "sr": "Одредите цвет четворостепеним кључем у апликацији.",
         "bg": "Разпознайте цвете с ключа в четири стъпки в приложението.",
         "ro": "Identifică o floare cu cheia în patru pași din aplicație.",
+        "hi": "ऐप की चार-चरणीय कुंजी से फूल पहचानें।",
+        "ko": "앱의 4단계 검색 키로 꽃을 식별합니다.",
     },
     "seo_about": {
         "en": "About the plant encyclopedia What's that flower?",
@@ -2538,6 +2626,8 @@ NEW = {
         "sr": "О енциклопедији биљака Шта је тај цвет?",
         "bg": "За енциклопедията на растенията Какво е това цвете?",
         "ro": "Despre enciclopedia de plante Ce este acea floare?",
+        "hi": "पौधों के विश्वकोश वह फूल क्या है? के बारे में",
+        "ko": "식물 백과사전 「그 꽃은 무엇입니까?」 소개",
     },
     "seo_help": {
         "en": "Help for What's that flower?",
@@ -2560,6 +2650,8 @@ NEW = {
         "sr": "Помоћ за Шта је тај цвет?",
         "bg": "Помощ за Какво е това цвете?",
         "ro": "Ajutor pentru Ce este acea floare?",
+        "hi": "वह फूल क्या है? के लिए सहायता",
+        "ko": "「그 꽃은 무엇입니까?」 도움말",
     },
 }
 
