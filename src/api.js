@@ -225,32 +225,38 @@ function pickField(field, ...sources) {
   return '';
 }
 
-const LANGUAGES_WITHOUT_GT = new Set(['en', 'sk', 'de', 'fr', 'cs', 'pl', 'ru', 'es', 'pt', 'ja', 'it', 'nl', 'uk', 'hu', 'da', 'sv', 'no', 'fi', 'et', 'lv', 'lt', 'hr', 'sl', 'sr', 'bg', 'ro', 'hi', 'ko']);
+const IDENTIFICATION_FIELDS = [
+  'description',
+  'flower',
+  'inflorescence',
+  'fruit',
+  'leaf',
+  'stem',
+  'habitat',
+];
+
+function hasIdentification(row) {
+  return !!row && IDENTIFICATION_FIELDS.every((field) => row[field]);
+}
 
 export async function loadPlantText(lang, name) {
   const code = lang || 'en';
-  const [primary, gt, fallback] = await Promise.all([
+  const [primary, english] = await Promise.all([
     getJson(`translations/${enc(code)}/${enc(name)}`),
-    LANGUAGES_WITHOUT_GT.has(code)
-      ? Promise.resolve(null)
-      : getJson(`translations/${enc(code)}-GT/${enc(name)}`).catch(() => null),
-    code === 'en'
-      ? Promise.resolve(null)
-      : getJson(`translations/${code === 'cs' ? 'sk' : 'en'}/${enc(name)}`),
+    code === 'en' ? Promise.resolve(null) : getJson(`translations/en/${enc(name)}`),
   ]);
-  const sources = [primary, gt, fallback];
+  const fallback = code !== 'en' && !hasIdentification(primary) ? english : null;
+  const label = primary && typeof primary.label === 'string' ? primary.label.trim() : '';
   const text = {
-    label: pickField('label', primary) || name,
-    names: (primary && primary.names) || [],
+    label: label || name,
+    names: primary && Array.isArray(primary.names) ? primary.names : [],
     wikipedia: pickField('wikipedia', primary, fallback),
-    sourceUrls: (primary && primary.sourceUrls) || (fallback && fallback.sourceUrls) || [],
+    sourceUrls: (primary && primary.sourceUrls && primary.sourceUrls.length)
+      ? primary.sourceUrls
+      : ((fallback && fallback.sourceUrls) || []),
   };
   BODY_FIELDS.forEach((field) => {
-    if (field === 'trivia') {
-      text[field] = (primary && primary[field]) || '';
-      return;
-    }
-    text[field] = pickField(field, ...sources);
+    text[field] = pickField(field, primary, fallback);
   });
   return text;
 }
