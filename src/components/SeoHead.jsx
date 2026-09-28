@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { INDEXED_LANGS, RTL, canonicalUrl, hreflangUrls } from '../lib';
+import { INDEXED_LANGS, RTL, canonicalUrl, hreflangOf, hreflangUrls } from '../lib';
 
 function setLink(rel, href, hreflang) {
   const selector = hreflang
@@ -41,7 +41,7 @@ export default function SeoHead({ lang, pathname, search }) {
       Object.keys(urls).forEach((code) => setLink('alternate', urls[code], code));
     }
 
-    document.documentElement.lang = lang;
+    document.documentElement.lang = hreflangOf(lang);
     document.documentElement.dir = RTL.has(lang) ? 'rtl' : 'ltr';
   }, [lang, pathname, search]);
 

@@ -12,7 +12,7 @@ const DB = 'https://abherbs-backend.firebaseio.com';
 const PHOTO = 'https://storage.googleapis.com/abherbs-resources/photos/';
 const ROOT = path.join(__dirname, '..');
 const BUILD = path.join(ROOT, 'build');
-const INDEXED_LANGS = ['en', 'sk', 'de', 'fr', 'cs', 'pl', 'ru', 'es', 'pt', 'ja', 'it', 'nl', 'uk', 'hu', 'da', 'sv', 'no', 'fi', 'et', 'lv', 'lt', 'hr', 'sl', 'sr', 'bg', 'ro', 'hi', 'ko'];
+const INDEXED_LANGS = ['en', 'sk', 'de', 'fr', 'cs', 'pl', 'ru', 'es', 'pt', 'ja', 'it', 'nl', 'uk', 'hu', 'da', 'sv', 'no', 'fi', 'et', 'lv', 'lt', 'hr', 'sl', 'sr', 'bg', 'ro', 'hi', 'ko', 'zh', 'fa', 'he', 'ar'];
 const OG_LOCALE = {
   en: 'en_US',
   sk: 'sk_SK',
@@ -42,7 +42,16 @@ const OG_LOCALE = {
   ro: 'ro_RO',
   hi: 'hi_IN',
   ko: 'ko_KR',
+  zh: 'zh_TW',
+  fa: 'fa_IR',
+  he: 'he_IL',
+  ar: 'ar_EG',
 };
+const RTL_LANGS = new Set(['ar', 'fa', 'he']);
+
+function hreflangOf(code) {
+  return code === 'zh' ? 'zh-Hant' : code;
+}
 const locales = require('../src/locales.json');
 
 function escapeHtml(value) {
@@ -85,7 +94,7 @@ function pageUrl(lang, parts) {
 function hreflangTags(parts) {
   return INDEXED_LANGS.map(
     (lang) =>
-      '<link rel="alternate" hreflang="' + lang + '" href="' + escapeHtml(pageUrl(lang, parts)) + '">'
+      '<link rel="alternate" hreflang="' + hreflangOf(lang) + '" href="' + escapeHtml(pageUrl(lang, parts)) + '">'
   ).concat([
     '<link rel="alternate" hreflang="x-default" href="' + escapeHtml(pageUrl('en', parts)) + '">',
   ]);
@@ -186,7 +195,12 @@ function inject(template, opts) {
   const description = escapeHtml((opts.description || '').slice(0, 240));
   const url = escapeHtml(opts.url);
   const lang = opts.lang || 'en';
-  let html = template.replace(/<html lang="[^"]*">/, '<html lang="' + lang + '">');
+  const htmlLang = hreflangOf(lang);
+  const htmlDir = RTL_LANGS.has(lang) ? 'rtl' : 'ltr';
+  let html = template.replace(
+    /<html lang="[^"]*"(?: dir="[^"]*")?>/,
+    '<html lang="' + htmlLang + '" dir="' + htmlDir + '">'
+  );
   html = html.replace(/<title>[^<]*<\/title>/, '<title>' + title + '</title>');
   html = html.replace(
     /<meta name="description" content="[^"]*">/,
@@ -234,7 +248,7 @@ function sitemapXml(entries) {
       const links = INDEXED_LANGS.map(
         (lang) =>
           '    <xhtml:link rel="alternate" hreflang="' +
-          lang +
+          hreflangOf(lang) +
           '" href="' +
           pageUrl(lang, entry.parts).replace(/&/g, '&amp;') +
           '"/>'
