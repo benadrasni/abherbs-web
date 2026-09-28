@@ -224,7 +224,9 @@ export default function App() {
   const navigate = useNavigate();
   usePageScroll(location);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    // The history listener is attached in a parent layout effect. Redirecting here, not in
+    // useLayoutEffect, is what lets the router follow the replaced URL.
     const dest = migratedLocation(location);
     if (dest && !samePlace(location, dest)) {
       navigate(dest, { replace: true });
@@ -232,6 +234,7 @@ export default function App() {
   }, [location, navigate]);
 
   const lang = detectLang(location.pathname, location.search, languages);
+  const t = useMemo(() => uiText(lang), [lang]);
   const queryPlant = new URLSearchParams(location.search).get('plant');
   const needsIndex = !queryPlant && routeNeedsIndex(location.pathname);
   const needsLabels = !queryPlant && routeNeedsLabels(location.pathname);
@@ -290,12 +293,23 @@ export default function App() {
   }, [location.hash, lang, navigate]);
 
   useEffect(() => {
-    pageview(location.pathname + location.search);
-  }, [location.pathname, location.search]);
+    // Redirects replace the address bar before this effect. Wait until this render shows that URL,
+    // so the page title belongs to the page being recorded.
+    const settled = {
+      pathname: window.location.pathname,
+      search: window.location.search,
+      hash: window.location.hash || '',
+    };
+    if ((location.hash || '') === '#app' || settled.hash === '#app') return;
+    if (migratedLocation(location) || migratedLocation(settled)) return;
+    if (normPath(location.pathname) !== normPath(settled.pathname) || location.search !== settled.search) {
+      return;
+    }
+    pageview(settled, t.app_name);
+  }, [location.pathname, location.search, location.hash, t.app_name]);
 
   const headers = useMemo(() => compactHeaders(rawHeaders), [rawHeaders]);
   const headersById = useMemo(() => indexHeadersById(headers), [headers]);
-  const t = useMemo(() => uiText(lang), [lang]);
 
   const setLang = (next) => {
     writeLangCookie(next);

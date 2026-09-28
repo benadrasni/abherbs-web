@@ -11,6 +11,7 @@ import {
   taxonLabel,
   taxonNames,
 } from '../api';
+import { trackSearch } from '../analytics';
 import Footer from '../components/Footer';
 import { ListCell, PlateCell } from '../components/PlateGrid';
 import StoreLinks from '../components/StoreLinks';
@@ -47,6 +48,7 @@ function taxonMatchScore(taxonomy, latin, needle) {
 export default function HomePage({ lang, t, headers, headersById, labels, taxonomy }) {
   const [q, setQ] = useState('');
   const [hits, setHits] = useState([]);
+  const [hitQuery, setHitQuery] = useState('');
   const [newLists, setNewLists] = useState(null);
   const [languageLists, setLanguageLists] = useState(null);
 
@@ -109,6 +111,7 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
     const query = q.trim();
     if (query.length < 2) {
       setHits([]);
+      setHitQuery('');
       return undefined;
     }
     let live = true;
@@ -175,6 +178,7 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
               label: labelAt(labels, h.id) || '',
             }));
             setHits(taxonHits.slice(0, 6).concat(plants).slice(0, 12));
+            setHitQuery(query);
           }
         })
         .catch(() => {
@@ -182,6 +186,7 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
             setHits(
               taxonHits.slice(0, 6).concat(local.map((h) => ({ ...h, kind: 'plant' }))).slice(0, 12)
             );
+            setHitQuery(query);
           }
         });
     }, 220);
@@ -190,6 +195,22 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
       clearTimeout(timer);
     };
   }, [q, lang, headers, headersById, labels, taxonomy, families, genera]);
+
+  useEffect(() => {
+    const query = q.trim();
+    if (query.length < 2) {
+      trackSearch('');
+      return undefined;
+    }
+    if (query !== hitQuery) return undefined;
+    const timer = setTimeout(() => trackSearch(query, hits.length), 1000);
+    return () => clearTimeout(timer);
+  }, [q, hitQuery, hits]);
+
+  const flushSearch = () => {
+    const query = q.trim();
+    if (query.length >= 2 && query === hitQuery) trackSearch(query, hits.length);
+  };
 
   return (
     <div className="page">
@@ -210,7 +231,7 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
         />
       </div>
       {q.trim().length >= 2 ? (
-        <div className="results">
+        <div className="results" onClick={flushSearch}>
           {hits.length ? (
             hits.map((h) => {
               if (h.kind === 'family' || h.kind === 'genus') {
