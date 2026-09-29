@@ -12,6 +12,7 @@ const languages = {
     "hi":"हिन्दी",
     "he":"עברית",
     "hr":"Hrvatski",
+    "id":"Bahasa Indonesia",
     "it":"Italiano",
     "ko": "한국어",
     "lv":"Latviešu",
@@ -28,6 +29,7 @@ const languages = {
     "sl":"Slovenščina",
     "sr":"Српски / srpski",
     "sv":"Svenska",
+    "tr":"Türkçe",
     "fi":"Suomi",
     "uk":"Українська",
     "zh":"中文"

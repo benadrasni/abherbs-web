@@ -54,6 +54,8 @@ WEB_TO_ARB = {
     "fi": "intl_fi_FI.arb",
     "uk": "intl_uk_UA.arb",
     "zh": "intl_zh_TW.arb",
+    "id": "intl_id_ID.arb",
+    "tr": "intl_tr_TR.arb",
 }
 
 ARB_SEED = {
@@ -2876,7 +2878,30 @@ def load_arb(path):
         return json.load(f)
 
 
+# Strings that are not already NEW keys. Applied after the English
+# fallback so a new key does not replace translations already in locales.json.
+UX_EXTRAS = {}
+
+
+def apply_ux_overlay():
+    """Merge Indonesian and Turkish into existing NEW keys. Park the rest."""
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ux_id_tr.json")
+    with open(path, encoding="utf-8") as handle:
+        overlay = json.load(handle)
+    for key, by_lang in overlay.items():
+        for lang, text in by_lang.items():
+            if lang not in ("id", "tr"):
+                raise SystemExit("ux overlay lang " + lang + " on " + key)
+            if not isinstance(text, str) or not text.strip():
+                raise SystemExit("ux overlay empty " + lang + "." + key)
+        if key in NEW:
+            NEW[key].update(by_lang)
+        else:
+            UX_EXTRAS[key] = by_lang
+
+
 def main():
+    apply_ux_overlay()
     langs = ["en"] + [c for c in WEB_TO_ARB if c != "en"]
     catalogs = {lang: {} for lang in langs}
     if not os.path.isdir(ARB_DIR):
@@ -2951,6 +2976,12 @@ def main():
             if key in SPARSE:
                 continue
             cat.setdefault(key, catalogs["en"][key])
+
+    for key, by_lang in UX_EXTRAS.items():
+        for lang, text in by_lang.items():
+            if lang not in catalogs:
+                raise SystemExit("ux extra lang missing from catalogs: " + lang)
+            catalogs[lang][key] = text
 
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(catalogs, f, ensure_ascii=False, indent=2)

@@ -57,7 +57,7 @@ export function countryName(code, lang) {
 export const SITE_ORIGIN = 'https://whatsthatflower.com';
 
 /** Languages with path prefixes and SEO shells. English is unprefixed. Keep in sync with scripts/generate_seo.js. */
-export const INDEXED_LANGS = ['en', 'sk', 'de', 'fr', 'cs', 'pl', 'ru', 'es', 'pt', 'ja', 'it', 'nl', 'uk', 'hu', 'da', 'sv', 'no', 'fi', 'et', 'lv', 'lt', 'hr', 'sl', 'sr', 'bg', 'ro', 'hi', 'ko', 'zh', 'fa', 'he', 'ar'];
+export const INDEXED_LANGS = ['en', 'sk', 'de', 'fr', 'cs', 'pl', 'ru', 'es', 'pt', 'ja', 'it', 'nl', 'uk', 'hu', 'da', 'sv', 'no', 'fi', 'et', 'lv', 'lt', 'hr', 'sl', 'sr', 'bg', 'ro', 'hi', 'ko', 'zh', 'fa', 'he', 'ar', 'id', 'tr'];
 export const PATH_LANGS = INDEXED_LANGS.filter((code) => code !== 'en');
 
 /** BCP 47 tag for alternate links. Path codes stay short; Traditional Chinese is zh-Hant. */
