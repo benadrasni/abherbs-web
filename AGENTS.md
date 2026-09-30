@@ -40,7 +40,7 @@ Indexed languages: **en** unprefixed, **sk / de / fr / cs / pl / ru / es / pt / 
 - `https://whatsthatflower.com/id/plant/Bellis%20perennis/` Indonesian
 - `https://whatsthatflower.com/tr/plant/Bellis%20perennis/` Turkish
 
-Indonesian (`id`, app locale `id_ID`) and Turkish (`tr`) are indexed path languages as of 2026-09-29. Interface chrome for both is in `scripts/ux_id_tr.json` (merged by `scripts/generate_locales.py`). Indonesian is already an app language. Turkish is not in the app language list. Live `translations/tr` is full-7 (1,421 plants, read 2026-09-29). Missing body text still falls back to English. Do not remove `/id/` or `/tr/`.
+Indonesian (`id`, app locale `id_ID`) and Turkish (`tr`, app locale `tr_TR`) are indexed path languages as of 2026-09-29, and both are app languages. Interface chrome for both is in `scripts/ux_id_tr.json` (merged by `scripts/generate_locales.py`). Live `translations/tr` is full-7 (1,421 plants, read 2026-09-29). Missing body text still falls back to English. Do not remove `/id/` or `/tr/`.
 
 Other UI languages stay on `?lang=` (not in the sitemap). `/en/...` 301s to the unprefixed URL (Firebase Hosting). The `/en/:path*` destination must keep the trailing slash (`/:path/`) so Google does not get a second hop from `trailingSlash: true`. Old `?lang=de` is rewritten in the client to `/de/...`; a crawler 301 needs a Cloudflare Redirect Rule (Firebase cannot match query strings):
 
