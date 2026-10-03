@@ -6,7 +6,6 @@
   "search_empty": {"id": "Tidak ada tumbuhan yang cocok dengan pencarian itu.", "tr": "Bu aramaya uyan bitki yok."},
   "plants_count_one": {"id": "{n} tumbuhan", "tr": "{n} bitki"},
   "plants_count_other": {"id": "{n} tumbuhan", "tr": "{n} bitki"},
-  "from_collection": {"id": "Dari koleksi", "tr": "Koleksiyondan"},
   "recently_added": {"id": "Baru ditambahkan", "tr": "Yeni eklenenler"},
   "today": {"id": "Hari ini", "tr": "Bugün"},
   "yesterday": {"id": "Kemarin", "tr": "Dün"},
