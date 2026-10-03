@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 
 const PART_COUNT = 17;
 
-export function flowerParts(t) {
+function flowerParts(t) {
   const parts = [];
   for (let i = 1; i <= PART_COUNT; i += 1) {
     const label = t[`legend_flower_${i}`];

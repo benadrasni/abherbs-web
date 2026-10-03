@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { INFLORESCENCE_TYPES } from '../inflorescenceMatch';
 
-export { INFLORESCENCE_TYPES };
-
-export function inflorescenceTypes(t) {
+function inflorescenceTypes(t) {
   return INFLORESCENCE_TYPES.map((key) => ({
     key,
     src: `/images/inflorescence_${key}.webp`,

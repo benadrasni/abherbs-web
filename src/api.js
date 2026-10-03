@@ -63,10 +63,6 @@ export function plateFiles(rel) {
   };
 }
 
-export function plateGridUrl(rel) {
-  return plateFiles(rel).grid || rel || '';
-}
-
 export function illustrationFromHeaderUrl(url) {
   if (!url) return '';
   const parts = url.split('/');
@@ -101,10 +97,10 @@ export async function loadPlantIndex() {
     getJson('plants_to_update/count').catch(() => null),
   ]);
   if (catalogCoversCount(namedCount(catalog), count)) {
-    return { raw: catalog, fromCatalog: true };
+    return { raw: catalog };
   }
   const headers = await getJson('plants_headers');
-  return { raw: headers, fromCatalog: false };
+  return { raw: headers };
 }
 
 export function loadLabels(lang) {
