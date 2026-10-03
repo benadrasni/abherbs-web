@@ -376,7 +376,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
                   <div>
                     <div className="syn-flow">
                       {shownSyn.map((s, i) => (
-                        <span key={s.href || s.name}>
+                        <span key={synonymKey(s, i)}>
                           {i ? ', ' : null}
                           <SynonymName syn={s} />
                         </span>
@@ -387,7 +387,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
                         <summary>{t.more_names(synonymRest.length)}</summary>
                         <div className="syn-flow">
                           {synonymRest.map((s, i) => (
-                            <span key={s.href || s.name}>
+                            <span key={synonymKey(s, i)}>
                               {i ? ', ' : null}
                               <SynonymName syn={s} />
                             </span>
@@ -547,6 +547,10 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
       />
     </div>
   );
+}
+
+function synonymKey(syn, index) {
+  return [syn.href, syn.name, syn.suffix, index].filter((part) => part != null && part !== '').join('|');
 }
 
 function SynonymName({ syn }) {

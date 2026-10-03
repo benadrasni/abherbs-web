@@ -195,17 +195,43 @@ export function fullApgRanks(apg) {
     });
 }
 
+function synonymList(ipni) {
+  if (Array.isArray(ipni)) return ipni;
+  if (ipni && typeof ipni === 'object') return Object.values(ipni);
+  return [];
+}
+
+function synonymLabel(syn) {
+  return [syn && syn.name, syn && syn.suffix].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
+}
+
 export function mergeSynonyms(plant, ipni, acceptedName) {
-  const fromPlant = ((plant && plant.synonyms) || []).filter(Boolean).map((s) => ({ name: s }));
-  const fromIpni = (ipni || []).filter((s) => s && s.name && s.name !== acceptedName);
+  const accepted = String(acceptedName || '').replace(/\s+/g, ' ').trim();
+  const fromIpni = synonymList(ipni).filter((s) => {
+    const label = synonymLabel(s);
+    return label && label !== accepted;
+  });
+  const byLabel = new Map();
+  const byBareName = new Map();
+  fromIpni.forEach((s) => {
+    const label = synonymLabel(s);
+    if (!byLabel.has(label)) byLabel.set(label, s);
+    if (!(s.suffix || '').trim() && s.name && !byBareName.has(s.name)) byBareName.set(s.name, s);
+  });
   const seen = new Set();
   const merged = [];
-  fromPlant.concat(fromIpni).forEach((s) => {
-    const key = `${s.name} ${s.suffix || ''}`;
-    if (seen.has(key)) return;
-    seen.add(key);
+  const push = (s) => {
+    const label = synonymLabel(s);
+    if (!label || label === accepted || seen.has(label)) return;
+    seen.add(label);
     merged.push(s);
+  };
+  ((plant && plant.synonyms) || []).filter(Boolean).forEach((raw) => {
+    const label = String(raw).replace(/\s+/g, ' ').trim();
+    if (!label || label === accepted) return;
+    push(byLabel.get(label) || byBareName.get(label) || { name: label });
   });
+  fromIpni.forEach(push);
   return merged;
 }
 
