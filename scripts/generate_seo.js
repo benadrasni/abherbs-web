@@ -75,9 +75,39 @@ function t(lang, key) {
   return key;
 }
 
+function pluralCategory(lang, n) {
+  const code = lang === 'no' ? 'nb' : lang || 'en';
+  try {
+    return new Intl.PluralRules(code).select(Number(n));
+  } catch (err) {
+    return Number(n) === 1 ? 'one' : 'other';
+  }
+}
+
 function plantsCount(lang, n) {
-  const key = n === 1 ? 'plants_count_one' : 'plants_count_other';
-  return String(t(lang, key)).replace('{n}', String(n));
+  const count = Number(n);
+  const cat = pluralCategory(lang, count);
+  const order = {
+    zero: ['plants_count_zero', 'plants_count_other'],
+    one: ['plants_count_one', 'plants_count_other'],
+    two: ['plants_count_two', 'plants_count_few', 'plants_count_other'],
+    few: ['plants_count_few', 'plants_count_other'],
+    many: ['plants_count_many', 'plants_count_other'],
+    other: ['plants_count_other'],
+  };
+  const keys = order[cat] || order.other;
+  const catalog = localeOf(lang);
+  let template = null;
+  for (let i = 0; i < keys.length; i++) {
+    if (catalog[keys[i]] != null) {
+      template = catalog[keys[i]];
+      break;
+    }
+  }
+  if (template == null) template = t(lang, 'plants_count_other');
+  const locale = lang === 'no' ? 'nb' : lang || 'en';
+  const formatted = Number.isFinite(count) ? count.toLocaleString(locale) : String(n);
+  return String(template).replace('{n}', formatted);
 }
 
 function stripText(value) {
