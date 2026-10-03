@@ -122,9 +122,7 @@ const pageScrollPositions = new Map();
 let pageScrollHydrated = false;
 
 function pageScrollKey(location) {
-  const path = normPath(location.pathname);
-  const plant = new URLSearchParams(location.search).get('plant');
-  return plant ? `${path}?plant=${plant}` : path;
+  return normPath(location.pathname);
 }
 
 function loadPageScrolls() {
@@ -400,8 +398,6 @@ export default function App() {
       <Header lang={lang} t={t} onLang={setLang} />
       <SeoHead lang={lang} pathname={location.pathname} search={location.search} />
       <Routes>
-        <Route path="/translate_flower" element={<Navigate to={withLang('/', lang)} replace />} />
-        <Route path="/translate_app" element={<Navigate to={withLang('/', lang)} replace />} />
         <Route path="/en" element={<Navigate to="/" replace />} />
         <Route path="/en/*" element={<StripEn />} />
         {catalogRoutes('')}

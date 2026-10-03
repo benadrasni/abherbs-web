@@ -1,4 +1,4 @@
-import { illustrationFromHeaderUrl, photoUrl, plateFiles } from './api';
+import { illustrationFromHeaderUrl } from './api';
 
 export const PLAY_URL = 'https://play.google.com/store/apps/details?id=sk.ab.herbs';
 export const APP_STORE_URL = 'https://apps.apple.com/us/app/whats-that-flower/id1449982118';
@@ -275,11 +275,6 @@ export function toxicityLabel(cls, t) {
 export function headerPlateRel(header) {
   if (header && header.illustrationUrl) return header.illustrationUrl;
   return illustrationFromHeaderUrl(header && header.url);
-}
-
-export function headerPlate(header) {
-  const files = plateFiles(headerPlateRel(header));
-  return photoUrl(files.grid || files.legacy);
 }
 
 export function youtubeId(url) {
