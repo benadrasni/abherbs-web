@@ -262,17 +262,6 @@ NEW = {
         "hi": "{n} पौधे", "ar": "{n} نباتات", "fa": "{n} گیاه",
         "he": "{n} צמחים",
     },
-    "from_collection": {
-        "en": "From the collection", "sk": "Zo zbierky", "cs": "Ze sbírky", "sl": "Iz zbirke",
-        "hr": "Iz zbirke", "sr": "Из збирке", "pl": "Ze zbiorów", "ru": "Из коллекции",
-        "uk": "З колекції", "bg": "От колекцията", "de": "Aus der Sammlung", "nl": "Uit de collectie",
-        "da": "Fra samlingen", "sv": "Ur samlingen", "no": "Fra samlingen", "fi": "Kokoelmasta",
-        "fr": "Dans la collection", "es": "De la colección", "it": "Dalla collezione", "pt": "Da coleção",
-        "ro": "Din colecție", "hu": "A gyűjteményből", "et": "Kogust", "lv": "No kolekcijas",
-        "lt": "Iš rinkinio", "ja": "コレクションより", "ko": "컬렉션에서", "zh": "館藏精選",
-        "hi": "संग्रह से", "ar": "من المجموعة", "fa": "از مجموعه",
-        "he": "מהאוסף",
-    },
     "recently_added": {
         "en": "Recently added", "sk": "Nedávno pridané", "cs": "Nedávno přidané", "sl": "Nedavno dodano",
         "hr": "Nedavno dodano", "sr": "Недавно додато", "pl": "Ostatnio dodane", "ru": "Недавно добавленные",
@@ -2959,6 +2948,12 @@ def main():
         "about_langs_official",
         "about_langs_also",
         "about_langs_more",
+        "about_purpose_title",
+        "about_purpose_text",
+        "about_sources_title",
+        "about_sources_text",
+        "about_credits_title",
+        "about_credits_text",
     }
     for cat in catalogs.values():
         for key in DROP_KEYS:
