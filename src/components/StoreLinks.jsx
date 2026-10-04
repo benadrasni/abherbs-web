@@ -1,4 +1,3 @@
-import React from 'react';
 import { trackStore } from '../analytics';
 import { APP_STORE_URL, PLAY_URL } from '../lib';
 

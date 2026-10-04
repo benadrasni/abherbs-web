@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import Footer from '../components/Footer';
 import TaxonTile from '../components/TaxonTile';
 import { familyIconUrl, taxonLabel } from '../api';
