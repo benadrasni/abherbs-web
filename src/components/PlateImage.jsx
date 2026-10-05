@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { photoUrl, plateFiles } from '../api';
 
 export default function PlateImage({ rel, preferred = 'grid', alt = '', className, sizes }) {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { INFLORESCENCE_TYPES } from '../inflorescenceMatch';
 
 function inflorescenceTypes(t) {

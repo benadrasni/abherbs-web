@@ -1,5 +1,3 @@
-import React from 'react';
-
 /** Render the same `<b>…</b>` markers the Flutter plant page uses. Not HTML. */
 export default function RichPlantText({ value }) {
   const text = String(value || '');
