@@ -63,7 +63,6 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
   const [inflorescenceOpen, setInflorescenceOpen] = useState(false);
   const [mapFailed, setMapFailed] = useState(false);
   const [mapReady, setMapReady] = useState(false);
-  const [mapSrc, setMapSrc] = useState('');
 
   useEffect(() => {
     let live = true;
@@ -73,7 +72,6 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
     setInflorescenceOpen(false);
     setMapFailed(false);
     setMapReady(false);
-    setMapSrc('');
     if (!name) {
       setError('missing');
       return undefined;
@@ -156,11 +154,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
   const plate = plateRel ? photoUrl(platePaths.master) : '';
   const plateLegacy = plateRel ? photoUrl(platePaths.legacy) : '';
   const distRel = distributionRel(plant);
-  const distRemote = distRel ? photoUrl(distRel) : '';
-  const distLocal = plant.name
-    ? `/images/${String(plant.name).replace(/ /g, '_')}_distribution.webp`
-    : '';
-  const distSrc = mapSrc || distRemote;
+  const distSrc = distRel ? photoUrl(distRel) : '';
   const showMap = Boolean(distSrc) && !mapFailed && mapReady;
   const probeMap = Boolean(distSrc) && !mapFailed;
   const sourceList = groupedSources.name.concat(groupedSources.text, groupedSources.images);
@@ -243,7 +237,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
           ) : null}
           {text.trivia ? (
             <aside className="note">
-              <div className="k">{t.notes || t.trivia}</div>
+              <div className="k">{t.notes}</div>
               <p>
                 <RichPlantText value={text.trivia} />
               </p>
@@ -451,11 +445,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
                     onLoad={() => setMapReady(true)}
                     onError={() => {
                       setMapReady(false);
-                      if (import.meta.env.DEV && distLocal && distSrc !== distLocal) {
-                        setMapSrc(distLocal);
-                      } else {
-                        setMapFailed(true);
-                      }
+                      setMapFailed(true);
                     }}
                   />
                 </button>

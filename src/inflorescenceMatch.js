@@ -19,7 +19,7 @@ export const INFLORESCENCE_TYPES = [
 ];
 
 /** Botanical names and inflected forms. Longer phrases beat shorter ones. */
-export const INFLORESCENCE_SYNONYMS = {
+const INFLORESCENCE_SYNONYMS = {
   raceme: ['racemes', 'raceme', 'racemose', 'strapce', 'strapcovit', 'strapec', 'hrozen', 'hrozny', 'traube'],
   spike: ['spikes', 'spike', 'spicate', 'klasy', 'klasovit', 'klas', 'ähre'],
   spadix: ['spadices', 'spadix', 'šúľky', 'šúľok', 'šúľka', 'palice', 'kolben'],
@@ -126,7 +126,7 @@ function bestTermHit(hay, term) {
   return best;
 }
 
-export function closestInflorescenceType(text, t) {
+function closestInflorescenceType(text, t) {
   const hay = normalize(text);
   if (!hay) return null;
   let winner = null;
@@ -149,7 +149,7 @@ export function closestInflorescenceType(text, t) {
   return winner ? winner.key : null;
 }
 
-export function inflorescenceTypeList(plant) {
+function inflorescenceTypeList(plant) {
   const raw = plant && plant.inflorescenceType;
   if (Array.isArray(raw)) return raw.filter(Boolean);
   if (raw && typeof raw === 'object') {

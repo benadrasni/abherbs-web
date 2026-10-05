@@ -1,7 +1,7 @@
 import languages from './languages';
 import { contentPath, detectLang } from './lib';
 
-export const GA_ID = 'G-B646H2Z8M4';
+const GA_ID = 'G-B646H2Z8M4';
 
 const TITLE_GAP = ' — ';
 const PAGE_TYPES = new Set([
@@ -31,7 +31,7 @@ function decodeSegment(segment) {
   }
 }
 
-export function describePage(pathname, search) {
+function describePage(pathname, search) {
   const lang = detectLang(pathname, search, languages);
   const parts = contentPath(pathname).split('/').filter(Boolean);
   const head = parts[0] || '';
@@ -47,7 +47,7 @@ export function describePage(pathname, search) {
 }
 
 /** Plant titles load after the page view, so plant pages always report the Latin name. */
-export function pageTitleFor(plant, documentTitle, appName) {
+function pageTitleFor(plant, documentTitle, appName) {
   if (!plant) return documentTitle || '';
   return `${plant}${TITLE_GAP}${appName || "What's that flower?"}`;
 }
