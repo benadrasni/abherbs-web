@@ -1,174 +1,466 @@
 {
-  "plants": {"id": "Tumbuhan", "tr": "Bitkiler"},
-  "identify": {"id": "Kenali", "tr": "Tanımla"},
-  "language": {"id": "Bahasa", "tr": "Dil"},
-  "search_placeholder": {"id": "Cari nama, famili, Latin", "tr": "Ad, familya, Latince ara"},
-  "search_empty": {"id": "Tidak ada tumbuhan yang cocok dengan pencarian itu.", "tr": "Bu aramaya uyan bitki yok."},
-  "plants_count_one": {"id": "{n} tumbuhan", "tr": "{n} bitki"},
-  "plants_count_other": {"id": "{n} tumbuhan", "tr": "{n} bitki"},
-  "recently_added": {"id": "Baru ditambahkan", "tr": "Yeni eklenenler"},
-  "today": {"id": "Hari ini", "tr": "Bugün"},
-  "yesterday": {"id": "Kemarin", "tr": "Dün"},
-  "see_all": {"id": "Lihat semua famili", "tr": "Tüm familyalar"},
-  "browse": {"id": "Jelajahi", "tr": "Göz at"},
-  "by_family": {"id": "Menurut famili", "tr": "Familyaya göre"},
-  "by_genus": {"id": "Menurut genus", "tr": "Cinse göre"},
-  "see_all_genera": {"id": "Lihat semua genus", "tr": "Tüm cinsler"},
-  "genera": {"id": "Genus", "tr": "Cinsler"},
-  "families": {"id": "Famili", "tr": "Familyalar"},
-  "family_lede": {"id": "Tumbuhan dalam famili ini.", "tr": "Bu familyadaki bitkiler."},
-  "genus_lede": {"id": "Spesies dalam genus ini.", "tr": "Bu cinsteki türler."},
-  "list_lede": {"id": "Tumbuhan dalam daftar ini.", "tr": "Bu listedeki bitkiler."},
-  "empty_list": {"id": "Belum ada tumbuhan dalam daftar ini.", "tr": "Bu listede henüz bitki yok."},
-  "empty_taxon": {"id": "Belum ada tumbuhan dalam katalog untuk nama ini.", "tr": "Bu ad için katalogda henüz bitki yok."},
-  "illustration": {"id": "Ilustrasi", "tr": "Çizim"},
-  "also_called": {"id": "Nama lain", "tr": "Diğer adları"},
-  "height": {"id": "Tinggi", "tr": "Boy"},
-  "flowering": {"id": "Berbunga", "tr": "Çiçeklenme"},
-  "toxicity_none": {"id": "Tidak tercatat", "tr": "Kayıt yok"},
-  "in_the_field": {"id": "Di lapangan", "tr": "Arazide"},
+  "plants": {
+    "id": "Tumbuhan",
+    "tr": "Bitkiler"
+  },
+  "identify": {
+    "id": "Kenali",
+    "tr": "Tanımla"
+  },
+  "language": {
+    "id": "Bahasa",
+    "tr": "Dil"
+  },
+  "search_placeholder": {
+    "id": "Cari nama, famili, Latin",
+    "tr": "Ad, familya, Latince ara"
+  },
+  "search_empty": {
+    "id": "Tidak ada tumbuhan yang cocok dengan pencarian itu.",
+    "tr": "Bu aramaya uyan bitki yok."
+  },
+  "plants_count_one": {
+    "id": "{n} tumbuhan",
+    "tr": "{n} bitki"
+  },
+  "plants_count_other": {
+    "id": "{n} tumbuhan",
+    "tr": "{n} bitki"
+  },
+  "recently_added": {
+    "id": "Baru ditambahkan",
+    "tr": "Yeni eklenenler"
+  },
+  "today": {
+    "id": "Hari ini",
+    "tr": "Bugün"
+  },
+  "yesterday": {
+    "id": "Kemarin",
+    "tr": "Dün"
+  },
+  "see_all": {
+    "id": "Lihat semua famili",
+    "tr": "Tüm familyalar"
+  },
+  "browse": {
+    "id": "Jelajahi",
+    "tr": "Göz at"
+  },
+  "by_family": {
+    "id": "Menurut famili",
+    "tr": "Familyaya göre"
+  },
+  "by_genus": {
+    "id": "Menurut genus",
+    "tr": "Cinse göre"
+  },
+  "see_all_genera": {
+    "id": "Lihat semua genus",
+    "tr": "Tüm cinsler"
+  },
+  "genera": {
+    "id": "Genus",
+    "tr": "Cinsler"
+  },
+  "families": {
+    "id": "Famili",
+    "tr": "Familyalar"
+  },
+  "family_lede": {
+    "id": "Tumbuhan dalam famili ini.",
+    "tr": "Bu familyadaki bitkiler."
+  },
+  "genus_lede": {
+    "id": "Spesies dalam genus ini.",
+    "tr": "Bu cinsteki türler."
+  },
+  "list_lede": {
+    "id": "Tumbuhan dalam daftar ini.",
+    "tr": "Bu listedeki bitkiler."
+  },
+  "empty_list": {
+    "id": "Belum ada tumbuhan dalam daftar ini.",
+    "tr": "Bu listede henüz bitki yok."
+  },
+  "empty_taxon": {
+    "id": "Belum ada tumbuhan dalam katalog untuk nama ini.",
+    "tr": "Bu ad için katalogda henüz bitki yok."
+  },
+  "illustration": {
+    "id": "Ilustrasi",
+    "tr": "Çizim"
+  },
+  "also_called": {
+    "id": "Nama lain",
+    "tr": "Diğer adları"
+  },
+  "height": {
+    "id": "Tinggi",
+    "tr": "Boy"
+  },
+  "flowering": {
+    "id": "Berbunga",
+    "tr": "Çiçeklenme"
+  },
+  "toxicity_none": {
+    "id": "Tidak tercatat",
+    "tr": "Kayıt yok"
+  },
+  "in_the_field": {
+    "id": "Di lapangan",
+    "tr": "Arazide"
+  },
   "in_the_field_lede": {
     "id": "Foto pilihan spesies ini. Berbeda dari ilustrasi, dan dari pengamatan publik di bawah.",
     "tr": "Bu türün seçilmiş fotoğrafları. Çizimden ve aşağıdaki halka açık gözlemlerden ayrıdır."
   },
-  "photo_n": {"id": "Foto {i} dari {n}", "tr": "Fotoğraf {i} / {n}"},
-  "lightbox_prev": {"id": "Sebelumnya", "tr": "Önceki"},
-  "lightbox_next": {"id": "Berikutnya", "tr": "Sonraki"},
-  "video": {"id": "Video", "tr": "Video"},
-  "classification_lede": {"id": "Famili dan genus membuka indeks tumbuhan.", "tr": "Familya ve cins bitki dizinlerini açar."},
+  "photo_n": {
+    "id": "Foto {i} dari {n}",
+    "tr": "Fotoğraf {i} / {n}"
+  },
+  "lightbox_prev": {
+    "id": "Sebelumnya",
+    "tr": "Önceki"
+  },
+  "lightbox_next": {
+    "id": "Berikutnya",
+    "tr": "Sonraki"
+  },
+  "video": {
+    "id": "Video",
+    "tr": "Video"
+  },
+  "classification_lede": {
+    "id": "Famili dan genus membuka indeks tumbuhan.",
+    "tr": "Familya ve cins bitki dizinlerini açar."
+  },
   "sources_lede": {
     "id": "Rekaman nama, halaman yang dipakai untuk teks, dan asal gambar.",
     "tr": "Ad kayıtları, metin için kullanılan sayfalar ve resimlerin kaynağı."
   },
-  "sources_name": {"id": "Nama", "tr": "Ad"},
-  "sources_text": {"id": "Teks", "tr": "Metin"},
-  "sources_images": {"id": "Gambar", "tr": "Görseller"},
-  "sources_photographs": {"id": "foto", "tr": "fotoğraflar"},
-  "sources_plate": {"id": "pelat", "tr": "levha"},
-  "synonym": {"id": "Sinonim", "tr": "Sinonim"},
-  "synonyms": {"id": "Sinonim", "tr": "Sinonimler"},
-  "more_names": {"id": "{n} nama lagi", "tr": "{n} ad daha"},
-  "distribution": {"id": "Persebaran", "tr": "Yayılış"},
-  "distribution_alt": {"id": "Peta persebaran {name}", "tr": "{name} yayılış haritası"},
-  "distribution_native": {"id": "Asli", "tr": "Doğal"},
-  "distribution_introduced": {"id": "Diintroduksi", "tr": "Getirilmiş"},
-  "show_ranks": {"id": "Tampilkan semua tingkatan", "tr": "Tüm basamaklar"},
-  "seen_wild": {"id": "Terlihat di alam", "tr": "Doğada görülmüş"},
+  "sources_name": {
+    "id": "Nama",
+    "tr": "Ad"
+  },
+  "sources_text": {
+    "id": "Teks",
+    "tr": "Metin"
+  },
+  "sources_images": {
+    "id": "Gambar",
+    "tr": "Görseller"
+  },
+  "sources_photographs": {
+    "id": "foto",
+    "tr": "fotoğraflar"
+  },
+  "sources_plate": {
+    "id": "ilustrasi",
+    "tr": "illüstrasyon"
+  },
+  "synonym": {
+    "id": "Sinonim",
+    "tr": "Sinonim"
+  },
+  "synonyms": {
+    "id": "Sinonim",
+    "tr": "Sinonimler"
+  },
+  "more_names": {
+    "id": "{n} nama lagi",
+    "tr": "{n} ad daha"
+  },
+  "distribution": {
+    "id": "Persebaran",
+    "tr": "Yayılış"
+  },
+  "distribution_alt": {
+    "id": "Peta persebaran {name}",
+    "tr": "{name} yayılış haritası"
+  },
+  "distribution_native": {
+    "id": "Asli",
+    "tr": "Doğal"
+  },
+  "distribution_introduced": {
+    "id": "Diintroduksi",
+    "tr": "Getirilmiş"
+  },
+  "show_ranks": {
+    "id": "Tampilkan semua tingkatan",
+    "tr": "Tüm basamaklar"
+  },
+  "seen_wild": {
+    "id": "Terlihat di alam",
+    "tr": "Doğada görülmüş"
+  },
   "seen_lede": {
     "id": "Hanya pengamatan publik. Negara dan bulan, bukan titik jalan. Pengamatan baru ditambahkan di aplikasi.",
     "tr": "Yalnızca halka açık gözlemler. Ülke ve ay, sokak noktası değil. Yeni gözlemler uygulamada eklenir."
   },
-  "public_records_one": {"id": "1 catatan publik", "tr": "1 halka açık kayıt"},
-  "public_records_other": {"id": "{n} catatan publik", "tr": "{n} halka açık kayıt"},
-  "no_sightings": {"id": "Belum ada pengamatan publik.", "tr": "Henüz halka açık gözlem yok."},
-  "record_in_app": {"id": "Catat di aplikasi", "tr": "Uygulamada kaydet"},
-  "get_the_app": {"id": "Kenali di aplikasi", "tr": "Uygulamada tanımla"},
+  "public_records_one": {
+    "id": "1 catatan publik",
+    "tr": "1 halka açık kayıt"
+  },
+  "public_records_other": {
+    "id": "{n} catatan publik",
+    "tr": "{n} halka açık kayıt"
+  },
+  "no_sightings": {
+    "id": "Belum ada pengamatan publik.",
+    "tr": "Henüz halka açık gözlem yok."
+  },
+  "record_in_app": {
+    "id": "Catat di aplikasi",
+    "tr": "Uygulamada kaydet"
+  },
+  "get_the_app": {
+    "id": "Kenali di aplikasi",
+    "tr": "Uygulamada tanımla"
+  },
   "get_lede": {
     "id": "Kunci bunga empat langkah, tumbuhan luring, dan catatan lapangan ada di ponsel Anda.",
     "tr": "Dört adımlı çiçek anahtarı, çevrimdışı bitkiler ve arazi notları telefonunuzda."
   },
-  "identify_step_1": {"id": "Warna bunga", "tr": "Çiçeğin rengi"},
-  "identify_step_2": {"id": "Habitat", "tr": "Habitat"},
-  "identify_step_3": {"id": "Jenis mahkota", "tr": "Taç tipi"},
-  "identify_step_4": {"id": "Kawasan dunia", "tr": "Dünya bölgesi"},
+  "identify_step_1": {
+    "id": "Warna bunga",
+    "tr": "Çiçeğin rengi"
+  },
+  "identify_step_2": {
+    "id": "Habitat",
+    "tr": "Habitat"
+  },
+  "identify_step_3": {
+    "id": "Jenis mahkota",
+    "tr": "Taç tipi"
+  },
+  "identify_step_4": {
+    "id": "Kawasan dunia",
+    "tr": "Dünya bölgesi"
+  },
   "identify_then": {
     "id": "Lalu buka tumbuhan yang cocok dan baca halaman spesies.",
     "tr": "Sonra eşleşen bitkiyi açın ve tür sayfasını okuyun."
   },
-  "browse_plants": {"id": "Jelajahi ensiklopedia", "tr": "Ansiklopediye göz at"},
-  "not_found": {"id": "Tumbuhan ini tidak ada dalam katalog.", "tr": "Bu bitki katalogda yok."},
-  "loading": {"id": "Memuat…", "tr": "Yükleniyor…"},
-  "flowering_plants": {"id": "Tumbuhan berbunga", "tr": "Çiçekli bitkiler"},
-  "store_play": {"id": "Dapatkan di Google Play", "tr": "Google Play’den edinin"},
-  "store_apple": {"id": "Unduh di App Store", "tr": "App Store’dan indirin"},
-  "app_name": {"id": "Bunga apa itu?", "tr": "Bu çiçek nedir?"},
-  "app_short": {"id": "Kenali bunga dengan ponsel", "tr": "Çiçekleri telefonla tanımlayın"},
-  "help": {"id": "Bantuan", "tr": "Yardım"},
-  "about": {"id": "Tentang", "tr": "Hakkında"},
-  "flower": {"tr": "Çiçek"},
-  "fruit": {"tr": "Meyve"},
-  "leaf": {"tr": "Yaprak"},
-  "stem": {"tr": "Gövde"},
-  "habitat": {"tr": "Habitat"},
-  "toxicity": {"tr": "Zehirlilik"},
-  "inflorescence": {"tr": "Çiçekdurumu"},
-  "herbalism": {"tr": "Kullanım"},
+  "browse_plants": {
+    "id": "Jelajahi ensiklopedia",
+    "tr": "Ansiklopediye göz at"
+  },
+  "not_found": {
+    "id": "Tumbuhan ini tidak ada dalam katalog.",
+    "tr": "Bu bitki katalogda yok."
+  },
+  "loading": {
+    "id": "Memuat…",
+    "tr": "Yükleniyor…"
+  },
+  "flowering_plants": {
+    "id": "Tumbuhan berbunga",
+    "tr": "Çiçekli bitkiler"
+  },
+  "store_play": {
+    "id": "Dapatkan di Google Play",
+    "tr": "Google Play’den edinin"
+  },
+  "store_apple": {
+    "id": "Unduh di App Store",
+    "tr": "App Store’dan indirin"
+  },
+  "app_name": {
+    "id": "Bunga apa itu?",
+    "tr": "Bu çiçek nedir?"
+  },
+  "app_short": {
+    "id": "Kenali bunga dengan ponsel",
+    "tr": "Çiçekleri telefonla tanımlayın"
+  },
+  "help": {
+    "id": "Bantuan",
+    "tr": "Yardım"
+  },
+  "about": {
+    "id": "Tentang",
+    "tr": "Hakkında"
+  },
+  "flower": {
+    "tr": "Çiçek"
+  },
+  "fruit": {
+    "tr": "Meyve"
+  },
+  "leaf": {
+    "tr": "Yaprak"
+  },
+  "stem": {
+    "tr": "Gövde"
+  },
+  "habitat": {
+    "tr": "Habitat"
+  },
+  "toxicity": {
+    "tr": "Zehirlilik"
+  },
+  "inflorescence": {
+    "tr": "Çiçekdurumu"
+  },
+  "herbalism": {
+    "tr": "Kullanım"
+  },
   "herbalism_disclaimer": {
     "id": "Catatan tradisional atau kuliner, bukan nasihat medis.",
     "tr": "Geleneksel veya mutfak notlarıdır, tıbbi tavsiye değildir."
   },
-  "trivia": {"tr": "Bilgiler"},
-  "notes": {"id": "Catatan", "tr": "Notlar"},
-  "sources": {"tr": "Kaynaklar"},
-  "classification": {"tr": "Taksonomi"},
-  "family": {"tr": "Familya"},
-  "genus": {"id": "Genus", "tr": "Cins"},
-  "toxicity_high": {"tr": "zehirli bitki"},
-  "toxicity_low": {"id": "tanaman sedikit beracun", "tr": "az zehirli bitki"},
-  "close": {"id": "Tutup", "tr": "Kapat"},
-  "lists": {"tr": "Çiçek listeleri"},
-  "flower_schema_title": {"id": "Bagian-bagian bunga", "tr": "Çiçeğin bölümleri"},
+  "trivia": {
+    "tr": "Bilgiler"
+  },
+  "notes": {
+    "id": "Catatan",
+    "tr": "Notlar"
+  },
+  "sources": {
+    "tr": "Kaynaklar"
+  },
+  "classification": {
+    "tr": "Taksonomi"
+  },
+  "family": {
+    "tr": "Familya"
+  },
+  "genus": {
+    "id": "Genus",
+    "tr": "Cins"
+  },
+  "toxicity_high": {
+    "tr": "zehirli"
+  },
+  "toxicity_low": {
+    "id": "sedikit beracun",
+    "tr": "az zehirli"
+  },
+  "close": {
+    "id": "Tutup",
+    "tr": "Kapat"
+  },
+  "lists": {
+    "tr": "Çiçek listeleri"
+  },
+  "flower_schema_title": {
+    "id": "Bagian-bagian bunga",
+    "tr": "Çiçeğin bölümleri"
+  },
   "flower_schema_lede": {
     "id": "Bunga lengkap yang khas. Angka-angkanya sesuai dengan daftar.",
     "tr": "Tipik tam bir çiçek. Numaralar listeyle eşleşir."
   },
-  "flower_schema_open": {"id": "Tampilkan bagian-bagian bunga", "tr": "Çiçeğin bölümlerini göster"},
-  "inflorescence_schema_title": {"id": "Tipe bunga majemuk", "tr": "Çiçekdurumu tipleri"},
-  "inflorescence_schema_open": {"id": "Tampilkan tipe bunga majemuk", "tr": "Çiçekdurumu tiplerini göster"},
-  "about_headline": {"id": "Ensiklopedia tumbuhan", "tr": "Bir bitki ansiklopedisi"},
-  "about_lede": {
-    "id": "Halaman spesies yang dapat dipercaya: pelat botani, foto lapangan, teks bersumber, dan peta asli atau diintroduksi. Kenali dengan kunci empat langkah di situs ini atau di aplikasi.",
-    "tr": "Güvenebileceğiniz tür sayfaları: bir botanik levha, arazi fotoğrafları, kaynaklı metin ve doğal ya da getirilmiş yayılış haritası. Dört adımlı anahtarla burada veya uygulamada tanımlayın."
+  "flower_schema_open": {
+    "id": "Tampilkan bagian-bagian bunga",
+    "tr": "Çiçeğin bölümlerini göster"
   },
-  "about_fact_collection": {"id": "Koleksi", "tr": "Koleksiyon"},
-  "about_fact_languages": {"id": "Bahasa", "tr": "Diller"},
-  "about_fact_key": {"id": "Identifikasi", "tr": "Tanımlama"},
-  "about_fact_steps": {"id": "4 langkah", "tr": "4 adım"},
-  "about_why_kicker": {"id": "Mengapa ada", "tr": "Neden var"},
-  "about_why_title": {"id": "Katalog tumbuhan berbunga", "tr": "Çiçekli bitkiler kataloğu"},
+  "inflorescence_schema_title": {
+    "id": "Tipe bunga majemuk",
+    "tr": "Çiçekdurumu tipleri"
+  },
+  "inflorescence_schema_open": {
+    "id": "Tampilkan tipe bunga majemuk",
+    "tr": "Çiçekdurumu tiplerini göster"
+  },
+  "about_headline": {
+    "id": "Ensiklopedia tumbuhan",
+    "tr": "Bir bitki ansiklopedisi"
+  },
+  "about_lede": {
+    "id": "Halaman spesies yang dapat dipercaya: ilustrasi botani, foto lapangan, teks bersumber, dan peta asli atau diintroduksi. Kenali dengan kunci empat langkah di situs ini atau di aplikasi.",
+    "tr": "Güvenebileceğiniz tür sayfaları: bir botanik illüstrasyon, arazi fotoğrafları, kaynaklı metin ve doğal ya da getirilmiş yayılış haritası. Dört adımlı anahtarla burada veya uygulamada tanımlayın."
+  },
+  "about_fact_collection": {
+    "id": "Koleksi",
+    "tr": "Koleksiyon"
+  },
+  "about_fact_languages": {
+    "id": "Bahasa",
+    "tr": "Diller"
+  },
+  "about_fact_key": {
+    "id": "Identifikasi",
+    "tr": "Tanımlama"
+  },
+  "about_fact_steps": {
+    "id": "4 langkah",
+    "tr": "4 adım"
+  },
+  "about_why_kicker": {
+    "id": "Mengapa ada",
+    "tr": "Neden var"
+  },
+  "about_why_title": {
+    "id": "Katalog tumbuhan berbunga",
+    "tr": "Çiçekli bitkiler kataloğu"
+  },
   "about_why_p1": {
     "id": "Cari dan baca di sini. Kenali menurut warna, habitat, jenis mahkota, dan kawasan dunia — di situs ini atau di aplikasi.",
     "tr": "Burada arayın ve okuyun. Renk, habitat, taç tipi ve dünya bölgesine göre tanımlayın — bu sitede veya uygulamada."
   },
   "about_why_p2": {
-    "id": "Setiap halaman spesies disiapkan dengan tangan: foto, pelat botani di kertas krem, dan teks identifikasi yang ditulis ulang dari flora yang memang membahas tumbuhan itu. Nama umum berasal dari sumber dalam bahasa itu. Jika tidak ada, nama Latin yang dipakai.",
-    "tr": "Her tür sayfası elde hazırlanır: fotoğraflar, krem kâğıt üzerinde bir botanik levha ve bitkiyi gerçekten işleyen floralardan yeniden yazılmış tanımlama metni. Yaygın adlar o dildeki kaynaklardan gelir. Yoksa Latince ad durur."
+    "id": "Setiap halaman spesies disiapkan dengan tangan: foto, ilustrasi botani di kertas krem, dan teks identifikasi yang ditulis ulang dari flora yang memang membahas tumbuhan itu. Nama umum berasal dari sumber dalam bahasa itu. Jika tidak ada, nama Latin yang dipakai.",
+    "tr": "Her tür sayfası elde hazırlanır: fotoğraflar, krem kâğıt üzerinde bir botanik illüstrasyon ve bitkiyi gerçekten işleyen floralardan yeniden yazılmış tanımlama metni. Yaygın adlar o dildeki kaynaklardan gelir. Yoksa Latince ad durur."
   },
   "about_why_p3": {
     "id": "Ini koleksi tumbuhan berbunga yang dipilih, bukan flora dunia.",
     "tr": "Bu, dünyanın florası değil, seçilmiş bir çiçekli bitki koleksiyonudur."
   },
-  "about_how_title": {"id": "Cara halaman spesies dibuat", "tr": "Bir tür sayfası nasıl hazırlanır"},
+  "about_how_title": {
+    "id": "Cara halaman spesies dibuat",
+    "tr": "Bir tür sayfası nasıl hazırlanır"
+  },
   "about_how_lede": {
-    "id": "Pelat, foto, teks bersumber, dan peta persebaran.",
-    "tr": "Levha, fotoğraflar, kaynaklı metin ve bir yayılış haritası."
+    "id": "Ilustrasi, foto, teks bersumber, dan peta persebaran.",
+    "tr": "İllüstrasyon, fotoğraflar, kaynaklı metin ve bir yayılış haritası."
   },
-  "about_tile_plate_t": {"id": "Satu pelat resmi", "tr": "Tek resmî levha"},
+  "about_tile_plate_t": {
+    "id": "Satu ilustrasi resmi",
+    "tr": "Tek resmî illüstrasyon"
+  },
   "about_tile_plate_d": {
-    "id": "Pelat botani di kertas krem, dari asli bersejarah atau yang diwarnai. Pelat berasal dari botanicalillustrations.org.",
-    "tr": "Krem kâğıt üzerinde bir botanik levha; tarihî bir özgün ya da renklendirilmiş. Levhalar botanicalillustrations.org kaynağındandır."
+    "id": "Ilustrasi botani di kertas krem, dari asli bersejarah atau yang diwarnai. Ilustrasi berasal dari botanicalillustrations.org.",
+    "tr": "Krem kâğıt üzerinde bir botanik illüstrasyon; tarihî bir özgün ya da renklendirilmiş. İllüstrasyonlar botanicalillustrations.org kaynağındandır."
   },
-  "about_tile_photo_t": {"id": "Foto pilihan", "tr": "Seçilmiş fotoğraflar"},
+  "about_tile_photo_t": {
+    "id": "Foto pilihan",
+    "tr": "Seçilmiş fotoğraflar"
+  },
   "about_tile_photo_d": {
     "id": "Foto lapangan yang disiapkan untuk katalog, berbeda dari pengamatan publik di halaman spesies.",
     "tr": "Katalog için hazırlanmış arazi fotoğrafları; tür sayfasındaki halka açık gözlemlerden ayrıdır."
   },
-  "about_tile_text_t": {"id": "Tujuh ruas tulisan", "tr": "Yedi yazılı alan"},
+  "about_tile_text_t": {
+    "id": "Tujuh ruas tulisan",
+    "tr": "Yedi yazılı alan"
+  },
   "about_tile_text_d": {
     "id": "Deskripsi, bunga, bunga majemuk, buah, daun, batang, habitat — ditambah toksisitas, kegunaan, dan catatan bila bersumber.",
     "tr": "Betim, çiçek, çiçekdurumu, meyve, yaprak, gövde, habitat — kaynaklandığında zehirlilik, kullanım ve bilgiler de."
   },
-  "about_tile_map_t": {"id": "Asli dan diintroduksi", "tr": "Doğal ve getirilmiş"},
+  "about_tile_map_t": {
+    "id": "Asli dan diintroduksi",
+    "tr": "Doğal ve getirilmiş"
+  },
   "about_tile_map_d": {
     "id": "Persebaran dunia dari World Checklist of Vascular Plants. Zaitun untuk asli, terakota untuk diintroduksi.",
     "tr": "Dünya yayılışı World Checklist of Vascular Plants kaynağındandır. Zeytin yeşili doğal, pişmiş toprak getirilmiş."
   },
-  "about_langs_title": {"id": "Bahasa", "tr": "Diller"},
+  "about_langs_title": {
+    "id": "Bahasa",
+    "tr": "Diller"
+  },
   "about_langs_lede": {
     "id": "Aplikasi dan situs web tersedia dalam {n} bahasa. Teks identifikasi ditulis dalam masing-masing bahasa itu. Nama umum tidak pernah dikarang.",
     "tr": "Uygulama ve site {n} dilde. Yaygın adlar asla uydurulmaz. Tanımlama metni bu dilde yazılmışsa o dilde gösterilir; yazılmamışsa sayfa İngilizce metni kullanır."
   },
-  "about_names_k": {"id": "Nama", "tr": "Adlar"},
+  "about_names_k": {
+    "id": "Nama",
+    "tr": "Adlar"
+  },
   "about_names_note": {
     "id": "Label nama umum dipakai hanya bila ada sumber dalam bahasa itu — Wikidata, Wikipedia bahasa itu, EPPO, GBIF, atau flora. Jika tidak, halaman menampilkan nama Latin.",
     "tr": "Bir yaygın ad ancak o dilde bir kaynakta varsa kullanılır — Vikiveri, o dilin Vikipedi’si, EPPO, GBIF veya bir flora. Yoksa sayfa Latince adı gösterir."
@@ -177,8 +469,14 @@
     "id": "Setiap halaman spesies mencantumkan halaman yang benar-benar dipakai. Katalog tidak mengarang fakta dari flora yang tidak dipakai.",
     "tr": "Her tür sayfası gerçekten kullanılan sayfaları listeler. Katalog, kullanılmayan bir floradan olgu uydurmaz."
   },
-  "about_src_wcvp_sub": {"id": "Nama yang diterima dan wilayah", "tr": "Kabul edilen ad ve yayılış"},
-  "about_src_wikidata_sub": {"id": "Label, alias, identitas silang", "tr": "Etiketler, diğer adlar, eşleme kimlikleri"},
+  "about_src_wcvp_sub": {
+    "id": "Nama yang diterima dan wilayah",
+    "tr": "Kabul edilen ad ve yayılış"
+  },
+  "about_src_wikidata_sub": {
+    "id": "Label, alias, identitas silang",
+    "tr": "Etiketler, diğer adlar, eşleme kimlikleri"
+  },
   "about_src_floras": {
     "id": "Flora kawasan yang dikutip di halaman spesies",
     "tr": "Tür sayfasında anılan bölgesel floralar"
@@ -187,18 +485,30 @@
     "id": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias, dan lainnya bila membahas tumbuhan itu",
     "tr": "Flóra Slovenska, Flora Iberica, Flora-On, Pladias ve bitkiyi işleyen diğerleri"
   },
-  "about_src_photos": {"id": "Foto yang diambil untuk katalog", "tr": "Katalog için çekilmiş fotoğraflar"},
+  "about_src_photos": {
+    "id": "Foto yang diambil untuk katalog",
+    "tr": "Katalog için çekilmiş fotoğraflar"
+  },
   "about_src_commons_sub": {
     "id": "Gambar yang bukan domain publik ditautkan di halaman spesies",
     "tr": "Kamu malı olmayan resimler tür sayfasında bağlantılanır"
   },
   "about_src_plates": {
-    "id": "Pelat bersejarah dari botanicalillustrations.org",
-    "tr": "botanicalillustrations.org tarihî levhaları"
+    "id": "Ilustrasi bersejarah dari botanicalillustrations.org",
+    "tr": "botanicalillustrations.org tarihî illüstrasyonları"
   },
-  "about_src_obs": {"id": "Pengamatan publik dari aplikasi", "tr": "Uygulamadaki halka açık gözlemler"},
-  "about_src_obs_sub": {"id": "Ditinjau sebelum ditampilkan", "tr": "Görünmeden önce incelenir"},
-  "about_thanks_title": {"id": "Terima kasih", "tr": "Teşekkür"},
+  "about_src_obs": {
+    "id": "Pengamatan publik dari aplikasi",
+    "tr": "Uygulamadaki halka açık gözlemler"
+  },
+  "about_src_obs_sub": {
+    "id": "Ditinjau sebelum ditampilkan",
+    "tr": "Görünmeden önce incelenir"
+  },
+  "about_thanks_title": {
+    "id": "Terima kasih",
+    "tr": "Teşekkür"
+  },
   "about_thanks_lede": {
     "id": "Orang-orang yang membantu menerjemahkan aplikasi dan katalog awal.",
     "tr": "Uygulamayı ve ilk kataloğu çevirmeye yardım edenler."
@@ -207,11 +517,17 @@
     "id": "Warna, habitat, jenis mahkota, dan kawasan dunia — di sini atau di aplikasi. Lalu buka tumbuhan yang cocok. Foto luring dan catatan lapangan adalah tambahan berbayar.",
     "tr": "Renk, habitat, taç tipi ve dünya bölgesi — burada veya uygulamada. Sonra eşleşen bitkiyi açın. Çevrimdışı fotoğraflar ve arazi notları ücretli eklentidir."
   },
-  "about_identify_here": {"id": "Kenali di situs ini", "tr": "Bu sitede tanımla"},
-  "about_contact": {"id": "Pertanyaan", "tr": "Sorular"},
+  "about_identify_here": {
+    "id": "Kenali di situs ini",
+    "tr": "Bu sitede tanımla"
+  },
+  "about_contact": {
+    "id": "Pertanyaan",
+    "tr": "Sorular"
+  },
   "seo_home": {
-    "id": "Ensiklopedia tumbuhan dengan pelat botani abad ke-19, foto lapangan, dan pengamatan publik.",
-    "tr": "19. yüzyıl botanik levhaları, arazi fotoğrafları ve halka açık gözlemlerle bir bitki ansiklopedisi."
+    "id": "Ensiklopedia tumbuhan dengan ilustrasi botani abad ke-19, foto lapangan, dan pengamatan publik.",
+    "tr": "19. yüzyıl botanik illüstrasyonları, arazi fotoğrafları ve halka açık gözlemlerle bir bitki ansiklopedisi."
   },
   "seo_families": {
     "id": "Jelajahi famili tumbuhan berbunga dalam ensiklopedia.",
@@ -229,79 +545,235 @@
     "id": "Tentang ensiklopedia tumbuhan Bunga apa itu?",
     "tr": "Bitki ansiklopedisi Bu çiçek nedir? hakkında"
   },
-  "seo_help": {"id": "Bantuan untuk Bunga apa itu?", "tr": "Bu çiçek nedir? yardımı"},
-  "taxonomy_species": {"id": "Spesies", "tr": "Tür"},
-  "taxonomy_superregnum": {"tr": "Üst alem"},
-  "taxonomy_regnum": {"tr": "Alem"},
-  "taxonomy_cladus": {"tr": "(klad)"},
-  "taxonomy_ordo": {"tr": "Takım"},
-  "taxonomy_familia": {"tr": "Familya"},
-  "taxonomy_subfamilia": {"tr": "Alt familya"},
-  "taxonomy_tribus": {"tr": "Oymak"},
-  "taxonomy_subtribus": {"tr": "Alt oymak"},
-  "taxonomy_genus": {"id": "Genus", "tr": "Cins"},
-  "taxonomy_subgenus": {"tr": "Alt cins"},
-  "taxonomy_supersectio": {"tr": "Üst seksiyon"},
-  "taxonomy_sectio": {"tr": "Seksiyon"},
-  "taxonomy_subsectio": {"tr": "Alt seksiyon"},
-  "taxonomy_serie": {"tr": "Seri"},
-  "taxonomy_subserie": {"tr": "Alt seri"},
-  "taxonomy_unknown": {"tr": "bilinmiyor"},
-  "legend_flower_1": {"id": "bunga dewasa", "tr": "olgun çiçek"},
-  "legend_flower_2": {"id": "kepala putik", "tr": "sitigma"},
-  "legend_flower_3": {"id": "tangkai putik", "tr": "sitilus"},
-  "legend_flower_4": {"id": "tangkai sari", "tr": "iplikçik"},
-  "legend_flower_5": {"id": "sumbu bunga", "tr": "çiçek ekseni"},
-  "legend_flower_6": {"id": "artikulasi", "tr": "eklem"},
-  "legend_flower_7": {"id": "tangkai bunga", "tr": "çiçek sapı"},
-  "legend_flower_8": {"id": "kelenjar nektar", "tr": "balözü bezi"},
-  "legend_flower_9": {"id": "benang sari", "tr": "erkek organ"},
-  "legend_flower_10": {"id": "putik", "tr": "dişi organ"},
-  "legend_flower_11": {"id": "bakal biji", "tr": "tohum taslakları"},
-  "legend_flower_12": {"id": "penghubung", "tr": "konektif"},
-  "legend_flower_13": {"id": "mikrosporangium", "tr": "mikrosporangiyum"},
-  "legend_flower_14": {"id": "kepala sari", "tr": "başçık"},
-  "legend_flower_15": {"id": "perhiasan bunga", "tr": "periyant"},
-  "legend_flower_16": {"id": "daun mahkota / mahkota bunga", "tr": "taç yaprak / taç"},
-  "legend_flower_17": {"id": "daun kelopak / kelopak bunga", "tr": "çanakyaprak / çanak"},
-  "legend_inflorescence_raceme": {"id": "tandan", "tr": "salkım"},
-  "legend_inflorescence_spike": {"id": "bulir", "tr": "başak"},
-  "legend_inflorescence_spadix": {"id": "tongkol", "tr": "koçan"},
-  "legend_inflorescence_corymb": {"id": "bunga cawan", "tr": "yalancı şemsiye"},
-  "legend_inflorescence_umbel": {"id": "bunga payung", "tr": "şemsiye"},
-  "legend_inflorescence_compound_umbel": {"id": "bunga payung majemuk", "tr": "bileşik şemsiye"},
-  "legend_inflorescence_capitulum": {"id": "bunga piringan", "tr": "kapitulum"},
-  "legend_inflorescence_head": {"id": "bongkol", "tr": "kapitulum"},
-  "legend_inflorescence_panicle": {"id": "malai", "tr": "bileşik salkım"},
-  "legend_inflorescence_compound_spike": {"id": "bulir majemuk", "tr": "bileşik başak"},
-  "legend_inflorescence_cyme": {"id": "payung tambahan", "tr": "talkım"},
-  "legend_inflorescence_helicoid": {"id": "bunga sekrup", "tr": "bostirik"},
-  "legend_inflorescence_rhipidium": {"id": "bunga kipas", "tr": "yelpazemsi"},
-  "legend_inflorescence_scorpioid": {"id": "cincinnus", "tr": "akrepsi"},
-  "legend_inflorescence_scorpioid_thyrse": {"id": "thyrsus", "tr": "akrepsi tirsus"},
-  "legend_inflorescence_dichasial_thyrse": {"id": "dichasium", "tr": "dikazyum tirsus"},
-  "legend_inflorescence_double_scorpioid_thyrse": {"id": "thyrsus biscorpioideus", "tr": "çift akrepsi tirsus"},
-  "help1_title": {"id": "Langkah langsung:", "tr": "Doğrudan yol:"},
+  "seo_help": {
+    "id": "Bantuan untuk Bunga apa itu?",
+    "tr": "Bu çiçek nedir? yardımı"
+  },
+  "taxonomy_species": {
+    "id": "Spesies",
+    "tr": "Tür"
+  },
+  "taxonomy_superregnum": {
+    "tr": "Üst alem"
+  },
+  "taxonomy_regnum": {
+    "tr": "Alem"
+  },
+  "taxonomy_cladus": {
+    "tr": "(klad)"
+  },
+  "taxonomy_ordo": {
+    "tr": "Takım"
+  },
+  "taxonomy_familia": {
+    "tr": "Familya"
+  },
+  "taxonomy_subfamilia": {
+    "tr": "Alt familya"
+  },
+  "taxonomy_tribus": {
+    "tr": "Oymak"
+  },
+  "taxonomy_subtribus": {
+    "tr": "Alt oymak"
+  },
+  "taxonomy_genus": {
+    "id": "Genus",
+    "tr": "Cins"
+  },
+  "taxonomy_subgenus": {
+    "tr": "Alt cins"
+  },
+  "taxonomy_supersectio": {
+    "tr": "Üst seksiyon"
+  },
+  "taxonomy_sectio": {
+    "tr": "Seksiyon"
+  },
+  "taxonomy_subsectio": {
+    "tr": "Alt seksiyon"
+  },
+  "taxonomy_serie": {
+    "tr": "Seri"
+  },
+  "taxonomy_subserie": {
+    "tr": "Alt seri"
+  },
+  "taxonomy_unknown": {
+    "tr": "bilinmiyor"
+  },
+  "legend_flower_1": {
+    "id": "bunga dewasa",
+    "tr": "olgun çiçek"
+  },
+  "legend_flower_2": {
+    "id": "kepala putik",
+    "tr": "sitigma"
+  },
+  "legend_flower_3": {
+    "id": "tangkai putik",
+    "tr": "sitilus"
+  },
+  "legend_flower_4": {
+    "id": "tangkai sari",
+    "tr": "iplikçik"
+  },
+  "legend_flower_5": {
+    "id": "sumbu bunga",
+    "tr": "çiçek ekseni"
+  },
+  "legend_flower_6": {
+    "id": "artikulasi",
+    "tr": "eklem"
+  },
+  "legend_flower_7": {
+    "id": "tangkai bunga",
+    "tr": "çiçek sapı"
+  },
+  "legend_flower_8": {
+    "id": "kelenjar nektar",
+    "tr": "balözü bezi"
+  },
+  "legend_flower_9": {
+    "id": "benang sari",
+    "tr": "erkek organ"
+  },
+  "legend_flower_10": {
+    "id": "putik",
+    "tr": "dişi organ"
+  },
+  "legend_flower_11": {
+    "id": "bakal biji",
+    "tr": "tohum taslakları"
+  },
+  "legend_flower_12": {
+    "id": "penghubung",
+    "tr": "konektif"
+  },
+  "legend_flower_13": {
+    "id": "mikrosporangium",
+    "tr": "mikrosporangiyum"
+  },
+  "legend_flower_14": {
+    "id": "kepala sari",
+    "tr": "başçık"
+  },
+  "legend_flower_15": {
+    "id": "perhiasan bunga",
+    "tr": "periyant"
+  },
+  "legend_flower_16": {
+    "id": "daun mahkota / mahkota bunga",
+    "tr": "taç yaprak / taç"
+  },
+  "legend_flower_17": {
+    "id": "daun kelopak / kelopak bunga",
+    "tr": "çanakyaprak / çanak"
+  },
+  "legend_inflorescence_raceme": {
+    "id": "tandan",
+    "tr": "salkım"
+  },
+  "legend_inflorescence_spike": {
+    "id": "bulir",
+    "tr": "başak"
+  },
+  "legend_inflorescence_spadix": {
+    "id": "tongkol",
+    "tr": "koçan"
+  },
+  "legend_inflorescence_corymb": {
+    "id": "bunga cawan",
+    "tr": "yalancı şemsiye"
+  },
+  "legend_inflorescence_umbel": {
+    "id": "bunga payung",
+    "tr": "şemsiye"
+  },
+  "legend_inflorescence_compound_umbel": {
+    "id": "bunga payung majemuk",
+    "tr": "bileşik şemsiye"
+  },
+  "legend_inflorescence_capitulum": {
+    "id": "bunga piringan",
+    "tr": "kapitulum"
+  },
+  "legend_inflorescence_head": {
+    "id": "bongkol",
+    "tr": "kapitulum"
+  },
+  "legend_inflorescence_panicle": {
+    "id": "malai",
+    "tr": "bileşik salkım"
+  },
+  "legend_inflorescence_compound_spike": {
+    "id": "bulir majemuk",
+    "tr": "bileşik başak"
+  },
+  "legend_inflorescence_cyme": {
+    "id": "payung tambahan",
+    "tr": "talkım"
+  },
+  "legend_inflorescence_helicoid": {
+    "id": "bunga sekrup",
+    "tr": "bostirik"
+  },
+  "legend_inflorescence_rhipidium": {
+    "id": "bunga kipas",
+    "tr": "yelpazemsi"
+  },
+  "legend_inflorescence_scorpioid": {
+    "id": "cincinnus",
+    "tr": "akrepsi"
+  },
+  "legend_inflorescence_scorpioid_thyrse": {
+    "id": "thyrsus",
+    "tr": "akrepsi tirsus"
+  },
+  "legend_inflorescence_dichasial_thyrse": {
+    "id": "dichasium",
+    "tr": "dikazyum tirsus"
+  },
+  "legend_inflorescence_double_scorpioid_thyrse": {
+    "id": "thyrsus biscorpioideus",
+    "tr": "çift akrepsi tirsus"
+  },
+  "help1_title": {
+    "id": "Langkah langsung:",
+    "tr": "Doğrudan yol:"
+  },
   "help1_text": {
     "id": "<li>Pilih warna bunga dengan menyentuh gambar.</li>\n<li>Pilih habitat dengan menyentuh gambar.</li>\n<li>Pilih jumlah daun mahkota dengan menyentuh gambar.</li>\n<li>Pilih bunga dari daftar.</li>\n<li>Baca tentang bunga itu dan lihat gambar lain.</li>\n<li>Kembali, pilih yang lain sampai menemukan yang tepat.</li>\n<li>Kembali ke layar saringan dan pilih warna, tempat, atau jumlah daun mahkota yang lain.</li>",
     "tr": "<li>Görsele dokunarak çiçeğin rengini seçin.</li>\n<li>Görsele dokunarak habitatı seçin.</li>\n<li>Görsele dokunarak taç yaprağı sayısını seçin.</li>\n<li>Listeden çiçeği seçin.</li>\n<li>Çiçek hakkında okuyun, diğer görsellere bakın.</li>\n<li>Geri dönün, doğrusunu bulana kadar başka birini seçin.</li>\n<li>Filtre ekranına dönüp başka bir renk, yer veya taç yaprağı sayısı seçin.</li>"
   },
-  "help2_title": {"id": "Melompat antar layar:", "tr": "Ekranlar arasında geçiş:"},
+  "help2_title": {
+    "id": "Melompat antar layar:",
+    "tr": "Ekranlar arasında geçiş:"
+  },
   "help2_text": {
     "id": "Anda dapat berpindah antar layar saringan lewat laci kiri, yang juga menunjukkan nilai ciri yang sudah dipilih. Saat layar saringan dibuka, nilai ciri yang terikat dihapus dari saringan saat ini. Penghitung di pojok kanan bawah menunjukkan berapa banyak bunga yang memenuhi kriteria. Setelah ketiga ciri diisi, daftar bunga yang dapat digulir muncul. Anda dapat langsung membuka daftar dengan menyentuh penghitung tanpa mengisi ciri yang tersisa. Sentuh lama pada penghitung akan mengosongkan saringan.",
     "tr": "Filtre ekranları arasında sol çekmeceden geçebilirsiniz; seçilmiş özellik değerleri de orada görünür. Bir filtre ekranı açılınca, bağlı özelliğin değeri geçerli filtreden silinir. Sağ alt köşedeki sayaç, seçilen ölçütlere uyan çiçek sayısını gösterir. Üç özellik de seçilince kaydırılabilir çiçek listesi belirir. Kalan özellikleri seçmeden sayaca dokunarak doğrudan listeye geçebilirsiniz. Sayaca uzun basmak filtreyi temizler."
   },
-  "help3_title": {"id": "Tindakan yang ada:", "tr": "Yapılabilecekler:"},
+  "help3_title": {
+    "id": "Tindakan yang ada:",
+    "tr": "Yapılabilecekler:"
+  },
   "help3_text": {
     "id": "<li>Sentuh gambar di layar saringan untuk mengisi ciri yang sesuai dan beralih ke layar saringan berikutnya bila masih ada ciri kosong; jika tidak, beralih ke daftar bunga yang memenuhi saringan.</li>\n<li>Sentuh gambar di daftar bunga untuk membuka rincian bunga.</li>\n<li>Sentuh gambar kecil di layar rincian untuk menampilkan gambar yang lebih besar di bawah.</li>\n<li>Sentuh ilustrasi untuk menampilkannya sepenuh layar.</li>\n<li>Sentuh penghitung untuk menampilkan daftar bunga. Ini hanya boleh bila nilai penghitung kurang dari 21.</li>\n<li>Sentuh lama pada penghitung akan mengosongkan saringan.</li>\n<li>Geser dari kiri atau tekan tombol “hamburger” untuk membuka laci kiri.</li>\n<li>Sentuh salah satu pilihan saringan di laci untuk membuka layar saringan yang sesuai. Nilai ciri yang terikat dihapus dari saringan.</li>\n<li>Sentuh <b>Preferensi</b> di laci untuk membuka Preferensi.</li>\n<li>Sentuh <b>Umpan balik</b> di laci untuk mengirim umpan balik.</li>\n<li>Sentuh <b>Bantuan</b> di laci untuk membuka Bantuan (layar ini).</li>\n<li>Sentuh <b>Tentang</b> di laci untuk membuka layar Tentang aplikasi.</li>\n\n<h4>Hanya pada versi luas (+):</h4>\n\n<li>Sentuh ikon Cari di layar saringan untuk membuka pencarian nama bunga (Latin dan nama lokal).</li>\n<li>Mengetik di kotak cari menampilkan semua nama yang memuat teks yang sudah diketik.</li>\n<li>Sentuh ikon “APG IV” di layar cari untuk membuka pencarian taksonomi.</li>\n<li>Mengetik di kotak cari menampilkan semua takson yang memuat teks yang sudah diketik.</li>",
     "tr": "<li>Filtre ekranındaki görsele dokunmak ilgili özelliği yazar ve boş bir özellik kaldıysa sonraki filtre ekranına, yoksa filtreye uyan çiçek listesine geçer.</li>\n<li>Çiçek listesindeki görsele dokunmak çiçeğin ayrıntısını açar.</li>\n<li>Ayrıntı ekranındaki küçük resme dokunmak altta daha büyük resmi gösterir.</li>\n<li>Çizime dokunmak çizimi tam ekran açar.</li>\n<li>Sayaca dokunmak çiçek listesini açar. Yalnızca sayaç 21’den küçükse kullanılabilir.</li>\n<li>Sayaca uzun basmak filtreyi temizler.</li>\n<li>Soldan kaydırmak veya “hamburger” düğmesine basmak sol çekmeceyi açar.</li>\n<li>Çekmecedeki bir filtre seçeneğine dokunmak ilgili filtre ekranını açar. Bağlı özelliğin değeri filtreden silinir.</li>\n<li>Çekmecedeki <b>Tercihler</b> seçeneği Tercihler’i açar.</li>\n<li>Çekmecedeki <b>Geri bildirim</b> seçeneği geri bildirim göndermeyi açar.</li>\n<li>Çekmecedeki <b>Yardım</b> seçeneği Yardım’ı açar (bu ekran).</li>\n<li>Çekmecedeki <b>Hakkında</b> seçeneği uygulama hakkında ekranını açar.</li>\n\n<h4>Yalnızca genişletilmiş (+) sürümde:</h4>\n\n<li>Filtre ekranındaki Ara simgesine dokunmak çiçek adlarında (Latince ve yerel) arama ekranını açar.</li>\n<li>Arama kutusuna yazmak, yazılmış metni içeren tüm adları gösterir.</li>\n<li>Arama ekranındaki “APG IV” simgesine dokunmak taksonomi aramasını açar.</li>\n<li>Arama kutusuna yazmak, yazılmış metni içeren tüm taksonları gösterir.</li>"
   },
-  "help4_title": {"id": "Preferensi:", "tr": "Tercihler:"},
+  "help4_title": {
+    "id": "Preferensi:",
+    "tr": "Tercihler:"
+  },
   "help4_text": {
     "id": "<li>Bahasa pilihan: Pilih bahasa yang diinginkan.</li>\n<li>Ukuran tembolok dalam MB (untuk foto dan ilustrasi): atur tembolok foto dan ilustrasi yang diunduh (bawaan 50 MB).</li>\n\n<h4>Hanya pada versi luas (+):</h4>\n\n<li>Mode luring: Unduh gambar dan data ke perangkat (memerlukan ruang tambahan 300+ MB).</li>",
     "tr": "<li>Tercih edilen dil: Tercih edilen dili seçin.</li>\n<li>Önbellek boyutu, MB (fotoğraflar ve çizimler): indirilen fotoğraf ve çizimler için önbelleği ayarlayın (varsayılan 50 MB).</li>\n\n<h4>Yalnızca genişletilmiş (+) sürümde:</h4>\n\n<li>Çevrimdışı kip: Resimleri ve veriyi cihaza indirin (300+ MB ek alan gerekir).</li>"
   },
-  "help5_title": {"id": "Pelokalan:", "tr": "Yerelleştirme:"},
+  "help5_title": {
+    "id": "Pelokalan:",
+    "tr": "Yerelleştirme:"
+  },
   "help5_text": {
     "id": "<p>\nAplikasi memakai bahasa perangkat. Bahasa yang tidak didukung menampilkan teks bahasa bawaan (bahasa Inggris).\n</p>\n<p>\nTeks tentang tumbuhan di halaman spesies terpisah dari itu. Nama dan taksonomi memakai bahasa tersebut bila ada sumbernya. Jika nama lokal tidak ada, nama Latin yang ditampilkan. Teks identifikasi ditampilkan dalam bahasa itu bila sudah ditulis; jika belum, halaman memakai teks bahasa Inggris.\n</p>",
     "tr": "<p>\nUygulama, çalıştığı cihazın dilini kullanır. Desteklenmeyen bir dil, varsayılan dilin (İngilizce) metinlerini gösterir.\n</p>\n<p>\nTür sayfasındaki bitki metni bundan ayrıdır. Adlar ve taksonomi, o dilde bir kaynak varsa o dilde gösterilir. Yerel ad yoksa Latince ad durur. Tanımlama metni o dilde yazılmışsa o dilde gösterilir; yazılmamışsa sayfa İngilizce metni kullanır.\n</p>"

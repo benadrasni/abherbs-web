@@ -38,6 +38,8 @@ import {
   youtubeId,
 } from '../lib';
 
+const AKA_PREVIEW = 4;
+
 const SECTIONS = [
   ['inflorescence', 'inflorescence'],
   ['flower', 'flower'],
@@ -219,11 +221,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
           <div className="binomen latin">
             {plant.name} <span className="author">{plant.author || ''}</span>
           </div>
-          {text.names && text.names.length ? (
-            <div className="aka">
-              {t.also_called} {text.names.slice(0, 4).join(', ')}
-            </div>
-          ) : null}
+          <AkaNames t={t} names={text.names} />
           <div className="facts">
             <div className="fact">
               <div className="k">{t.height}</div>
@@ -545,6 +543,25 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
         nextLabel={t.lightbox_next}
         closeLabel={t.close}
       />
+    </div>
+  );
+}
+
+function AkaNames({ t, names }) {
+  if (!names || !names.length) return null;
+  const shown = names.slice(0, AKA_PREVIEW);
+  const rest = names.slice(AKA_PREVIEW);
+  return (
+    <div className="aka">
+      <div>
+        {t.also_called} {shown.join(', ')}
+      </div>
+      {rest.length ? (
+        <details className="more-names">
+          <summary>{t.more_names(rest.length)}</summary>
+          <div className="aka-rest">{rest.join(', ')}</div>
+        </details>
+      ) : null}
     </div>
   );
 }
