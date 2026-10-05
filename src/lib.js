@@ -2,9 +2,9 @@ import { illustrationFromHeaderUrl } from './api';
 
 export const PLAY_URL = 'https://play.google.com/store/apps/details?id=sk.ab.herbs';
 export const APP_STORE_URL = 'https://apps.apple.com/us/app/whats-that-flower/id1449982118';
-export const POWO_TAXON = 'https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:';
-export const GBIF_TAXON = 'https://www.gbif.org/species/';
-export const USDA_PLANTS = 'https://plants.usda.gov/home/plantProfile?symbol=';
+const POWO_TAXON = 'https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:';
+const GBIF_TAXON = 'https://www.gbif.org/species/';
+const USDA_PLANTS = 'https://plants.usda.gov/home/plantProfile?symbol=';
 
 export const RTL = new Set(['ar', 'fa', 'he']);
 
@@ -54,7 +54,7 @@ export function countryName(code, lang) {
   return COUNTRIES[cc] || cc.toUpperCase();
 }
 
-export const SITE_ORIGIN = 'https://whatsthatflower.com';
+const SITE_ORIGIN = 'https://whatsthatflower.com';
 
 /** Languages with path prefixes and SEO shells. English is unprefixed. Keep in sync with scripts/generate_seo.js. */
 export const INDEXED_LANGS = ['en', 'sk', 'de', 'fr', 'cs', 'pl', 'ru', 'es', 'pt', 'ja', 'it', 'nl', 'uk', 'hu', 'da', 'sv', 'no', 'fi', 'et', 'lv', 'lt', 'hr', 'sl', 'sr', 'bg', 'ro', 'hi', 'ko', 'zh', 'fa', 'he', 'ar', 'id', 'tr'];
@@ -171,7 +171,7 @@ export function writeLangCookie(lang) {
   document.cookie = `${LANG_COOKIE}=${encodeURIComponent(lang)}; Max-Age=31536000; Path=/; SameSite=Lax`;
 }
 
-export function parseApg(apg) {
+function parseApg(apg) {
   const ranks = [];
   if (!apg) return ranks;
   Object.keys(apg)
@@ -279,7 +279,7 @@ export function formatHeight(from, to, lang) {
   return `${a}–${b} cm`;
 }
 
-export function monthName(month, lang) {
+function monthName(month, lang) {
   if (!month) return '';
   return new Date(2000, month - 1, 1).toLocaleString(lang || 'en', { month: 'long' });
 }
@@ -309,7 +309,7 @@ export function youtubeId(url) {
   return m ? m[1] : '';
 }
 
-export function observationTime(obs) {
+function observationTime(obs) {
   if (!obs) return null;
   if (obs.date && typeof obs.date.time === 'number') return obs.date.time;
   if (typeof obs.time === 'number') return obs.time;
@@ -343,7 +343,7 @@ export function countByCountry(rows, lang) {
     .sort((a, b) => b.count - a.count);
 }
 
-export const RECENT_COUNT = 7;
+const RECENT_COUNT = 7;
 
 function isYmd(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value);
@@ -361,7 +361,7 @@ export function plantIdsFromList(list) {
 }
 
 /** Custom-list values of 1900–2100 are designation years; `1` is presence-only. */
-export function isCustomListYear(value) {
+function isCustomListYear(value) {
   return typeof value === 'number' && Number.isFinite(value) && value >= 1900 && value <= 2100;
 }
 
@@ -544,7 +544,7 @@ export function indexHeadersById(headers) {
   return map;
 }
 
-export function sourceHost(href) {
+function sourceHost(href) {
   try {
     return new URL(href).hostname.replace(/^www\./, '');
   } catch (err) {

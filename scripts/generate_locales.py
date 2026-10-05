@@ -3284,22 +3284,6 @@ def main():
             for key, val in (existing.get(lang) or {}).items():
                 cat.setdefault(key, val)
 
-    DROP_KEYS = {
-        "about_fact_body",
-        "about_langs_official",
-        "about_langs_also",
-        "about_langs_more",
-        "about_purpose_title",
-        "about_purpose_text",
-        "about_sources_title",
-        "about_sources_text",
-        "about_credits_title",
-        "about_credits_text",
-    }
-    for cat in catalogs.values():
-        for key in DROP_KEYS:
-            cat.pop(key, None)
-
     for lang in langs:
         name = load_android_app_name(lang)
         if name:

@@ -1,10 +1,10 @@
 const DB = 'https://abherbs-backend.firebaseio.com';
-export const STORAGE = 'https://storage.googleapis.com/abherbs-resources/';
-export const PHOTO_ROOT = STORAGE + 'photos/';
+const STORAGE = 'https://storage.googleapis.com/abherbs-resources/';
+const PHOTO_ROOT = STORAGE + 'photos/';
 
 const cache = new Map();
 
-export async function getJson(path) {
+async function getJson(path) {
   const url = path.startsWith('http') ? path : `${DB}/${path}.json`;
   if (cache.has(url)) return cache.get(url);
   const pending = fetch(url).then((res) => {

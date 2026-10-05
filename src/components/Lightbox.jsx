@@ -5,9 +5,9 @@ export default function Lightbox({
   index = 0,
   onClose,
   onIndexChange,
-  prevLabel = 'Previous',
-  nextLabel = 'Next',
-  closeLabel = 'Close',
+  prevLabel,
+  nextLabel,
+  closeLabel,
 }) {
   const rootRef = useRef(null);
   const closeRef = useRef(null);

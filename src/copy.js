@@ -18,7 +18,6 @@ export function uiText(lang) {
   const en = catalogs.en || {};
   const chosen = (lang && catalogs[lang]) || {};
   const catalog = { ...en, ...chosen };
-  if (!catalog.app_short) catalog.app_short = catalog.get_lede;
 
   const raw = (key) => {
     if (catalog[key] != null) return catalog[key];

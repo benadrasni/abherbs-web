@@ -65,7 +65,7 @@ function samePlace(location, dest) {
 function joinPath(path, params, hash) {
   const q = params.toString();
   if (!q) return path + hash;
-  return path + (path.includes('?') ? '&' : '?') + q + hash;
+  return path + '?' + q + hash;
 }
 
 function migratedLocation(location) {
