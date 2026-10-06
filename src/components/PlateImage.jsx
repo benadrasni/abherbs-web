@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { photoUrl, plateFiles } from '../api';
 
-export default function PlateImage({ rel, preferred = 'grid', alt = '', sizes }) {
+export default function PlateImage({ rel, preferred = 'grid', alt = '' }) {
   const files = plateFiles(rel);
   const want = photoUrl(preferred === 'master' ? files.master : files.grid);
   const fallback = photoUrl(files.legacy);
@@ -16,7 +16,6 @@ export default function PlateImage({ rel, preferred = 'grid', alt = '', sizes })
     <img
       src={src}
       alt={alt}
-      sizes={sizes}
       loading="lazy"
       onError={() => {
         if (fallback && src !== fallback) setSrc(fallback);

@@ -198,7 +198,6 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
               <PlateImage
                 rel={plateRel}
                 preferred="master"
-                sizes="(max-width: 860px) 92vw, 46vw"
                 alt={t.plate_alt(plant.name)}
               />
             </button>
@@ -255,7 +254,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
                     aria-expanded={schemaOpen}
                     title={t.flower_schema_open}
                   >
-                    {t[copyKey] || copyKey}
+                    {t[copyKey]}
                   </button>
                 ) : key === 'inflorescence' ? (
                   <button
@@ -266,10 +265,10 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
                     aria-expanded={inflorescenceOpen}
                     title={t.inflorescence_schema_open}
                   >
-                    {t[copyKey] || copyKey}
+                    {t[copyKey]}
                   </button>
                 ) : (
-                  <div className="k">{t[copyKey] || copyKey}</div>
+                  <div className="k">{t[copyKey]}</div>
                 )}
                 <p>
                   <RichPlantText value={text[key]} />

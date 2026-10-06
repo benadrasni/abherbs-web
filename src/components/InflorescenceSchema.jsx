@@ -17,7 +17,7 @@ export default function InflorescenceSchema({ t, open, onClose, matchedKeys = []
   onCloseRef.current = onClose;
 
   const types = inflorescenceTypes(t);
-  const title = t.inflorescence_schema_title || t.inflorescence;
+  const title = t.inflorescence_schema_title;
   const matched = new Set(matchedKeys);
   const primary = matchedKeys[0] || '';
 
