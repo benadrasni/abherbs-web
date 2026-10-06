@@ -70,7 +70,6 @@ ARB_SEED = {
     "inflorescence": "plant_inflorescence",
     "herbalism": "plant_herbalism",
     "herbalism_disclaimer": "plant_herbalism_disclaimer",
-    "trivia": "plant_trivia",
     "sources": "plant_sources",
     "classification": "plant_taxonomy",
     "family": "taxonomy_familia",
@@ -1347,7 +1346,6 @@ NEW = {
         "fa": "یادداشت‌های سنتی یا آشپزی، نه توصیه پزشکی.",
         "he": "הערות מסורתיות או קולינריות, לא ייעוץ רפואי.",
     },
-    "trivia": {"en": "Trivia"},
     "notes": {
         "en": "Notes",
         "ar": "ملاحظات",

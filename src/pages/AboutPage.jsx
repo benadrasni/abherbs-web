@@ -31,7 +31,7 @@ export default function AboutPage({ lang, t, headers }) {
 
   useEffect(() => {
     document.title = `${t.about} — ${t.app_name}`;
-    const desc = t.seo_about || t.about_lede;
+    const desc = t.seo_about;
     let tag = document.querySelector('meta[name="description"]');
     if (!tag) {
       tag = document.createElement('meta');
@@ -86,7 +86,6 @@ export default function AboutPage({ lang, t, headers }) {
               <PlateImage
                 rel={plateRel}
                 preferred="master"
-                sizes="(max-width: 860px) 92vw, 46vw"
                 alt={t.plate_alt(ABOUT_PLANT)}
               />
             </Link>
