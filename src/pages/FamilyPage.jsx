@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { labelAt, taxonNames } from '../api';
 import Footer from '../components/Footer';
 import PlateGrid from '../components/PlateGrid';
-import { displayName, genusOf, withLang } from '../lib';
+import { decodeRouteParam, displayName, genusOf, withLang } from '../lib';
 
 function withLabel(header, labels) {
   return { ...header, label: labelAt(labels, header.id) || '' };
@@ -11,18 +11,20 @@ function withLabel(header, labels) {
 
 export default function FamilyPage({ lang, t, headers, labels, taxonomy, mode }) {
   const params = useParams();
-  const key = decodeURIComponent(mode === 'genus' ? params.genus : params.family);
+  const key = decodeRouteParam(mode === 'genus' ? params.genus : params.family);
   const names = taxonNames(taxonomy, key).filter(
     (name) => name.toLocaleLowerCase() !== String(key).toLocaleLowerCase()
   );
   const label = names[0] || '';
   const also = names.slice(1);
 
+  const ready = headers != null;
   const raw = useMemo(() => {
+    const list = headers || [];
     if (mode === 'genus') {
-      return headers.filter((h) => genusOf(h.name) === key);
+      return list.filter((h) => genusOf(h.name) === key);
     }
-    return headers.filter((h) => h.family === key);
+    return list.filter((h) => h.family === key);
   }, [headers, key, mode]);
 
   const items = useMemo(
@@ -58,10 +60,13 @@ export default function FamilyPage({ lang, t, headers, labels, taxonomy, mode })
           ) : null}
         </div>
         <p className="lede" style={{ margin: 0 }}>
-          {mode === 'genus' ? t.genus_lede : t.family_lede} {t.plants_count(raw.length)}
+          {mode === 'genus' ? t.genus_lede : t.family_lede}
+          {ready ? ` ${t.plants_count(raw.length)}` : ''}
         </p>
       </div>
-      {raw.length ? (
+      {!ready ? (
+        <p className="center-msg">{t.loading}</p>
+      ) : raw.length ? (
         <PlateGrid items={items} lang={lang} genusLabel={mode === 'family'} taxonomy={taxonomy} />
       ) : (
         <p className="center-msg">{t.empty_taxon}</p>

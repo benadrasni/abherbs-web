@@ -22,6 +22,7 @@ import {
   collectPlantSources,
   countByCountry,
   countryName,
+  decodeRouteParam,
   displayName,
   familyPath,
   formatFlowering,
@@ -52,7 +53,7 @@ const SECTIONS = [
 
 export default function PlantPage({ lang, t, requestedName, taxonomy }) {
   const params = useParams();
-  const name = decodeURIComponent(requestedName || params.name || '').replace(/_/g, ' ');
+  const name = decodeRouteParam(requestedName || params.name || '').replace(/_/g, ' ');
   const [plant, setPlant] = useState(null);
   const [text, setText] = useState(null);
   const [synonyms, setSynonyms] = useState([]);
@@ -102,16 +103,19 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
   }, [name, lang]);
 
   useEffect(() => {
-    if (!text || !plant) return;
-    const title = `${displayName(text.label, plant.name)} (${plant.name}) — ${t.app_name}`;
-    document.title = title;
-    const desc = String(text.description || t.app_short).replace(/<\/?b>/g, '');
     let tag = document.querySelector('meta[name="description"]');
     if (!tag) {
       tag = document.createElement('meta');
       tag.setAttribute('name', 'description');
       document.head.appendChild(tag);
     }
+    if (!text || !plant) {
+      tag.setAttribute('content', t.seo_home);
+      return;
+    }
+    const title = `${displayName(text.label, plant.name)} (${plant.name}) — ${t.app_name}`;
+    document.title = title;
+    const desc = String(text.description || t.app_short).replace(/<\/?b>/g, '');
     tag.setAttribute('content', desc.slice(0, 240));
   }, [text, plant, t]);
 
@@ -417,7 +421,10 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
             ) : null}
           </div>
           {probeMap ? (
-            <div className={showMap ? 'dist-col' : 'dist-col dist-col-probe'}>
+            <div
+              className={showMap ? 'dist-col' : 'dist-col dist-col-probe'}
+              aria-hidden={showMap ? undefined : true}
+            >
               {showMap ? (
                 <div className="band-h">
                   <h2>{t.distribution}</h2>
@@ -436,6 +443,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
               <figure className="dist-map">
                 <button
                   type="button"
+                  tabIndex={showMap ? undefined : -1}
                   onClick={() => setLight({ items: [{ src: distSrc, caption: t.distribution }], index: 0 })}
                 >
                   <img

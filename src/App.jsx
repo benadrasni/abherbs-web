@@ -10,6 +10,7 @@ import {
   PATH_LANGS,
   compactHeaders,
   contentPath,
+  decodeRouteParam,
   detectLang,
   indexHeadersById,
   langFromPath,
@@ -98,7 +99,7 @@ function migratedLocation(location) {
 
   const plantSeg = contentPath(pathname).split('/').filter(Boolean);
   if (plantSeg[0] === 'plant' && plantSeg[1] && plantSeg[1].includes('_')) {
-    const name = decodeURIComponent(plantSeg[1]).replace(/_/g, ' ').trim();
+    const name = decodeRouteParam(plantSeg[1]).replace(/_/g, ' ').trim();
     if (name) pathname = plantPath(name, langFromPath(pathname));
   }
 
@@ -236,7 +237,7 @@ export default function App() {
   const queryPlant = new URLSearchParams(location.search).get('plant');
   const needsIndex = !queryPlant && routeNeedsIndex(location.pathname);
   const needsLabels = !queryPlant && routeNeedsLabels(location.pathname);
-  const [rawHeaders, setRawHeaders] = useState([]);
+  const [rawHeaders, setRawHeaders] = useState(null);
   const [labels, setLabels] = useState(null);
   const [taxonomy, setTaxonomy] = useState(null);
 
@@ -306,7 +307,10 @@ export default function App() {
     pageview(settled, t.app_name);
   }, [location.pathname, location.search, location.hash, t.app_name]);
 
-  const headers = useMemo(() => compactHeaders(rawHeaders), [rawHeaders]);
+  const headers = useMemo(
+    () => (rawHeaders == null ? null : compactHeaders(rawHeaders)),
+    [rawHeaders]
+  );
   const headersById = useMemo(() => indexHeadersById(headers), [headers]);
 
   const setLang = (next) => {
@@ -396,7 +400,12 @@ export default function App() {
   return (
     <>
       <Header lang={lang} t={t} onLang={setLang} />
-      <SeoHead lang={lang} pathname={location.pathname} search={location.search} />
+      <SeoHead
+        lang={lang}
+        pathname={location.pathname}
+        search={location.search}
+        description={t.seo_home}
+      />
       <Routes>
         <Route path="/en" element={<Navigate to="/" replace />} />
         <Route path="/en/*" element={<StripEn />} />
