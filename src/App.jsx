@@ -236,7 +236,7 @@ export default function App() {
   const queryPlant = new URLSearchParams(location.search).get('plant');
   const needsIndex = !queryPlant && routeNeedsIndex(location.pathname);
   const needsLabels = !queryPlant && routeNeedsLabels(location.pathname);
-  const [rawHeaders, setRawHeaders] = useState([]);
+  const [rawHeaders, setRawHeaders] = useState(null);
   const [labels, setLabels] = useState(null);
   const [taxonomy, setTaxonomy] = useState(null);
 
@@ -306,7 +306,10 @@ export default function App() {
     pageview(settled, t.app_name);
   }, [location.pathname, location.search, location.hash, t.app_name]);
 
-  const headers = useMemo(() => compactHeaders(rawHeaders), [rawHeaders]);
+  const headers = useMemo(
+    () => (rawHeaders == null ? null : compactHeaders(rawHeaders)),
+    [rawHeaders]
+  );
   const headersById = useMemo(() => indexHeadersById(headers), [headers]);
 
   const setLang = (next) => {

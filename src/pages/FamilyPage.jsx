@@ -18,11 +18,13 @@ export default function FamilyPage({ lang, t, headers, labels, taxonomy, mode })
   const label = names[0] || '';
   const also = names.slice(1);
 
+  const ready = headers != null;
   const raw = useMemo(() => {
+    const list = headers || [];
     if (mode === 'genus') {
-      return headers.filter((h) => genusOf(h.name) === key);
+      return list.filter((h) => genusOf(h.name) === key);
     }
-    return headers.filter((h) => h.family === key);
+    return list.filter((h) => h.family === key);
   }, [headers, key, mode]);
 
   const items = useMemo(
@@ -58,10 +60,13 @@ export default function FamilyPage({ lang, t, headers, labels, taxonomy, mode })
           ) : null}
         </div>
         <p className="lede" style={{ margin: 0 }}>
-          {mode === 'genus' ? t.genus_lede : t.family_lede} {t.plants_count(raw.length)}
+          {mode === 'genus' ? t.genus_lede : t.family_lede}
+          {ready ? ` ${t.plants_count(raw.length)}` : ''}
         </p>
       </div>
-      {raw.length ? (
+      {!ready ? (
+        <p className="center-msg">{t.loading}</p>
+      ) : raw.length ? (
         <PlateGrid items={items} lang={lang} genusLabel={mode === 'family'} taxonomy={taxonomy} />
       ) : (
         <p className="center-msg">{t.empty_taxon}</p>

@@ -114,6 +114,7 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
       setHitQuery('');
       return undefined;
     }
+    if (headers == null) return undefined;
     let live = true;
     const needle = normalizeSearch(query);
     const local = headers
@@ -219,7 +220,7 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
           <div className="kicker">{t.app_name}</div>
           <h1 className="common">{t.plants}</h1>
         </div>
-        <div className="muted">{t.plants_count(headers.length)}</div>
+        <div className="muted">{headers == null ? t.loading : t.plants_count(headers.length)}</div>
       </div>
 
       <div className="search">
@@ -361,7 +362,7 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
         <StoreLinks t={t} />
       </section>
 
-      <Footer lang={lang} t={t} extra={t.plants_count(headers.length)} />
+      <Footer lang={lang} t={t} extra={headers == null ? undefined : t.plants_count(headers.length)} />
     </div>
   );
 }

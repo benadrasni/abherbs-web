@@ -26,23 +26,27 @@ export default function GeneraPage({ lang, t, headers, taxonomy }) {
           <div className="kicker">{t.flowering_plants}</div>
           <h1 className="common">{t.genera}</h1>
         </div>
-        <div className="muted">{genera.length}</div>
+        <div className="muted">{headers == null ? t.loading : genera.length}</div>
       </div>
-      <section className="band">
-        <div className="tiles">
-          {genera.map((g) => (
-            <TaxonTile
-              key={g.name}
-              to={genusPath(g.name, lang)}
-              name={g.name}
-              label={taxonLabel(taxonomy, g.name)}
-              count={g.count}
-              t={t}
-              italicLatin
-            />
-          ))}
-        </div>
-      </section>
+      {headers == null ? (
+        <p className="center-msg">{t.loading}</p>
+      ) : (
+        <section className="band">
+          <div className="tiles">
+            {genera.map((g) => (
+              <TaxonTile
+                key={g.name}
+                to={genusPath(g.name, lang)}
+                name={g.name}
+                label={taxonLabel(taxonomy, g.name)}
+                count={g.count}
+                t={t}
+                italicLatin
+              />
+            ))}
+          </div>
+        </section>
+      )}
       <Footer lang={lang} t={t} />
     </div>
   );
