@@ -264,9 +264,9 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
                 </Link>
               );
             })
-          ) : (
+          ) : q.trim() === hitQuery ? (
             <p className="muted">{t.search_empty}</p>
-          )}
+          ) : null}
         </div>
       ) : null}
 
