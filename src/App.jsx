@@ -399,7 +399,12 @@ export default function App() {
   return (
     <>
       <Header lang={lang} t={t} onLang={setLang} />
-      <SeoHead lang={lang} pathname={location.pathname} search={location.search} />
+      <SeoHead
+        lang={lang}
+        pathname={location.pathname}
+        search={location.search}
+        description={t.seo_home}
+      />
       <Routes>
         <Route path="/en" element={<Navigate to="/" replace />} />
         <Route path="/en/*" element={<StripEn />} />

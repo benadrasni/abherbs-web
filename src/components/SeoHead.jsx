@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { INDEXED_LANGS, RTL, canonicalUrl, hreflangOf, hreflangUrls } from '../lib';
+import { INDEXED_LANGS, RTL, canonicalUrl, contentPath, hreflangOf, hreflangUrls } from '../lib';
 
 function setLink(rel, href, hreflang) {
   const selector = hreflang
@@ -25,7 +25,17 @@ function setMetaProperty(property, content) {
   tag.setAttribute('content', content);
 }
 
-export default function SeoHead({ lang, pathname, search }) {
+function setMetaName(name, content) {
+  let tag = document.head.querySelector(`meta[name="${name}"]`);
+  if (!tag) {
+    tag = document.createElement('meta');
+    tag.setAttribute('name', name);
+    document.head.appendChild(tag);
+  }
+  tag.setAttribute('content', content);
+}
+
+export default function SeoHead({ lang, pathname, search, description }) {
   useEffect(() => {
     const params = new URLSearchParams(search || '');
     const plant = params.get('plant');
@@ -35,6 +45,10 @@ export default function SeoHead({ lang, pathname, search }) {
     setLink('canonical', canon);
     setMetaProperty('og:url', canon);
 
+    const page = contentPath(pathname);
+    const pageSetsDescription = Boolean(plant) || page === '/about' || page.startsWith('/plant/');
+    if (!pageSetsDescription && description) setMetaName('description', description);
+
     document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((node) => node.remove());
     if (indexed) {
       const urls = hreflangUrls(path);
@@ -43,7 +57,7 @@ export default function SeoHead({ lang, pathname, search }) {
 
     document.documentElement.lang = hreflangOf(lang);
     document.documentElement.dir = RTL.has(lang) ? 'rtl' : 'ltr';
-  }, [lang, pathname, search]);
+  }, [lang, pathname, search, description]);
 
   return null;
 }

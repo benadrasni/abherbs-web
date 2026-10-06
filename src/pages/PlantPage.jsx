@@ -102,16 +102,19 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
   }, [name, lang]);
 
   useEffect(() => {
-    if (!text || !plant) return;
-    const title = `${displayName(text.label, plant.name)} (${plant.name}) — ${t.app_name}`;
-    document.title = title;
-    const desc = String(text.description || t.app_short).replace(/<\/?b>/g, '');
     let tag = document.querySelector('meta[name="description"]');
     if (!tag) {
       tag = document.createElement('meta');
       tag.setAttribute('name', 'description');
       document.head.appendChild(tag);
     }
+    if (!text || !plant) {
+      tag.setAttribute('content', t.seo_home);
+      return;
+    }
+    const title = `${displayName(text.label, plant.name)} (${plant.name}) — ${t.app_name}`;
+    document.title = title;
+    const desc = String(text.description || t.app_short).replace(/<\/?b>/g, '');
     tag.setAttribute('content', desc.slice(0, 240));
   }, [text, plant, t]);
 
