@@ -421,7 +421,10 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
             ) : null}
           </div>
           {probeMap ? (
-            <div className={showMap ? 'dist-col' : 'dist-col dist-col-probe'}>
+            <div
+              className={showMap ? 'dist-col' : 'dist-col dist-col-probe'}
+              aria-hidden={showMap ? undefined : true}
+            >
               {showMap ? (
                 <div className="band-h">
                   <h2>{t.distribution}</h2>
@@ -440,6 +443,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
               <figure className="dist-map">
                 <button
                   type="button"
+                  tabIndex={showMap ? undefined : -1}
                   onClick={() => setLight({ items: [{ src: distSrc, caption: t.distribution }], index: 0 })}
                 >
                   <img
