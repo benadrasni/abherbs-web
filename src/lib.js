@@ -87,6 +87,14 @@ export function langFromPath(pathname) {
   return 'en';
 }
 
+export function decodeRouteParam(value) {
+  try {
+    return decodeURIComponent(value);
+  } catch (err) {
+    return value == null ? '' : String(value);
+  }
+}
+
 export function contentPath(pathname) {
   const norm = normPath(pathname);
   const parts = norm.split('/').filter(Boolean);

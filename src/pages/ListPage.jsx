@@ -3,7 +3,14 @@ import { Link, useParams } from 'react-router-dom';
 import { labelAt, loadLanguageList } from '../api';
 import Footer from '../components/Footer';
 import PlateGrid from '../components/PlateGrid';
-import { headersForIds, plantIdsFromList, plantYearsFromList, sourceLabel, withLang } from '../lib';
+import {
+  decodeRouteParam,
+  headersForIds,
+  plantIdsFromList,
+  plantYearsFromList,
+  sourceLabel,
+  withLang,
+} from '../lib';
 
 function withLabel(header, labels) {
   return { ...header, label: labelAt(labels, header.id) || '' };
@@ -11,7 +18,7 @@ function withLabel(header, labels) {
 
 export default function ListPage({ lang, t, headersById, labels, taxonomy }) {
   const params = useParams();
-  const name = decodeURIComponent(params.name || '');
+  const name = decodeRouteParam(params.name || '');
   const [raw, setRaw] = useState(undefined);
 
   useEffect(() => {

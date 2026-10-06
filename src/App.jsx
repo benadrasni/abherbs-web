@@ -10,6 +10,7 @@ import {
   PATH_LANGS,
   compactHeaders,
   contentPath,
+  decodeRouteParam,
   detectLang,
   indexHeadersById,
   langFromPath,
@@ -98,7 +99,7 @@ function migratedLocation(location) {
 
   const plantSeg = contentPath(pathname).split('/').filter(Boolean);
   if (plantSeg[0] === 'plant' && plantSeg[1] && plantSeg[1].includes('_')) {
-    const name = decodeURIComponent(plantSeg[1]).replace(/_/g, ' ').trim();
+    const name = decodeRouteParam(plantSeg[1]).replace(/_/g, ' ').trim();
     if (name) pathname = plantPath(name, langFromPath(pathname));
   }
 

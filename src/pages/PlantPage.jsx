@@ -22,6 +22,7 @@ import {
   collectPlantSources,
   countByCountry,
   countryName,
+  decodeRouteParam,
   displayName,
   familyPath,
   formatFlowering,
@@ -52,7 +53,7 @@ const SECTIONS = [
 
 export default function PlantPage({ lang, t, requestedName, taxonomy }) {
   const params = useParams();
-  const name = decodeURIComponent(requestedName || params.name || '').replace(/_/g, ' ');
+  const name = decodeRouteParam(requestedName || params.name || '').replace(/_/g, ' ');
   const [plant, setPlant] = useState(null);
   const [text, setText] = useState(null);
   const [synonyms, setSynonyms] = useState([]);
