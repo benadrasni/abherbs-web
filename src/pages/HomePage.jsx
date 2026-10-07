@@ -181,14 +181,6 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
             setHits(taxonHits.slice(0, 6).concat(plants).slice(0, 12));
             setHitQuery(query);
           }
-        })
-        .catch(() => {
-          if (live) {
-            setHits(
-              taxonHits.slice(0, 6).concat(local.map((h) => ({ ...h, kind: 'plant' }))).slice(0, 12)
-            );
-            setHitQuery(query);
-          }
         });
     }, 220);
     return () => {
