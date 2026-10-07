@@ -21,7 +21,6 @@ export function uiText(lang) {
 
   const raw = (key) => {
     if (catalog[key] != null) return catalog[key];
-    if (en[key] != null) return en[key];
     return null;
   };
 
