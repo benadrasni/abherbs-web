@@ -262,9 +262,6 @@ export default function App() {
     loadLabels(lang)
       .then((data) => {
         if (live) setLabels(data);
-      })
-      .catch(() => {
-        if (live) setLabels(null);
       });
     return () => {
       live = false;
@@ -276,9 +273,6 @@ export default function App() {
     loadTaxonomyLabels(lang)
       .then((data) => {
         if (live) setTaxonomy(data && typeof data === 'object' ? data : null);
-      })
-      .catch(() => {
-        if (live) setTaxonomy(null);
       });
     return () => {
       live = false;

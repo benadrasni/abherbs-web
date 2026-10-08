@@ -66,9 +66,6 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
     loadNewPlantLists()
       .then((data) => {
         if (live) setNewLists(data && typeof data === 'object' ? data : {});
-      })
-      .catch(() => {
-        if (live) setNewLists({});
       });
     return () => {
       live = false;
@@ -81,9 +78,6 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
     loadLanguageLists(lang)
       .then((data) => {
         if (live) setLanguageLists(data && typeof data === 'object' ? data : {});
-      })
-      .catch(() => {
-        if (live) setLanguageLists({});
       });
     return () => {
       live = false;
