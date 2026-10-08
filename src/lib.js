@@ -411,6 +411,78 @@ export function plantStatesFromList(list) {
   return states;
 }
 
+function genusKey(key) {
+  const name = String(key || '').trim();
+  if (!name || /^\d+$/.test(name)) return '';
+  if (!/[A-Za-z]/.test(name)) return '';
+  return name;
+}
+
+/**
+ * Genus designations beside `list`. One state, a map of states, a year, or
+ * membership. Numeric keys are ignored so they cannot be mistaken for plant ids.
+ */
+export function genusMarksFromList(genera) {
+  if (!genera || typeof genera !== 'object' || Array.isArray(genera)) return [];
+  const marks = [];
+  Object.keys(genera)
+    .map((key) => ({ key, name: genusKey(key) }))
+    .filter((row) => row.name && genera[row.key] != null && genera[row.key] !== false)
+    .sort((a, b) => a.name.localeCompare(b.name, 'en'))
+    .forEach((row) => {
+      const value = genera[row.key];
+      if (typeof value === 'string' && !value.trim()) return;
+      if (value && typeof value === 'object' && !Array.isArray(value) && !Object.keys(value).length) return;
+      const states = stateLabels(value);
+      if (states.length) {
+        states.forEach((state) => marks.push({ genus: row.name, state }));
+        return;
+      }
+      if (isCustomListYear(value)) {
+        marks.push({ genus: row.name, year: value });
+        return;
+      }
+      marks.push({ genus: row.name });
+    });
+  return marks;
+}
+
+/** Family of a genus from any catalog header in that genus. */
+export function familyOfGenus(genus, headersById) {
+  const header = representativeOfGenus(genus, headersById);
+  return (header && header.family) || '';
+}
+
+/** One species plate stands for the genus. Names are the chosen portraits. */
+const GENUS_SAMPLE = {
+  Crataegus: 'Crataegus monogyna',
+  Iris: 'Iris versicolor',
+  Lupinus: 'Lupinus texensis',
+  Magnolia: 'Magnolia grandiflora',
+  Malus: 'Malus sylvestris',
+  Paeonia: 'Paeonia officinalis',
+  Rosa: 'Rosa gallica',
+  Viola: 'Viola riviniana',
+};
+
+function headersInGenus(genus, headersById) {
+  if (!genus || !headersById) return [];
+  const rows = Array.isArray(headersById) ? headersById : Object.values(headersById);
+  return rows.filter((header) => header && header.name && genusOf(header.name) === genus);
+}
+
+/** Catalog header whose plate represents [genus]. Null when the genus is absent. */
+export function representativeOfGenus(genus, headersById) {
+  const rows = headersInGenus(genus, headersById);
+  if (!rows.length) return null;
+  const wanted = GENUS_SAMPLE[genus];
+  if (wanted) {
+    const chosen = rows.find((header) => header.name === wanted);
+    if (chosen) return chosen;
+  }
+  return rows.find((header) => header.illustrationUrl || header.url) || rows[0];
+}
+
 function headerAtId(headersById, id) {
   if (!headersById) return null;
   return headersById[id] || headersById[String(id)] || null;
@@ -457,27 +529,68 @@ export function headersForIds(ids, headersById) {
     .filter((header) => header && header.name);
 }
 
-function pickListCover(ids, headersById, icon, list) {
+function genusCover(genus, headersById) {
+  const plate = representativeOfGenus(genus, headersById);
+  if (plate && (plate.illustrationUrl || plate.url)) {
+    return { ...plate, name: genus };
+  }
+  return {
+    name: genus,
+    family: familyOfGenus(genus, headersById),
+    familyIcon: true,
+  };
+}
+
+function pickListCover(ids, headersById, icon, list, genera) {
   const states = plantStatesFromList(list);
+  const genusMarks = genusMarksFromList(genera);
   const marked = [];
   Object.keys(states).forEach((id) => {
+    if (!headerAtId(headersById, id)) return;
     states[id].forEach((state) => marked.push({ id: Number(id), state }));
   });
+  const headers = headersForIds(ids, headersById);
+  if (marked.length || !headers.length) {
+    genusMarks.forEach((mark) => {
+      if (mark.state) marked.push({ genus: mark.genus, state: mark.state });
+    });
+  }
   if (marked.length) {
-    marked.sort((a, b) => a.state.localeCompare(b.state, 'en') || a.id - b.id);
-    const first = headerAtId(headersById, marked[0].id);
-    if (first && first.name) return first;
+    marked.sort((a, b) => {
+      const byState = a.state.localeCompare(b.state, 'en');
+      if (byState) return byState;
+      if (a.genus && b.genus) return a.genus.localeCompare(b.genus, 'en');
+      if (a.genus) return 1;
+      if (b.genus) return -1;
+      return a.id - b.id;
+    });
+    const first = marked[0];
+    if (first.genus) return genusCover(first.genus, headersById);
+    const header = headerAtId(headersById, first.id);
+    if (header && header.name) return header;
   }
   const years = plantYearsFromList(list);
   const yearIds = Object.keys(years)
     .map(Number)
     .filter((id) => years[id]);
+  yearIds.sort((a, b) => years[b] - years[a] || a - b);
+  let bestYear = null;
+  let bestHeader = null;
   if (yearIds.length) {
-    yearIds.sort((a, b) => years[b] - years[a] || a - b);
-    const newest = headerAtId(headersById, yearIds[0]);
-    if (newest && newest.name) return newest;
+    bestYear = years[yearIds[0]];
+    bestHeader = headerAtId(headersById, yearIds[0]);
   }
-  const headers = headersForIds(ids, headersById);
+  let bestGenus = null;
+  genusMarks.forEach((mark) => {
+    if (!mark.year) return;
+    if (bestYear == null || mark.year > bestYear) {
+      bestYear = mark.year;
+      bestHeader = null;
+      bestGenus = mark.genus;
+    }
+  });
+  if (bestGenus) return genusCover(bestGenus, headersById);
+  if (bestHeader && bestHeader.name) return bestHeader;
   if (!headers.length) return null;
   if (icon) {
     const match = headers.find((header) => header.family === icon);
@@ -500,6 +613,7 @@ export function customListsFromRaw(raw, headersById, lang) {
       const ids = plantIdsFromList(rec.list);
       const items = headersForIds(ids, headersById);
       const states = plantStatesFromList(rec.list);
+      const genusMarks = genusMarksFromList(rec.genera);
       const stateCount = ids.reduce((sum, id) => {
         const labels = states[id];
         if (!labels || !labels.length || !headerAtId(headersById, id)) return sum;
@@ -510,10 +624,10 @@ export function customListsFromRaw(raw, headersById, lang) {
         icon: rec.icon || '',
         sourceUrl: listSourceUrl(rec),
         parameter: listParameter(rec),
-        hasYear: listHasYear(rec.list),
+        hasYear: listHasYear(rec.list) || genusMarks.some((mark) => mark.year),
         ids,
-        count: stateCount || items.length,
-        cover: pickListCover(ids, headersById, rec.icon, rec.list),
+        count: (stateCount || items.length) + genusMarks.length,
+        cover: pickListCover(ids, headersById, rec.icon, rec.list, rec.genera),
       };
     })
     .filter((row) => row.count > 0)

@@ -1,9 +1,22 @@
 import { Link } from 'react-router-dom';
 import PlateImage from './PlateImage';
-import { taxonLabel } from '../api';
-import { displayName, genusOf, headerPlateRel, listPath, plantPath } from '../lib';
+import { familyIconUrl, taxonLabel } from '../api';
+import { displayName, genusOf, genusPath, headerPlateRel, listPath, plantPath } from '../lib';
 
-export function PlateCell({ item, lang, genusLabel, taxonomy }) {
+export function PlateCell({ item, lang, genusLabel, taxonomy, genusWord }) {
+  if (item.genus) {
+    const rel = headerPlateRel(item);
+    return (
+      <Link className="cell" to={genusPath(item.genus, lang)}>
+        <div className="art">
+          {rel ? <PlateImage rel={rel} preferred="grid" alt="" /> : null}
+        </div>
+        {item.state ? <div className="year state">{item.state}</div> : item.year ? <div className="year">{item.year}</div> : null}
+        <div className="n latin">{item.genus}</div>
+        <div className="g">{genusWord || ''}</div>
+      </Link>
+    );
+  }
   const taxon = genusLabel ? genusOf(item.name) : item.family;
   const common = taxonLabel(taxonomy, taxon);
   return (
@@ -21,10 +34,15 @@ export function PlateCell({ item, lang, genusLabel, taxonomy }) {
 
 export function ListCell({ list, lang, t }) {
   const cover = list && list.cover;
+  const familyIcon = cover && cover.familyIcon && cover.family;
   return (
     <Link className="cell" to={listPath(list.name, lang)}>
       <div className="art">
-        {cover ? <PlateImage rel={headerPlateRel(cover)} preferred="grid" alt="" /> : null}
+        {familyIcon ? (
+          <img src={familyIconUrl(cover.family)} alt="" />
+        ) : cover ? (
+          <PlateImage rel={headerPlateRel(cover)} preferred="grid" alt="" />
+        ) : null}
       </div>
       <div className="n">{list.name}</div>
       <div className="g">{t.plants_count(list.count)}</div>
@@ -32,7 +50,7 @@ export function ListCell({ list, lang, t }) {
   );
 }
 
-export default function PlateGrid({ items, lang, genusLabel, taxonomy }) {
+export default function PlateGrid({ items, lang, genusLabel, taxonomy, genusWord }) {
   return (
     <div className="grid">
       {items.map((item) => (
@@ -42,6 +60,7 @@ export default function PlateGrid({ items, lang, genusLabel, taxonomy }) {
           lang={lang}
           genusLabel={genusLabel}
           taxonomy={taxonomy}
+          genusWord={genusWord}
         />
       ))}
     </div>

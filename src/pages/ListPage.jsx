@@ -5,6 +5,8 @@ import Footer from '../components/Footer';
 import PlateGrid from '../components/PlateGrid';
 import {
   decodeRouteParam,
+  genusMarksFromList,
+  representativeOfGenus,
   headersForIds,
   plantIdsFromList,
   plantStatesFromList,
@@ -38,6 +40,7 @@ export default function ListPage({ lang, t, headersById, labels, taxonomy }) {
     const ids = plantIdsFromList(raw && raw.list);
     const years = plantYearsFromList(raw && raw.list);
     const states = plantStatesFromList(raw && raw.list);
+    const genusMarks = genusMarksFromList(raw && raw.genera);
     const rows = [];
     headersForIds(ids, headersById).forEach((header) => {
       const base = withLabel(header, labels);
@@ -48,11 +51,26 @@ export default function ListPage({ lang, t, headersById, labels, taxonomy }) {
       }
       rows.push({ ...base, year: years[header.id] });
     });
-    const byState = rows.some((row) => row.state);
-    const byYear = rows.some((row) => row.year);
+    genusMarks.forEach((mark) => {
+      const plate = representativeOfGenus(mark.genus, headersById) || {};
+      rows.push({
+        genus: mark.genus,
+        name: mark.genus,
+        family: plate.family || '',
+        illustrationUrl: plate.illustrationUrl || '',
+        url: plate.url || '',
+        label: '',
+        state: mark.state,
+        year: mark.year,
+      });
+    });
+    const speciesHaveStates = Object.keys(states).some((id) => states[id] && states[id].length);
+    const speciesHaveYears = Object.keys(years).length > 0;
+    const byState = speciesHaveStates || (genusMarks.some((mark) => mark.state) && !speciesHaveYears);
+    const byYear = !byState && (speciesHaveYears || genusMarks.some((mark) => mark.year));
     rows.sort((a, b) => {
       if (byState) {
-        const c = (a.state || '').localeCompare(b.state || '', lang);
+        const c = (a.state || '\uffff').localeCompare(b.state || '\uffff', lang);
         if (c) return c;
       } else if (byYear) {
         const c = (b.year || 0) - (a.year || 0);
@@ -96,7 +114,7 @@ export default function ListPage({ lang, t, headersById, labels, taxonomy }) {
         </p>
       </div>
       {items.length ? (
-        <PlateGrid items={items} lang={lang} taxonomy={taxonomy} />
+        <PlateGrid items={items} lang={lang} taxonomy={taxonomy} genusWord={t.genus} />
       ) : loaded ? (
         <p className="center-msg">{t.empty_list}</p>
       ) : null}
