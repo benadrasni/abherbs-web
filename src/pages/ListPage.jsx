@@ -27,9 +27,6 @@ export default function ListPage({ lang, t, headersById, labels, taxonomy }) {
     loadLanguageList(lang, name)
       .then((data) => {
         if (live) setRaw(data && typeof data === 'object' ? data : null);
-      })
-      .catch(() => {
-        if (live) setRaw(null);
       });
     return () => {
       live = false;

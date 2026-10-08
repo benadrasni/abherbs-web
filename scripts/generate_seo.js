@@ -71,7 +71,6 @@ function localeOf(lang) {
 function t(lang, key) {
   const cat = localeOf(lang);
   if (cat[key] != null) return cat[key];
-  if ((locales.en || {})[key] != null) return locales.en[key];
   return key;
 }
 
