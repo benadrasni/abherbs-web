@@ -382,6 +382,35 @@ export function plantYearsFromList(list) {
   return years;
 }
 
+/** A state name. Numeric strings such as "2024" stay membership values. */
+function isStateName(value) {
+  return typeof value === 'string' && /[A-Za-z]/.test(value) && value.trim();
+}
+
+/** State names on one plant. A string is one state. A map’s keys are several. */
+export function stateLabels(value) {
+  if (isStateName(value)) return [value.trim()];
+  if (Array.isArray(value)) {
+    return value.filter(isStateName).map((name) => name.trim());
+  }
+  if (!value || typeof value !== 'object') return [];
+  return Object.keys(value)
+    .filter((key) => isStateName(key) && value[key])
+    .map((key) => key.trim())
+    .sort((a, b) => a.localeCompare(b, 'en'));
+}
+
+/** Plant id to the state names stored on that id. */
+export function plantStatesFromList(list) {
+  const states = {};
+  if (!list || typeof list !== 'object' || Array.isArray(list)) return states;
+  Object.keys(list).forEach((key) => {
+    const labels = stateLabels(list[key]);
+    if (labels.length) states[Number(key)] = labels;
+  });
+  return states;
+}
+
 function headerAtId(headersById, id) {
   if (!headersById) return null;
   return headersById[id] || headersById[String(id)] || null;
@@ -429,6 +458,16 @@ export function headersForIds(ids, headersById) {
 }
 
 function pickListCover(ids, headersById, icon, list) {
+  const states = plantStatesFromList(list);
+  const marked = [];
+  Object.keys(states).forEach((id) => {
+    states[id].forEach((state) => marked.push({ id: Number(id), state }));
+  });
+  if (marked.length) {
+    marked.sort((a, b) => a.state.localeCompare(b.state, 'en') || a.id - b.id);
+    const first = headerAtId(headersById, marked[0].id);
+    if (first && first.name) return first;
+  }
   const years = plantYearsFromList(list);
   const yearIds = Object.keys(years)
     .map(Number)
@@ -460,22 +499,50 @@ export function customListsFromRaw(raw, headersById, lang) {
       const rec = raw[name] && typeof raw[name] === 'object' ? raw[name] : {};
       const ids = plantIdsFromList(rec.list);
       const items = headersForIds(ids, headersById);
+      const states = plantStatesFromList(rec.list);
+      const stateCount = ids.reduce((sum, id) => {
+        const labels = states[id];
+        if (!labels || !labels.length || !headerAtId(headersById, id)) return sum;
+        return sum + labels.length;
+      }, 0);
       return {
         name,
         icon: rec.icon || '',
         sourceUrl: listSourceUrl(rec),
+        parameter: listParameter(rec),
+        hasYear: listHasYear(rec.list),
         ids,
-        count: items.length,
+        count: stateCount || items.length,
         cover: pickListCover(ids, headersById, rec.icon, rec.list),
       };
     })
     .filter((row) => row.count > 0)
-    .sort((a, b) => {
-      const ar = a.sourceUrl ? 0 : 1;
-      const br = b.sourceUrl ? 0 : 1;
-      if (ar !== br) return ar - br;
-      return a.name.localeCompare(b.name, lang);
-    });
+    .sort((a, b) => compareCustomLists(a, b, lang));
+}
+
+function listParameter(rec) {
+  if (!rec || typeof rec.parameter !== 'string') return '';
+  return rec.parameter.trim();
+}
+
+function listHasYear(list) {
+  return Object.keys(plantYearsFromList(list)).length > 0;
+}
+
+/** Sourced lists, then a year or other parameter, then the title. */
+export function compareCustomLists(a, b, lang) {
+  const rank = (row) => {
+    if (row.sourceUrl) return 0;
+    if (row.parameter || row.hasYear) return 1;
+    return 2;
+  };
+  const byRank = rank(a) - rank(b);
+  if (byRank) return byRank;
+  const locale = lang || 'en';
+  const key = (row) => row.parameter || row.name;
+  const byKey = key(a).localeCompare(key(b), locale);
+  if (byKey) return byKey;
+  return a.name.localeCompare(b.name, locale);
 }
 
 export function groupByAddedDate(items) {

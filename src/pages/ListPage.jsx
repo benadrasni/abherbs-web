@@ -7,6 +7,7 @@ import {
   decodeRouteParam,
   headersForIds,
   plantIdsFromList,
+  plantStatesFromList,
   plantYearsFromList,
   sourceLabel,
   withLang,
@@ -36,13 +37,24 @@ export default function ListPage({ lang, t, headersById, labels, taxonomy }) {
   const items = useMemo(() => {
     const ids = plantIdsFromList(raw && raw.list);
     const years = plantYearsFromList(raw && raw.list);
-    const rows = headersForIds(ids, headersById).map((header) => ({
-      ...withLabel(header, labels),
-      year: years[header.id],
-    }));
+    const states = plantStatesFromList(raw && raw.list);
+    const rows = [];
+    headersForIds(ids, headersById).forEach((header) => {
+      const base = withLabel(header, labels);
+      const labelsForPlant = states[header.id] || [];
+      if (labelsForPlant.length) {
+        labelsForPlant.forEach((state) => rows.push({ ...base, state }));
+        return;
+      }
+      rows.push({ ...base, year: years[header.id] });
+    });
+    const byState = rows.some((row) => row.state);
     const byYear = rows.some((row) => row.year);
     rows.sort((a, b) => {
-      if (byYear) {
+      if (byState) {
+        const c = (a.state || '').localeCompare(b.state || '', lang);
+        if (c) return c;
+      } else if (byYear) {
         const c = (b.year || 0) - (a.year || 0);
         if (c) return c;
       }

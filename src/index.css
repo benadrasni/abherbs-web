@@ -635,6 +635,11 @@ a.lang-chip:hover, a.lang-chip.on { border-color: var(--ink); }
   color: var(--gold);
   margin-top: 12px;
 }
+.cell .year.state {
+  letter-spacing: 0.06em;
+  font-size: 13px;
+  line-height: 1.25;
+}
 .cell .year + .n { margin-top: 2px; }
 .cell .l { font-size: 14px; color: var(--ink-2); }
 .cell .g { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin-top: 4px; }

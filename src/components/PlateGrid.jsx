@@ -11,7 +11,7 @@ export function PlateCell({ item, lang, genusLabel, taxonomy }) {
       <div className="art">
         <PlateImage rel={headerPlateRel(item)} preferred="grid" alt="" />
       </div>
-      {item.year ? <div className="year">{item.year}</div> : null}
+      {item.state ? <div className="year state">{item.state}</div> : item.year ? <div className="year">{item.year}</div> : null}
       <div className="n">{displayName(item.label, item.name)}</div>
       <div className="l latin">{item.name}</div>
       <div className="g">{common ? displayName(common) : taxon}</div>
@@ -37,7 +37,7 @@ export default function PlateGrid({ items, lang, genusLabel, taxonomy }) {
     <div className="grid">
       {items.map((item) => (
         <PlateCell
-          key={item.name}
+          key={`${item.state || item.year || ''}:${item.name}`}
           item={item}
           lang={lang}
           genusLabel={genusLabel}
