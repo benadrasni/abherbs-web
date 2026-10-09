@@ -5,6 +5,7 @@ import { displayName, genusOf, genusPath, headerPlateRel, listPath, plantPath } 
 
 export function PlateCell({ item, lang, genusLabel, taxonomy, genusWord }) {
   if (item.genus) {
+    const spoken = taxonLabel(taxonomy, item.genus);
     const rel = headerPlateRel(item);
     return (
       <Link className="cell" to={genusPath(item.genus, lang)}>
@@ -12,7 +13,8 @@ export function PlateCell({ item, lang, genusLabel, taxonomy, genusWord }) {
           {rel ? <PlateImage rel={rel} preferred="grid" alt="" /> : null}
         </div>
         {item.state ? <div className="year state">{item.state}</div> : item.year ? <div className="year">{item.year}</div> : null}
-        <div className="n latin">{item.genus}</div>
+        <div className={spoken ? 'n' : 'n latin'}>{displayName(spoken, item.genus)}</div>
+        {spoken ? <div className="l latin">{item.genus}</div> : null}
         <div className="g">{genusWord || ''}</div>
       </Link>
     );

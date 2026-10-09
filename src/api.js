@@ -157,17 +157,18 @@ export function taxonNames(taxonomy, latin) {
     .map((name) => name.trim());
 }
 
-function distinctTaxonNames(taxonomy, latin) {
-  const latinKey = String(latin || '').toLocaleLowerCase();
-  return taxonNames(taxonomy, latin).filter((name) => name.toLocaleLowerCase() !== latinKey);
+export function taxonVernaculars(taxonomy, latin) {
+  // A lowercase vernacular is still a name when the Latin name is capitalized.
+  const exact = String(latin || '').trim();
+  return taxonNames(taxonomy, latin).filter((name) => name !== exact);
 }
 
 export function taxonLabel(taxonomy, latin) {
-  return distinctTaxonNames(taxonomy, latin)[0] || '';
+  return taxonVernaculars(taxonomy, latin)[0] || '';
 }
 
 export function taxonGloss(taxonomy, latin) {
-  return distinctTaxonNames(taxonomy, latin).join(', ');
+  return taxonVernaculars(taxonomy, latin).join(', ');
 }
 
 export function normalizeSearch(value) {

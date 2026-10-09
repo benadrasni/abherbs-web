@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { labelAt, loadLanguageList } from '../api';
+import { labelAt, loadLanguageList, taxonLabel } from '../api';
 import Footer from '../components/Footer';
 import PlateGrid from '../components/PlateGrid';
 import {
@@ -59,7 +59,7 @@ export default function ListPage({ lang, t, headersById, labels, taxonomy }) {
         family: plate.family || '',
         illustrationUrl: plate.illustrationUrl || '',
         url: plate.url || '',
-        label: '',
+        label: taxonLabel(taxonomy, mark.genus),
         state: mark.state,
         year: mark.year,
       });
@@ -79,7 +79,7 @@ export default function ListPage({ lang, t, headersById, labels, taxonomy }) {
       return (a.label || a.name).localeCompare(b.label || b.name, lang);
     });
     return rows;
-  }, [raw, headersById, labels, lang]);
+  }, [raw, headersById, labels, lang, taxonomy]);
 
   useEffect(() => {
     document.title = name ? `${name} — ${t.app_name}` : t.app_name;

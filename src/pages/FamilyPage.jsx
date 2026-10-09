@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { labelAt, taxonNames } from '../api';
+import { labelAt, taxonVernaculars } from '../api';
 import Footer from '../components/Footer';
 import PlateGrid from '../components/PlateGrid';
 import { decodeRouteParam, displayName, genusOf, withLang } from '../lib';
@@ -12,9 +12,7 @@ function withLabel(header, labels) {
 export default function FamilyPage({ lang, t, headers, labels, taxonomy, mode }) {
   const params = useParams();
   const key = decodeRouteParam(mode === 'genus' ? params.genus : params.family);
-  const names = taxonNames(taxonomy, key).filter(
-    (name) => name.toLocaleLowerCase() !== String(key).toLocaleLowerCase()
-  );
+  const names = taxonVernaculars(taxonomy, key);
   const label = names[0] || '';
   const also = names.slice(1);
 

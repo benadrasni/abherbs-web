@@ -185,9 +185,9 @@ function taxonLabel(taxonomy, latin) {
       : typeof raw === 'string'
         ? [raw]
         : [];
-  const latinKey = String(latin).toLocaleLowerCase();
+  const exact = String(latin).trim();
   const hit = values.find(
-    (name) => typeof name === 'string' && name.trim() && name.trim().toLocaleLowerCase() !== latinKey
+    (name) => typeof name === 'string' && name.trim() && name.trim() !== exact
   );
   return hit ? String(hit).trim() : '';
 }
