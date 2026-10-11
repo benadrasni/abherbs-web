@@ -186,10 +186,12 @@ function taxonLabel(taxonomy, latin) {
         ? [raw]
         : [];
   const exact = String(latin).trim();
-  const hit = values.find(
-    (name) => typeof name === 'string' && name.trim() && name.trim() !== exact
-  );
-  return hit ? String(hit).trim() : '';
+  const names = values
+    .filter((name) => typeof name === 'string' && name.trim() && name.trim() !== exact)
+    .map((name) => name.trim());
+  const key = exact.toLowerCase();
+  const real = names.find((name) => name.toLowerCase() !== key);
+  return real || names[0] || '';
 }
 
 function genusOf(name) {

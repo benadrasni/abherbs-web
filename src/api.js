@@ -158,9 +158,14 @@ export function taxonNames(taxonomy, latin) {
 }
 
 export function taxonVernaculars(taxonomy, latin) {
-  // A lowercase vernacular is still a name when the Latin name is capitalized.
+  // Prefer the first name that is not a case-only copy of the Latin name.
+  // When that copy is the only vernacular (Iris → iris), it stays the title.
   const exact = String(latin || '').trim();
-  return taxonNames(taxonomy, latin).filter((name) => name !== exact);
+  const names = taxonNames(taxonomy, latin).filter((name) => name !== exact);
+  const key = exact.toLowerCase();
+  const realAt = names.findIndex((name) => name.toLowerCase() !== key);
+  if (realAt <= 0) return names;
+  return [names[realAt], ...names.slice(0, realAt), ...names.slice(realAt + 1)];
 }
 
 export function taxonLabel(taxonomy, latin) {
