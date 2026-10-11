@@ -5,6 +5,7 @@
  */
 const fs = require('fs');
 const path = require('path');
+const { taxonLabel } = require('../src/taxonNames.cjs');
 
 const SITE = 'https://whatsthatflower.com';
 const APP = "What's that flower?";
@@ -171,27 +172,6 @@ function labelFor(header, labels) {
   const id = header.id;
   const row = Array.isArray(labels) ? labels[id] : labels[id] != null ? labels[id] : labels[String(id)];
   return row || header.name;
-}
-
-function taxonLabel(taxonomy, latin) {
-  if (!taxonomy || !latin) return '';
-  const raw = taxonomy[latin];
-  const values = Array.isArray(raw)
-    ? raw
-    : raw && typeof raw === 'object'
-      ? Object.keys(raw)
-          .sort((a, b) => Number(a) - Number(b))
-          .map((key) => raw[key])
-      : typeof raw === 'string'
-        ? [raw]
-        : [];
-  const exact = String(latin).trim();
-  const names = values
-    .filter((name) => typeof name === 'string' && name.trim() && name.trim() !== exact)
-    .map((name) => name.trim());
-  const key = exact.toLowerCase();
-  const real = names.find((name) => name.toLowerCase() !== key);
-  return real || names[0] || '';
 }
 
 function genusOf(name) {
