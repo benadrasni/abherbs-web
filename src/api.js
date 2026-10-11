@@ -1,3 +1,5 @@
+import { taxonNames, taxonVernaculars, taxonLabel } from './taxonNames.mjs';
+
 const DB = 'https://abherbs-backend.firebaseio.com';
 const STORAGE = 'https://storage.googleapis.com/abherbs-resources/';
 const PHOTO_ROOT = STORAGE + 'photos/';
@@ -139,33 +141,7 @@ export function loadTaxonomyLabels(lang) {
   return getJson(`translations_taxonomy/${enc(lang)}`).catch(() => null);
 }
 
-export function taxonNames(taxonomy, latin) {
-  if (!taxonomy || !latin) return [];
-  const raw = taxonomy[latin];
-  if (raw == null) return [];
-  if (typeof raw === 'string') {
-    const name = raw.trim();
-    return name ? [name] : [];
-  }
-  const values = Array.isArray(raw)
-    ? raw
-    : Object.keys(raw)
-        .sort((a, b) => Number(a) - Number(b))
-        .map((key) => raw[key]);
-  return values
-    .filter((name) => typeof name === 'string' && name.trim())
-    .map((name) => name.trim());
-}
-
-export function taxonVernaculars(taxonomy, latin) {
-  // A lowercase vernacular is still a name when the Latin name is capitalized.
-  const exact = String(latin || '').trim();
-  return taxonNames(taxonomy, latin).filter((name) => name !== exact);
-}
-
-export function taxonLabel(taxonomy, latin) {
-  return taxonVernaculars(taxonomy, latin)[0] || '';
-}
+export { taxonNames, taxonVernaculars, taxonLabel };
 
 export function taxonGloss(taxonomy, latin) {
   return taxonVernaculars(taxonomy, latin).join(', ');

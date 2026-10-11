@@ -173,25 +173,6 @@ function labelFor(header, labels) {
   return row || header.name;
 }
 
-function taxonLabel(taxonomy, latin) {
-  if (!taxonomy || !latin) return '';
-  const raw = taxonomy[latin];
-  const values = Array.isArray(raw)
-    ? raw
-    : raw && typeof raw === 'object'
-      ? Object.keys(raw)
-          .sort((a, b) => Number(a) - Number(b))
-          .map((key) => raw[key])
-      : typeof raw === 'string'
-        ? [raw]
-        : [];
-  const exact = String(latin).trim();
-  const hit = values.find(
-    (name) => typeof name === 'string' && name.trim() && name.trim() !== exact
-  );
-  return hit ? String(hit).trim() : '';
-}
-
 function genusOf(name) {
   if (!name) return '';
   return String(name).split(' ')[0];
@@ -306,6 +287,7 @@ function sitemapXml(entries) {
 }
 
 async function main() {
+  const { taxonLabel } = await import('../src/taxonNames.mjs');
   const templatePath = path.join(BUILD, 'index.html');
   if (!fs.existsSync(templatePath)) {
     throw new Error('build/index.html missing; run vite build first');
