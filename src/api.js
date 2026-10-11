@@ -1,4 +1,4 @@
-import { taxonNames, taxonVernaculars, taxonLabel } from './taxonNames.cjs';
+import { taxonNames, taxonVernaculars, taxonLabel } from './taxonNames.mjs';
 
 const DB = 'https://abherbs-backend.firebaseio.com';
 const STORAGE = 'https://storage.googleapis.com/abherbs-resources/';

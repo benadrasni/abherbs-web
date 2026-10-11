@@ -1,4 +1,4 @@
-function taxonNames(taxonomy, latin) {
+export function taxonNames(taxonomy, latin) {
   if (!taxonomy || !latin) return [];
   const raw = taxonomy[latin];
   if (raw == null) return [];
@@ -16,7 +16,7 @@ function taxonNames(taxonomy, latin) {
     .map((name) => name.trim());
 }
 
-function taxonVernaculars(taxonomy, latin) {
+export function taxonVernaculars(taxonomy, latin) {
   // Prefer the first name that is not a case-only copy of the Latin name.
   // When that copy is the only vernacular (Iris → iris), it stays the title.
   const exact = String(latin || '').trim();
@@ -27,8 +27,6 @@ function taxonVernaculars(taxonomy, latin) {
   return [names[realAt], ...names.slice(0, realAt), ...names.slice(realAt + 1)];
 }
 
-function taxonLabel(taxonomy, latin) {
+export function taxonLabel(taxonomy, latin) {
   return taxonVernaculars(taxonomy, latin)[0] || '';
 }
-
-module.exports = { taxonNames, taxonVernaculars, taxonLabel };

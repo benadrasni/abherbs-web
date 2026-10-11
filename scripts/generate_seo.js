@@ -5,7 +5,6 @@
  */
 const fs = require('fs');
 const path = require('path');
-const { taxonLabel } = require('../src/taxonNames.cjs');
 
 const SITE = 'https://whatsthatflower.com';
 const APP = "What's that flower?";
@@ -288,6 +287,7 @@ function sitemapXml(entries) {
 }
 
 async function main() {
+  const { taxonLabel } = await import('../src/taxonNames.mjs');
   const templatePath = path.join(BUILD, 'index.html');
   if (!fs.existsSync(templatePath)) {
     throw new Error('build/index.html missing; run vite build first');
