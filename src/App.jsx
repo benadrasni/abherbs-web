@@ -237,24 +237,20 @@ export default function App() {
   const queryPlant = new URLSearchParams(location.search).get('plant');
   const needsIndex = !queryPlant && routeNeedsIndex(location.pathname);
   const needsLabels = !queryPlant && routeNeedsLabels(location.pathname);
-  const [rawHeaders, setRawHeaders] = useState(null);
-  const [indexError, setIndexError] = useState(false);
+  const [catalog, setCatalog] = useState({ status: 'loading' });
   const [labels, setLabels] = useState(null);
   const [taxonomy, setTaxonomy] = useState(null);
 
   useEffect(() => {
     if (!needsIndex) return undefined;
     let live = true;
-    setIndexError(false);
+    setCatalog({ status: 'loading' });
     loadPlantIndex()
       .then((index) => {
-        if (live) setRawHeaders(index.raw || []);
+        if (live) setCatalog({ status: 'ready', raw: index.raw || [] });
       })
       .catch(() => {
-        if (!live) return;
-        // Keep null so pages do not treat a failed fetch as a loaded empty catalog.
-        setRawHeaders(null);
-        setIndexError(true);
+        if (live) setCatalog({ status: 'error' });
       });
     return () => {
       live = false;
@@ -307,8 +303,8 @@ export default function App() {
   }, [location.pathname, location.search, location.hash, t.app_name]);
 
   const headers = useMemo(
-    () => (rawHeaders == null ? null : compactHeaders(rawHeaders)),
-    [rawHeaders]
+    () => (catalog.status === 'ready' ? compactHeaders(catalog.raw) : null),
+    [catalog]
   );
   const headersById = useMemo(() => indexHeadersById(headers), [headers]);
 
@@ -331,7 +327,7 @@ export default function App() {
       headersById={headersById}
       labels={labels}
       taxonomy={taxonomy}
-      indexError={indexError}
+      status={catalog.status}
     />
   );
 
@@ -350,7 +346,7 @@ export default function App() {
               t={t}
               headers={headers}
               taxonomy={taxonomy}
-              indexError={indexError}
+              status={catalog.status}
             />
           }
         />
@@ -362,7 +358,7 @@ export default function App() {
               t={t}
               headers={headers}
               taxonomy={taxonomy}
-              indexError={indexError}
+              status={catalog.status}
             />
           }
         />
@@ -376,7 +372,7 @@ export default function App() {
               labels={labels}
               taxonomy={taxonomy}
               mode="family"
-              indexError={indexError}
+              status={catalog.status}
             />
           }
         />
@@ -390,7 +386,7 @@ export default function App() {
               labels={labels}
               taxonomy={taxonomy}
               mode="genus"
-              indexError={indexError}
+              status={catalog.status}
             />
           }
         />
@@ -403,7 +399,7 @@ export default function App() {
               headersById={headersById}
               labels={labels}
               taxonomy={taxonomy}
-              indexError={indexError}
+              status={catalog.status}
             />
           }
         />

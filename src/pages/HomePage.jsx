@@ -17,6 +17,7 @@ import { ListCell, PlateCell } from '../components/PlateGrid';
 import StoreLinks from '../components/StoreLinks';
 import TaxonTile from '../components/TaxonTile';
 import {
+  catalogHold,
   countByFamily,
   countByGenus,
   customListsFromRaw,
@@ -45,7 +46,7 @@ function taxonMatchScore(taxonomy, latin, needle) {
   return 99;
 }
 
-export default function HomePage({ lang, t, headers, headersById, labels, taxonomy, indexError }) {
+export default function HomePage({ lang, t, headers, headersById, labels, taxonomy, status }) {
   const [q, setQ] = useState('');
   const [hits, setHits] = useState([]);
   const [hitQuery, setHitQuery] = useState('');
@@ -85,16 +86,17 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
   }, [lang]);
 
   const recentGroups = useMemo(() => {
+    if (status !== 'ready') return [];
     const rows = recentAddsFromLists(newLists, headersById).map((h) => ({
       ...h,
       label: labelAt(labels, h.id) || '',
     }));
     return groupByAddedDate(rows);
-  }, [newLists, headersById, labels]);
+  }, [status, newLists, headersById, labels]);
 
   const customLists = useMemo(
-    () => customListsFromRaw(languageLists, headersById, lang),
-    [languageLists, headersById, lang]
+    () => (status === 'ready' ? customListsFromRaw(languageLists, headersById, lang) : []),
+    [status, languageLists, headersById, lang]
   );
 
   useEffect(() => {
@@ -108,7 +110,7 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
       setHitQuery('');
       return undefined;
     }
-    if (headers == null) return undefined;
+    if (status !== 'ready') return undefined;
     let live = true;
     const needle = normalizeSearch(query);
     const local = headers
@@ -181,7 +183,7 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
       live = false;
       clearTimeout(timer);
     };
-  }, [q, lang, headers, headersById, labels, taxonomy, families, genera]);
+  }, [q, status, lang, headers, headersById, labels, taxonomy, families, genera]);
 
   useEffect(() => {
     const query = q.trim();
@@ -199,6 +201,8 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
     if (query.length >= 2 && query === hitQuery) trackSearch(query, hits.length);
   };
 
+  const hold = catalogHold(status, t);
+
   return (
     <div className="page">
       <div className="home-hero">
@@ -206,9 +210,7 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
           <div className="kicker">{t.app_name}</div>
           <h1 className="common">{t.plants}</h1>
         </div>
-        <div className="muted">
-          {indexError ? t.catalog_unavailable : headers == null ? t.loading : t.plants_count(headers.length)}
-        </div>
+        <div className="muted">{hold ?? t.plants_count(headers.length)}</div>
       </div>
 
       <div className="search">
@@ -219,7 +221,7 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
           aria-label={t.search_placeholder}
         />
       </div>
-      {q.trim().length >= 2 ? (
+      {status === 'ready' && q.trim().length >= 2 ? (
         <div className="results" onClick={flushSearch}>
           {hits.length ? (
             hits.map((h) => {
@@ -300,8 +302,8 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
         </section>
       ) : null}
 
-      {indexError ? (
-        <p className="center-msg">{t.catalog_unavailable}</p>
+      {hold ? (
+        <p className="center-msg">{hold}</p>
       ) : (
         <section className="band">
           <div className="band-h">
@@ -354,11 +356,7 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
         <StoreLinks t={t} />
       </section>
 
-      <Footer
-        lang={lang}
-        t={t}
-        extra={indexError || headers == null ? undefined : t.plants_count(headers.length)}
-      />
+      <Footer lang={lang} t={t} extra={hold ? undefined : t.plants_count(headers.length)} />
     </div>
   );
 }

@@ -3,20 +3,20 @@ import { Link, useParams } from 'react-router-dom';
 import { labelAt, taxonVernaculars } from '../api';
 import Footer from '../components/Footer';
 import PlateGrid from '../components/PlateGrid';
-import { decodeRouteParam, displayName, genusOf, withLang } from '../lib';
+import { catalogHold, decodeRouteParam, displayName, genusOf, withLang } from '../lib';
 
 function withLabel(header, labels) {
   return { ...header, label: labelAt(labels, header.id) || '' };
 }
 
-export default function FamilyPage({ lang, t, headers, labels, taxonomy, mode, indexError }) {
+export default function FamilyPage({ lang, t, headers, labels, taxonomy, mode, status }) {
   const params = useParams();
   const key = decodeRouteParam(mode === 'genus' ? params.genus : params.family);
   const names = taxonVernaculars(taxonomy, key);
   const label = names[0] || '';
   const also = names.slice(1);
 
-  const ready = headers != null && !indexError;
+  const hold = catalogHold(status, t);
   const raw = useMemo(() => {
     const list = headers || [];
     if (mode === 'genus') {
@@ -58,14 +58,11 @@ export default function FamilyPage({ lang, t, headers, labels, taxonomy, mode, i
           ) : null}
         </div>
         <p className="lede" style={{ margin: 0 }}>
-          {mode === 'genus' ? t.genus_lede : t.family_lede}
-          {ready ? ` ${t.plants_count(raw.length)}` : ''}
+          {hold ?? `${mode === 'genus' ? t.genus_lede : t.family_lede} ${t.plants_count(raw.length)}`}
         </p>
       </div>
-      {indexError ? (
-        <p className="center-msg">{t.catalog_unavailable}</p>
-      ) : !ready ? (
-        <p className="center-msg">{t.loading}</p>
+      {hold ? (
+        <p className="center-msg">{hold}</p>
       ) : raw.length ? (
         <PlateGrid items={items} lang={lang} genusLabel={mode === 'family'} taxonomy={taxonomy} />
       ) : (

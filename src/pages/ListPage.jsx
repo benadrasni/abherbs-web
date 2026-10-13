@@ -4,6 +4,7 @@ import { labelAt, loadLanguageList, taxonLabel } from '../api';
 import Footer from '../components/Footer';
 import PlateGrid from '../components/PlateGrid';
 import {
+  catalogHold,
   decodeRouteParam,
   genusMarksFromList,
   representativeOfGenus,
@@ -19,7 +20,7 @@ function withLabel(header, labels) {
   return { ...header, label: labelAt(labels, header.id) || '' };
 }
 
-export default function ListPage({ lang, t, headersById, labels, taxonomy, indexError }) {
+export default function ListPage({ lang, t, headersById, labels, taxonomy, status }) {
   const params = useParams();
   const name = decodeRouteParam(params.name || '');
   const [raw, setRaw] = useState(undefined);
@@ -86,6 +87,7 @@ export default function ListPage({ lang, t, headersById, labels, taxonomy, index
   }, [name, t.app_name]);
 
   const loaded = raw !== undefined;
+  const hold = catalogHold(status, t);
   const sourceUrl = raw && typeof raw.sourceUrl === 'string' ? raw.sourceUrl.trim() : '';
 
   return (
@@ -110,11 +112,11 @@ export default function ListPage({ lang, t, headersById, labels, taxonomy, index
           ) : null}
         </div>
         <p className="lede" style={{ margin: 0 }}>
-          {t.list_lede} {loaded && !indexError ? t.plants_count(items.length) : ''}
+          {hold ?? `${t.list_lede}${loaded ? ` ${t.plants_count(items.length)}` : ''}`}
         </p>
       </div>
-      {indexError ? (
-        <p className="center-msg">{t.catalog_unavailable}</p>
+      {hold ? (
+        <p className="center-msg">{hold}</p>
       ) : items.length ? (
         <PlateGrid items={items} lang={lang} taxonomy={taxonomy} genusWord={t.genus} />
       ) : loaded ? (

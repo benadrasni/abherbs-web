@@ -2,9 +2,9 @@ import { useEffect, useMemo } from 'react';
 import Footer from '../components/Footer';
 import TaxonTile from '../components/TaxonTile';
 import { taxonLabel } from '../api';
-import { countByGenus, displayName, genusPath } from '../lib';
+import { catalogHold, countByGenus, displayName, genusPath } from '../lib';
 
-export default function GeneraPage({ lang, t, headers, taxonomy, indexError }) {
+export default function GeneraPage({ lang, t, headers, taxonomy, status }) {
   useEffect(() => {
     document.title = `${t.genera} — ${t.app_name}`;
   }, [t]);
@@ -18,6 +18,7 @@ export default function GeneraPage({ lang, t, headers, taxonomy, indexError }) {
       ),
     [headers, taxonomy, lang]
   );
+  const hold = catalogHold(status, t);
 
   return (
     <div className="page">
@@ -26,12 +27,10 @@ export default function GeneraPage({ lang, t, headers, taxonomy, indexError }) {
           <div className="kicker">{t.flowering_plants}</div>
           <h1 className="common">{t.genera}</h1>
         </div>
-        <div className="muted">
-          {indexError ? t.catalog_unavailable : headers == null ? t.loading : genera.length}
-        </div>
+        <div className="muted">{hold ?? genera.length}</div>
       </div>
-      {indexError || headers == null ? (
-        <p className="center-msg">{indexError ? t.catalog_unavailable : t.loading}</p>
+      {hold ? (
+        <p className="center-msg">{hold}</p>
       ) : (
         <section className="band">
           <div className="tiles">
