@@ -244,13 +244,13 @@ export default function App() {
   useEffect(() => {
     if (!needsIndex) return undefined;
     let live = true;
-    setCatalog({ status: 'loading' });
+    setCatalog((prev) => (prev.status === 'ready' ? prev : { status: 'loading' }));
     loadPlantIndex()
       .then((index) => {
         if (live) setCatalog({ status: 'ready', raw: index.raw || [] });
       })
       .catch(() => {
-        if (live) setCatalog({ status: 'error' });
+        if (live) setCatalog((prev) => (prev.status === 'ready' ? prev : { status: 'error' }));
       });
     return () => {
       live = false;
