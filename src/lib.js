@@ -714,6 +714,12 @@ function withId(header, fallbackId) {
   };
 }
 
+export function catalogHold(status, t) {
+  if (status === 'error') return t.catalog_unavailable;
+  if (status === 'loading') return t.loading;
+  return null;
+}
+
 export function compactHeaders(raw) {
   if (!raw) return [];
   if (Array.isArray(raw)) {

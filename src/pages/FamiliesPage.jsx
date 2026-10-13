@@ -2,9 +2,9 @@ import { useEffect, useMemo } from 'react';
 import Footer from '../components/Footer';
 import TaxonTile from '../components/TaxonTile';
 import { familyIconUrl, taxonLabel } from '../api';
-import { countByFamily, displayName, familyPath } from '../lib';
+import { catalogHold, countByFamily, displayName, familyPath } from '../lib';
 
-export default function FamiliesPage({ lang, t, headers, taxonomy }) {
+export default function FamiliesPage({ lang, t, headers, taxonomy, status }) {
   useEffect(() => {
     document.title = `${t.families} — ${t.app_name}`;
   }, [t]);
@@ -18,6 +18,7 @@ export default function FamiliesPage({ lang, t, headers, taxonomy }) {
       ),
     [headers, taxonomy, lang]
   );
+  const hold = catalogHold(status, t);
 
   return (
     <div className="page">
@@ -26,10 +27,10 @@ export default function FamiliesPage({ lang, t, headers, taxonomy }) {
           <div className="kicker">{t.flowering_plants}</div>
           <h1 className="common">{t.families}</h1>
         </div>
-        <div className="muted">{headers == null ? t.loading : families.length}</div>
+        <div className="muted">{hold ?? families.length}</div>
       </div>
-      {headers == null ? (
-        <p className="center-msg">{t.loading}</p>
+      {hold ? (
+        <p className="center-msg">{hold}</p>
       ) : (
         <section className="band">
           <div className="tiles">

@@ -237,19 +237,20 @@ export default function App() {
   const queryPlant = new URLSearchParams(location.search).get('plant');
   const needsIndex = !queryPlant && routeNeedsIndex(location.pathname);
   const needsLabels = !queryPlant && routeNeedsLabels(location.pathname);
-  const [rawHeaders, setRawHeaders] = useState(null);
+  const [catalog, setCatalog] = useState({ status: 'loading' });
   const [labels, setLabels] = useState(null);
   const [taxonomy, setTaxonomy] = useState(null);
 
   useEffect(() => {
     if (!needsIndex) return undefined;
     let live = true;
+    setCatalog((prev) => (prev.status === 'ready' ? prev : { status: 'loading' }));
     loadPlantIndex()
       .then((index) => {
-        if (live) setRawHeaders(index.raw || []);
+        if (live) setCatalog({ status: 'ready', raw: index.raw || [] });
       })
       .catch(() => {
-        if (live) setRawHeaders([]);
+        if (live) setCatalog((prev) => (prev.status === 'ready' ? prev : { status: 'error' }));
       });
     return () => {
       live = false;
@@ -302,8 +303,8 @@ export default function App() {
   }, [location.pathname, location.search, location.hash, t.app_name]);
 
   const headers = useMemo(
-    () => (rawHeaders == null ? null : compactHeaders(rawHeaders)),
-    [rawHeaders]
+    () => (catalog.status === 'ready' ? compactHeaders(catalog.raw) : null),
+    [catalog]
   );
   const headersById = useMemo(() => indexHeadersById(headers), [headers]);
 
@@ -326,6 +327,7 @@ export default function App() {
       headersById={headersById}
       labels={labels}
       taxonomy={taxonomy}
+      status={catalog.status}
     />
   );
 
@@ -338,11 +340,27 @@ export default function App() {
         <Route path={p('/help')} element={<HelpPage lang={lang} t={t} />} />
         <Route
           path={p('/families')}
-          element={<FamiliesPage lang={lang} t={t} headers={headers} taxonomy={taxonomy} />}
+          element={
+            <FamiliesPage
+              lang={lang}
+              t={t}
+              headers={headers}
+              taxonomy={taxonomy}
+              status={catalog.status}
+            />
+          }
         />
         <Route
           path={p('/genera')}
-          element={<GeneraPage lang={lang} t={t} headers={headers} taxonomy={taxonomy} />}
+          element={
+            <GeneraPage
+              lang={lang}
+              t={t}
+              headers={headers}
+              taxonomy={taxonomy}
+              status={catalog.status}
+            />
+          }
         />
         <Route
           path={p('/family/:family')}
@@ -354,6 +372,7 @@ export default function App() {
               labels={labels}
               taxonomy={taxonomy}
               mode="family"
+              status={catalog.status}
             />
           }
         />
@@ -367,6 +386,7 @@ export default function App() {
               labels={labels}
               taxonomy={taxonomy}
               mode="genus"
+              status={catalog.status}
             />
           }
         />
@@ -379,6 +399,7 @@ export default function App() {
               headersById={headersById}
               labels={labels}
               taxonomy={taxonomy}
+              status={catalog.status}
             />
           }
         />
