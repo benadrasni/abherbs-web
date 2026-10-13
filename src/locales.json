@@ -135,6 +135,7 @@
     "identify_then": "Then open the matching plant and read the species page.",
     "browse_plants": "Browse the encyclopedia",
     "not_found": "This plant is not in the catalog.",
+    "catalog_unavailable": "The catalog is unavailable.",
     "loading": "Loading…",
     "flowering_plants": "Flowering plants",
     "store_play": "Get it on Google Play",

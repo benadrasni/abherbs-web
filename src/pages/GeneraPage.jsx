@@ -4,7 +4,7 @@ import TaxonTile from '../components/TaxonTile';
 import { taxonLabel } from '../api';
 import { countByGenus, displayName, genusPath } from '../lib';
 
-export default function GeneraPage({ lang, t, headers, taxonomy }) {
+export default function GeneraPage({ lang, t, headers, taxonomy, indexError }) {
   useEffect(() => {
     document.title = `${t.genera} — ${t.app_name}`;
   }, [t]);
@@ -26,10 +26,12 @@ export default function GeneraPage({ lang, t, headers, taxonomy }) {
           <div className="kicker">{t.flowering_plants}</div>
           <h1 className="common">{t.genera}</h1>
         </div>
-        <div className="muted">{headers == null ? t.loading : genera.length}</div>
+        <div className="muted">
+          {indexError ? t.catalog_unavailable : headers == null ? t.loading : genera.length}
+        </div>
       </div>
-      {headers == null ? (
-        <p className="center-msg">{t.loading}</p>
+      {indexError || headers == null ? (
+        <p className="center-msg">{indexError ? t.catalog_unavailable : t.loading}</p>
       ) : (
         <section className="band">
           <div className="tiles">

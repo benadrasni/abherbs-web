@@ -45,7 +45,7 @@ function taxonMatchScore(taxonomy, latin, needle) {
   return 99;
 }
 
-export default function HomePage({ lang, t, headers, headersById, labels, taxonomy }) {
+export default function HomePage({ lang, t, headers, headersById, labels, taxonomy, indexError }) {
   const [q, setQ] = useState('');
   const [hits, setHits] = useState([]);
   const [hitQuery, setHitQuery] = useState('');
@@ -206,7 +206,9 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
           <div className="kicker">{t.app_name}</div>
           <h1 className="common">{t.plants}</h1>
         </div>
-        <div className="muted">{headers == null ? t.loading : t.plants_count(headers.length)}</div>
+        <div className="muted">
+          {indexError ? t.catalog_unavailable : headers == null ? t.loading : t.plants_count(headers.length)}
+        </div>
       </div>
 
       <div className="search">
@@ -298,49 +300,53 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
         </section>
       ) : null}
 
-      <section className="band">
-        <div className="band-h">
-          <h2>{t.browse}</h2>
-        </div>
-        <div className="browse-block">
+      {indexError ? (
+        <p className="center-msg">{t.catalog_unavailable}</p>
+      ) : (
+        <section className="band">
           <div className="band-h">
-            <h3 className="kicker">{t.by_family}</h3>
-            <Link to={withLang('/families', lang)}>{t.see_all}</Link>
+            <h2>{t.browse}</h2>
           </div>
-          <div className="tiles">
-            {families.slice(0, 12).map((f) => (
-              <TaxonTile
-                key={f.name}
-                to={familyPath(f.name, lang)}
-                name={f.name}
-                label={taxonLabel(taxonomy, f.name)}
-                count={f.count}
-                t={t}
-                iconSrc={familyIconUrl(f.name)}
-              />
-            ))}
+          <div className="browse-block">
+            <div className="band-h">
+              <h3 className="kicker">{t.by_family}</h3>
+              <Link to={withLang('/families', lang)}>{t.see_all}</Link>
+            </div>
+            <div className="tiles">
+              {families.slice(0, 12).map((f) => (
+                <TaxonTile
+                  key={f.name}
+                  to={familyPath(f.name, lang)}
+                  name={f.name}
+                  label={taxonLabel(taxonomy, f.name)}
+                  count={f.count}
+                  t={t}
+                  iconSrc={familyIconUrl(f.name)}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="browse-block">
-          <div className="band-h">
-            <h3 className="kicker">{t.by_genus}</h3>
-            <Link to={withLang('/genera', lang)}>{t.see_all_genera}</Link>
+          <div className="browse-block">
+            <div className="band-h">
+              <h3 className="kicker">{t.by_genus}</h3>
+              <Link to={withLang('/genera', lang)}>{t.see_all_genera}</Link>
+            </div>
+            <div className="tiles">
+              {genera.slice(0, 12).map((g) => (
+                <TaxonTile
+                  key={g.name}
+                  to={genusPath(g.name, lang)}
+                  name={g.name}
+                  label={taxonLabel(taxonomy, g.name)}
+                  count={g.count}
+                  t={t}
+                  italicLatin
+                />
+              ))}
+            </div>
           </div>
-          <div className="tiles">
-            {genera.slice(0, 12).map((g) => (
-              <TaxonTile
-                key={g.name}
-                to={genusPath(g.name, lang)}
-                name={g.name}
-                label={taxonLabel(taxonomy, g.name)}
-                count={g.count}
-                t={t}
-                italicLatin
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="band identify-band">
         <h2>{t.get_the_app}</h2>
@@ -348,7 +354,11 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
         <StoreLinks t={t} />
       </section>
 
-      <Footer lang={lang} t={t} extra={headers == null ? undefined : t.plants_count(headers.length)} />
+      <Footer
+        lang={lang}
+        t={t}
+        extra={indexError || headers == null ? undefined : t.plants_count(headers.length)}
+      />
     </div>
   );
 }

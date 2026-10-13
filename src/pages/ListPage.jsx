@@ -19,7 +19,7 @@ function withLabel(header, labels) {
   return { ...header, label: labelAt(labels, header.id) || '' };
 }
 
-export default function ListPage({ lang, t, headersById, labels, taxonomy }) {
+export default function ListPage({ lang, t, headersById, labels, taxonomy, indexError }) {
   const params = useParams();
   const name = decodeRouteParam(params.name || '');
   const [raw, setRaw] = useState(undefined);
@@ -110,10 +110,12 @@ export default function ListPage({ lang, t, headersById, labels, taxonomy }) {
           ) : null}
         </div>
         <p className="lede" style={{ margin: 0 }}>
-          {t.list_lede} {loaded ? t.plants_count(items.length) : ''}
+          {t.list_lede} {loaded && !indexError ? t.plants_count(items.length) : ''}
         </p>
       </div>
-      {items.length ? (
+      {indexError ? (
+        <p className="center-msg">{t.catalog_unavailable}</p>
+      ) : items.length ? (
         <PlateGrid items={items} lang={lang} taxonomy={taxonomy} genusWord={t.genus} />
       ) : loaded ? (
         <p className="center-msg">{t.empty_list}</p>

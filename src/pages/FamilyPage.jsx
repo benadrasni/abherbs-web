@@ -9,14 +9,14 @@ function withLabel(header, labels) {
   return { ...header, label: labelAt(labels, header.id) || '' };
 }
 
-export default function FamilyPage({ lang, t, headers, labels, taxonomy, mode }) {
+export default function FamilyPage({ lang, t, headers, labels, taxonomy, mode, indexError }) {
   const params = useParams();
   const key = decodeRouteParam(mode === 'genus' ? params.genus : params.family);
   const names = taxonVernaculars(taxonomy, key);
   const label = names[0] || '';
   const also = names.slice(1);
 
-  const ready = headers != null;
+  const ready = headers != null && !indexError;
   const raw = useMemo(() => {
     const list = headers || [];
     if (mode === 'genus') {
@@ -62,7 +62,9 @@ export default function FamilyPage({ lang, t, headers, labels, taxonomy, mode })
           {ready ? ` ${t.plants_count(raw.length)}` : ''}
         </p>
       </div>
-      {!ready ? (
+      {indexError ? (
+        <p className="center-msg">{t.catalog_unavailable}</p>
+      ) : !ready ? (
         <p className="center-msg">{t.loading}</p>
       ) : raw.length ? (
         <PlateGrid items={items} lang={lang} genusLabel={mode === 'family'} taxonomy={taxonomy} />

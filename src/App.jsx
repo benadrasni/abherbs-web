@@ -238,18 +238,23 @@ export default function App() {
   const needsIndex = !queryPlant && routeNeedsIndex(location.pathname);
   const needsLabels = !queryPlant && routeNeedsLabels(location.pathname);
   const [rawHeaders, setRawHeaders] = useState(null);
+  const [indexError, setIndexError] = useState(false);
   const [labels, setLabels] = useState(null);
   const [taxonomy, setTaxonomy] = useState(null);
 
   useEffect(() => {
     if (!needsIndex) return undefined;
     let live = true;
+    setIndexError(false);
     loadPlantIndex()
       .then((index) => {
         if (live) setRawHeaders(index.raw || []);
       })
       .catch(() => {
-        if (live) setRawHeaders([]);
+        if (!live) return;
+        // Keep null so pages do not treat a failed fetch as a loaded empty catalog.
+        setRawHeaders(null);
+        setIndexError(true);
       });
     return () => {
       live = false;
@@ -326,6 +331,7 @@ export default function App() {
       headersById={headersById}
       labels={labels}
       taxonomy={taxonomy}
+      indexError={indexError}
     />
   );
 
@@ -338,11 +344,27 @@ export default function App() {
         <Route path={p('/help')} element={<HelpPage lang={lang} t={t} />} />
         <Route
           path={p('/families')}
-          element={<FamiliesPage lang={lang} t={t} headers={headers} taxonomy={taxonomy} />}
+          element={
+            <FamiliesPage
+              lang={lang}
+              t={t}
+              headers={headers}
+              taxonomy={taxonomy}
+              indexError={indexError}
+            />
+          }
         />
         <Route
           path={p('/genera')}
-          element={<GeneraPage lang={lang} t={t} headers={headers} taxonomy={taxonomy} />}
+          element={
+            <GeneraPage
+              lang={lang}
+              t={t}
+              headers={headers}
+              taxonomy={taxonomy}
+              indexError={indexError}
+            />
+          }
         />
         <Route
           path={p('/family/:family')}
@@ -354,6 +376,7 @@ export default function App() {
               labels={labels}
               taxonomy={taxonomy}
               mode="family"
+              indexError={indexError}
             />
           }
         />
@@ -367,6 +390,7 @@ export default function App() {
               labels={labels}
               taxonomy={taxonomy}
               mode="genus"
+              indexError={indexError}
             />
           }
         />
@@ -379,6 +403,7 @@ export default function App() {
               headersById={headersById}
               labels={labels}
               taxonomy={taxonomy}
+              indexError={indexError}
             />
           }
         />
