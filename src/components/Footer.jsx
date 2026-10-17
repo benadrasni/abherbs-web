@@ -11,6 +11,8 @@ export default function Footer({ lang, t, extra }) {
         <Link to={withLang('/about', lang)}>{t.about}</Link>
         {' · '}
         <Link to={withLang('/help', lang)}>{t.help}</Link>
+        {' · '}
+        <Link to={withLang('/privacy', lang)}>{t.privacy}</Link>
       </span>
     </footer>
   );

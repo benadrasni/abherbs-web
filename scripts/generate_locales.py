@@ -3228,8 +3228,33 @@ def apply_ux_overlay():
             UX_EXTRAS[key] = by_lang
 
 
+def apply_privacy_strings():
+    """Consent and privacy-note strings. Every catalog language is required."""
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "privacy_locales.json")
+    with open(path, encoding="utf-8") as handle:
+        data = json.load(handle)
+    required = set(WEB_TO_ARB)
+    for lang, strings in data.items():
+        if lang not in required:
+            raise SystemExit("privacy lang not in catalog: " + lang)
+        if not isinstance(strings, dict):
+            raise SystemExit("privacy strings for " + lang + " are not an object")
+    missing_langs = required.difference(data)
+    if missing_langs:
+        raise SystemExit("privacy locales missing " + ", ".join(sorted(missing_langs)))
+    keys = set(data["en"])
+    for lang, strings in data.items():
+        if set(strings) != keys:
+            raise SystemExit("privacy keys differ for " + lang)
+        for key, text in strings.items():
+            if not isinstance(text, str) or not text.strip():
+                raise SystemExit("privacy empty " + lang + "." + key)
+            NEW.setdefault(key, {})[lang] = text
+
+
 def main():
     apply_ux_overlay()
+    apply_privacy_strings()
     langs = ["en"] + [c for c in WEB_TO_ARB if c != "en"]
     catalogs = {lang: {} for lang in langs}
     if not os.path.isdir(ARB_DIR):

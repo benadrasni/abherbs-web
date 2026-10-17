@@ -1,13 +1,17 @@
 import languages from './languages';
+import { decisionFor, parseCloudflareTrace } from './analyticsConsent.mjs';
 import { contentPath, detectLang } from './lib';
 
 const GA_ID = 'G-B646H2Z8M4';
+const CHOICE_KEY = 'wtf-ga';
+const REGION_WAIT_MS = 3000;
 
 const TITLE_GAP = ' — ';
 const PAGE_TYPES = new Set([
   'identify',
   'about',
   'help',
+  'privacy',
   'families',
   'genera',
   'family',
@@ -16,11 +20,136 @@ const PAGE_TYPES = new Set([
   'plant',
 ]);
 
+let mode = 'pending';
+let ask = false;
+let installed = false;
 let lastPageKey = '';
 let lastSearchKey = '';
+let queuedPage = null;
+let regionSettled = false;
+const listeners = new Set();
 
 function ready() {
-  return typeof window !== 'undefined' && typeof window.gtag === 'function';
+  return mode === 'on' && typeof window !== 'undefined' && typeof window.gtag === 'function';
+}
+
+function readChoice() {
+  try {
+    const value = localStorage.getItem(CHOICE_KEY);
+    return value === 'granted' || value === 'denied' ? value : '';
+  } catch (err) {
+    return '';
+  }
+}
+
+function writeChoice(choice) {
+  try {
+    localStorage.setItem(CHOICE_KEY, choice);
+  } catch (err) {
+    /* private mode keeps the choice in memory only */
+  }
+}
+
+export function analyticsState() {
+  return { ready: mode !== 'pending', on: mode === 'on', ask };
+}
+
+function publish() {
+  const state = analyticsState();
+  listeners.forEach((listener) => listener(state));
+}
+
+export function subscribeAnalytics(listener) {
+  listeners.add(listener);
+  listener(analyticsState());
+  return () => listeners.delete(listener);
+}
+
+function install() {
+  if (installed || typeof document === 'undefined') return;
+  installed = true;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() {
+    window.dataLayer.push(arguments);
+  };
+  window.gtag('consent', 'default', {
+    analytics_storage: 'granted',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+  });
+  window.gtag('js', new Date());
+  window.gtag('config', GA_ID, { send_page_view: false });
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+  document.head.appendChild(script);
+}
+
+function clearGaCookies() {
+  if (typeof document === 'undefined') return;
+  const names = ['_ga', '_ga_' + GA_ID.slice(2), '_gid'];
+  const host = window.location.hostname;
+  const domains = [''];
+  if (host && host !== 'localhost' && host.includes('.')) {
+    domains.push(host);
+    const parts = host.split('.');
+    if (parts.length >= 2) domains.push('.' + parts.slice(-2).join('.'));
+  }
+  names.forEach((name) => {
+    domains.forEach((domain) => {
+      const suffix = domain ? '; Domain=' + domain : '';
+      document.cookie = name + '=; Max-Age=0; Path=/' + suffix;
+    });
+  });
+}
+
+function turnOn() {
+  mode = 'on';
+  ask = false;
+  if (typeof window !== 'undefined') {
+    window['ga-disable-' + GA_ID] = false;
+    if (installed && typeof window.gtag === 'function') {
+      window.gtag('consent', 'update', { analytics_storage: 'granted' });
+    } else {
+      install();
+    }
+  }
+  if (queuedPage) sendPageview(queuedPage.loc, queuedPage.appName);
+  publish();
+}
+
+function turnOff({ ask: nextAsk, disableScript }) {
+  mode = 'off';
+  ask = Boolean(nextAsk);
+  lastPageKey = '';
+  lastSearchKey = '';
+  if (disableScript && typeof window !== 'undefined') {
+    window['ga-disable-' + GA_ID] = true;
+    if (installed && typeof window.gtag === 'function') {
+      window.gtag('consent', 'update', { analytics_storage: 'denied' });
+    }
+    clearGaCookies();
+  }
+  publish();
+}
+
+function settle(decision) {
+  if (decision.load) {
+    turnOn();
+    return;
+  }
+  turnOff({ ask: decision.ask, disableScript: true });
+}
+
+export function allowAnalytics() {
+  writeChoice('granted');
+  turnOn();
+}
+
+export function refuseAnalytics() {
+  writeChoice('denied');
+  turnOff({ ask: false, disableScript: true });
 }
 
 function decodeSegment(segment) {
@@ -52,7 +181,7 @@ function pageTitleFor(plant, documentTitle, appName) {
   return `${plant}${TITLE_GAP}${appName || "What's that flower?"}`;
 }
 
-export function pageview(loc, appName) {
+function sendPageview(loc, appName) {
   if (!ready()) return;
   const pathname = loc.pathname || '/';
   const search = loc.search || '';
@@ -71,6 +200,11 @@ export function pageview(loc, appName) {
   };
   if (described.plant) params.plant = described.plant;
   window.gtag('event', 'page_view', params);
+}
+
+export function pageview(loc, appName) {
+  queuedPage = { loc, appName };
+  if (mode === 'on') sendPageview(loc, appName);
 }
 
 export function trackSearch(term, resultCount) {
@@ -98,3 +232,42 @@ export function trackStore(store) {
     send_to: GA_ID,
   });
 }
+
+async function readRegion() {
+  const response = await fetch('/cdn-cgi/trace', { cache: 'no-store', credentials: 'omit' });
+  if (!response.ok) return '';
+  return parseCloudflareTrace(await response.text());
+}
+
+function boot() {
+  if (typeof window === 'undefined') return;
+  window['ga-disable-' + GA_ID] = true;
+  const choice = readChoice();
+  if (choice === 'granted') {
+    settle(decisionFor({ choice, loc: '' }));
+    return;
+  }
+  if (choice === 'denied') {
+    settle(decisionFor({ choice, loc: '' }));
+    return;
+  }
+  const timer = setTimeout(() => {
+    if (regionSettled || readChoice()) return;
+    settle(decisionFor({ choice: '', loc: '' }));
+  }, REGION_WAIT_MS);
+  readRegion()
+    .then((loc) => {
+      regionSettled = true;
+      clearTimeout(timer);
+      if (readChoice()) return;
+      settle(decisionFor({ choice: '', loc }));
+    })
+    .catch(() => {
+      regionSettled = true;
+      clearTimeout(timer);
+      if (readChoice()) return;
+      settle(decisionFor({ choice: '', loc: '' }));
+    });
+}
+
+boot();

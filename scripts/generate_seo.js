@@ -365,6 +365,7 @@ async function main() {
       ['identify', t(lang, 'identify'), t(lang, 'seo_identify')],
       ['about', t(lang, 'about'), t(lang, 'seo_about')],
       ['help', t(lang, 'help'), t(lang, 'seo_help')],
+      ['privacy', t(lang, 'privacy'), t(lang, 'seo_privacy')],
     ];
     staticPages.forEach(([slug, heading, description]) => {
       const title = heading + ' — ' + app;

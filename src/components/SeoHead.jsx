@@ -46,7 +46,8 @@ export default function SeoHead({ lang, pathname, search, description }) {
     setMetaProperty('og:url', canon);
 
     const page = contentPath(pathname);
-    const pageSetsDescription = Boolean(plant) || page === '/about' || page.startsWith('/plant/');
+    const pageSetsDescription =
+      Boolean(plant) || page === '/about' || page === '/privacy' || page.startsWith('/plant/');
     if (!pageSetsDescription && description) setMetaName('description', description);
 
     document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((node) => node.remove());

@@ -2,6 +2,7 @@ import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { pageview } from './analytics';
 import { loadLabels, loadPlantIndex, loadTaxonomyLabels } from './api';
+import AnalyticsConsent from './components/AnalyticsConsent';
 import Header from './components/Header';
 import SeoHead from './components/SeoHead';
 import { uiText } from './copy';
@@ -30,6 +31,7 @@ import HomePage from './pages/HomePage';
 import IdentifyPage from './pages/IdentifyPage';
 import ListPage from './pages/ListPage';
 import PlantPage from './pages/PlantPage';
+import PrivacyPage from './pages/PrivacyPage';
 
 function routeNeedsIndex(pathname) {
   const path = contentPath(pathname);
@@ -338,6 +340,7 @@ export default function App() {
         <Route path={p('/identify')} element={<IdentifyPage lang={lang} t={t} />} />
         <Route path={p('/about')} element={<AboutPage lang={lang} t={t} headers={headers} />} />
         <Route path={p('/help')} element={<HelpPage lang={lang} t={t} />} />
+        <Route path={p('/privacy')} element={<PrivacyPage lang={lang} t={t} />} />
         <Route
           path={p('/families')}
           element={
@@ -427,6 +430,7 @@ export default function App() {
         {catalogRoutes('')}
         {PATH_LANGS.map((code) => catalogRoutes(code))}
       </Routes>
+      <AnalyticsConsent lang={lang} t={t} />
     </>
   );
 }
