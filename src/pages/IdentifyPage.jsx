@@ -45,6 +45,24 @@ function chipLabel(axis, id, t, lang) {
   return trail.replaceAll('{name}', name);
 }
 
+function RegionRadio({ id, checked, tabStop, label, count, lang, onPick }) {
+  return (
+    <button
+      type="button"
+      role="radio"
+      className="region-row"
+      data-region={id}
+      aria-checked={checked}
+      tabIndex={tabStop ? 0 : -1}
+      onClick={() => onPick(id)}
+    >
+      <span className="radio" aria-hidden="true" />
+      <span className="lbl">{label}</span>
+      <span className="num">{count.toLocaleString(lang || 'en')}</span>
+    </button>
+  );
+}
+
 export default function IdentifyPage({ lang, t, headers, labels, taxonomy, status }) {
   const [params, setParams] = useSearchParams();
   const query = params.toString();
@@ -202,33 +220,6 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
     }, { replace: true });
   }
 
-  function focusRegionRadio(id) {
-    const panel = document.getElementById('identify-region-panel');
-    if (!panel) return;
-    const el = [...panel.querySelectorAll('button[role="radio"]')].find((button) => button.dataset.region === id);
-    if (el) el.focus();
-  }
-
-  function onRegionKeyDown(event) {
-    if (event.altKey || event.ctrlKey || event.metaKey) return;
-    const current = event.target.closest?.('button[role="radio"]');
-    if (!current || !event.currentTarget.contains(current)) return;
-    const options = [...event.currentTarget.querySelectorAll('button[role="radio"]')];
-    const index = options.indexOf(current);
-    if (index < 0 || !options.length) return;
-    let next = index;
-    if (event.key === 'ArrowDown' || event.key === 'ArrowRight') next = (index + 1) % options.length;
-    else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') next = (index - 1 + options.length) % options.length;
-    else if (event.key === 'Home') next = 0;
-    else if (event.key === 'End') next = options.length - 1;
-    else return;
-    event.preventDefault();
-    const id = options[next].dataset.region ?? '';
-    selectRegion(id);
-    options[next].focus();
-    requestAnimationFrame(() => focusRegionRadio(id));
-  }
-
   function regionShown(id) {
     return selection.region === id || (regionCounts[id] || 0) > 0;
   }
@@ -246,6 +237,26 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
       : FEATURED_REGIONS.filter(regionShown)
   );
   const regionTabId = regionOptionIds.includes(selection.region) ? selection.region : regionOptionIds[0];
+
+  function onRegionKeyDown(event) {
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    const current = event.target.closest?.('button[role="radio"]');
+    if (!current || !event.currentTarget.contains(current)) return;
+    const index = regionOptionIds.indexOf(current.dataset.region ?? '');
+    if (index < 0) return;
+    let next = index;
+    if (event.key === 'ArrowDown' || event.key === 'ArrowRight') next = (index + 1) % regionOptionIds.length;
+    else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') next = (index - 1 + regionOptionIds.length) % regionOptionIds.length;
+    else if (event.key === 'Home') next = 0;
+    else if (event.key === 'End') next = regionOptionIds.length - 1;
+    else return;
+    const id = regionOptionIds[next];
+    event.preventDefault();
+    selectRegion(id);
+    current.closest('[role="radiogroup"]')
+      .querySelector(`button[role="radio"][data-region="${CSS.escape(id)}"]`)
+      ?.focus();
+  }
 
   return (
     <div className="page identify-page">
@@ -386,19 +397,15 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
                   <h2>{t.guide_region_title}</h2>
                   <p className="key-note">{t.guide_region_body_plain}</p>
                   <div role="radiogroup" aria-label={t.guide_region_title} onKeyDown={onRegionKeyDown}>
-                    <button
-                      type="button"
-                      role="radio"
-                      className="region-row"
-                      data-region=""
-                      aria-checked={!selection.region}
-                      tabIndex={regionTabId === '' ? 0 : -1}
-                      onClick={() => pickRegion('')}
-                    >
-                      <span className="radio" aria-hidden="true" />
-                      <span className="lbl">{t.guide_any_region}</span>
-                      <span className="num">{anyRegionCount.toLocaleString(lang || 'en')}</span>
-                    </button>
+                    <RegionRadio
+                      id=""
+                      checked={!selection.region}
+                      tabStop={regionTabId === ''}
+                      label={t.guide_any_region}
+                      count={anyRegionCount}
+                      lang={lang}
+                      onPick={pickRegion}
+                    />
                     {regionAll
                       ? REGION_GROUPS.map((group) => {
                           const regions = group.regions.filter(([id]) => regionShown(id));
@@ -406,47 +413,33 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
                           return (
                             <div className="region-group" key={group.labelKey}>
                               <h3>{sentenceStart(t[group.labelKey], lang)}</h3>
-                              {regions.map(([id]) => {
-                                const count = regionCounts[id] || 0;
-                                return (
-                                  <button
-                                    key={id}
-                                    type="button"
-                                    role="radio"
-                                    className="region-row"
-                                    data-region={id}
-                                    aria-checked={selection.region === id}
-                                    tabIndex={regionTabId === id ? 0 : -1}
-                                    onClick={() => pickRegion(id)}
-                                  >
-                                    <span className="radio" aria-hidden="true" />
-                                    <span className="lbl">{choiceName('region', id, t, lang)}</span>
-                                    <span className="num">{count.toLocaleString(lang || 'en')}</span>
-                                  </button>
-                                );
-                              })}
+                              {regions.map(([id]) => (
+                                <RegionRadio
+                                  key={id}
+                                  id={id}
+                                  checked={selection.region === id}
+                                  tabStop={regionTabId === id}
+                                  label={choiceName('region', id, t, lang)}
+                                  count={regionCounts[id] || 0}
+                                  lang={lang}
+                                  onPick={pickRegion}
+                                />
+                              ))}
                             </div>
                           );
                         })
-                      : FEATURED_REGIONS.filter(regionShown).map((id) => {
-                          const count = regionCounts[id] || 0;
-                          return (
-                            <button
-                              key={id}
-                              type="button"
-                              role="radio"
-                              className="region-row"
-                              data-region={id}
-                              aria-checked={selection.region === id}
-                              tabIndex={regionTabId === id ? 0 : -1}
-                              onClick={() => pickRegion(id)}
-                            >
-                              <span className="radio" aria-hidden="true" />
-                              <span className="lbl">{choiceName('region', id, t, lang)}</span>
-                              <span className="num">{count.toLocaleString(lang || 'en')}</span>
-                            </button>
-                          );
-                        })}
+                      : FEATURED_REGIONS.filter(regionShown).map((id) => (
+                          <RegionRadio
+                            key={id}
+                            id={id}
+                            checked={selection.region === id}
+                            tabStop={regionTabId === id}
+                            label={choiceName('region', id, t, lang)}
+                            count={regionCounts[id] || 0}
+                            lang={lang}
+                            onPick={pickRegion}
+                          />
+                        ))}
                   </div>
                   {regionAll ? null : (
                     <button type="button" className="region-all" onClick={() => setRegionAll(true)}>
