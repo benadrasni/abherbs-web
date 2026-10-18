@@ -20,7 +20,7 @@ test('trace loc is the country code', () => {
 });
 
 test('EEA, UK, and Switzerland ask before collection', () => {
-  for (const loc of ['DE', 'FR', 'SK', 'IE', 'GR', 'CY', 'NO', 'IS', 'LI', 'GB', 'UK', 'CH', 'AX', 'GP']) {
+  for (const loc of ['DE', 'FR', 'SK', 'IE', 'GR', 'CY', 'NO', 'IS', 'LI', 'GB', 'UK', 'CH', 'AX', 'GP', 'BQ']) {
     assert.deepEqual(decisionFor({ choice: '', loc }), { load: false, ask: true }, loc);
   }
 });

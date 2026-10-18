@@ -7,7 +7,7 @@ const CONSENT_COUNTRIES = new Set([
   'SI', 'ES', 'SE',
   'IS', 'LI', 'NO',
   'GB', 'UK', 'CH', 'EU',
-  'AX', 'EA', 'GF', 'GP', 'IC', 'MF', 'MQ', 'RE', 'YT',
+  'AX', 'BQ', 'EA', 'GF', 'GP', 'IC', 'MF', 'MQ', 'RE', 'YT',
 ]);
 
 const UNKNOWN_CODES = new Set(['', 'XX', 'T1', 'A1', 'A2']);

@@ -194,6 +194,41 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
     setRegionAll(false);
   }
 
+  function selectRegion(id) {
+    setParams((prev) => {
+      const current = parseSelection(prev);
+      if (current.region === id) return prev;
+      return selectionQuery({ ...current, region: id });
+    }, { replace: true });
+  }
+
+  function focusRegionRadio(id) {
+    const panel = document.getElementById('identify-region-panel');
+    if (!panel) return;
+    const el = [...panel.querySelectorAll('button[role="radio"]')].find((button) => button.dataset.region === id);
+    if (el) el.focus();
+  }
+
+  function onRegionKeyDown(event) {
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    const current = event.target.closest?.('button[role="radio"]');
+    if (!current || !event.currentTarget.contains(current)) return;
+    const options = [...event.currentTarget.querySelectorAll('button[role="radio"]')];
+    const index = options.indexOf(current);
+    if (index < 0 || !options.length) return;
+    let next = index;
+    if (event.key === 'ArrowDown' || event.key === 'ArrowRight') next = (index + 1) % options.length;
+    else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') next = (index - 1 + options.length) % options.length;
+    else if (event.key === 'Home') next = 0;
+    else if (event.key === 'End') next = options.length - 1;
+    else return;
+    event.preventDefault();
+    const id = options[next].dataset.region ?? '';
+    selectRegion(id);
+    options[next].focus();
+    requestAnimationFrame(() => focusRegionRadio(id));
+  }
+
   function regionShown(id) {
     return selection.region === id || (regionCounts[id] || 0) > 0;
   }
@@ -204,6 +239,13 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
       axis,
       name: chipLabel(axis, selection[axis], t, lang),
     }));
+
+  const regionOptionIds = [''].concat(
+    regionAll
+      ? REGION_GROUPS.flatMap((group) => group.regions.map(([id]) => id).filter(regionShown))
+      : FEATURED_REGIONS.filter(regionShown)
+  );
+  const regionTabId = regionOptionIds.includes(selection.region) ? selection.region : regionOptionIds[0];
 
   return (
     <div className="page identify-page">
@@ -343,12 +385,14 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
                 <div className="region-panel" id="identify-region-panel">
                   <h2>{t.guide_region_title}</h2>
                   <p className="key-note">{t.guide_region_body_plain}</p>
-                  <div role="radiogroup" aria-label={t.guide_region_title}>
+                  <div role="radiogroup" aria-label={t.guide_region_title} onKeyDown={onRegionKeyDown}>
                     <button
                       type="button"
                       role="radio"
                       className="region-row"
+                      data-region=""
                       aria-checked={!selection.region}
+                      tabIndex={regionTabId === '' ? 0 : -1}
                       onClick={() => pickRegion('')}
                     >
                       <span className="radio" aria-hidden="true" />
@@ -370,7 +414,9 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
                                     type="button"
                                     role="radio"
                                     className="region-row"
+                                    data-region={id}
                                     aria-checked={selection.region === id}
+                                    tabIndex={regionTabId === id ? 0 : -1}
                                     onClick={() => pickRegion(id)}
                                   >
                                     <span className="radio" aria-hidden="true" />
@@ -390,7 +436,9 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
                               type="button"
                               role="radio"
                               className="region-row"
+                              data-region={id}
                               aria-checked={selection.region === id}
+                              tabIndex={regionTabId === id ? 0 : -1}
                               onClick={() => pickRegion(id)}
                             >
                               <span className="radio" aria-hidden="true" />
