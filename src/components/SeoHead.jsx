@@ -47,7 +47,11 @@ export default function SeoHead({ lang, pathname, search, description }) {
 
     const page = contentPath(pathname);
     const pageSetsDescription =
-      Boolean(plant) || page === '/about' || page === '/privacy' || page.startsWith('/plant/');
+      Boolean(plant) ||
+      page === '/about' ||
+      page === '/privacy' ||
+      page === '/identify' ||
+      page.startsWith('/plant/');
     if (!pageSetsDescription && description) setMetaName('description', description);
 
     document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((node) => node.remove());

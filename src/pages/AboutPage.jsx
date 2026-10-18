@@ -59,8 +59,10 @@ export default function AboutPage({ lang, t, headers }) {
 
   return (
     <div className="page">
-      <div className="about-hero">
-        <h1 className="common">{t.about_headline}</h1>
+      <div className="home-hero identify-hero about-hero">
+        <div>
+          <h1 className="common">{t.about_headline}</h1>
+        </div>
         <p className="lede">{t.about_lede}</p>
       </div>
 

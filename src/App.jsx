@@ -38,6 +38,7 @@ function routeNeedsIndex(pathname) {
   return (
     path === '/' ||
     path === '/about' ||
+    path === '/identify' ||
     path === '/families' ||
     path === '/genera' ||
     path.startsWith('/family/') ||
@@ -50,6 +51,7 @@ function routeNeedsLabels(pathname) {
   const path = contentPath(pathname);
   return (
     path === '/' ||
+    path === '/identify' ||
     path.startsWith('/family/') ||
     path.startsWith('/genus/') ||
     path.startsWith('/list/')
@@ -187,7 +189,8 @@ function usePageScroll(location) {
       if (current > 0) savePageScroll(prev, current);
       prevKey.current = key;
     }
-    const y = loadPageScrolls().get(key) || 0;
+    // About is a short page. Restoring a small scroll hides the title under the bar.
+    const y = contentPath(key) === '/about' ? 0 : (loadPageScrolls().get(key) || 0);
     let done = false;
     const apply = () => {
       if (done) return;
@@ -337,7 +340,19 @@ export default function App() {
     const p = (seg) => (prefix ? `/${prefix}${seg}` : seg);
     return (
       <Fragment key={prefix || 'en'}>
-        <Route path={p('/identify')} element={<IdentifyPage lang={lang} t={t} />} />
+        <Route
+          path={p('/identify')}
+          element={
+            <IdentifyPage
+              lang={lang}
+              t={t}
+              headers={headers}
+              labels={labels}
+              taxonomy={taxonomy}
+              status={catalog.status}
+            />
+          }
+        />
         <Route path={p('/about')} element={<AboutPage lang={lang} t={t} headers={headers} />} />
         <Route path={p('/help')} element={<HelpPage lang={lang} t={t} />} />
         <Route path={p('/privacy')} element={<PrivacyPage lang={lang} t={t} />} />

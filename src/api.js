@@ -105,6 +105,10 @@ export async function loadPlantIndex() {
   return { raw: headers };
 }
 
+export function loadFilterHeaders() {
+  return getJson('plants_headers_v3');
+}
+
 export function loadLabels(lang) {
   if (!lang) return Promise.resolve(null);
   return getJson(`web/labels/${enc(lang)}`).catch(() => null);

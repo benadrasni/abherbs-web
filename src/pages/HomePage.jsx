@@ -205,21 +205,16 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
 
   return (
     <div className="page">
-      <div className="home-hero">
-        <div>
-          <div className="kicker">{t.app_name}</div>
-          <h1 className="common">{t.plants}</h1>
+      <div className="plants-bar">
+        <div className="search">
+          <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder={t.search_placeholder}
+            aria-label={t.search_placeholder}
+          />
         </div>
-        <div className="muted">{hold ?? t.plants_count(headers.length)}</div>
-      </div>
-
-      <div className="search">
-        <input
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder={t.search_placeholder}
-          aria-label={t.search_placeholder}
-        />
+        <div className="plants-count">{hold ?? t.plants_count(headers.length)}</div>
       </div>
       {status === 'ready' && q.trim().length >= 2 ? (
         <div className="results" onClick={flushSearch}>
@@ -353,6 +348,9 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
       <section className="band identify-band">
         <h2>{t.get_the_app}</h2>
         <p className="lede">{t.get_lede}</p>
+        <p>
+          <Link to={withLang('/identify', lang)}>{t.about_identify_here}</Link>
+        </p>
         <StoreLinks t={t} />
       </section>
 
