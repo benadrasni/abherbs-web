@@ -223,30 +223,6 @@
     "id": "Beri nama tumbuhan dari foto, atau ikuti warna, habitat, dan daun mahkota. Tumbuhan yang Anda temukan tetap di Dilihat.",
     "tr": "Bir bitkiyi fotoğraftan adlandırın ya da renk, habitat ve taç yapraklarını izleyin. Bulduğunuz bitkiler Gördüklerim’de kalır."
   },
-  "identify_step_1": {
-    "id": "Warna bunga",
-    "tr": "Çiçeğin rengi"
-  },
-  "identify_step_2": {
-    "id": "Habitat",
-    "tr": "Habitat"
-  },
-  "identify_step_3": {
-    "id": "Jenis mahkota",
-    "tr": "Taç tipi"
-  },
-  "identify_step_4": {
-    "id": "Kawasan dunia",
-    "tr": "Dünya bölgesi"
-  },
-  "identify_then": {
-    "id": "Lalu buka tumbuhan yang cocok dan baca halaman spesies.",
-    "tr": "Sonra eşleşen bitkiyi açın ve tür sayfasını okuyun."
-  },
-  "browse_plants": {
-    "id": "Jelajahi ensiklopedia",
-    "tr": "Ansiklopediye göz at"
-  },
   "not_found": {
     "id": "Tumbuhan ini tidak ada dalam katalog.",
     "tr": "Bu bitki katalogda yok."
