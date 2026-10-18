@@ -340,7 +340,7 @@ NEW = {
     "plants_count_few": {
         "en": "{n} plants", "sk": "{n} rastliny", "cs": "{n} rostliny", "sl": "{n} rastline",
         "hr": "{n} biljke", "sr": "{n} биљке", "pl": "{n} rośliny", "ru": "{n} растения",
-        "uk": "{n} рослини", "ar": "{n} نباتات",
+        "uk": "{n} рослини", "lt": "{n} augalai", "ar": "{n} نباتات",
     },
     "plants_count_many": {
         "en": "{n} plants", "pl": "{n} roślin", "ru": "{n} растений", "uk": "{n} рослин",
@@ -887,6 +887,12 @@ NEW = {
         "ja": "異名", "ko": "이명", "zh": "異名", "hi": "समानार्थी",
         "ar": "مرادفات", "fa": "مترادف‌ها", "he": "שמות נרדפים",
     },
+    # Counted "name". more_names is the leftover form (usually 5+).
+    # one / two / few / many / zero override a language whose noun changes
+    # with the count. Intl.PluralRules picks the key. Slovak and Czech use
+    # few only for 2, 3, and 4. Polish, Russian, Ukrainian, Croatian, and
+    # Serbian also use few for 22–24, and not for 12–14. Slovenian uses two
+    # for 2. Lithuanian few is 2–9. Latvian puts 0, 10, and 11–19 in zero.
     "more_names": {
         "en": "{n} more names", "sk": "ešte {n} mien", "cs": "dalších {n} jmen", "sl": "še {n} imen",
         "hr": "još {n} imena", "sr": "још {n} имена", "pl": "jeszcze {n} nazw", "ru": "ещё {n} имён",
@@ -897,6 +903,33 @@ NEW = {
         "lt": "dar {n} vardų", "ja": "ほか {n} 名", "ko": "이름 {n}개 더", "zh": "另有 {n} 個名稱",
         "hi": "और {n} नाम", "ar": "{n} أسماء أخرى", "fa": "{n} نام دیگر",
         "he": "עוד {n} שמות",
+    },
+    "more_names_one": {
+        "en": "{n} more name",
+        "sk": "ešte {n} meno", "cs": "další {n} jméno", "sl": "še {n} ime",
+        "hr": "još {n} ime", "sr": "још {n} име", "pl": "jeszcze {n} nazwa",
+        "ru": "ещё {n} имя", "uk": "ще {n} назва", "bg": "още {n} име",
+        "lt": "dar {n} vardas", "lv": "vēl {n} nosaukums",
+        "ar": "{n} اسم آخر",
+    },
+    "more_names_two": {
+        "en": "{n} more names",
+        "sl": "še {n} imeni",
+        "ar": "اسمان آخران",
+    },
+    "more_names_few": {
+        "en": "{n} more names",
+        "sk": "ešte {n} mená", "cs": "další {n} jména", "sl": "še {n} imena",
+        "pl": "jeszcze {n} nazwy", "ru": "ещё {n} имени", "uk": "ще {n} назви",
+        "lt": "dar {n} vardai",
+    },
+    "more_names_many": {
+        "en": "{n} more names",
+        "ar": "{n} اسمًا آخر",
+    },
+    "more_names_zero": {
+        "en": "{n} more names",
+        "lv": "vēl {n} nosaukumu",
     },
     "distribution": {
         "en": "Distribution", "sk": "Rozšírenie", "cs": "Rozšíření", "sl": "Razširjenost",
@@ -3393,6 +3426,11 @@ def main():
         "plants_count_few",
         "plants_count_many",
         "plants_count_zero",
+        "more_names_one",
+        "more_names_two",
+        "more_names_few",
+        "more_names_many",
+        "more_names_zero",
     }
 
     for key, by_lang in NEW.items():

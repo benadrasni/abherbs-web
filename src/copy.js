@@ -24,29 +24,43 @@ export function uiText(lang) {
     return null;
   };
 
+  // Plural variants are not inherited from English. An English placeholder
+  // such as more_names_many would otherwise win for Polish 5+.
+  const own = (key) => {
+    if (chosen[key] != null) return chosen[key];
+    if (!lang || lang === 'en') return en[key] == null ? null : en[key];
+    return null;
+  };
+
   const text = (key, vars) => {
     const template = raw(key);
     if (template == null) return key;
     return vars ? interpolate(template, vars) : template;
   };
 
-  const plural = (base, n) => {
+  const plural = (base, n, fallback) => {
     const count = Number(n);
     const formatted = count.toLocaleString(lang || 'en');
     const cat = pluralCategory(lang, count);
+    const tail = fallback ? [fallback] : [];
     const order = {
-      zero: [`${base}_zero`, `${base}_other`],
-      one: [`${base}_one`, `${base}_other`],
-      two: [`${base}_two`, `${base}_few`, `${base}_other`],
-      few: [`${base}_few`, `${base}_other`],
-      many: [`${base}_many`, `${base}_other`],
-      other: [`${base}_other`],
+      zero: [`${base}_zero`, `${base}_other`, ...tail],
+      one: [`${base}_one`, `${base}_other`, ...tail],
+      two: [`${base}_two`, `${base}_few`, `${base}_other`, ...tail],
+      few: [`${base}_few`, `${base}_other`, ...tail],
+      many: [`${base}_many`, `${base}_other`, ...tail],
+      other: [`${base}_other`, ...tail],
     };
     const keys = order[cat] || order.other;
+    const fill = (template) => interpolate(template, { n: formatted });
     for (let i = 0; i < keys.length; i++) {
-      if (raw(keys[i]) != null) return text(keys[i], { n: formatted });
+      const key = keys[i];
+      const template = key === fallback ? raw(key) : own(key);
+      if (template != null) return fill(template);
     }
-    return text(`${base}_other`, { n: formatted });
+    const inherited = raw(fallback || `${base}_other`);
+    if (inherited != null) return fill(inherited);
+    return fallback || `${base}_other`;
   };
 
   const taxonRank = (latin) => {
@@ -61,7 +75,7 @@ export function uiText(lang) {
     ...catalog,
     plants_count: (n) => plural('plants_count', n),
     photo_n: (i, n) => text('photo_n', { i, n }),
-    more_names: (n) => text('more_names', { n }),
+    more_names: (n) => plural('more_names', n, 'more_names'),
     public_records: (n) =>
       Number(n) === 1 ? text('public_records_one') : text('public_records_other', { n }),
     plate_alt: (name) => text('plate_alt', { name }),
