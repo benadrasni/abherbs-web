@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation, useNavigate, useNavigationType } from 'react-router-dom';
 import { pageview } from './analytics';
 import { loadLabels, loadPlantIndex, loadTaxonomyLabels } from './api';
 import AnalyticsConsent from './components/AnalyticsConsent';
@@ -154,6 +154,7 @@ function savePageScroll(key, y) {
 }
 
 function usePageScroll(location) {
+  const navigationType = useNavigationType();
   const prevKey = useRef(pageScrollKey(location));
   const key = pageScrollKey(location);
 
@@ -189,38 +190,61 @@ function usePageScroll(location) {
       if (current > 0) savePageScroll(prev, current);
       prevKey.current = key;
     }
-    // About is a short page. Restoring a small scroll hides the title under the bar.
-    const y = contentPath(key) === '/about' ? 0 : (loadPageScrolls().get(key) || 0);
-    let done = false;
-    const apply = () => {
-      if (done) return;
-      window.scrollTo(0, y);
-      if (y <= 0) {
-        done = true;
-        return;
-      }
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      if (max >= y - 1) done = true;
+    // About always opens at the top. Plants does too when opened from another
+    // page, so a saved catalog offset is not reused. Back still restores it.
+    const path = contentPath(key);
+    const openAtTop = path === '/about' || (path === '/' && navigationType !== 'POP');
+    if (path === '/' && openAtTop) savePageScroll(key, 0);
+    const y = openAtTop ? 0 : (loadPageScrolls().get(key) || 0);
+    let cancelled = false;
+    const place = () => {
+      if (!cancelled) window.scrollTo(0, y);
     };
-    apply();
-    if (done) return undefined;
-    const root = document.documentElement;
-    const ro = typeof ResizeObserver === 'function' ? new ResizeObserver(apply) : null;
-    if (ro) ro.observe(root);
+    place();
+    // The browser can move the scroll again after this layout pass.
+    let raf2 = 0;
+    const raf1 = requestAnimationFrame(() => {
+      place();
+      raf2 = requestAnimationFrame(place);
+    });
     const stop = () => {
-      done = true;
+      cancelled = true;
     };
     window.addEventListener('wheel', stop, { passive: true, once: true });
     window.addEventListener('touchmove', stop, { passive: true, once: true });
+    if (y <= 0) {
+      return () => {
+        cancelled = true;
+        cancelAnimationFrame(raf1);
+        cancelAnimationFrame(raf2);
+        window.removeEventListener('wheel', stop);
+        window.removeEventListener('touchmove', stop);
+      };
+    }
+    const root = document.documentElement;
+    let ro = null;
+    const settled = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (max >= y - 1 && ro) ro.disconnect();
+    };
+    ro = typeof ResizeObserver === 'function'
+      ? new ResizeObserver(() => {
+        place();
+        settled();
+      })
+      : null;
+    if (ro) ro.observe(root);
     const timer = window.setTimeout(stop, 2500);
     return () => {
-      done = true;
+      cancelled = true;
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
       if (ro) ro.disconnect();
       window.clearTimeout(timer);
       window.removeEventListener('wheel', stop);
       window.removeEventListener('touchmove', stop);
     };
-  }, [key]);
+  }, [key, navigationType]);
 }
 
 export default function App() {

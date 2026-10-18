@@ -3,7 +3,7 @@ import PlateImage from './PlateImage';
 import { familyIconUrl, taxonLabel } from '../api';
 import { displayName, genusOf, genusPath, headerPlateRel, listPath, plantPath } from '../lib';
 
-export function PlateCell({ item, lang, genusLabel, taxonomy, genusWord }) {
+export function PlateCell({ item, lang, genusLabel, taxonomy, genusWord, onOpen }) {
   if (item.genus) {
     const spoken = taxonLabel(taxonomy, item.genus);
     const rel = headerPlateRel(item);
@@ -22,7 +22,7 @@ export function PlateCell({ item, lang, genusLabel, taxonomy, genusWord }) {
   const taxon = genusLabel ? genusOf(item.name) : item.family;
   const common = taxonLabel(taxonomy, taxon);
   return (
-    <Link className="cell" to={plantPath(item.name, lang)}>
+    <Link className="cell" to={plantPath(item.name, lang)} onClick={() => onOpen && onOpen(item)}>
       <div className="art">
         <PlateImage rel={headerPlateRel(item)} preferred="grid" alt="" />
       </div>
@@ -52,7 +52,7 @@ export function ListCell({ list, lang, t }) {
   );
 }
 
-export default function PlateGrid({ items, lang, genusLabel, taxonomy, genusWord }) {
+export default function PlateGrid({ items, lang, genusLabel, taxonomy, genusWord, onOpen }) {
   return (
     <div className="grid">
       {items.map((item) => (
@@ -63,6 +63,7 @@ export default function PlateGrid({ items, lang, genusLabel, taxonomy, genusWord
           genusLabel={genusLabel}
           taxonomy={taxonomy}
           genusWord={genusWord}
+          onOpen={onOpen}
         />
       ))}
     </div>

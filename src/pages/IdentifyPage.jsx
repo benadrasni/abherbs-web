@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { labelAt, loadFilterHeaders } from '../api';
+import { trackFilterResult, trackPlant } from '../analytics';
 import Footer from '../components/Footer';
 import PlateGrid from '../components/PlateGrid';
 import StoreLinks from '../components/StoreLinks';
@@ -106,6 +107,17 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
   const hold =
     catalogHold(status, t) ||
     (filters.status === 'loading' ? t.loading : filters.status === 'error' ? t.catalog_unavailable : null);
+
+  useEffect(() => {
+    if (hold) return;
+    trackFilterResult({
+      color: selection.color,
+      habitat: selection.habitat,
+      petal: selection.petal,
+      region: selection.region,
+      count: matches.length,
+    });
+  }, [hold, selection.color, selection.habitat, selection.petal, selection.region, matches.length]);
 
   useEffect(() => {
     const el = filtersRef.current;
@@ -397,7 +409,12 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
               ) : null}
             </div>
             {matches.length ? (
-              <PlateGrid items={matches} lang={lang} taxonomy={taxonomy} />
+              <PlateGrid
+                items={matches}
+                lang={lang}
+                taxonomy={taxonomy}
+                onOpen={(item) => trackPlant(item.name, 'key')}
+              />
             ) : (
               <p className="center-msg">{t.snack_no_flowers}</p>
             )}

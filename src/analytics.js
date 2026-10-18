@@ -25,7 +25,9 @@ let ask = false;
 let installed = false;
 let lastPageKey = '';
 let lastSearchKey = '';
+let lastFilterKey = '';
 let queuedPage = null;
+let queuedFilter = null;
 let regionSettled = false;
 const listeners = new Set();
 
@@ -116,6 +118,7 @@ function turnOn() {
     }
   }
   if (queuedPage) sendPageview(queuedPage.loc, queuedPage.appName);
+  if (queuedFilter) sendFilter(queuedFilter);
   publish();
 }
 
@@ -124,6 +127,7 @@ function turnOff({ ask: nextAsk, disableScript }) {
   ask = Boolean(nextAsk);
   lastPageKey = '';
   lastSearchKey = '';
+  lastFilterKey = '';
   if (disableScript && typeof window !== 'undefined') {
     window['ga-disable-' + GA_ID] = true;
     if (installed && typeof window.gtag === 'function') {
@@ -219,6 +223,56 @@ export function trackSearch(term, resultCount) {
   window.gtag('event', 'search', {
     search_term,
     result_count: resultCount,
+    send_to: GA_ID,
+  });
+}
+
+function sendFilter(payload) {
+  if (!ready() || !payload) return;
+  if (payload.key === lastFilterKey) return;
+  lastFilterKey = payload.key;
+  window.gtag('event', 'filter_result', payload.params);
+}
+
+/** Same event as the field-guide key. Empty color and petal are omitted; empty habitat and region are "any". */
+export function trackFilterResult({ color, habitat, petal, region, count }) {
+  const colorValue = String(color || '').trim().slice(0, 40);
+  const habitatValue = (String(habitat || '').trim() || 'any').slice(0, 40);
+  const petalValue = String(petal || '').trim().slice(0, 40);
+  const regionValue = (String(region || '').trim() || 'any').slice(0, 40);
+  const active = Boolean(colorValue || petalValue || habitatValue !== 'any' || regionValue !== 'any');
+  if (!active) {
+    queuedFilter = null;
+    lastFilterKey = '';
+    return;
+  }
+  const resultCount = Number.isFinite(count) && count >= 0 ? Math.min(Math.floor(count), 100000) : 0;
+  const params = {
+    habitat: habitatValue,
+    region: regionValue,
+    count: resultCount,
+    send_to: GA_ID,
+  };
+  if (colorValue) params.color = colorValue;
+  if (petalValue) params.petal = petalValue;
+  queuedFilter = {
+    key: [colorValue, habitatValue, petalValue, regionValue, resultCount].join('\n'),
+    params,
+  };
+  if (mode === 'on') sendFilter(queuedFilter);
+}
+
+/** A plant opened from a list. `source` matches the field guide (`key`, `search`, `list`). */
+export function trackPlant(name, source) {
+  if (!ready()) return;
+  const itemId = String(name || '').trim().slice(0, 100);
+  if (!itemId) return;
+  const from = String(source || '').trim().slice(0, 24);
+  window.gtag('event', 'select_content', {
+    content_type: 'plant',
+    item_id: itemId,
+    ...(from ? { source: from } : {}),
+    transport_type: 'beacon',
     send_to: GA_ID,
   });
 }
