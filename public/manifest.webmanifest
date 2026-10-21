@@ -1,0 +1,26 @@
+{
+  "name": "What's that flower?",
+  "short_name": "What's that flower?",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f3eee4",
+  "theme_color": "#f3eee4",
+  "icons": [
+    {
+      "src": "/images/app-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "sk.ab.herbs",
+      "url": "https://play.google.com/store/apps/details?id=sk.ab.herbs"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/app/id1449982118"
+    }
+  ]
+}

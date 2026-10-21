@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { appleSmartBanner } from '../appLink.mjs';
 import { INDEXED_LANGS, RTL, canonicalUrl, contentPath, hreflangOf, hreflangUrls } from '../lib';
 
 function setLink(rel, href, hreflang) {
@@ -44,6 +45,7 @@ export default function SeoHead({ lang, pathname, search, description }) {
     const canon = canonicalUrl(path, indexed ? lang : 'en');
     setLink('canonical', canon);
     setMetaProperty('og:url', canon);
+    setMetaName('apple-itunes-app', appleSmartBanner(canon));
 
     const page = contentPath(pathname);
     const pageSetsDescription =

@@ -149,7 +149,8 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
       const root = getComputedStyle(document.documentElement);
       const banner = parseFloat(root.getPropertyValue('--ga-banner-h')) || 0;
       const bar = parseFloat(root.getPropertyValue('--bar-h')) || 0;
-      const origin = Math.max(el.getBoundingClientRect().top, bar);
+      const appBanner = parseFloat(root.getPropertyValue('--app-banner-h')) || 0;
+      const origin = Math.max(el.getBoundingClientRect().top, bar + appBanner);
       const available = window.innerHeight - origin - banner;
       const px = Math.max(160, Math.floor(available));
       const current = parseFloat(el.style.maxHeight) || 0;

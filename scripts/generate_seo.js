@@ -7,6 +7,7 @@ const fs = require('fs');
 const path = require('path');
 
 const SITE = 'https://whatsthatflower.com';
+let appleSmartBanner = (url) => 'app-id=1449982118';
 const APP = "What's that flower?";
 const DB = 'https://abherbs-backend.firebaseio.com';
 const PHOTO = 'https://storage.googleapis.com/abherbs-resources/photos/';
@@ -213,6 +214,13 @@ function inject(template, opts) {
     /<html lang="[^"]*"(?: dir="[^"]*")?>/,
     '<html lang="' + htmlLang + '" dir="' + htmlDir + '">'
   );
+  const parts = opts.parts || [];
+  if (parts[0] === 'plant' && parts.length > 1) {
+    html = html.replace(
+      '<meta name="apple-itunes-app" content="app-id=1449982118">',
+      '<meta name="apple-itunes-app" content="' + escapeHtml(appleSmartBanner(opts.url)) + '">'
+    );
+  }
   html = html.replace(/<title>[^<]*<\/title>/, '<title>' + title + '</title>');
   html = html.replace(
     /<meta name="description" content="[^"]*">/,
@@ -288,6 +296,7 @@ function sitemapXml(entries) {
 
 async function main() {
   const { taxonLabel } = await import('../src/taxonNames.mjs');
+  appleSmartBanner = (await import('../src/appLink.mjs')).appleSmartBanner;
   const templatePath = path.join(BUILD, 'index.html');
   if (!fs.existsSync(templatePath)) {
     throw new Error('build/index.html missing; run vite build first');

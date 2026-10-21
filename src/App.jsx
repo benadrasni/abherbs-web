@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useLocation, useNavigate, useNavigationType } 
 import { pageview } from './analytics';
 import { loadLabels, loadPlantIndex, loadTaxonomyLabels } from './api';
 import AnalyticsConsent from './components/AnalyticsConsent';
+import AppBanner from './components/AppBanner';
 import Header from './components/Header';
 import SeoHead from './components/SeoHead';
 import { uiText } from './copy';
@@ -456,6 +457,7 @@ export default function App() {
 
   return (
     <>
+      <AppBanner t={t} />
       <Header lang={lang} t={t} onLang={setLang} />
       <SeoHead
         lang={lang}

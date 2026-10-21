@@ -1,0 +1,43 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "7UC4T3C62B.sk.ab.herbs",
+        "paths": [
+          "NOT /plant/",
+          "NOT /*/plant/",
+          "/plant/*",
+          "/*/plant/*"
+        ],
+        "components": [
+          {
+            "/": "/plant/",
+            "exclude": true,
+            "comment": "Species index"
+          },
+          {
+            "/": "/plant",
+            "exclude": true
+          },
+          {
+            "/": "/*/plant/",
+            "exclude": true
+          },
+          {
+            "/": "/*/plant",
+            "exclude": true
+          },
+          {
+            "/": "/plant/*",
+            "comment": "English species page"
+          },
+          {
+            "/": "/*/plant/*",
+            "comment": "Species page with a language prefix"
+          }
+        ]
+      }
+    ]
+  }
+}

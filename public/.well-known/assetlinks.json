@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "sk.ab.herbs",
+      "sha256_cert_fingerprints": [
+        "05:1A:0F:08:AD:5C:7B:39:DD:B4:10:21:E4:34:1B:DE:1C:BE:EF:12:D4:19:0F:1B:D1:53:4F:5B:6F:12:04:BA"
+      ]
+    }
+  }
+]
