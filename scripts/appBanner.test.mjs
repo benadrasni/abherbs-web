@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { bannerDecision, readDismissed, relatedAppInstalled, writeDismissed, DISMISS_KEY } from '../src/appBanner.mjs';
+import { bannerDecision, pageStorage, readDismissed, relatedAppInstalled, writeDismissed, DISMISS_KEY } from '../src/appBanner.mjs';
 
 const ANDROID =
   'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36';
@@ -68,4 +68,24 @@ test('dismissal is stored on this site', () => {
   assert.equal(saved.get(DISMISS_KEY), 'dismissed');
   assert.equal(readDismissed(storage), true);
   assert.equal(readDismissed({ getItem: () => { throw new Error('private'); } }), false);
+});
+
+test('a throwing localStorage getter is not dismissed and still closes', () => {
+  const previous = Object.getOwnPropertyDescriptor(globalThis, 'window');
+  Object.defineProperty(globalThis, 'window', {
+    configurable: true,
+    value: {
+      get localStorage() {
+        throw new Error('SecurityError');
+      },
+    },
+  });
+  try {
+    assert.equal(pageStorage(), null);
+    assert.equal(readDismissed(pageStorage()), false);
+    assert.doesNotThrow(() => writeDismissed(pageStorage()));
+  } finally {
+    if (previous) Object.defineProperty(globalThis, 'window', previous);
+    else delete globalThis.window;
+  }
 });
