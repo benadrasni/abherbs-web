@@ -49,6 +49,14 @@ export function relatedAppInstalled(apps) {
   });
 }
 
+export function pageStorage() {
+  try {
+    return window.localStorage;
+  } catch (err) {
+    return null;
+  }
+}
+
 export function readDismissed(storage) {
   try {
     return storage.getItem(DISMISS_KEY) === 'dismissed';

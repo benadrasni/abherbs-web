@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   bannerDecision,
+  pageStorage,
   readDismissed,
   relatedAppInstalled,
   writeDismissed,
@@ -12,16 +13,10 @@ import { APP_STORE_URL, PLAY_URL } from '../lib';
 // after paint and pushes the page down.
 function initialStore() {
   if (typeof navigator === 'undefined') return null;
-  let storage = null;
-  try {
-    storage = window.localStorage;
-  } catch (err) {
-    storage = null;
-  }
   return bannerDecision({
     userAgent: navigator.userAgent,
     maxTouchPoints: navigator.maxTouchPoints || 0,
-    dismissed: readDismissed(storage),
+    dismissed: readDismissed(pageStorage()),
   });
 }
 
@@ -65,7 +60,7 @@ export default function AppBanner({ t }) {
 
   const play = store === 'google_play';
   const dismiss = () => {
-    writeDismissed(window.localStorage);
+    writeDismissed(pageStorage());
     setStore(null);
   };
 
