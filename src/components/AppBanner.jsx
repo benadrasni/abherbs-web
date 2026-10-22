@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   bannerDecision,
   readDismissed,
@@ -8,38 +8,51 @@ import {
 import { trackStore } from '../analytics';
 import { APP_STORE_URL, PLAY_URL } from '../lib';
 
+// The bar has to be in the first render. Choosing it in an effect inserts it
+// after paint and pushes the page down.
+function initialStore() {
+  if (typeof navigator === 'undefined') return null;
+  let storage = null;
+  try {
+    storage = window.localStorage;
+  } catch (err) {
+    storage = null;
+  }
+  return bannerDecision({
+    userAgent: navigator.userAgent,
+    maxTouchPoints: navigator.maxTouchPoints || 0,
+    dismissed: readDismissed(storage),
+  });
+}
+
 export default function AppBanner({ t }) {
-  const [store, setStore] = useState(null);
+  const [store, setStore] = useState(initialStore);
   const bar = useRef(null);
 
   useEffect(() => {
+    if (!store) return undefined;
     let cancel = false;
-    const storage = window.localStorage;
-    const next = bannerDecision({
-      userAgent: navigator.userAgent,
-      maxTouchPoints: navigator.maxTouchPoints || 0,
-      dismissed: readDismissed(storage),
-    });
-    if (!next) return undefined;
-    setStore(next);
     const ask = navigator.getInstalledRelatedApps;
-    if (typeof ask !== 'function') return () => { cancel = true; };
+    if (typeof ask !== 'function') return undefined;
     ask.call(navigator).then((apps) => {
       if (!cancel && relatedAppInstalled(apps)) setStore(null);
     }).catch(() => {});
     return () => { cancel = true; };
-  }, []);
+  }, [store]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = document.documentElement;
     if (!store) {
       root.style.removeProperty('--app-banner-h');
       return undefined;
     }
     const node = bar.current;
-    if (!node || typeof ResizeObserver === 'undefined') return undefined;
+    if (!node) return undefined;
     const apply = () => root.style.setProperty('--app-banner-h', node.offsetHeight + 'px');
     apply();
+    if (typeof ResizeObserver === 'undefined') {
+      return () => root.style.removeProperty('--app-banner-h');
+    }
     const observer = new ResizeObserver(apply);
     observer.observe(node);
     return () => {
