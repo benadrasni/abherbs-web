@@ -82,8 +82,20 @@ img { max-width: 100%; }
 .muted { color: var(--ink-2); }
 .center-msg { padding: 80px 28px; text-align: center; color: var(--ink-2); }
 
-.crumb { padding: 14px 28px 0; font-size: 13px; color: var(--ink-2); }
-.crumb a { display: inline-block; padding: 6px 0; text-decoration: none; border-bottom: 1px solid var(--rule); }
+.crumb {
+  padding: 14px 28px 12px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--ink-2);
+}
+.crumb a {
+  text-decoration-line: underline;
+  text-decoration-color: var(--rule);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-skip-ink: none;
+}
+.crumb .sep { user-select: none; padding: 0 0.35em; }
 .crumb .here { color: var(--ink); }
 
 .spread {

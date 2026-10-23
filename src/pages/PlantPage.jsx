@@ -9,6 +9,7 @@ import {
   photoUrl,
   plateFiles,
   taxonGloss,
+  taxonLabel,
 } from '../api';
 import PlateImage from '../components/PlateImage';
 import FlowerSchema from '../components/FlowerSchema';
@@ -170,23 +171,23 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
         <Link to={withLang('/', lang)}>{t.plants}</Link>
         {order ? (
           <>
-            {' · '}
-            <span>{order}</span>
+            <span className="sep" aria-hidden="true">·</span>
+            <CrumbRank taxonomy={taxonomy} latin={order} />
           </>
         ) : null}
         {family ? (
           <>
-            {' · '}
-            <Link to={familyPath(family, lang)}>{family}</Link>
+            <span className="sep" aria-hidden="true">·</span>
+            <CrumbRank taxonomy={taxonomy} latin={family} to={familyPath(family, lang)} />
           </>
         ) : null}
         {genus ? (
           <>
-            {' · '}
-            <Link to={genusPath(genus, lang)}>{genus}</Link>
+            <span className="sep" aria-hidden="true">·</span>
+            <CrumbRank taxonomy={taxonomy} latin={genus} to={genusPath(genus, lang)} />
           </>
         ) : null}
-        {' · '}
+        <span className="sep" aria-hidden="true">·</span>
         <span className="here latin">{plant.name}</span>
       </div>
 
@@ -561,6 +562,15 @@ function AkaNames({ t, names }) {
       ) : null}
     </div>
   );
+}
+
+function CrumbRank({ taxonomy, latin, to }) {
+  const spoken = taxonLabel(taxonomy, latin);
+  const text = spoken || latin;
+  if (!text) return null;
+  const className = spoken ? undefined : 'ltr';
+  if (to) return <Link className={className} to={to}>{text}</Link>;
+  return <span className={className}>{text}</span>;
 }
 
 function synonymKey(syn, index) {
