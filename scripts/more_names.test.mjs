@@ -121,6 +121,95 @@ test('more names uses 1, 2–4, and 5+ where the language distinguishes them', a
     assert.equal(phrase('ar', 5), `${(5).toLocaleString('ar')} أسماء أخرى`);
     assert.equal(phrase('ar', 11), `${(11).toLocaleString('ar')} اسمًا آخر`);
     assert.equal(phrase('ar', 1), `${(1).toLocaleString('ar')} اسم آخر`);
+
+    const records = (lang, n) => uiText(lang).public_records(n);
+    assert.equal(records('sk', 0), '0 verejných záznamov');
+    assert.equal(records('sk', 1), '1 verejný záznam');
+    assert.equal(records('sk', 2), '2 verejné záznamy');
+    assert.equal(records('sk', 3), '3 verejné záznamy');
+    assert.equal(records('sk', 4), '4 verejné záznamy');
+    assert.equal(records('sk', 5), '5 verejných záznamov');
+    assert.equal(records('sk', 11), '11 verejných záznamov');
+    assert.equal(records('sk', 21), '21 verejných záznamov');
+    assert.equal(records('sk', 22), '22 verejných záznamov');
+    assert.equal(records('en', 1), '1 public record');
+    assert.equal(records('en', 2), '2 public records');
+    assert.equal(records('en', 5), '5 public records');
+    const recordCases = [
+      ['cs', 1, '1 veřejný záznam'],
+      ['cs', 2, '2 veřejné záznamy'],
+      ['cs', 4, '4 veřejné záznamy'],
+      ['cs', 5, '5 veřejných záznamů'],
+      ['cs', 22, '22 veřejných záznamů'],
+      ['pl', 1, '1 publiczny zapis'],
+      ['pl', 2, '2 publiczne zapisy'],
+      ['pl', 5, '5 publicznych zapisów'],
+      ['pl', 12, '12 publicznych zapisów'],
+      ['pl', 21, '21 publicznych zapisów'],
+      ['pl', 22, '22 publiczne zapisy'],
+      ['pl', 24, '24 publiczne zapisy'],
+      ['ru', 1, '1 открытая запись'],
+      ['ru', 2, '2 открытые записи'],
+      ['ru', 5, '5 открытых записей'],
+      ['ru', 11, '11 открытых записей'],
+      ['ru', 21, '21 открытая запись'],
+      ['ru', 22, '22 открытые записи'],
+      ['uk', 1, '1 відкритий запис'],
+      ['uk', 2, '2 відкриті записи'],
+      ['uk', 5, '5 відкритих записів'],
+      ['uk', 11, '11 відкритих записів'],
+      ['uk', 21, '21 відкритий запис'],
+      ['uk', 22, '22 відкриті записи'],
+      ['sl', 1, '1 javni zapis'],
+      ['sl', 2, '2 javna zapisa'],
+      ['sl', 3, '3 javni zapisi'],
+      ['sl', 4, '4 javni zapisi'],
+      ['sl', 5, '5 javnih zapisov'],
+      ['sl', 22, '22 javnih zapisov'],
+      ['sl', 101, '101 javni zapis'],
+      ['sl', 102, '102 javna zapisa'],
+      ['hr', 1, '1 javni zapis'],
+      ['hr', 2, '2 javna zapisa'],
+      ['hr', 4, '4 javna zapisa'],
+      ['hr', 5, '5 javnih zapisa'],
+      ['hr', 11, '11 javnih zapisa'],
+      ['hr', 21, '21 javni zapis'],
+      ['hr', 22, '22 javna zapisa'],
+      ['sr', 1, '1 јавни запис'],
+      ['sr', 2, '2 јавна записа'],
+      ['sr', 5, '5 јавних записа'],
+      ['sr', 21, '21 јавни запис'],
+      ['sr', 22, '22 јавна записа'],
+      ['lt', 1, '1 viešas įrašas'],
+      ['lt', 2, '2 vieši įrašai'],
+      ['lt', 9, '9 vieši įrašai'],
+      ['lt', 10, '10 viešų įrašų'],
+      ['lt', 11, '11 viešų įrašų'],
+      ['lt', 21, '21 viešas įrašas'],
+      ['lt', 22, '22 vieši įrašai'],
+      ['lv', 0, '0 publisku ierakstu'],
+      ['lv', 1, '1 publisks ieraksts'],
+      ['lv', 2, '2 publiski ieraksti'],
+      ['lv', 5, '5 publiski ieraksti'],
+      ['lv', 10, '10 publisku ierakstu'],
+      ['lv', 11, '11 publisku ierakstu'],
+      ['lv', 21, '21 publisks ieraksts'],
+      ['lv', 22, '22 publiski ieraksti'],
+      ['bg', 1, '1 публичен запис'],
+      ['bg', 2, '2 публични записа'],
+      ['bg', 5, '5 публични записа'],
+      ['ar', 2, 'سجلان عامان'],
+      ['ar', 5, `${(5).toLocaleString('ar')} سجلات عامة`],
+      ['ar', 11, `${(11).toLocaleString('ar')} سجلًا عامًا`],
+      ['ar', 101, `${(101).toLocaleString('ar')} سجلات عامة`],
+      ['he', 2, '2 רשומות ציבוריות'],
+      ['ro', 1, '1 înregistrare publică'],
+      ['ro', 2, '2 înregistrări publice'],
+      ['ro', 21, '21 înregistrări publice'],
+    ];
+    for (const [lang, n, expected] of recordCases) {
+      assert.equal(records(lang, n), expected, `${lang} records ${n}`);
+    }
   } finally {
     await close();
   }

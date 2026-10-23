@@ -76,8 +76,7 @@ export function uiText(lang) {
     plants_count: (n) => plural('plants_count', n),
     photo_n: (i, n) => text('photo_n', { i, n }),
     more_names: (n) => plural('more_names', n, 'more_names'),
-    public_records: (n) =>
-      Number(n) === 1 ? text('public_records_one') : text('public_records_other', { n }),
+    public_records: (n) => plural('public_records', n),
     plate_alt: (name) => text('plate_alt', { name }),
     distribution_alt: (name) => text('distribution_alt', { name }),
     about_why_p1: () => text('about_why_p1', { app: catalog.app_name }),
