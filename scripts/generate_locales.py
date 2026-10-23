@@ -685,7 +685,7 @@ NEW = {
     },
     "in_the_field_lede": {
         "en": "Curated photographs of this species. Distinct from the illustration, and from public sightings below.",
-        "sk": "Kurátorované fotografie tohto druhu. Odlišné od ilustrácie aj od verejných pozorovaní nižšie.",
+        "sk": "Overené fotografie tohto druhu (odlišné od verejných pozorovaní nižšie).",
         "cs": "Kurátorované fotografie tohoto druhu. Odlišné od ilustrace i od veřejných pozorování níže.",
         "sl": "Izbrane fotografije te vrste. Ločene od ilustracije in od javnih opažanj spodaj.",
         "hr": "Odabrane fotografije ove vrste. Odvojene od ilustracije i od javnih opažanja ispod.",
