@@ -206,32 +206,18 @@ test('more names uses 1, 2–4, and 5+ where the language distinguishes them', a
       ['ro', 1, '1 înregistrare publică'],
       ['ro', 2, '2 înregistrări publice'],
       ['ro', 21, '21 înregistrări publice'],
+      ['fr', 0, '0 mentions publiques'],
+      ['pt', 0, '0 registos públicos'],
+      ['hi', 0, '0 सार्वजनिक रिकॉर्ड'],
+      ['fa', 0, '۰ رکورد عمومی'],
     ];
     for (const [lang, n, expected] of recordCases) {
       assert.equal(records(lang, n), expected, `${lang} records ${n}`);
     }
-  } finally {
-    await close();
-  }
-});
-
-test('a count of 0 does not use the singular public-record line', async () => {
-  const { uiText, close } = await loadUiText();
-  try {
-    const records = (lang, n) => uiText(lang).public_records(n);
-    const cases = [
-      ['fr', '1 mention publique', '0 mentions publiques'],
-      ['pt', '1 registo público', '0 registos públicos'],
-      ['hi', '1 सार्वजनिक रिकॉर्ड', '0 सार्वजनिक रिकॉर्ड'],
-      ['fa', '۱ رکورد عمومی', '۰ رکورد عمومی'],
-    ];
-    for (const [lang, singular, plural] of cases) {
-      assert.equal(new Intl.PluralRules(lang).select(0), 'one', lang);
-      assert.equal(records(lang, 1), singular, `${lang} 1`);
-      assert.equal(uiText(lang).public_records_one, singular, `${lang} _one`);
-      assert.equal(records(lang, 0), plural, `${lang} 0`);
-      assert.notEqual(records(lang, 0), singular, `${lang} 0 must not use _one`);
-    }
+    // A _one line that interpolates {n} stays in use at 0.
+    assert.equal(uiText('fr').plants_count(0), '0 plante');
+    assert.equal(uiText('pt').plants_count(0), '0 planta');
+    assert.equal(uiText('hi').plants_count(0), '0 पौधा');
   } finally {
     await close();
   }
