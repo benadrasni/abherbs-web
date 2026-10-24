@@ -238,7 +238,7 @@ NEW = {
         "ar": "النباتات", "fa": "گیاهان", "he": "צמחים",
     },
     "identify": {
-        "en": "Identify", "sk": "Určiť", "cs": "Určit", "sl": "Določi", "hr": "Odredi",
+        "en": "Identify", "sk": "Kľúč", "cs": "Určit", "sl": "Določi", "hr": "Odredi",
         "sr": "Одредите", "pl": "Rozpoznaj", "ru": "Определить", "uk": "Визначити", "bg": "Разпознай",
         "de": "Bestimmen", "nl": "Identificeren", "da": "Identificer", "sv": "Identifiera", "no": "Identifiser",
         "fi": "Tunnista", "fr": "Identifier", "es": "Identificar", "it": "Identifica", "pt": "Identificar",
