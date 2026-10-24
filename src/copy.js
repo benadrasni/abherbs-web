@@ -56,7 +56,20 @@ export function uiText(lang) {
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i];
       const template = key === fallback ? raw(key) : own(key);
-      if (template != null) return fill(template);
+      if (template == null) continue;
+      // A _one line with no {n} is the wording for exactly one item (it
+      // often hard-codes "1"). French, Portuguese, Hindi, and Persian
+      // classify 0 as "one", so that line would show "1" for zero
+      // sightings. A _one line that interpolates {n} still follows Intl,
+      // including 21, 31, and 101.
+      if (
+        count !== 1 &&
+        key === `${base}_one` &&
+        !String(template).includes('{n}')
+      ) {
+        continue;
+      }
+      return fill(template);
     }
     const inherited = raw(fallback || `${base}_other`);
     if (inherited != null) return fill(inherited);

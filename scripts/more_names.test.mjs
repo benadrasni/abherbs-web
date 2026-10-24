@@ -214,3 +214,25 @@ test('more names uses 1, 2–4, and 5+ where the language distinguishes them', a
     await close();
   }
 });
+
+test('a count of 0 does not use the singular public-record line', async () => {
+  const { uiText, close } = await loadUiText();
+  try {
+    const records = (lang, n) => uiText(lang).public_records(n);
+    const cases = [
+      ['fr', '1 mention publique', '0 mentions publiques'],
+      ['pt', '1 registo público', '0 registos públicos'],
+      ['hi', '1 सार्वजनिक रिकॉर्ड', '0 सार्वजनिक रिकॉर्ड'],
+      ['fa', '۱ رکورد عمومی', '۰ رکورد عمومی'],
+    ];
+    for (const [lang, singular, plural] of cases) {
+      assert.equal(new Intl.PluralRules(lang).select(0), 'one', lang);
+      assert.equal(records(lang, 1), singular, `${lang} 1`);
+      assert.equal(uiText(lang).public_records_one, singular, `${lang} _one`);
+      assert.equal(records(lang, 0), plural, `${lang} 0`);
+      assert.notEqual(records(lang, 0), singular, `${lang} 0 must not use _one`);
+    }
+  } finally {
+    await close();
+  }
+});
