@@ -206,10 +206,18 @@ test('more names uses 1, 2–4, and 5+ where the language distinguishes them', a
       ['ro', 1, '1 înregistrare publică'],
       ['ro', 2, '2 înregistrări publice'],
       ['ro', 21, '21 înregistrări publice'],
+      ['fr', 0, '0 mentions publiques'],
+      ['pt', 0, '0 registos públicos'],
+      ['hi', 0, '0 सार्वजनिक रिकॉर्ड'],
+      ['fa', 0, '۰ رکورد عمومی'],
     ];
     for (const [lang, n, expected] of recordCases) {
       assert.equal(records(lang, n), expected, `${lang} records ${n}`);
     }
+    // A _one line that interpolates {n} stays in use at 0.
+    assert.equal(uiText('fr').plants_count(0), '0 plante');
+    assert.equal(uiText('pt').plants_count(0), '0 planta');
+    assert.equal(uiText('hi').plants_count(0), '0 पौधा');
   } finally {
     await close();
   }
