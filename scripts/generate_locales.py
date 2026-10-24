@@ -219,6 +219,7 @@ for key in (
 NEW = {
     "about": {
         "en": "About",
+        "sk": "O projekte",
         "da": "Om",
         "sv": "Om",
         "no": "Om",
@@ -1506,7 +1507,7 @@ NEW = {
     "app_name": {
         "en": "What's that flower?",
     },
-    "about": {"en": "About", "hi": "परिचय", "ko": "소개"},
+    "about": {"en": "About", "sk": "O projekte", "hi": "परिचय", "ko": "소개"},
     "help": {
         "en": "Help",
         "zh": "說明",
@@ -1702,7 +1703,7 @@ NEW = {
     },
     "about_headline": {
         "en": "A plant encyclopedia",
-        "sk": "Encyklopédia rastlín",
+        "sk": "Atlas rastlín",
         "cs": "Encyklopedie rostlin",
         "de": "Eine Pflanzenenzyklopädie",
         "fr": "Une encyclopédie des plantes",
@@ -2977,7 +2978,7 @@ NEW = {
     },
     "seo_home": {
         "en": "A plant encyclopedia with 19th-century botanical plates, field photographs, and public sightings.",
-        "sk": "Encyklopédia rastlín s botanickými ilustráciami z 19. storočia, terénnymi fotografiami a verejnými pozorovaniami.",
+        "sk": "Atlas rastlín s botanickými ilustráciami z 19. storočia, terénnymi fotografiami a verejnými pozorovaniami.",
         "cs": "Encyklopedie rostlin s botanickými ilustracemi z 19. století, terénními fotografiemi a veřejnými pozorováními.",
         "de": "Eine Pflanzenenzyklopädie mit botanischen Tafeln des 19. Jahrhunderts, Feldfotos und öffentlichen Beobachtungen.",
         "fr": "Une encyclopédie des plantes avec des planches botaniques du XIXe siècle, des photographies de terrain et des observations publiques.",
