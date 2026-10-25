@@ -2976,6 +2976,14 @@ NEW = {
         "he": "שאלות",
         "ar": "أسئلة",
     },
+    "sister_site": {
+        "en": "What's that mushroom?",
+        "sk": "Aká je to huba?",
+    },
+    "about_sister": {
+        "en": "Mushrooms are a separate field guide:",
+        "sk": "Huby sú samostatný atlas:",
+    },
     "seo_home": {
         "en": "A plant encyclopedia with 19th-century botanical plates, field photographs, and public sightings.",
         "sk": "Atlas rastlín s botanickými ilustráciami z 19. storočia, terénnymi fotografiami a verejnými pozorovaniami.",

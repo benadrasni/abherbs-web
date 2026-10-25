@@ -5,7 +5,8 @@ import Footer from '../components/Footer';
 import PlateImage from '../components/PlateImage';
 import StoreLinks from '../components/StoreLinks';
 import languages from '../languages';
-import { plantPath, withLang, writeLangCookie } from '../lib';
+import { trackSister } from '../analytics';
+import { mushroomUrl, plantPath, withLang, writeLangCookie } from '../lib';
 
 const ABOUT_PLANT = 'Bellis perennis';
 const SUPPORT_EMAIL = 'support@whatsthatflower.com';
@@ -256,6 +257,11 @@ export default function AboutPage({ lang, t, headers }) {
           {t.about_contact}
           {': '}
           <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+        </p>
+        <p className="about-sister">
+          {t.about_sister}
+          {' '}
+          <a href={mushroomUrl(lang)} onClick={() => trackSister('about')}>{t.sister_site}</a>
         </p>
       </section>
 

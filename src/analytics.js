@@ -287,6 +287,19 @@ export function trackStore(store) {
   });
 }
 
+/** A tap on the sister field guide. Kept off store_click so that key event stays the flower app. */
+export function trackSister(place) {
+  if (!ready()) return;
+  const where = String(place || '').trim().slice(0, 24);
+  window.gtag('event', 'sister_click', {
+    link_domain: 'whatsthatmushroom.app',
+    ...(where ? { link_place: where } : {}),
+    page_path: window.location.pathname,
+    transport_type: 'beacon',
+    send_to: GA_ID,
+  });
+}
+
 async function readRegion() {
   const response = await fetch('/cdn-cgi/trace', { cache: 'no-store', credentials: 'omit' });
   if (!response.ok) return '';

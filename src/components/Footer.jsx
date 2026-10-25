@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { withLang } from '../lib';
+import { trackSister } from '../analytics';
+import { mushroomUrl, withLang } from '../lib';
 
 export default function Footer({ lang, t, extra }) {
   return (
@@ -13,6 +14,8 @@ export default function Footer({ lang, t, extra }) {
         <Link to={withLang('/help', lang)}>{t.help}</Link>
         {' · '}
         <Link to={withLang('/privacy', lang)}>{t.privacy}</Link>
+        {' · '}
+        <a href={mushroomUrl(lang)} onClick={() => trackSister('footer')}>{t.sister_site}</a>
       </span>
     </footer>
   );

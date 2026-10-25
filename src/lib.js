@@ -1,5 +1,7 @@
 import { illustrationFromHeaderUrl } from './api';
 
+export { MUSHROOM_ORIGIN, mushroomUrl } from './mushroomLink.mjs';
+
 export const PLAY_URL = 'https://play.google.com/store/apps/details?id=sk.ab.herbs';
 export const APP_STORE_URL = 'https://apps.apple.com/us/app/whats-that-flower/id1449982118';
 const POWO_TAXON = 'https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:';
