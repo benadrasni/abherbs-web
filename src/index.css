@@ -607,7 +607,13 @@ a.lang-chip:hover, a.lang-chip.on { border-color: var(--ink); }
 }
 .list-line {
   display: grid;
-  grid-template-columns: repeat(var(--list-n, 4), minmax(216px, 1fr));
+  /* First line is the fallback. The next matches Recently added:
+     seven across, 148px floor. Fewer than seven lists fill the row. */
+  grid-template-columns: repeat(var(--list-n, 4), minmax(148px, 1fr));
+  grid-template-columns: repeat(
+    var(--list-n, 4),
+    minmax(max(148px, calc(100% / min(var(--list-n, 4), 7))), 1fr)
+  );
   overflow-x: auto;
   overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch;
