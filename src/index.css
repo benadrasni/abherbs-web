@@ -607,13 +607,10 @@ a.lang-chip:hover, a.lang-chip.on { border-color: var(--ink); }
 }
 .list-line {
   display: grid;
-  /* First line is the fallback. The next matches Recently added:
-     seven across, 148px floor. Fewer than seven lists fill the row. */
+  /* First line is the fallback. Each list plate matches one Recently
+     added plate: seven across, 148px floor, and it does not grow. */
   grid-template-columns: repeat(var(--list-n, 4), minmax(148px, 1fr));
-  grid-template-columns: repeat(
-    var(--list-n, 4),
-    minmax(max(148px, calc(100% / min(var(--list-n, 4), 7))), 1fr)
-  );
+  grid-template-columns: repeat(var(--list-n, 4), max(148px, calc(100% / 7)));
   overflow-x: auto;
   overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch;
