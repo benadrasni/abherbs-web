@@ -29,6 +29,7 @@ import {
   groupByAddedDate,
   plantPath,
   recentAddsFromLists,
+  spokenName,
   withLang,
 } from '../lib';
 
@@ -239,11 +240,12 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
                 );
               }
               const familyCommon = taxonLabel(taxonomy, h.family);
+              const spoken = spokenName(h.label, h.name);
               return (
                 <Link key={h.name} className="result" to={plantPath(h.name, lang)}>
                   <span>
-                    <b>{h.label || h.name}</b>
-                    <span className="latin"> {h.name}</span>
+                    <b className={spoken ? undefined : 'latin'}>{spoken || h.name}</b>
+                    {spoken ? <span className="latin"> {h.name}</span> : null}
                   </span>
                   <span className="muted">{familyCommon ? displayName(familyCommon) : h.family}</span>
                 </Link>

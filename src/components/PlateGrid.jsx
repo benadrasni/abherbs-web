@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import PlateImage from './PlateImage';
 import { familyIconUrl, taxonLabel } from '../api';
-import { displayName, genusOf, genusPath, headerPlateRel, listPath, plantPath } from '../lib';
+import { displayName, genusOf, genusPath, headerPlateRel, listPath, plantPath, spokenName } from '../lib';
 
 export function PlateCell({ item, lang, genusLabel, taxonomy, genusWord, onOpen }) {
   if (item.genus) {
@@ -21,14 +21,15 @@ export function PlateCell({ item, lang, genusLabel, taxonomy, genusWord, onOpen 
   }
   const taxon = genusLabel ? genusOf(item.name) : item.family;
   const common = taxonLabel(taxonomy, taxon);
+  const spoken = spokenName(item.label, item.name);
   return (
     <Link className="cell" to={plantPath(item.name, lang)} onClick={() => onOpen && onOpen(item)}>
       <div className="art">
         <PlateImage rel={headerPlateRel(item)} preferred="grid" alt="" />
       </div>
       {item.state ? <div className="year state">{item.state}</div> : item.year ? <div className="year">{item.year}</div> : null}
-      <div className="n">{displayName(item.label, item.name)}</div>
-      <div className="l latin">{item.name}</div>
+      <div className={spoken ? 'n' : 'n latin'}>{spoken || item.name}</div>
+      {spoken ? <div className="l latin">{item.name}</div> : null}
       <div className="g">{common ? displayName(common) : taxon}</div>
     </Link>
   );

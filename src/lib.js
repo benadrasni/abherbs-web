@@ -255,6 +255,8 @@ export function displayName(label, fallback) {
   return (label || fallback || '').trim();
 }
 
+export { spokenName } from './spokenName.mjs';
+
 export function genusOf(name) {
   if (!name) return '';
   return name.split(' ')[0];

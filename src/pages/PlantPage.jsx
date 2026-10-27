@@ -24,7 +24,6 @@ import {
   countByCountry,
   countryName,
   decodeRouteParam,
-  displayName,
   familyPath,
   formatFlowering,
   formatHeight,
@@ -35,6 +34,7 @@ import {
   mergeSynonyms,
   publicObservations,
   rankValue,
+  spokenName,
   toxicityLabel,
   withLang,
   youtubeId,
@@ -114,7 +114,10 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
       tag.setAttribute('content', t.seo_home);
       return;
     }
-    const title = `${displayName(text.label, plant.name)} (${plant.name}) — ${t.app_name}`;
+    const spoken = spokenName(text.label, plant.name);
+    const title = spoken
+      ? `${spoken} (${plant.name}) — ${t.app_name}`
+      : `${plant.name} — ${t.app_name}`;
     document.title = title;
     const desc = String(text.description || t.app_short).replace(/<\/?b>/g, '');
     tag.setAttribute('content', desc.slice(0, 240));
@@ -164,6 +167,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
   const probeMap = Boolean(distSrc) && !mapFailed;
   const sourceList = groupedSources.name.concat(groupedSources.text, groupedSources.images);
   const video = (plant.videoUrls || []).map(youtubeId).filter(Boolean)[0];
+  const spoken = spokenName(text.label, plant.name);
 
   return (
     <div className="page">
@@ -215,10 +219,19 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
             {family && order ? ' · ' : ''}
             {order}
           </div>
-          <h1 className="common">{displayName(text.label, plant.name)}</h1>
-          <div className="binomen latin">
-            {plant.name} <span className="author">{plant.author || ''}</span>
-          </div>
+          {spoken ? (
+            <>
+              <h1 className="common">{spoken}</h1>
+              <div className="binomen latin">
+                {plant.name} <span className="author">{plant.author || ''}</span>
+              </div>
+            </>
+          ) : (
+            <h1 className="common latin">
+              {plant.name}
+              {plant.author ? <> <span className="author">{plant.author}</span></> : null}
+            </h1>
+          )}
           <AkaNames t={t} names={text.names} />
           <div className="facts">
             <div className="fact">

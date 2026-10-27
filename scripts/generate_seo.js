@@ -296,6 +296,7 @@ function sitemapXml(entries) {
 
 async function main() {
   const { taxonLabel } = await import('../src/taxonNames.mjs');
+  const { spokenName } = await import('../src/spokenName.mjs');
   appleSmartBanner = (await import('../src/appLink.mjs')).appleSmartBanner;
   const templatePath = path.join(BUILD, 'index.html');
   if (!fs.existsSync(templatePath)) {
@@ -388,8 +389,9 @@ async function main() {
     plants.forEach((header) => {
       const name = header.name;
       const text = pack.translations[name] || {};
-      const label = displayName(text.label || labelFor(header, pack.labels), name);
-      const title = label + ' (' + name + ') — ' + app;
+      const spoken = spokenName(text.label || labelFor(header, pack.labels), name);
+      const titled = spoken ? spoken + ' (' + name + ')' : name;
+      const title = titled + ' — ' + app;
       const description = stripText(text.description || title).slice(0, 240);
       const url = pageUrl(lang, ['plant', name]);
       const image = plateUrl(header);
@@ -402,7 +404,7 @@ async function main() {
           '@context': 'https://schema.org',
           '@type': 'Taxon',
           name,
-          alternateName: text.label || undefined,
+          alternateName: spoken || undefined,
           description,
           taxonRank: 'Species',
           inLanguage: lang,
@@ -414,10 +416,10 @@ async function main() {
         },
         noscript:
           '<h1>' +
-          escapeHtml(label) +
-          '</h1><p><i>' +
-          escapeHtml(name) +
-          '</i></p><p>' +
+          escapeHtml(spoken || name) +
+          '</h1>' +
+          (spoken ? '<p><i>' + escapeHtml(name) + '</i></p>' : '') +
+          '<p>' +
           escapeHtml(description) +
           '</p>',
       });

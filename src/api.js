@@ -225,7 +225,7 @@ export async function loadPlantText(lang, name) {
   const fallback = code !== 'en' && !hasIdentification(primary) ? english : null;
   const label = primary && typeof primary.label === 'string' ? primary.label.trim() : '';
   const text = {
-    label: label || name,
+    label,
     names: primary && Array.isArray(primary.names) ? primary.names : [],
     wikipedia: pickField('wikipedia', primary, fallback),
     sourceUrls: (primary && primary.sourceUrls && primary.sourceUrls.length)
