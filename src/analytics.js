@@ -288,11 +288,12 @@ export function trackStore(store) {
 }
 
 /** A tap on the sister field guide. Kept off store_click so that key event stays the flower app. */
-export function trackSister(place) {
+export function trackSister(place, domain) {
   if (!ready()) return;
   const where = String(place || '').trim().slice(0, 24);
+  const host = String(domain || 'whatsthatmushroom.app').trim().slice(0, 80);
   window.gtag('event', 'sister_click', {
-    link_domain: 'whatsthatmushroom.app',
+    link_domain: host,
     ...(where ? { link_place: where } : {}),
     page_path: window.location.pathname,
     transport_type: 'beacon',

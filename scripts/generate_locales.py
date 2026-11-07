@@ -1155,17 +1155,17 @@ NEW = {
         "he": "רשום באפליקציה",
     },
     "get_the_app": {
-        "en": "Identify in the app", "sk": "Určovanie v aplikácii", "cs": "Určování v aplikaci",
-        "sl": "Določanje v aplikaciji", "hr": "Odredi u aplikaciji", "sr": "Одређивање у апликацији",
-        "pl": "Rozpoznawanie w aplikacji", "ru": "Определение в приложении", "uk": "Визначення в застосунку",
-        "bg": "Разпознаване в приложението", "de": "Bestimmen in der App", "nl": "Identificeren in de app",
-        "da": "Identificer i appen", "sv": "Identifiera i appen", "no": "Identifiser i appen",
-        "fi": "Tunnista sovelluksessa", "fr": "Identifier dans l’appli", "es": "Identificar en la app",
-        "it": "Identifica nell’app", "pt": "Identificar na app", "ro": "Identifică în aplicație",
-        "hu": "Azonosítás az alkalmazásban", "et": "Määra rakenduses", "lv": "Noteikt lietotnē",
-        "lt": "Nustatyti programėlėje", "ja": "アプリで識別", "ko": "앱에서 식별", "zh": "在應用程式中辨識",
-        "hi": "ऐप में पहचानें", "ar": "التعرّف في التطبيق", "fa": "شناسایی در برنامه",
-        "he": "זיהוי באפליקציה",
+        "en": "Identify plant in the app", "sk": "Určovanie rastliny v aplikácii", "cs": "Určování rostliny v aplikaci",
+        "sl": "Določanje rastline v aplikaciji", "hr": "Odredi biljku u aplikaciji", "sr": "Одређивање биљке у апликацији",
+        "pl": "Rozpoznawanie rośliny w aplikacji", "ru": "Определение растения в приложении", "uk": "Визначення рослини в застосунку",
+        "bg": "Разпознаване на растение в приложението", "de": "Pflanze in der App bestimmen", "nl": "Plant identificeren in de app",
+        "da": "Identificer planten i appen", "sv": "Identifiera växten i appen", "no": "Identifiser planten i appen",
+        "fi": "Tunnista kasvi sovelluksessa", "fr": "Identifier la plante dans l’appli", "es": "Identificar la planta en la app",
+        "it": "Identifica la pianta nell’app", "pt": "Identificar a planta na app", "ro": "Identifică planta în aplicație",
+        "hu": "Növény azonosítása az alkalmazásban", "et": "Määra taim rakenduses", "lv": "Noteikt augu lietotnē",
+        "lt": "Nustatyti augalą programėlėje", "ja": "アプリで植物を識別", "ko": "앱에서 식물 식별", "zh": "在應用程式中辨識植物",
+        "hi": "ऐप में पौधे की पहचान करें", "ar": "التعرّف على النبات في التطبيق", "fa": "شناسایی گیاه در برنامه",
+        "he": "זיהוי צמח באפליקציה",
     },
     "get_lede": {
         "en": "Name a plant from a photo, or follow color, habitat, and petals. Seen keeps the plants you find.",
@@ -3471,9 +3471,25 @@ def apply_privacy_strings():
             NEW.setdefault(key, {})[lang] = text
 
 
+def apply_guide_pair():
+    """Titles and mushroom-site copy for the paired app section."""
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "guide_pair.json")
+    with open(path, encoding="utf-8") as handle:
+        data = json.load(handle)
+    required = set(WEB_TO_ARB)
+    for key, by_lang in data.items():
+        if not isinstance(by_lang, dict) or set(by_lang) != required:
+            raise SystemExit("guide pair langs differ for " + key)
+        for lang, text in by_lang.items():
+            if not isinstance(text, str) or not text.strip():
+                raise SystemExit("guide pair empty " + lang + "." + key)
+        NEW.setdefault(key, {}).update(by_lang)
+
+
 def main():
     apply_ux_overlay()
     apply_privacy_strings()
+    apply_guide_pair()
     langs = ["en"] + [c for c in WEB_TO_ARB if c != "en"]
     catalogs = {lang: {} for lang in langs}
     if not os.path.isdir(ARB_DIR):

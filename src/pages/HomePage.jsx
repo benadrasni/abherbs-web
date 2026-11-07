@@ -14,7 +14,7 @@ import {
 import { trackSearch } from '../analytics';
 import Footer from '../components/Footer';
 import { ListCell, PlateCell } from '../components/PlateGrid';
-import StoreLinks from '../components/StoreLinks';
+import GuidePair from '../components/GuidePair';
 import TaxonTile from '../components/TaxonTile';
 import {
   catalogHold,
@@ -348,12 +348,7 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
       )}
 
       <section className="band identify-band">
-        <h2>{t.get_the_app}</h2>
-        <p className="lede">{t.get_lede}</p>
-        <p>
-          <Link to={withLang('/identify', lang)}>{t.about_identify_here}</Link>
-        </p>
-        <StoreLinks t={t} />
+        <GuidePair lang={lang} t={t} place="home" />
       </section>
 
       <Footer lang={lang} t={t} extra={hold ? undefined : t.plants_count(headers.length)} />

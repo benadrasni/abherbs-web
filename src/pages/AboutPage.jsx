@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 import { loadPlant, photoUrl } from '../api';
 import Footer from '../components/Footer';
 import PlateImage from '../components/PlateImage';
-import StoreLinks from '../components/StoreLinks';
+import GuidePair from '../components/GuidePair';
 import languages from '../languages';
-import { trackSister } from '../analytics';
-import { mushroomUrl, plantPath, withLang, writeLangCookie } from '../lib';
+import { plantPath, withLang, writeLangCookie } from '../lib';
 
 const ABOUT_PLANT = 'Bellis perennis';
 const SUPPORT_EMAIL = 'support@whatsthatflower.com';
@@ -247,21 +246,11 @@ export default function AboutPage({ lang, t, headers }) {
       </section>
 
       <section className="band identify-band">
-        <h2>{t.get_the_app}</h2>
-        <p className="lede">{t.about_app_lede}</p>
-        <p>
-          <Link to={withLang('/identify', lang)}>{t.about_identify_here}</Link>
-        </p>
-        <StoreLinks t={t} />
+        <GuidePair lang={lang} t={t} place="about" />
         <p className="about-contact">
           {t.about_contact}
           {': '}
           <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
-        </p>
-        <p className="about-sister">
-          {t.about_sister}
-          {' '}
-          <a href={mushroomUrl(lang)} onClick={() => trackSister('about')}>{t.sister_site}</a>
         </p>
       </section>
 

@@ -710,6 +710,14 @@ a.lang-chip:hover, a.lang-chip.on { border-color: var(--ink); }
 .identify-band h2 { font-family: Fraunces, Georgia, serif; font-weight: 520; font-size: 28px; margin: 0 0 10px; }
 .identify-band .lede { margin-bottom: 0; }
 .identify-band a { color: var(--madder); }
+.guide-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 48px;
+  row-gap: 32px;
+  align-items: start;
+}
+.guide-pair .lede { max-width: none; }
 
 .identify-split {
   display: grid;
@@ -1387,6 +1395,7 @@ html.ga-ask body { padding-bottom: var(--ga-banner-h, 120px); }
   .aside { margin-top: 16px; }
 }
 @media (max-width: 860px) {
+  .guide-pair { grid-template-columns: 1fr; }
   .spread { grid-template-columns: 1fr; }
   .plate {
     position: relative;

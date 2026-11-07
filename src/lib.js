@@ -1,6 +1,12 @@
 import { illustrationFromHeaderUrl } from './api';
 
-export { MUSHROOM_ORIGIN, mushroomUrl } from './mushroomLink.mjs';
+export {
+  MUSHROOM_APP_STORE_URL,
+  MUSHROOM_ORIGIN,
+  MUSHROOM_PLAY_URL,
+  mushroomIdentifyUrl,
+  mushroomUrl,
+} from './mushroomLink.mjs';
 
 export const PLAY_URL = 'https://play.google.com/store/apps/details?id=sk.ab.herbs';
 export const APP_STORE_URL = 'https://apps.apple.com/us/app/whats-that-flower/id1449982118';
