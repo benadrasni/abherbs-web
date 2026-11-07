@@ -14,7 +14,7 @@ export default function GuidePair({ lang, t, place }) {
       <div className="guide-card">
         <h2>{t.get_the_app}</h2>
         <p className="lede">{t.get_lede}</p>
-        <p>
+        <p className="guide-link">
           <Link to={withLang('/identify', lang)}>{t.about_identify_here}</Link>
         </p>
         <StoreLinks t={t} />
@@ -22,7 +22,7 @@ export default function GuidePair({ lang, t, place }) {
       <div className="guide-card">
         <h2>{t.mushroom_app}</h2>
         <p className="lede">{t.mushroom_lede}</p>
-        <p>
+        <p className="guide-link">
           <a href={mushroomIdentifyUrl(lang)} onClick={() => trackSister(place)}>{t.mushroom_open}</a>
         </p>
         <StoreLinks

@@ -26,9 +26,10 @@ test('the paired app section names both guides', () => {
   const catalogs = JSON.parse(fs.readFileSync(new URL('../src/locales.json', import.meta.url), 'utf8'));
   assert.equal(catalogs.en.get_the_app, 'Identify plant in the app');
   assert.equal(catalogs.en.mushroom_app, 'Identify mushroom in the app');
-  assert.equal(catalogs.en.mushroom_open, 'Open the key');
+  assert.equal(catalogs.en.mushroom_open, 'Identify on mushrooms site');
   assert.match(catalogs.de.mushroom_lede, /Unterseite/);
-  assert.equal(catalogs.sk.mushroom_open, 'Otvoriť kľúč');
+  assert.equal(catalogs.sk.mushroom_open, 'Určovať na webe húb');
+  assert.equal(catalogs.de.mushroom_open, 'Bestimmen auf der Pilzseite');
   assert.notEqual(catalogs.ja.mushroom_app, catalogs.en.mushroom_app);
   assert.equal(catalogs.id.get_the_app, 'Kenali tumbuhan di aplikasi');
   assert.equal(catalogs.tr.mushroom_app, 'Uygulamada mantar tanımla');

@@ -714,10 +714,19 @@ a.lang-chip:hover, a.lang-chip.on { border-color: var(--ink); }
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   column-gap: 48px;
-  row-gap: 32px;
+  row-gap: 12px;
+}
+.guide-card {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 4;
   align-items: start;
 }
-.guide-pair .lede { max-width: none; }
+.guide-pair h2,
+.guide-pair .lede,
+.guide-pair .guide-link,
+.guide-pair .stores { margin: 0; }
+.guide-pair .lede { max-width: 34em; min-height: 2lh; }
 
 .identify-split {
   display: grid;
@@ -1396,6 +1405,7 @@ html.ga-ask body { padding-bottom: var(--ga-banner-h, 120px); }
 }
 @media (max-width: 860px) {
   .guide-pair { grid-template-columns: 1fr; }
+  .guide-card + .guide-card { margin-top: 20px; }
   .spread { grid-template-columns: 1fr; }
   .plate {
     position: relative;
