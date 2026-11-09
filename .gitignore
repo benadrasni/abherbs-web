@@ -19,6 +19,5 @@
 npm-debug.log*
 *.iml
 
-/public/app-ads.txt
 public/firebase.config.js
 
