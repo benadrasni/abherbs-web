@@ -115,13 +115,17 @@ export default function ListPage({ lang, t, headersById, labels, taxonomy, statu
           {hold ?? `${t.list_lede}${loaded ? ` ${t.plants_count(items.length)}` : ''}`}
         </p>
       </div>
-      {hold ? (
-        <p className="center-msg">{hold}</p>
-      ) : items.length ? (
-        <PlateGrid items={items} lang={lang} taxonomy={taxonomy} genusWord={t.genus} />
-      ) : loaded ? (
-        <p className="center-msg">{t.empty_list}</p>
-      ) : null}
+      <div className={hold || !loaded ? 'pending-slot' : undefined}>
+        {hold ? (
+          <p className="center-msg">{hold}</p>
+        ) : items.length ? (
+          <PlateGrid items={items} lang={lang} taxonomy={taxonomy} genusWord={t.genus} />
+        ) : loaded ? (
+          <p className="center-msg">{t.empty_list}</p>
+        ) : (
+          <p className="center-msg">{t.loading}</p>
+        )}
+      </div>
       <Footer lang={lang} t={t} />
     </div>
   );

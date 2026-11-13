@@ -68,6 +68,9 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
     loadNewPlantLists()
       .then((data) => {
         if (live) setNewLists(data && typeof data === 'object' ? data : {});
+      })
+      .catch(() => {
+        if (live) setNewLists({});
       });
     return () => {
       live = false;
@@ -76,10 +79,12 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
 
   useEffect(() => {
     let live = true;
-    setLanguageLists(null);
     loadLanguageLists(lang)
       .then((data) => {
         if (live) setLanguageLists(data && typeof data === 'object' ? data : {});
+      })
+      .catch(() => {
+        if (live) setLanguageLists({});
       });
     return () => {
       live = false;
@@ -203,6 +208,9 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
   };
 
   const hold = catalogHold(status, t);
+  // Recent rows and lists arrive on their own requests. Painting the cards
+  // before those rows exist lets the rows insert above them.
+  const homeReady = status === 'ready' && newLists != null && languageLists != null;
 
   return (
     <div className="page">
@@ -215,7 +223,7 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
             aria-label={t.search_placeholder}
           />
         </div>
-        <div className="plants-count">{hold ?? t.plants_count(headers.length)}</div>
+        <div className="plants-count">{homeReady ? t.plants_count(headers.length) : (hold || t.loading)}</div>
       </div>
       {status === 'ready' && q.trim().length >= 2 ? (
         <div className="results" onClick={flushSearch}>
@@ -257,101 +265,112 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
         </div>
       ) : null}
 
-      {recentGroups.length ? (
-        <section className="band">
-          <div className="band-h">
-            <h2>{t.recently_added}</h2>
-          </div>
-          <div
-            className="recent-line"
-            style={{
-              '--recent-n': String(recentGroups.reduce((n, group) => n + group.items.length, 0)),
-            }}
-          >
-            {recentGroups.map((group) => (
-              <h3
-                key={group.date}
-                className="recent-date"
-                style={{ gridColumn: `span ${group.items.length}` }}
+      {homeReady ? (
+        <>
+          {recentGroups.length ? (
+            <section className="band">
+              <div className="band-h">
+                <h2>{t.recently_added}</h2>
+              </div>
+              <div
+                className="recent-line"
+                style={{
+                  '--recent-n': String(recentGroups.reduce((n, group) => n + group.items.length, 0)),
+                }}
               >
-                {formatAddedDate(group.date, lang, t)}
-              </h3>
-            ))}
-            {recentGroups.flatMap((group) =>
-              group.items.map((item) => (
-                <PlateCell key={item.name} item={item} lang={lang} taxonomy={taxonomy} />
-              ))
-            )}
-          </div>
-        </section>
-      ) : null}
+                {recentGroups.map((group) => (
+                  <h3
+                    key={group.date}
+                    className="recent-date"
+                    style={{ gridColumn: `span ${group.items.length}` }}
+                  >
+                    {formatAddedDate(group.date, lang, t)}
+                  </h3>
+                ))}
+                {recentGroups.flatMap((group) =>
+                  group.items.map((item) => (
+                    <PlateCell key={item.name} item={item} lang={lang} taxonomy={taxonomy} />
+                  ))
+                )}
+              </div>
+            </section>
+          ) : null}
 
-      {customLists.length ? (
-        <section className="band">
-          <div className="band-h">
-            <h2>{t.lists}</h2>
-          </div>
-          <div className="list-line" style={{ '--list-n': String(customLists.length) }}>
-            {customLists.map((list) => (
-              <ListCell key={list.name} list={list} lang={lang} t={t} />
-            ))}
-          </div>
-        </section>
-      ) : null}
+          {customLists.length ? (
+            <section className="band">
+              <div className="band-h">
+                <h2>{t.lists}</h2>
+              </div>
+              <div className="list-line" style={{ '--list-n': String(customLists.length) }}>
+                {customLists.map((list) => (
+                  <ListCell key={list.name} list={list} lang={lang} t={t} />
+                ))}
+              </div>
+            </section>
+          ) : null}
 
-      {hold ? (
-        <p className="center-msg">{hold}</p>
+          <section className="band">
+            <div className="band-h">
+              <h2>{t.browse}</h2>
+            </div>
+            <div className="browse-block">
+              <div className="band-h">
+                <h3 className="kicker">{t.by_family}</h3>
+                <Link to={withLang('/families', lang)}>{t.see_all}</Link>
+              </div>
+              <div className="tiles">
+                {families.slice(0, 12).map((f) => (
+                  <TaxonTile
+                    key={f.name}
+                    to={familyPath(f.name, lang)}
+                    name={f.name}
+                    label={taxonLabel(taxonomy, f.name)}
+                    count={f.count}
+                    t={t}
+                    iconSrc={familyIconUrl(f.name)}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="browse-block">
+              <div className="band-h">
+                <h3 className="kicker">{t.by_genus}</h3>
+                <Link to={withLang('/genera', lang)}>{t.see_all_genera}</Link>
+              </div>
+              <div className="tiles">
+                {genera.slice(0, 12).map((g) => (
+                  <TaxonTile
+                    key={g.name}
+                    to={genusPath(g.name, lang)}
+                    name={g.name}
+                    label={taxonLabel(taxonomy, g.name)}
+                    count={g.count}
+                    t={t}
+                    italicLatin
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="band identify-band">
+            <GuidePair lang={lang} t={t} place="home" />
+          </section>
+        </>
+      ) : status === 'error' ? (
+        <>
+          <p className="center-msg">{hold}</p>
+          <section className="band identify-band">
+            <GuidePair lang={lang} t={t} place="home" />
+          </section>
+        </>
       ) : (
-        <section className="band">
-          <div className="band-h">
-            <h2>{t.browse}</h2>
-          </div>
-          <div className="browse-block">
-            <div className="band-h">
-              <h3 className="kicker">{t.by_family}</h3>
-              <Link to={withLang('/families', lang)}>{t.see_all}</Link>
-            </div>
-            <div className="tiles">
-              {families.slice(0, 12).map((f) => (
-                <TaxonTile
-                  key={f.name}
-                  to={familyPath(f.name, lang)}
-                  name={f.name}
-                  label={taxonLabel(taxonomy, f.name)}
-                  count={f.count}
-                  t={t}
-                  iconSrc={familyIconUrl(f.name)}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="browse-block">
-            <div className="band-h">
-              <h3 className="kicker">{t.by_genus}</h3>
-              <Link to={withLang('/genera', lang)}>{t.see_all_genera}</Link>
-            </div>
-            <div className="tiles">
-              {genera.slice(0, 12).map((g) => (
-                <TaxonTile
-                  key={g.name}
-                  to={genusPath(g.name, lang)}
-                  name={g.name}
-                  label={taxonLabel(taxonomy, g.name)}
-                  count={g.count}
-                  t={t}
-                  italicLatin
-                />
-              ))}
-            </div>
-          </div>
-        </section>
+        <div className="pending-slot">
+          <p className="center-msg">{t.loading}</p>
+        </div>
       )}
 
-      <section className="band identify-band">
-        <GuidePair lang={lang} t={t} place="home" />
-      </section>
-
-      <Footer lang={lang} t={t} extra={hold ? undefined : t.plants_count(headers.length)} />
+      <Footer lang={lang} t={t} extra={homeReady ? t.plants_count(headers.length) : undefined} />
     </div>
   );
 }

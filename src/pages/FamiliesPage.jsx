@@ -29,25 +29,27 @@ export default function FamiliesPage({ lang, t, headers, taxonomy, status }) {
         </div>
         <div className="muted">{hold ?? families.length}</div>
       </div>
-      {hold ? (
-        <p className="center-msg">{hold}</p>
-      ) : (
-        <section className="band">
-          <div className="tiles">
-            {families.map((f) => (
-              <TaxonTile
-                key={f.name}
-                to={familyPath(f.name, lang)}
-                name={f.name}
-                label={taxonLabel(taxonomy, f.name)}
-                count={f.count}
-                t={t}
-                iconSrc={familyIconUrl(f.name)}
-              />
-            ))}
-          </div>
-        </section>
-      )}
+      <div className={hold ? 'pending-slot' : undefined}>
+        {hold ? (
+          <p className="center-msg">{hold}</p>
+        ) : (
+          <section className="band">
+            <div className="tiles">
+              {families.map((f) => (
+                <TaxonTile
+                  key={f.name}
+                  to={familyPath(f.name, lang)}
+                  name={f.name}
+                  label={taxonLabel(taxonomy, f.name)}
+                  count={f.count}
+                  t={t}
+                  iconSrc={familyIconUrl(f.name)}
+                />
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
       <Footer lang={lang} t={t} />
     </div>
   );

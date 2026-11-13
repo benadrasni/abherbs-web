@@ -105,6 +105,7 @@ img { max-width: 100%; }
   border-bottom: 1px solid var(--rule);
 }
 .plate {
+  --plate-max-h: calc(100vh - var(--bar-h) - var(--app-banner-h, 0px) - 72px);
   background: #f4efe4;
   border-inline-end: 1px solid var(--rule);
   display: flex;
@@ -122,17 +123,21 @@ img { max-width: 100%; }
   background: transparent;
   padding: 0;
   cursor: zoom-in;
+  width: 100%;
   max-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+/* 2:3 box is known before the file arrives, so the text below does not jump. */
 .plate img {
-  max-height: calc(100vh - var(--bar-h) - var(--app-banner-h, 0px) - 72px);
-  max-width: 100%;
-  width: auto;
+  aspect-ratio: 2 / 3;
+  width: min(100%, calc(var(--plate-max-h) * 2 / 3));
   height: auto;
+  max-width: 100%;
+  max-height: var(--plate-max-h);
   object-fit: contain;
+  display: block;
 }
 .plate .cap {
   position: absolute;
@@ -398,8 +403,13 @@ img { max-width: 100%; }
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   max-height: 100%;
   text-decoration: none;
+}
+.pending-slot {
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 .about-facts {
   margin: 8px 28px 0;
@@ -1408,6 +1418,7 @@ html.ga-ask body { padding-bottom: var(--ga-banner-h, 120px); }
   .guide-card + .guide-card { margin-top: 20px; }
   .spread { grid-template-columns: 1fr; }
   .plate {
+    --plate-max-h: min(70vh, 520px);
     position: relative;
     top: auto;
     height: auto;
@@ -1415,7 +1426,6 @@ html.ga-ask body { padding-bottom: var(--ga-banner-h, 120px); }
     border-inline-end: 0;
     border-bottom: 1px solid var(--rule);
   }
-  .plate img { max-height: min(70vh, 520px); }
   .copy { padding: 24px 20px 32px; }
   .site-bar, .wrap, .band, .crumb, .home-hero, .plants-bar { padding-left: 16px; padding-right: 16px; }
   .about-facts { margin-left: 16px; margin-right: 16px; }

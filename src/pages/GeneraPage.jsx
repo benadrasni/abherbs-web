@@ -29,25 +29,27 @@ export default function GeneraPage({ lang, t, headers, taxonomy, status }) {
         </div>
         <div className="muted">{hold ?? genera.length}</div>
       </div>
-      {hold ? (
-        <p className="center-msg">{hold}</p>
-      ) : (
-        <section className="band">
-          <div className="tiles">
-            {genera.map((g) => (
-              <TaxonTile
-                key={g.name}
-                to={genusPath(g.name, lang)}
-                name={g.name}
-                label={taxonLabel(taxonomy, g.name)}
-                count={g.count}
-                t={t}
-                italicLatin
-              />
-            ))}
-          </div>
-        </section>
-      )}
+      <div className={hold ? 'pending-slot' : undefined}>
+        {hold ? (
+          <p className="center-msg">{hold}</p>
+        ) : (
+          <section className="band">
+            <div className="tiles">
+              {genera.map((g) => (
+                <TaxonTile
+                  key={g.name}
+                  to={genusPath(g.name, lang)}
+                  name={g.name}
+                  label={taxonLabel(taxonomy, g.name)}
+                  count={g.count}
+                  t={t}
+                  italicLatin
+                />
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
       <Footer lang={lang} t={t} />
     </div>
   );

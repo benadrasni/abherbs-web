@@ -208,6 +208,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
                 rel={plateRel}
                 preferred="master"
                 alt={t.plate_alt(plant.name)}
+                eager
               />
             </button>
           ) : null}

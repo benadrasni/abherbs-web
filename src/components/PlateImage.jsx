@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { photoUrl, plateFiles } from '../api';
 
-export default function PlateImage({ rel, preferred = 'grid', alt = '' }) {
+export default function PlateImage({ rel, preferred = 'grid', alt = '', eager = false }) {
   const files = plateFiles(rel);
   const want = photoUrl(preferred === 'master' ? files.master : files.grid);
   const fallback = photoUrl(files.legacy);
@@ -16,7 +16,10 @@ export default function PlateImage({ rel, preferred = 'grid', alt = '' }) {
     <img
       src={src}
       alt={alt}
-      loading="lazy"
+      width="800"
+      height="1200"
+      loading={eager ? 'eager' : 'lazy'}
+      fetchPriority={eager ? 'high' : undefined}
       onError={() => {
         if (fallback && src !== fallback) setSrc(fallback);
       }}

@@ -89,6 +89,7 @@ export default function AboutPage({ lang, t, headers }) {
                 rel={plateRel}
                 preferred="master"
                 alt={t.plate_alt(ABOUT_PLANT)}
+                eager
               />
             </Link>
           ) : null}

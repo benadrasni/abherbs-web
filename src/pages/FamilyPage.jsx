@@ -61,13 +61,15 @@ export default function FamilyPage({ lang, t, headers, labels, taxonomy, mode, s
           {hold ?? `${mode === 'genus' ? t.genus_lede : t.family_lede} ${t.plants_count(raw.length)}`}
         </p>
       </div>
-      {hold ? (
-        <p className="center-msg">{hold}</p>
-      ) : raw.length ? (
-        <PlateGrid items={items} lang={lang} genusLabel={mode === 'family'} taxonomy={taxonomy} />
-      ) : (
-        <p className="center-msg">{t.empty_taxon}</p>
-      )}
+      <div className={hold ? 'pending-slot' : undefined}>
+        {hold ? (
+          <p className="center-msg">{hold}</p>
+        ) : raw.length ? (
+          <PlateGrid items={items} lang={lang} genusLabel={mode === 'family'} taxonomy={taxonomy} />
+        ) : (
+          <p className="center-msg">{t.empty_taxon}</p>
+        )}
+      </div>
       <Footer lang={lang} t={t} />
     </div>
   );
