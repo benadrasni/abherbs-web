@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 /**
- * After Vite build: sitemap.xml + unique HTML shells for plant/family/genus URLs.
+ * After Vite build: sitemap index + unique HTML shells for plant/family/genus URLs.
  * Indexed languages (keep in sync with src/lib.js INDEXED_LANGS): en unprefixed, others /{lang}/.
+ * Hreflang stays on the HTML shells. The sitemap lists each page URL once.
+ * Google allows 50,000 URLs and 50 MB per file, so the list is split under sitemap.xml.
  */
 const fs = require('fs');
 const path = require('path');
 
 const SITE = 'https://whatsthatflower.com';
+// Stay under Google's 50,000 URLs and 50 MB per sitemap file.
+const SITEMAP_URL_LIMIT = 45000;
 let appleSmartBanner = (url) => 'app-id=1449982118';
 const APP = "What's that flower?";
 const DB = 'https://abherbs-backend.firebaseio.com';
@@ -261,37 +265,51 @@ function writePage(relParts, html) {
   fs.writeFileSync(path.join(dir, 'index.html'), html);
 }
 
-function sitemapXml(entries) {
-  const body = entries
-    .map((entry) => {
-      const loc = pageUrl(entry.lang, entry.parts);
-      const links = INDEXED_LANGS.map(
-        (lang) =>
-          '    <xhtml:link rel="alternate" hreflang="' +
-          hreflangOf(lang) +
-          '" href="' +
-          pageUrl(lang, entry.parts).replace(/&/g, '&amp;') +
-          '"/>'
-      ).concat([
-        '    <xhtml:link rel="alternate" hreflang="x-default" href="' +
-          pageUrl('en', entry.parts).replace(/&/g, '&amp;') +
-          '"/>',
-      ]);
-      return (
-        '  <url>\n    <loc>' +
-        loc.replace(/&/g, '&amp;') +
-        '</loc>\n' +
-        links.join('\n') +
-        '\n  </url>'
-      );
-    })
+function xmlEscapeLoc(loc) {
+  return String(loc).replace(/&/g, '&amp;');
+}
+
+function urlsetXml(locs) {
+  const body = locs
+    .map((loc) => '  <url>\n    <loc>' + xmlEscapeLoc(loc) + '</loc>\n  </url>')
     .join('\n');
   return (
     '<?xml version="1.0" encoding="UTF-8"?>\n' +
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' +
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     body +
     '\n</urlset>\n'
   );
+}
+
+function sitemapIndexXml(fileNames) {
+  const body = fileNames
+    .map((name) => '  <sitemap>\n    <loc>' + SITE + '/' + name + '</loc>\n  </sitemap>')
+    .join('\n');
+  return (
+    '<?xml version="1.0" encoding="UTF-8"?>\n' +
+    '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+    body +
+    '\n</sitemapindex>\n'
+  );
+}
+
+function writeSitemaps(entries) {
+  const locs = entries.map((entry) => pageUrl(entry.lang, entry.parts));
+  const chunks = [];
+  for (let i = 0; i < locs.length; i += SITEMAP_URL_LIMIT) {
+    chunks.push(locs.slice(i, i + SITEMAP_URL_LIMIT));
+  }
+  const names = chunks.map((_, i) => 'sitemap-' + (i + 1) + '.xml');
+  chunks.forEach((chunk, i) => {
+    fs.writeFileSync(path.join(BUILD, names[i]), urlsetXml(chunk));
+  });
+  fs.writeFileSync(path.join(BUILD, 'sitemap.xml'), sitemapIndexXml(names));
+  for (let n = chunks.length + 1; n <= chunks.length + 10; n += 1) {
+    const stale = path.join(BUILD, 'sitemap-' + n + '.xml');
+    if (!fs.existsSync(stale)) break;
+    fs.unlinkSync(stale);
+  }
+  return { urls: locs.length, files: names };
 }
 
 async function main() {
@@ -488,7 +506,7 @@ async function main() {
       });
   });
 
-  fs.writeFileSync(path.join(BUILD, 'sitemap.xml'), sitemapXml(entries));
+  const sitemap = writeSitemaps(entries);
   console.log(
     'seo pages',
     plants.length,
@@ -500,7 +518,9 @@ async function main() {
     'langs',
     INDEXED_LANGS.join(','),
     'sitemap',
-    entries.length
+    sitemap.urls,
+    'files',
+    sitemap.files.join(',')
   );
 }
 
