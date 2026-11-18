@@ -87,6 +87,7 @@ export function uiText(lang) {
   return {
     ...catalog,
     plants_count: (n) => plural('plants_count', n),
+    conifers_count: (n) => plural('conifers_count', n),
     photo_n: (i, n) => text('photo_n', { i, n }),
     more_names: (n) => plural('more_names', n, 'more_names'),
     public_records: (n) => plural('public_records', n),

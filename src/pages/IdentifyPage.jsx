@@ -5,11 +5,13 @@ import { trackFilterResult, trackPlant } from '../analytics';
 import Footer from '../components/Footer';
 import PlateGrid from '../components/PlateGrid';
 import StoreLinks from '../components/StoreLinks';
-import { HabitatGlyph, PetalGlyph } from '../identify-glyphs.jsx';
+import { ConeGlyph, HabitatGlyph, LeafGlyph, PetalGlyph } from '../identify-glyphs.jsx';
 import {
   COLORS,
+  CONES,
   FEATURED_REGIONS,
   HABITATS,
+  LEAVES,
   PETALS,
   REGION_GROUPS,
   attachFilters,
@@ -113,9 +115,12 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
     return list;
   }, [plants, selection, lang]);
 
+  const conifer = selection.kind === 'conifer';
   const colorCounts = useMemo(() => optionCounts(plants, selection, 'color'), [plants, selection]);
   const habitatCounts = useMemo(() => optionCounts(plants, selection, 'habitat'), [plants, selection]);
   const petalCounts = useMemo(() => optionCounts(plants, selection, 'petal'), [plants, selection]);
+  const leafCounts = useMemo(() => optionCounts(plants, selection, 'leaf'), [plants, selection]);
+  const coneCounts = useMemo(() => optionCounts(plants, selection, 'cone'), [plants, selection]);
   const regionCounts = useMemo(() => optionCounts(plants, selection, 'region'), [plants, selection]);
   const anyRegionCount = useMemo(() => {
     const open = { ...selection, region: '' };
@@ -178,6 +183,16 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
     setParams((prev) => selectionQuery({ ...parseSelection(prev), ...patch }), { replace: true });
   }
 
+  function setKind(kind) {
+    write({
+      kind,
+      color: '',
+      petal: '',
+      leaf: '',
+      cone: '',
+    });
+  }
+
   function toggle(axis, id) {
     setParams((prev) => {
       const current = parseSelection(prev);
@@ -225,7 +240,7 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
     return selection.region === id || (regionCounts[id] || 0) > 0;
   }
 
-  const chips = ['color', 'habitat', 'petal']
+  const chips = (conifer ? ['leaf', 'habitat', 'cone'] : ['color', 'habitat', 'petal'])
     .filter((axis) => selection[axis])
     .map((axis) => ({
       axis,
@@ -265,7 +280,7 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
         <div>
           <h1 className="common">{t.identify}</h1>
         </div>
-        <p className="lede">{t.identify_lede}</p>
+        <p className="lede">{conifer ? t.identify_lede_conifer : t.identify_lede}</p>
       </div>
 
       {hold ? (
@@ -273,6 +288,51 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
       ) : (
         <div className="identify-split">
           <div className="identify-filters" ref={filtersRef}>
+            <div className="kind-switch" role="group" aria-label={t.guide_kind_conifers}>
+              <button
+                type="button"
+                className={conifer ? 'kind-btn' : 'kind-btn on'}
+                aria-pressed={!conifer}
+                onClick={() => setKind('')}
+              >
+                {t.guide_kind_flowers}
+              </button>
+              <button
+                type="button"
+                className={conifer ? 'kind-btn on' : 'kind-btn'}
+                aria-pressed={conifer}
+                onClick={() => setKind('conifer')}
+              >
+                {t.guide_kind_conifers}
+              </button>
+            </div>
+            {conifer ? (
+            <fieldset>
+              <legend>{t.guide_leaf_question}</legend>
+              <p className="key-note">{t.guide_leaf_hint}</p>
+              <div className="swatches" role="group">
+                {LEAVES.map((leaf) => {
+                  const count = leafCounts[leaf.id] || 0;
+                  const on = selection.leaf === leaf.id;
+                  return (
+                    <button
+                      key={leaf.id}
+                      type="button"
+                      className={on ? 'swatch-btn on' : 'swatch-btn'}
+                      aria-pressed={on}
+                      disabled={count === 0 && !on}
+                      onClick={() => toggle('leaf', leaf.id)}
+                    >
+                      <LeafGlyph id={leaf.id} />
+                      <span className="lbl">{sentenceStart(t[leaf.labelKey], lang)}</span>
+                      <span className="ex">{t[leaf.examplesKey]}</span>
+                      <span className="num">{count.toLocaleString(lang || 'en')}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </fieldset>
+            ) : (
             <fieldset>
               <legend>{t.guide_color_question}</legend>
               <div className="swatches" role="group">
@@ -296,6 +356,7 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
                 })}
               </div>
             </fieldset>
+            )}
 
             <fieldset>
               <legend>{t.guide_habitat_question}</legend>
@@ -332,6 +393,35 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
               </div>
             </fieldset>
 
+            {conifer ? (
+            <fieldset>
+              <legend>{t.guide_cone_question}</legend>
+              <p className="key-note">{t.guide_cone_hint}</p>
+              <div className="cone-grid">
+                {CONES.map((cone) => {
+                  const count = coneCounts[cone.id] || 0;
+                  const on = selection.cone === cone.id;
+                  return (
+                    <button
+                      key={cone.id}
+                      type="button"
+                      className={on ? 'cone-tile on' : 'cone-tile'}
+                      aria-pressed={on}
+                      disabled={count === 0 && !on}
+                      onClick={() => toggle('cone', cone.id)}
+                    >
+                      <ConeGlyph id={cone.id} />
+                      <span className="cone-copy">
+                        <span className="lbl">{sentenceStart(t[cone.labelKey], lang)}</span>
+                        <span className="ex">{t[cone.examplesKey]}</span>
+                      </span>
+                      <span className="num">{count.toLocaleString(lang || 'en')}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </fieldset>
+            ) : (
             <fieldset>
               <legend>{t.guide_petal_question}</legend>
               <p className="key-note">{t.guide_petal_hint}</p>
@@ -356,6 +446,7 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
                 })}
               </div>
             </fieldset>
+            )}
             <div className="identify-stores">
               <StoreLinks t={t} />
             </div>
@@ -364,7 +455,7 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
           <section className="identify-results" id="identify-results" aria-labelledby="identify-count">
             <div className="identify-results-h">
               <p id="identify-count" aria-live="polite">
-                {t.plants_count(matches.length)}
+                {(conifer ? t.conifers_count : t.plants_count)(matches.length)}
               </p>
               <div className="identify-results-row">
                 <button
@@ -387,7 +478,7 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
                         <span aria-hidden="true"> ×</span>
                       </button>
                     ))}
-                    <button type="button" className="any-btn" onClick={() => write({ color: '', habitat: '', petal: '', region: '' })}>
+                    <button type="button" className="any-btn" onClick={() => write({ color: '', habitat: '', petal: '', region: '', leaf: '', cone: '' })}>
                       {t.identify_start_over}
                     </button>
                   </div>
@@ -458,7 +549,7 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
                 onOpen={(item) => trackPlant(item.name, 'key')}
               />
             ) : (
-              <p className="center-msg">{t.snack_no_flowers}</p>
+              <p className="center-msg">{conifer ? t.snack_no_conifers : t.snack_no_flowers}</p>
             )}
           </section>
         </div>
@@ -466,7 +557,7 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
 
       {!hold ? (
         <a className="identify-dock" href="#identify-results">
-          {t.plants_count(matches.length)}
+          {(conifer ? t.conifers_count : t.plants_count)(matches.length)}
         </a>
       ) : null}
 

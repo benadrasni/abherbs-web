@@ -125,4 +125,48 @@ function PetalGlyph({ id }) {
   );
 }
 
-export { HabitatGlyph, PetalGlyph };
+function LeafGlyph({ id }) {
+  return (
+    <svg className="leaf-glyph" viewBox="0 0 46 46" aria-hidden="true">
+      {id === '1' ? (
+        <path d="M23 38V22 M23 22 10 8 M23 22V5 M23 22 36 8" {...stroke} />
+      ) : null}
+      {id === '2' ? (
+        <path d="M23 40V6 M23 14 10 8 M23 20 36 14 M23 26 10 22 M23 32 36 28" {...stroke} />
+      ) : null}
+      {id === '3' ? (
+        <path d="M14 40V20 M14 20 6 10 M14 20V6 M14 20 22 10 M32 40V20 M32 20 24 10 M32 20V6 M32 20 40 10" {...stroke} />
+      ) : null}
+      {id === '4' ? (
+        <path d="M23 5v36 M15 9q8 7 16 0 M15 17q8 7 16 0 M15 25q8 7 16 0 M15 33q8 7 16 0" {...stroke} />
+      ) : null}
+      {id === '5' ? (
+        <path d="M23 42V26 M23 26Q8 22 10 12Q16 6 23 16Q30 6 36 12Q38 22 23 26" {...stroke} />
+      ) : null}
+    </svg>
+  );
+}
+
+function ConeGlyph({ id }) {
+  return (
+    <svg className="cone-glyph" viewBox="0 0 46 46" aria-hidden="true">
+      {id === '1' ? (
+        <path d="M23 4 31 40H15Z M18 16h10 M17 24h12 M16 32h14" {...stroke} />
+      ) : null}
+      {id === '2' ? (
+        <>
+          <circle cx="23" cy="18" r="10" {...stroke} />
+          <path d="M23 28v12 M16 18h14" {...stroke} />
+        </>
+      ) : null}
+      {id === '3' ? (
+        <>
+          <circle cx="23" cy="16" r="9" {...stroke} />
+          <path d="M12 22q11 12 22 0 M23 30v10" {...stroke} />
+        </>
+      ) : null}
+    </svg>
+  );
+}
+
+export { ConeGlyph, HabitatGlyph, LeafGlyph, PetalGlyph };

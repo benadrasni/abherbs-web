@@ -48,7 +48,15 @@ test('an empty habitat slot keeps a plant with no wild habitat', () => {
 
 test('unknown filter codes are ignored', () => {
   const selection = parseSelection({ color: '9', habitat: '2', petal: 'x', region: '11' });
-  assert.deepEqual(selection, { color: '', habitat: '', petal: '', region: '11' });
+  assert.deepEqual(selection, {
+    kind: '',
+    color: '',
+    habitat: '',
+    petal: '',
+    region: '11',
+    leaf: '',
+    cone: '',
+  });
   assert.equal(selectionActive(selection), true);
   assert.equal(selectionActive(parseSelection({})), false);
 });
@@ -56,7 +64,41 @@ test('unknown filter codes are ignored', () => {
 test('the query round-trips only the chosen slots', () => {
   const selection = parseSelection({ color: '1', petal: '3' });
   const again = parseSelection(selectionQuery(selection));
-  assert.deepEqual(again, { color: '1', habitat: '', petal: '3', region: '' });
+  assert.deepEqual(again, {
+    kind: '',
+    color: '1',
+    habitat: '',
+    petal: '3',
+    region: '',
+    leaf: '',
+    cone: '',
+  });
+  assert.equal(selectionQuery(selection).has('kind'), false);
+});
+
+test('a conifer stays out of the flower key and in the conifer key', () => {
+  const spruce = {
+    name: 'Picea abies',
+    filterHabitat: [4],
+    filterDistribution: [11],
+    filterLeaf: [2],
+    filterCone: [1],
+  };
+  const withSpruce = [...plants, spruce];
+  assert.equal(plantMatches(spruce, parseSelection({})), false);
+  assert.equal(plantMatches(spruce, parseSelection({ kind: 'conifer' })), true);
+  assert.equal(plantMatches(spruce, parseSelection({ kind: 'conifer', leaf: '2', cone: '1' })), true);
+  assert.equal(plantMatches(spruce, parseSelection({ kind: 'conifer', leaf: '5' })), false);
+  assert.equal(plantMatches(maple, parseSelection({ kind: 'conifer' })), false);
+  assert.equal(optionCounts(withSpruce, parseSelection({}), 'color')['5'], 1);
+  const conifers = parseSelection({ kind: 'conifer' });
+  assert.equal(optionCounts(withSpruce, conifers, 'leaf')['2'], 1);
+  assert.equal(optionCounts(withSpruce, conifers, 'leaf')['5'], 0);
+  const query = selectionQuery(parseSelection({ kind: 'conifer', leaf: '2', habitat: '4' }));
+  assert.equal(query.get('kind'), 'conifer');
+  assert.equal(query.get('leaf'), '2');
+  assert.equal(query.get('color'), null);
+  assert.equal(query.get('petal'), null);
 });
 
 test('option counts follow the other selected slots', () => {

@@ -26,6 +26,20 @@ export const PETALS = [
   { id: '4', labelKey: 'petal_zygomorphic' },
 ];
 
+export const LEAVES = [
+  { id: '1', labelKey: 'guide_leaf_bundle', examplesKey: 'guide_leaf_bundle_ex' },
+  { id: '2', labelKey: 'guide_leaf_single', examplesKey: 'guide_leaf_single_ex' },
+  { id: '3', labelKey: 'guide_leaf_tuft', examplesKey: 'guide_leaf_tuft_ex' },
+  { id: '4', labelKey: 'guide_leaf_scale', examplesKey: 'guide_leaf_scale_ex' },
+  { id: '5', labelKey: 'guide_leaf_fan', examplesKey: 'guide_leaf_fan_ex' },
+];
+
+export const CONES = [
+  { id: '1', labelKey: 'guide_cone_long', examplesKey: 'guide_cone_long_ex' },
+  { id: '2', labelKey: 'guide_cone_round', examplesKey: 'guide_cone_round_ex' },
+  { id: '3', labelKey: 'guide_cone_berry', examplesKey: 'guide_cone_berry_ex' },
+];
+
 export const REGION_GROUPS = [
   {
     labelKey: 'europe',
@@ -129,14 +143,21 @@ export const REGION_GROUPS = [
 /** Same short list the field guide shows before “All regions”. */
 export const FEATURED_REGIONS = ['10', '11', '12', '13', '14', '75', '77', '78'];
 
-const AXES = ['color', 'habitat', 'petal', 'region'];
+const FLOWER_AXES = ['color', 'habitat', 'petal', 'region'];
+const CONIFER_AXES = ['leaf', 'habitat', 'cone', 'region'];
 
 const FIELDS = {
   color: 'filterColor',
   habitat: 'filterHabitat',
   petal: 'filterPetal',
   region: 'filterDistribution',
+  leaf: 'filterLeaf',
+  cone: 'filterCone',
 };
+
+function axesFor(selection) {
+  return selection && selection.kind === 'conifer' ? CONIFER_AXES : FLOWER_AXES;
+}
 
 function allowedSet(rows, idOf) {
   return new Set(rows.map(idOf));
@@ -146,6 +167,8 @@ const ALLOWED = {
   color: allowedSet(COLORS, (row) => row.id),
   habitat: allowedSet(HABITATS, (row) => row.id),
   petal: allowedSet(PETALS, (row) => row.id),
+  leaf: allowedSet(LEAVES, (row) => row.id),
+  cone: allowedSet(CONES, (row) => row.id),
   region: allowedSet(
     REGION_GROUPS.flatMap((group) => group.regions),
     (row) => row[0]
@@ -161,6 +184,12 @@ HABITATS.forEach((row) => {
 });
 PETALS.forEach((row) => {
   LABEL_KEYS['petal:' + row.id] = row.labelKey;
+});
+LEAVES.forEach((row) => {
+  LABEL_KEYS['leaf:' + row.id] = row.labelKey;
+});
+CONES.forEach((row) => {
+  LABEL_KEYS['cone:' + row.id] = row.labelKey;
 });
 REGION_GROUPS.forEach((group) => {
   group.regions.forEach(([id, labelKey]) => {
@@ -190,9 +219,26 @@ function readParam(params, key) {
   return value == null ? '' : String(value);
 }
 
+function emptySelection(kind) {
+  return {
+    kind: kind === 'conifer' ? 'conifer' : '',
+    color: '',
+    habitat: '',
+    petal: '',
+    region: '',
+    leaf: '',
+    cone: '',
+  };
+}
+
+export function isConiferPlant(plant) {
+  return filterCodes(plant && plant.filterLeaf).length > 0;
+}
+
 export function parseSelection(params) {
-  const selection = {};
-  AXES.forEach((axis) => {
+  const kind = readParam(params, 'kind') === 'conifer' ? 'conifer' : '';
+  const selection = emptySelection(kind);
+  axesFor(selection).forEach((axis) => {
     const value = readParam(params, axis);
     selection[axis] = ALLOWED[axis].has(value) ? value : '';
   });
@@ -201,19 +247,22 @@ export function parseSelection(params) {
 
 export function selectionQuery(selection) {
   const params = new URLSearchParams();
-  AXES.forEach((axis) => {
+  if (selection && selection.kind === 'conifer') params.set('kind', 'conifer');
+  axesFor(selection).forEach((axis) => {
     if (selection && selection[axis]) params.set(axis, selection[axis]);
   });
   return params;
 }
 
 export function selectionActive(selection) {
-  return AXES.some((axis) => selection && selection[axis]);
+  return axesFor(selection).some((axis) => selection && selection[axis]);
 }
 
 export function plantMatches(plant, selection) {
   if (!plant) return false;
-  return AXES.every((axis) => {
+  const wantConifer = selection && selection.kind === 'conifer';
+  if (isConiferPlant(plant) !== !!wantConifer) return false;
+  return axesFor(selection).every((axis) => {
     const chosen = selection && selection[axis];
     if (!chosen) return true;
     return filterCodes(plant[FIELDS[axis]]).includes(chosen);
@@ -221,7 +270,9 @@ export function plantMatches(plant, selection) {
 }
 
 function matchesOtherAxes(plant, selection, axis) {
-  return AXES.every((other) => {
+  const wantConifer = selection && selection.kind === 'conifer';
+  if (isConiferPlant(plant) !== !!wantConifer) return false;
+  return axesFor(selection).every((other) => {
     if (other === axis) return true;
     const chosen = selection && selection[other];
     if (!chosen) return true;
@@ -277,6 +328,8 @@ export function attachFilters(headers, raw) {
       filterHabitat: row.filterHabitat,
       filterPetal: row.filterPetal,
       filterDistribution: row.filterDistribution,
+      filterLeaf: row.filterLeaf,
+      filterCone: row.filterCone,
     };
   });
 }

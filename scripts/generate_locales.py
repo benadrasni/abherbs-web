@@ -188,6 +188,31 @@ for key in (
     "guide_habitat_question",
     "guide_petal_question",
     "guide_petal_hint",
+    "guide_kind_flowers",
+    "guide_kind_conifers",
+    "guide_leaf_question",
+    "guide_leaf_hint",
+    "guide_leaf_bundle",
+    "guide_leaf_bundle_ex",
+    "guide_leaf_single",
+    "guide_leaf_single_ex",
+    "guide_leaf_tuft",
+    "guide_leaf_tuft_ex",
+    "guide_leaf_scale",
+    "guide_leaf_scale_ex",
+    "guide_leaf_fan",
+    "guide_leaf_fan_ex",
+    "guide_cone_question",
+    "guide_cone_hint",
+    "guide_cone_long",
+    "guide_cone_long_ex",
+    "guide_cone_round",
+    "guide_cone_round_ex",
+    "guide_cone_berry",
+    "guide_cone_berry_ex",
+    "guide_back_leaves",
+    "guide_back_cones",
+    "snack_no_conifers",
     "guide_petal_trail",
     "guide_habitat_forest",
     "guide_habitat_forest_examples",
@@ -3471,6 +3496,32 @@ def apply_privacy_strings():
             NEW.setdefault(key, {})[lang] = text
 
 
+def apply_conifer_strings():
+    """Conifer-key copy that is not an ARB seed: the lede and the count."""
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "conifer_locales.json")
+    with open(path, encoding="utf-8") as handle:
+        data = json.load(handle)
+    required = set(WEB_TO_ARB)
+    for key, by_lang in data.items():
+        if not isinstance(by_lang, dict):
+            raise SystemExit("conifer strings for " + key + " are not an object")
+        missing = required.difference(by_lang)
+        # Plural categories other than one/other are only on the languages that use them.
+        if key.startswith("conifers_count_") and key not in (
+            "conifers_count_one",
+            "conifers_count_other",
+        ):
+            missing = set()
+        if missing:
+            raise SystemExit("conifer locales missing " + key + ": " + ", ".join(sorted(missing)))
+        for lang, text in by_lang.items():
+            if lang not in required:
+                raise SystemExit("conifer lang not in catalog: " + lang + " on " + key)
+            if not isinstance(text, str) or not text.strip():
+                raise SystemExit("conifer empty " + lang + "." + key)
+        NEW.setdefault(key, {}).update(by_lang)
+
+
 def apply_guide_pair():
     """Titles and mushroom-site copy for the paired app section."""
     path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "guide_pair.json")
@@ -3490,6 +3541,7 @@ def main():
     apply_ux_overlay()
     apply_privacy_strings()
     apply_guide_pair()
+    apply_conifer_strings()
     langs = ["en"] + [c for c in WEB_TO_ARB if c != "en"]
     catalogs = {lang: {} for lang in langs}
     if not os.path.isdir(ARB_DIR):
@@ -3521,10 +3573,16 @@ def main():
         "public_records_few",
         "public_records_many",
         "public_records_zero",
+        "conifers_count_two",
+        "conifers_count_few",
+        "conifers_count_many",
+        "conifers_count_zero",
     }
 
     for key, by_lang in NEW.items():
-        en = by_lang["en"]
+        en = by_lang.get("en")
+        if en is None and key not in SPARSE:
+            raise SystemExit("missing English for " + key)
         for lang in langs:
             if lang in by_lang:
                 catalogs[lang][key] = by_lang[lang]
@@ -3577,7 +3635,12 @@ def main():
     missing = []
     for lang, cat in catalogs.items():
         for key, val in cat.items():
-            if lang != "en" and val == catalogs["en"][key] and key not in ("store_play", "store_apple", "app_name"):
+            if (
+                lang != "en"
+                and key in catalogs["en"]
+                and val == catalogs["en"][key]
+                and key not in ("store_play", "store_apple", "app_name")
+            ):
                 missing.append(f"{lang}.{key}")
     print("arb", ARB_DIR, "files", loaded)
     print("wrote", OUT, "langs", len(catalogs), "keys", len(catalogs["en"]))
