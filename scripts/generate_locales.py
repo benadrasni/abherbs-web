@@ -2,7 +2,6 @@
 """Build src/locales.json from Flutter ARB seeds + new encyclopedia strings."""
 import json
 import os
-import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "src", "locales.json")
@@ -1529,8 +1528,43 @@ NEW = {
         "id": "Dapatkan",
         "tr": "İndir",
     },
+    # Full product name on the site. The short form is only the name under
+    # the Android and iOS icon, so do not copy strings.xml app_name.
     "app_name": {
         "en": "What's that flower?",
+        "ar": "ما هذه الزهرة؟",
+        "bg": "Какво е това цвете?",
+        "cs": "Co to tu kvete?",
+        "da": "Hvad er denne blomst?",
+        "de": "Welche Blume ist das?",
+        "es": "¿Qué flor es?",
+        "et": "Mis on see lill?",
+        "fa": "این گل چیست؟",
+        "fr": "Quelle est cette fleur?",
+        "hi": "वह फूल क्या है?",
+        "he": "מה זה הפרח?",
+        "hr": "Što je taj cvijet?",
+        "it": "E questo che fiore è?",
+        "ko": "그 꽃은 무엇입니까?",
+        "lv": "Kas ir tas zieds?",
+        "lt": "Kas yra ta gėlė?",
+        "hu": "Miféle virág is ez?",
+        "nl": "Welke bloem is dit?",
+        "ja": "あの花は何ですか？",
+        "no": "Hva er den blomsten?",
+        "pl": "Co to za kwiat?",
+        "pt": "Que flor é esta?",
+        "ro": "Ce este acea floare?",
+        "ru": "Что это за цветок?",
+        "sk": "Čo to tu kvitne?",
+        "sl": "Kaj je ta cvet?",
+        "sr": "Шта је тај цвет?",
+        "sv": "Vad är den där blomman?",
+        "fi": "Mikä on kukka?",
+        "uk": "Що це за квітка?",
+        "zh": "那朵花是什麼？",
+        "id": "Bunga apa itu?",
+        "tr": "Bu çiçek nedir?",
     },
     "about": {"en": "About", "sk": "O projekte", "hi": "परिचय", "ko": "소개"},
     "help": {
@@ -3419,32 +3453,6 @@ NEW = {
     },
 }
 
-ANDROID_RES = first_dir(
-    os.path.join(os.path.dirname(ROOT), "app", "android", "app", "src", "main", "res"),
-    os.path.expanduser("~/whatsthatflower/app/android/app/src/main/res"),
-    os.path.expanduser("~/StudioProjects/abherbs_flutter/android/app/src/main/res"),
-)
-
-
-def load_android_app_name(lang):
-    folder = "values" if lang == "en" else "values-" + lang
-    path = os.path.join(ANDROID_RES, folder, "strings.xml")
-    if not os.path.isfile(path):
-        return None
-    with open(path, encoding="utf-8") as f:
-        text = f.read()
-    match = re.search(r'<string name="app_name">(.*?)</string>', text, re.S)
-    if not match:
-        return None
-    return (
-        match.group(1)
-        .replace("\\'", "'")
-        .replace("&apos;", "'")
-        .replace("&amp;", "&")
-        .replace("&quot;", '"')
-    )
-
-
 def load_arb(path):
     with open(path, encoding="utf-8") as f:
         return json.load(f)
@@ -3609,11 +3617,6 @@ def main():
             for key, val in (existing.get(lang) or {}).items():
                 cat.setdefault(key, val)
 
-    for lang in langs:
-        name = load_android_app_name(lang)
-        if name:
-            catalogs[lang]["app_name"] = name
-
     # Ensure every key exists in every language
     master = set(catalogs["en"])
     for lang, cat in catalogs.items():
@@ -3639,7 +3642,7 @@ def main():
                 lang != "en"
                 and key in catalogs["en"]
                 and val == catalogs["en"][key]
-                and key not in ("store_play", "store_apple", "app_name")
+                and key not in ("store_play", "store_apple")
             ):
                 missing.append(f"{lang}.{key}")
     print("arb", ARB_DIR, "files", loaded)
