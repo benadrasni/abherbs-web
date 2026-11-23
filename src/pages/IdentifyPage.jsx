@@ -134,13 +134,26 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
   useEffect(() => {
     if (hold) return;
     trackFilterResult({
+      kind: selection.kind,
       color: selection.color,
       habitat: selection.habitat,
       petal: selection.petal,
+      leaf: selection.leaf,
+      cone: selection.cone,
       region: selection.region,
       count: matches.length,
     });
-  }, [hold, selection.color, selection.habitat, selection.petal, selection.region, matches.length]);
+  }, [
+    hold,
+    selection.kind,
+    selection.color,
+    selection.habitat,
+    selection.petal,
+    selection.leaf,
+    selection.cone,
+    selection.region,
+    matches.length,
+  ]);
 
   useEffect(() => {
     const el = filtersRef.current;
@@ -288,7 +301,7 @@ export default function IdentifyPage({ lang, t, headers, labels, taxonomy, statu
       ) : (
         <div className="identify-split">
           <div className="identify-filters" ref={filtersRef}>
-            <div className="kind-switch" role="group" aria-label={t.guide_kind_conifers}>
+            <div className="kind-switch" role="group" aria-label={t.identify}>
               <button
                 type="button"
                 className={conifer ? 'kind-btn' : 'kind-btn on'}

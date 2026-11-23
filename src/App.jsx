@@ -4,6 +4,7 @@ import { pageview } from './analytics';
 import { loadLabels, loadPlantIndex, loadTaxonomyLabels } from './api';
 import AnalyticsConsent from './components/AnalyticsConsent';
 import AppBanner from './components/AppBanner';
+import Footer from './components/Footer';
 import Header from './components/Header';
 import SeoHead from './components/SeoHead';
 import { uiText } from './copy';
@@ -110,7 +111,10 @@ function migratedLocation(location) {
 
   if (normPath(pathname) === '/' && !params.get('lang') && !params.get('plant')) {
     const preferred = normalizeLang(readLangCookie(), languages);
-    if (preferred && preferred !== 'en') pathname = withLang('/', preferred);
+    if (preferred && preferred !== 'en') {
+      if (PATH_LANGS.includes(preferred)) pathname = withLang('/', preferred);
+      else params.set('lang', preferred);
+    }
   }
 
   const dest = joinPath(pathname, params, hash);
@@ -121,6 +125,18 @@ function StripEn() {
   const location = useLocation();
   const rest = location.pathname.replace(/^\/en(?=\/|$)/, '') || '/';
   return <Navigate to={`${rest}${location.search}${location.hash}`} replace />;
+}
+
+function NotFoundPage({ lang, t }) {
+  useEffect(() => {
+    document.title = `${t.not_found} — ${t.app_name}`;
+  }, [t.not_found, t.app_name]);
+  return (
+    <div className="page">
+      <p className="center-msg">{t.not_found}</p>
+      <Footer lang={lang} t={t} />
+    </div>
+  );
 }
 
 const PAGE_SCROLL_KEY = 'wtf-page-scroll';
@@ -165,8 +181,7 @@ function usePageScroll(location) {
     }
     let frame = 0;
     const persist = () => {
-      const y = window.scrollY;
-      if (y > 0) savePageScroll(prevKey.current, y);
+      savePageScroll(prevKey.current, window.scrollY);
     };
     const onScroll = () => {
       if (frame) return;
@@ -470,6 +485,7 @@ export default function App() {
         <Route path="/en/*" element={<StripEn />} />
         {catalogRoutes('')}
         {PATH_LANGS.map((code) => catalogRoutes(code))}
+        <Route path="*" element={<NotFoundPage lang={lang} t={t} />} />
       </Routes>
       <AnalyticsConsent lang={lang} t={t} />
     </>

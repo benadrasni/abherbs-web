@@ -100,13 +100,17 @@ function plantsCount(lang, n) {
     other: ['plants_count_other'],
   };
   const keys = order[cat] || order.other;
-  const catalog = localeOf(lang);
+  const own = (lang && locales[lang]) || {};
   let template = null;
   for (let i = 0; i < keys.length; i++) {
-    if (catalog[keys[i]] != null) {
-      template = catalog[keys[i]];
-      break;
+    const key = keys[i];
+    const candidate = !lang || lang === 'en' ? (locales.en || {})[key] : own[key];
+    if (candidate == null) continue;
+    if (count !== 1 && key === 'plants_count_one' && !String(candidate).includes('{n}')) {
+      continue;
     }
+    template = candidate;
+    break;
   }
   if (template == null) template = t(lang, 'plants_count_other');
   const locale = lang === 'no' ? 'nb' : lang || 'en';
@@ -244,7 +248,7 @@ function inject(template, opts) {
       opts.image ? '<meta property="og:image" content="' + escapeHtml(opts.image) + '">' : '',
       '<meta name="twitter:card" content="' + (opts.image ? 'summary_large_image' : 'summary') + '">',
       opts.jsonLd
-        ? '<script type="application/ld+json">' + JSON.stringify(opts.jsonLd) + '</script>'
+        ? '<script type="application/ld+json">' + JSON.stringify(opts.jsonLd).replace(/</g, '\\u003c') + '</script>'
         : '',
     ])
     .filter(Boolean)
@@ -524,7 +528,11 @@ async function main() {
   );
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}
+
+module.exports = { plantsCount };

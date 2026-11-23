@@ -70,6 +70,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
     let live = true;
     setPlant(null);
     setError('');
+    setLight(null);
     setSchemaOpen(false);
     setInflorescenceOpen(false);
     setMapFailed(false);
@@ -96,7 +97,7 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
         setObs(publicObservations(rawObs));
       })
       .catch(() => {
-        if (live) setError('missing');
+        if (live) setError('error');
       });
     return () => {
       live = false;
@@ -133,10 +134,10 @@ export default function PlantPage({ lang, t, requestedName, taxonomy }) {
   const synonymRest = allSyn.slice(2);
   const groupedSources = useMemo(() => collectPlantSources(plant, text), [plant, text]);
 
-  if (error === 'missing') {
+  if (error === 'missing' || error === 'error') {
     return (
       <div className="page">
-        <p className="center-msg">{t.not_found}</p>
+        <p className="center-msg">{error === 'error' ? t.catalog_unavailable : t.not_found}</p>
         <Footer lang={lang} t={t} />
       </div>
     );

@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
 import { createServer } from 'vite';
+
+const require = createRequire(import.meta.url);
+const { plantsCount } = require('./generate_seo.js');
 
 async function loadUiText() {
   const root = fileURLToPath(new URL('..', import.meta.url));
@@ -221,4 +225,17 @@ test('more names uses 1, 2–4, and 5+ where the language distinguishes them', a
   } finally {
     await close();
   }
+});
+
+test('SEO shells do not inherit English plural variants', () => {
+  assert.equal(plantsCount('en', 1), '1 plant');
+  assert.equal(plantsCount('en', 2), '2 plants');
+  assert.equal(plantsCount('ro', 1), '1 plantă');
+  assert.equal(plantsCount('ro', 5), '5 plante');
+  assert.equal(plantsCount('ro', 19), '19 plante');
+  assert.equal(plantsCount('he', 1), 'צמח אחד');
+  assert.equal(plantsCount('he', 2), '2 צמחים');
+  assert.equal(plantsCount('he', 0), '0 צמחים');
+  assert.equal(plantsCount('pl', 2), '2 rośliny');
+  assert.equal(plantsCount('pl', 5), '5 roślin');
 });

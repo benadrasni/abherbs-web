@@ -36,7 +36,15 @@ export default function FamilyPage({ lang, t, headers, labels, taxonomy, mode, s
   useEffect(() => {
     const title = label ? `${displayName(label)} (${key})` : key;
     document.title = `${title} — ${t.app_name}`;
-  }, [key, label, t.app_name]);
+    if (hold) return;
+    let tag = document.querySelector('meta[name="description"]');
+    if (!tag) {
+      tag = document.createElement('meta');
+      tag.setAttribute('name', 'description');
+      document.head.appendChild(tag);
+    }
+    tag.setAttribute('content', `${title}. ${t.plants_count(raw.length)}`);
+  }, [key, label, hold, raw.length, t]);
 
   return (
     <div className="page">

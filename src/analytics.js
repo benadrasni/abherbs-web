@@ -234,13 +234,18 @@ function sendFilter(payload) {
   window.gtag('event', 'filter_result', payload.params);
 }
 
-/** Same event as the field-guide key. Empty color and petal are omitted; empty habitat and region are "any". */
-export function trackFilterResult({ color, habitat, petal, region, count }) {
+/** Same event as the field-guide key. Empty color, petal, leaf, cone, and kind are omitted; empty habitat and region are "any". */
+export function trackFilterResult({ kind, color, habitat, petal, leaf, cone, region, count }) {
+  const kindValue = kind === 'conifer' ? 'conifer' : '';
   const colorValue = String(color || '').trim().slice(0, 40);
   const habitatValue = (String(habitat || '').trim() || 'any').slice(0, 40);
   const petalValue = String(petal || '').trim().slice(0, 40);
+  const leafValue = String(leaf || '').trim().slice(0, 40);
+  const coneValue = String(cone || '').trim().slice(0, 40);
   const regionValue = (String(region || '').trim() || 'any').slice(0, 40);
-  const active = Boolean(colorValue || petalValue || habitatValue !== 'any' || regionValue !== 'any');
+  const active = Boolean(
+    colorValue || petalValue || leafValue || coneValue || habitatValue !== 'any' || regionValue !== 'any'
+  );
   if (!active) {
     queuedFilter = null;
     lastFilterKey = '';
@@ -253,10 +258,13 @@ export function trackFilterResult({ color, habitat, petal, region, count }) {
     count: resultCount,
     send_to: GA_ID,
   };
+  if (kindValue) params.kind = kindValue;
   if (colorValue) params.color = colorValue;
   if (petalValue) params.petal = petalValue;
+  if (leafValue) params.leaf = leafValue;
+  if (coneValue) params.cone = coneValue;
   queuedFilter = {
-    key: [colorValue, habitatValue, petalValue, regionValue, resultCount].join('\n'),
+    key: [kindValue, colorValue, habitatValue, petalValue, leafValue, coneValue, regionValue, resultCount].join('\n'),
     params,
   };
   if (mode === 'on') sendFilter(queuedFilter);

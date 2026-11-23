@@ -11,7 +11,7 @@ import {
   taxonLabel,
   taxonNames,
 } from '../api';
-import { trackSearch } from '../analytics';
+import { trackPlant, trackSearch } from '../analytics';
 import Footer from '../components/Footer';
 import { ListCell, PlateCell } from '../components/PlateGrid';
 import GuidePair from '../components/GuidePair';
@@ -250,7 +250,12 @@ export default function HomePage({ lang, t, headers, headersById, labels, taxono
               const familyCommon = taxonLabel(taxonomy, h.family);
               const spoken = spokenName(h.label, h.name);
               return (
-                <Link key={h.name} className="result" to={plantPath(h.name, lang)}>
+                <Link
+                  key={h.name}
+                  className="result"
+                  to={plantPath(h.name, lang)}
+                  onClick={() => trackPlant(h.name, 'search')}
+                >
                   <span>
                     <b className={spoken ? undefined : 'latin'}>{spoken || h.name}</b>
                     {spoken ? <span className="latin"> {h.name}</span> : null}

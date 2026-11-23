@@ -7,6 +7,13 @@ import { catalogHold, countByFamily, displayName, familyPath } from '../lib';
 export default function FamiliesPage({ lang, t, headers, taxonomy, status }) {
   useEffect(() => {
     document.title = `${t.families} — ${t.app_name}`;
+    let tag = document.querySelector('meta[name="description"]');
+    if (!tag) {
+      tag = document.createElement('meta');
+      tag.setAttribute('name', 'description');
+      document.head.appendChild(tag);
+    }
+    if (t.seo_families) tag.setAttribute('content', t.seo_families);
   }, [t]);
   const families = useMemo(
     () =>

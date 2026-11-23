@@ -7,6 +7,13 @@ import { catalogHold, countByGenus, displayName, genusPath } from '../lib';
 export default function GeneraPage({ lang, t, headers, taxonomy, status }) {
   useEffect(() => {
     document.title = `${t.genera} — ${t.app_name}`;
+    let tag = document.querySelector('meta[name="description"]');
+    if (!tag) {
+      tag = document.createElement('meta');
+      tag.setAttribute('name', 'description');
+      document.head.appendChild(tag);
+    }
+    if (t.seo_genera) tag.setAttribute('content', t.seo_genera);
   }, [t]);
   const genera = useMemo(
     () =>

@@ -48,13 +48,7 @@ export default function SeoHead({ lang, pathname, search, description }) {
     setMetaName('apple-itunes-app', appleSmartBanner(canon));
 
     const page = contentPath(pathname);
-    const pageSetsDescription =
-      Boolean(plant) ||
-      page === '/about' ||
-      page === '/privacy' ||
-      page === '/identify' ||
-      page.startsWith('/plant/');
-    if (!pageSetsDescription && description) setMetaName('description', description);
+    if (page === '/' && !plant && description) setMetaName('description', description);
 
     document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((node) => node.remove());
     if (indexed) {

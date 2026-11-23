@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { labelAt, loadLanguageList, taxonLabel } from '../api';
+import { trackPlant } from '../analytics';
 import Footer from '../components/Footer';
 import PlateGrid from '../components/PlateGrid';
 import {
@@ -82,12 +83,24 @@ export default function ListPage({ lang, t, headersById, labels, taxonomy, statu
     return rows;
   }, [raw, headersById, labels, lang, taxonomy]);
 
-  useEffect(() => {
-    document.title = name ? `${name} — ${t.app_name}` : t.app_name;
-  }, [name, t.app_name]);
-
   const loaded = raw !== undefined;
   const hold = catalogHold(status, t);
+
+  useEffect(() => {
+    document.title = name ? `${name} — ${t.app_name}` : t.app_name;
+    if (hold || !loaded) return;
+    let tag = document.querySelector('meta[name="description"]');
+    if (!tag) {
+      tag = document.createElement('meta');
+      tag.setAttribute('name', 'description');
+      document.head.appendChild(tag);
+    }
+    const desc = name
+      ? `${name}. ${t.list_lede} ${t.plants_count(items.length)}`
+      : `${t.list_lede} ${t.plants_count(items.length)}`;
+    tag.setAttribute('content', desc.slice(0, 240));
+  }, [name, hold, loaded, items.length, t]);
+
   const sourceUrl = raw && typeof raw.sourceUrl === 'string' ? raw.sourceUrl.trim() : '';
 
   return (
@@ -119,7 +132,13 @@ export default function ListPage({ lang, t, headersById, labels, taxonomy, statu
         {hold ? (
           <p className="center-msg">{hold}</p>
         ) : items.length ? (
-          <PlateGrid items={items} lang={lang} taxonomy={taxonomy} genusWord={t.genus} />
+          <PlateGrid
+            items={items}
+            lang={lang}
+            taxonomy={taxonomy}
+            genusWord={t.genus}
+            onOpen={(item) => trackPlant(item.name, 'list')}
+          />
         ) : loaded ? (
           <p className="center-msg">{t.empty_list}</p>
         ) : (

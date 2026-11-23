@@ -219,8 +219,8 @@ function hasIdentification(row) {
 export async function loadPlantText(lang, name) {
   const code = lang || 'en';
   const [primary, english] = await Promise.all([
-    getJson(`translations/${enc(code)}/${enc(name)}`),
-    code === 'en' ? Promise.resolve(null) : getJson(`translations/en/${enc(name)}`),
+    getJson(`translations/${enc(code)}/${enc(name)}`).catch(() => null),
+    code === 'en' ? Promise.resolve(null) : getJson(`translations/en/${enc(name)}`).catch(() => null),
   ]);
   const fallback = code !== 'en' && !hasIdentification(primary) ? english : null;
   const label = primary && typeof primary.label === 'string' ? primary.label.trim() : '';
